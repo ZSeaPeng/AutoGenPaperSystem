@@ -26,5 +26,5 @@ public interface KnowledgeService {
     Map selectKnowledgeBySubjectIds(int id);
 
     //Map selectFirstKnowledgeBySubjectId(Integer subjectId);
-    public List selectFirstKnowledgeBySubjectId(Integer subjectId,int grade_id,String others,String subName);
+    public List selectFirstKnowledgeBySubjectId(Integer subjectId,int grade_id,String others,String subName, String pointId,String t,String d,String c);
 }

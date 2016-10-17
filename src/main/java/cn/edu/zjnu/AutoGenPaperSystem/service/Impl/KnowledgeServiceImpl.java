@@ -68,7 +68,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
      * @param subName 科目名称
      * @return
      */
-    public List selectFirstKnowledgeBySubjectId(Integer subjectId, int grade_id, String others,String subName) {
+    public List selectFirstKnowledgeBySubjectId(Integer subjectId, int grade_id, String others,String subName, String pointId,String t,String d,String c) {
         //Map<String, List> knowledgeMap = new HashMap<String, List>();
         List<Knowledge> knowledgeList = knowledgeMapper.selectFirstKnowledgeBySubjectId(subjectId);
         List<KnowledgeJson> knowledgeJsons = new ArrayList<KnowledgeJson>();
@@ -88,9 +88,9 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             //            "/"+others);
             //    knowledgeJsonList.add(knowledgeJson2);
             //}
-            knowledgeJson.setPointList(getKnowledgeJson(knowledge.getKnowledgeId(), grade_id, others,subName));
+            knowledgeJson.setPointList(getKnowledgeJson(knowledge.getKnowledgeId(), grade_id, others,subName,t,d,c));
             knowledgeJson.setUrl("/tiku/" + grade_id + "/"+subName+"/point" + knowledge.getKnowledgeId() +
-                    "/" + others);
+                    "/t"+t+"d"+ d+"c"+c);
             knowledgeJsons.add(knowledgeJson);
         }
 
@@ -98,19 +98,19 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         return knowledgeJsons;
     }
 
-    private List getKnowledgeJson(int knowledgeId, int grade_id, String others,String subName) {
+    private List getKnowledgeJson(int knowledgeId, int grade_id, String others,String subName,String t,String d,String c) {
         List<Knowledge> knowledgeList = knowledgeMapper.selectSecondKnowledgeByKnowId1(knowledgeId);
         List<KnowledgeJson> knowledgeJsonList = new ArrayList<KnowledgeJson>();
         for (Knowledge knowledge2 : knowledgeList) {
             KnowledgeJson knowledgeJson2 = new KnowledgeJson();
             knowledgeJson2.setName(knowledge2.getKnowledgeName());
             List<KnowledgeJson> k = new ArrayList<KnowledgeJson>();
-            k = getKnowledgeJson(knowledge2.getKnowledgeId(), grade_id, others,subName);
+            k = getKnowledgeJson(knowledge2.getKnowledgeId(), grade_id, others,subName, t, d, c);
             if (k != null) {
                 knowledgeJson2.setPointList(k);
             }
             knowledgeJson2.setUrl("/tiku/" + grade_id +"/"+subName+"/point" + knowledge2.getKnowledgeId() +
-                    "/" + others);
+                    "/t"+t+"d"+ d+"c"+c);
             knowledgeJsonList.add(knowledgeJson2);
         }
 
