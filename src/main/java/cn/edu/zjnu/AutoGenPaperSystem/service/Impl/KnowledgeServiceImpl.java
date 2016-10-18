@@ -79,25 +79,10 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             KnowledgeJson knowledgeJson = new KnowledgeJson();
             knowledgeJson.setLevel(level);
             knowledgeJson.setName(knowledge.getKnowledgeName());
-
-            //List<Knowledge> knowledgeList2 = knowledgeMapper.selectSecondKnowledgeByKnowId1(knowledge.getKnowledgeId());
-            //List<KnowledgeJson> knowledgeJsonList = new ArrayList<KnowledgeJson>();
-            //for (Knowledge knowledge2:knowledgeList2){
-            //    KnowledgeJson knowledgeJson2 = new KnowledgeJson();
-            //    knowledgeJson2.setName(knowledge2.getKnowledgeName());
-            //
-            //    knowledgeJson2.setContextList();
-            //    knowledgeJson2.setUrl("/tiku/"+grade_id+"/point"+knowledge2.getKnowledgeId()+
-            //            "/"+others);
-            //    knowledgeJsonList.add(knowledgeJson2);
-            //}
             knowledgeJson.setPointList(getKnowledgeJson(knowledge.getKnowledgeId(), grade_id, others,subName,t,d,c));
             knowledgeJson.setUrl("/tiku/" + grade_id + "/"+subName+"/point" + knowledge.getKnowledgeId() +
                     "/t"+t+"d"+ d+"c"+c);
-            //knowledgeJson.setPointList(getKnowledgeJson(knowledge.getKnowledgeId(), grade_id, others, subName,1));
-            knowledgeJson.setUrl("/tiku/" + grade_id + "/" + subName + "/point" + knowledge.getKnowledgeId() +
-                    "/" + others);
-
+            System.out.println("Points subname----->"+subName);
             knowledgeJsons.add(knowledgeJson);
         }
 
@@ -124,16 +109,6 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             }
             knowledgeJson2.setUrl("/tiku/" + grade_id +"/"+subName+"/point" + knowledge2.getKnowledgeId() +
                     "/t"+t+"d"+ d+"c"+c);
-
-           // k = getKnowledgeJson(knowledge2.getKnowledgeId(), grade_id, others, subName,level++);
-           // if (k != null) {
-           //     knowledgeJson2.setPointList(k);
-           // }
-           // System.out.println("level ---->" + level);
-
-
-            //knowledgeJson2.setUrl("/tiku/" + grade_id + "/" + subName + "/point" + knowledge2.getKnowledgeId() +
-            //        "/" + others);
 
             knowledgeJsonList.add(knowledgeJson2);
 
