@@ -67,7 +67,7 @@ public class TiKuController {
         Map<String, List> allMap = new HashMap<String, List>();
         setParam(subjectName, grade_id, point_id);
         List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
-                this.grade_id, this.others, this.point_id, this.sub_name, t, d, c);
+                this.grade_id, this.others,this.sub_name,this.point_id, t, d, c);
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
@@ -94,15 +94,41 @@ public class TiKuController {
         System.out.println("count---->" + matcher.groupCount());
         if (matcher.find()) {
             System.out.println("t-->" + matcher.group(1));
-            session.setAttribute("t",matcher.group(1));
-            session.setAttribute("d",matcher.group(2));
-            session.setAttribute("c",matcher.group(3));
+//            session.setAttribute("t",matcher.group(1));
+//            session.setAttribute("d",matcher.group(2));
+//            session.setAttribute("c",matcher.group(3));
 //            t = matcher.group(1);
 //            d = matcher.group(2);
 //            c = matcher.group(3);
+            if (!matcher.group(1).equals("0")){
+                session.setAttribute("t",matcher.group(1));
+                t = matcher.group(1);
+            }
+            if (!matcher.group(2).equals("0")){
+                session.setAttribute("d",matcher.group(2));
+                d = matcher.group(2);
+            }
+            if (!matcher.group(3).equals("0")){
+                session.setAttribute("c",matcher.group(3));
+                c = matcher.group(3);
+            }
         }
         System.out.println("other---->" + this.others);
-        return null;
+        //为测试代码
+        Map<String, List> allMap = new HashMap<String, List>();
+        setParam(subjectName, grade_id, point_id);
+        List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
+                this.grade_id, this.others,this.sub_name,this.point_id, t, d, c);
+        List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+        List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+        List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+        System.out.println("subname---->" + this.sub_name);
+        allMap.put("Points", knowLedgeList);
+        allMap.put("Types", typesList);
+        allMap.put("Difficulty", difficultiesList);
+        allMap.put("Charaction", charactionsList);
+        //weiceshi
+        return allMap;
     }
 
     @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}/question", method = RequestMethod.GET)
