@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { Router, Route, browserHistory } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+import css from  './style/main.css'
+
 //import components
 import Navbar from './container/Navbar';
 import Details from './container/Details';

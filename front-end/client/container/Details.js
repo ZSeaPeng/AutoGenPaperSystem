@@ -31,7 +31,7 @@ const Details = React.createClass({
     },
 
     render() {
-        const { Points, Difficulty, Charaction, Types, contextLists, count, id } = this.props;
+        const { Points, Difficulty, Charaction, Types, context, pageNum, pages } = this.props;
 
         var divStyle = {
             marginLeft: '20%',
@@ -47,24 +47,24 @@ const Details = React.createClass({
                 <div style={divStyle}>
                     <Toolbar style={{padding: '0'}}>
                         <ToolbarGroup>
-                            <ToolbarTitle text="题型" style={{color: '#FFFFFF',backgroundColor: '#FF1744',padding: '0 16px'}}/>
+                            <ToolbarTitle text="题型" style={{color: '#FFFFFF',backgroundColor: '#FF5252',padding: '0 16px'}}/>
                             { Types.map((type, i) => <Lest type={type} key={i} />)}
                         </ToolbarGroup>
                     </Toolbar>
                     <Toolbar  style={{padding: '0'}}>
                         <ToolbarGroup>
-                            <ToolbarTitle text="难度"  style={{color: '#FFFFFF',backgroundColor: '#FF1744',padding: '0 16px'}}/>
+                            <ToolbarTitle text="难度"  style={{color: '#FFFFFF',backgroundColor: '#FF5252',padding: '0 16px'}}/>
                             { Difficulty.map((diff, i) => <Lest type={diff} key={i} />)}
                         </ToolbarGroup>
                     </Toolbar>
                     <Toolbar  style={{padding: '0'}}>
                         <ToolbarGroup>
-                            <ToolbarTitle text="特点"  style={{color: '#FFFFFF',backgroundColor: '#FF1744',padding: '0 16px'}}/>
+                            <ToolbarTitle text="特点"  style={{color: '#FFFFFF',backgroundColor: '#FF5252',padding: '0 16px'}}/>
                             { Charaction.map((feature, i) => <Lest type={feature} key={i}/>)}
                         </ToolbarGroup>
                     </Toolbar>
                     <div>
-                        { contextLists.map((contextList, i) => <Question contextList={contextList} key={i} />)}
+                        { context.map((contextList, i) => <Question contextList={contextList} key={i} />)}
                     </div>
                 </div>
             </div>
@@ -87,13 +87,13 @@ const mapStateToProps = state => {
   }
 
   const {
-    contextLists,
-    id,
-    count
+    context,
+    pageNum,
+    pages
   } = questions[0] || {
-    contextLists: [],
-    id: 1,
-    count: 1
+    context: [],
+    pageNum: 1,
+    pages: 1
   }
 
   return {
@@ -101,9 +101,9 @@ const mapStateToProps = state => {
     Types,
     Difficulty,
     Charaction,
-    contextLists,
-    id,
-    count
+    context,
+    pageNum,
+    pages
   }
 }
 
