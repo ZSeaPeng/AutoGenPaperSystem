@@ -1,3 +1,7 @@
+#What you should know first
+# [React](https://facebook.github.io/react/) [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/react)
+
+
 # Running
 
 First `npm install` to grab all the necessary dependencies.
