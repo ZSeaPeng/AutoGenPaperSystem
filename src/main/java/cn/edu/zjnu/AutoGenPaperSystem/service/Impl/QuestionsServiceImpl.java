@@ -60,7 +60,7 @@ public class QuestionsServiceImpl implements QuestionsService {
             questionsJson.setAnswer(list.getAnswer());
             questionsJsons.add(questionsJson);
         }
-        questionsesMap.put("contexts",questionsJsons);
+        questionsesMap.put("context",questionsJsons);
         PageInfo pageInfo=new PageInfo(questionses);
         questionsesMap.put("pageNum",pageInfo.getPageNum());
         questionsesMap.put("pages",pageInfo.getPages());
