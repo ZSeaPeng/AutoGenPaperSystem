@@ -1,7 +1,7 @@
 # AutoGenPaperSystem
 
 [![npm](https://img.shields.io/npm/l/express.svg?style=flat-square)](https://github.com/ZSeaPeng/AutoGenPaperSystem/tree/master/front-end)
-[![https://twitter.com/1cKbbTN8jqezWGj](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://github.com/ZSeaPeng/AutoGenPaperSystem/tree/master/front-end)
+[![https://twitter.com/1cKbbTN8jqezWGj](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)]()
 
 ## What you should know first
 
