@@ -68,11 +68,9 @@ public class KnowledgeServiceImpl implements KnowledgeService {
      * @param subName   科目名称
      * @return
      */
-<<<<<<< Updated upstream
+
     public List selectFirstKnowledgeBySubjectId(Integer subjectId, int grade_id, String others,String subName, String pointId,String t,String d,String c) {
-=======
-    public List selectFirstKnowledgeBySubjectId(Integer subjectId, int grade_id, String others, String subName) {
->>>>>>> Stashed changes
+
         //Map<String, List> knowledgeMap = new HashMap<String, List>();
         List<Knowledge> knowledgeList = knowledgeMapper.selectFirstKnowledgeBySubjectId(subjectId);
         List<KnowledgeJson> knowledgeJsons = new ArrayList<KnowledgeJson>();
@@ -81,7 +79,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             KnowledgeJson knowledgeJson = new KnowledgeJson();
             knowledgeJson.setLevel(level);
             knowledgeJson.setName(knowledge.getKnowledgeName());
-<<<<<<< Updated upstream
+
             //List<Knowledge> knowledgeList2 = knowledgeMapper.selectSecondKnowledgeByKnowId1(knowledge.getKnowledgeId());
             //List<KnowledgeJson> knowledgeJsonList = new ArrayList<KnowledgeJson>();
             //for (Knowledge knowledge2:knowledgeList2){
@@ -96,11 +94,10 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             knowledgeJson.setPointList(getKnowledgeJson(knowledge.getKnowledgeId(), grade_id, others,subName,t,d,c));
             knowledgeJson.setUrl("/tiku/" + grade_id + "/"+subName+"/point" + knowledge.getKnowledgeId() +
                     "/t"+t+"d"+ d+"c"+c);
-=======
-            knowledgeJson.setPointList(getKnowledgeJson(knowledge.getKnowledgeId(), grade_id, others, subName,1));
+            //knowledgeJson.setPointList(getKnowledgeJson(knowledge.getKnowledgeId(), grade_id, others, subName,1));
             knowledgeJson.setUrl("/tiku/" + grade_id + "/" + subName + "/point" + knowledge.getKnowledgeId() +
                     "/" + others);
->>>>>>> Stashed changes
+
             knowledgeJsons.add(knowledgeJson);
         }
 
@@ -108,12 +105,11 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         return knowledgeJsons;
     }
 
-<<<<<<< Updated upstream
-    private List getKnowledgeJson(int knowledgeId, int grade_id, String others,String subName,String t,String d,String c) {
-=======
 
-    private List getKnowledgeJson(int knowledgeId, int grade_id, String others, String subName,int level) {
->>>>>>> Stashed changes
+    private List getKnowledgeJson(int knowledgeId, int grade_id, String others,String subName,String t,String d,String c) {
+
+
+    //private List getKnowledgeJson(int knowledgeId, int grade_id, String others, String subName,int level) {
         List<Knowledge> knowledgeList = knowledgeMapper.selectSecondKnowledgeByKnowId1(knowledgeId);
         List<KnowledgeJson> knowledgeJsonList = new ArrayList<KnowledgeJson>();
         for (Knowledge knowledge2 : knowledgeList) {
@@ -121,24 +117,24 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             knowledgeJson2.setName(knowledge2.getKnowledgeName());
             knowledgeJson2.setLevel(level);
             List<KnowledgeJson> k = new ArrayList<KnowledgeJson>();
-<<<<<<< Updated upstream
+
             k = getKnowledgeJson(knowledge2.getKnowledgeId(), grade_id, others,subName, t, d, c);
             if (k != null) {
                 knowledgeJson2.setPointList(k);
             }
             knowledgeJson2.setUrl("/tiku/" + grade_id +"/"+subName+"/point" + knowledge2.getKnowledgeId() +
                     "/t"+t+"d"+ d+"c"+c);
-=======
-            k = getKnowledgeJson(knowledge2.getKnowledgeId(), grade_id, others, subName,level++);
-            if (k != null) {
-                knowledgeJson2.setPointList(k);
-            }
-            System.out.println("level ---->" + level);
+
+           // k = getKnowledgeJson(knowledge2.getKnowledgeId(), grade_id, others, subName,level++);
+           // if (k != null) {
+           //     knowledgeJson2.setPointList(k);
+           // }
+           // System.out.println("level ---->" + level);
 
 
-            knowledgeJson2.setUrl("/tiku/" + grade_id + "/" + subName + "/point" + knowledge2.getKnowledgeId() +
-                    "/" + others);
->>>>>>> Stashed changes
+            //knowledgeJson2.setUrl("/tiku/" + grade_id + "/" + subName + "/point" + knowledge2.getKnowledgeId() +
+            //        "/" + others);
+
             knowledgeJsonList.add(knowledgeJson2);
 
         }

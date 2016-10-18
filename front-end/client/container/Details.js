@@ -15,7 +15,6 @@ import { getSelect, getQuestion } from '../actions/actionCreators';
 const Details = React.createClass({
     componentDidMount() {
         const { dispatch } = this.props;
-        const pathname= window.location.pathname;
         dispatch(getSelect(pathname));
         dispatch(getQuestion(pathname));
     },
@@ -31,8 +30,40 @@ const Details = React.createClass({
     },
 
     render() {
-        const { Points, Difficulty, Charaction, Types, contextLists, count, id } = this.props;
+        const points = this.props.points || [];
+        const diffs = this.props.diffs || [];
+        const features = this.props.features || [];
+        const types = this.props.types || [];
+        const contextLists = this.props.questions.contextLists || [];
+        const count = this.props.questions.count;
+        const id = this.props.questions.id;
 
+        // var pageNum;
+        // const id = questions.id;
+
+        // if (id === 1) {
+        //     pageNum = <div>
+        //             [1, 2, 3 ,4 ,5]
+        //                 .map((id) => <Link to={`${pathname}/${id}`}>{id}</Link>);
+        //             <Link to={`${pathname}/${id + 1}`}>下一页</Link>
+        //         </div>
+        //     ;
+        // }else if (id === count) {
+        //     pageNum = <div>
+        //         <Link to={`${pathname}/${id - 1}`}>上一页</Link>
+        //         [id - 4, id - 3, id - 2 ,id - 1, id]
+        //             .map((id) => <Link to={`${pathname}/${id}`}>{id}</Link>);
+        //     </div>
+        //     ;
+        // }else {
+        //     pageNum = <div>
+        //         <Link to={`${pathname}/${id - 1}`}>上一页</Link>
+        //         [id, id + 1, id +2, id + 3, id + 4]
+        //         .map((id) => <Link to={`${pathname}/${id}`}>{id}</Link>);
+        //         <Link to={`${pathname}/${id + 1}`}>下一页</Link>
+        //     </div>
+        //     ;
+        // }
         var divStyle = {
             marginLeft: '20%',
         };
@@ -48,7 +79,7 @@ const Details = React.createClass({
                     <Toolbar style={{padding: '0'}}>
                         <ToolbarGroup>
                             <ToolbarTitle text="题型" style={{color: '#FFFFFF',backgroundColor: '#FF1744',padding: '0 16px'}}/>
-                            { Types.map((type, i) => <Lest type={type} key={i} />)}
+                            { types.map((type, i) => <Lest type={type} key={i} />)}
                         </ToolbarGroup>
                     </Toolbar>
                     <Toolbar  style={{padding: '0'}}>
