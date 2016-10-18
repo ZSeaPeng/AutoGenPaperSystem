@@ -1,12 +1,12 @@
 # What you should know first
 
-[React](https://facebook.github.io/react/) [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/react)
+[React](https://facebook.github.io/react/)
 
-[React Router](https://github.com/ReactTraining/react-router) [![npm package][npm-badge]][npm]
+[React Router](https://github.com/ReactTraining/react-router)
 
-[Redux](http://redux.js.org) [![npm version](https://img.shields.io/npm/v/redux.svg?style=flat-square)](https://www.npmjs.com/package/redux)
+[Redux](http://redux.js.org)
 
-[webpack](https://webpack.github.io/assets/logo.png)(https://webpack.github.io) [![NPM version][npm-image]][npm-url]
+[webpack](https://webpack.github.io) 
 
 # Running
 
