@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,16 +50,29 @@ public class TiKuController {
     @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}", method = RequestMethod.GET)
     public Map getInfo(@PathVariable int grade_id,
                        @PathVariable String subjectName,
-                       @PathVariable String point_id) {
-
+                       @PathVariable String point_id,
+                       HttpSession session) {
+        t= (String) session.getAttribute("t");
+        d= (String) session.getAttribute("d");
+        c= (String) session.getAttribute("c");
+        if (t==null){
+            t="0";
+        }
+        if (d==null){
+            d="0";
+        }
+        if (c==null){
+            c="0";
+        }
         Map<String, List> allMap = new HashMap<String, List>();
         setParam(subjectName, grade_id, point_id);
         List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
-                this.grade_id, this.others, this.sub_name);
-        List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, this.t, this.d, this.c);
-        List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, this.t, this.d, this.c);
-        List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, this.t, this.d, this.c);
+                this.grade_id, this.others, this.point_id, this.sub_name, t, d, c);
+        List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+        List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+        List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         System.out.println("subname---->" + this.sub_name);
+        System.out.println("t---->" + t);
         allMap.put("Points", knowLedgeList);
         allMap.put("Types", typesList);
         allMap.put("Difficulty", difficultiesList);
@@ -70,7 +84,8 @@ public class TiKuController {
     public Map getOthers(@PathVariable String others,
                          @PathVariable int grade_id,
                          @PathVariable String subjectName,
-                         @PathVariable String point_id) {
+                         @PathVariable String point_id,
+                         HttpSession session) {
         setParam(subjectName, grade_id, point_id);
         System.out.println("subnameEnd---->" + this.sub_name);
         this.others = others;
@@ -80,9 +95,12 @@ public class TiKuController {
         System.out.println("count---->" + matcher.groupCount());
         if (matcher.find()) {
             System.out.println("t-->" + matcher.group(1));
-            t = matcher.group(1);
-            d = matcher.group(2);
-            c = matcher.group(3);
+            session.setAttribute("t",matcher.group(1));
+            session.setAttribute("d",matcher.group(2));
+            session.setAttribute("c",matcher.group(3));
+//            t = matcher.group(1);
+//            d = matcher.group(2);
+//            c = matcher.group(3);
         }
         System.out.println("other---->" + this.others);
         return null;
