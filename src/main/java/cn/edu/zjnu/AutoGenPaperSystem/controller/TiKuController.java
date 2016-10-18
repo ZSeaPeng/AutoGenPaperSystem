@@ -102,7 +102,21 @@ public class TiKuController {
 //            c = matcher.group(3);
         }
         System.out.println("other---->" + this.others);
-        return null;
+        //为测试代码
+        Map<String, List> allMap = new HashMap<String, List>();
+        setParam(subjectName, grade_id, point_id);
+        List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
+                this.grade_id, this.others,this.sub_name,this.point_id, t, d, c);
+        List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+        List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+        List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+        System.out.println("subname---->" + this.sub_name);
+        allMap.put("Points", knowLedgeList);
+        allMap.put("Types", typesList);
+        allMap.put("Difficulty", difficultiesList);
+        allMap.put("Charaction", charactionsList);
+        //weiceshi
+        return allMap;
     }
 
     @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}/question", method = RequestMethod.GET)
