@@ -161,7 +161,7 @@
 			<artifactId>tomcat7-maven-plugin</artifactId>
 			<version>2.1</version>
 			<configuration>
-				<port>8121</port>
+				<port>8111</port>
 			</configuration>
 		</plugin>
 		<!--<plugin>-->

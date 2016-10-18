@@ -72,7 +72,6 @@ public class TiKuController {
         List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         System.out.println("subname---->" + this.sub_name);
-        System.out.println("t---->" + t);
         allMap.put("Points", knowLedgeList);
         allMap.put("Types", typesList);
         allMap.put("Difficulty", difficultiesList);
@@ -106,7 +105,7 @@ public class TiKuController {
         return null;
     }
 
-    @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}/questionlist", method = RequestMethod.GET)
+    @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}/question", method = RequestMethod.GET)
     public Map getQuestionList(@PathVariable int grade_id,
                                @PathVariable String subjectName,
                                @PathVariable String point_id,
@@ -119,11 +118,11 @@ public class TiKuController {
         searchAll.setSub_id(this.sub_id);
         searchAll.setKnow_id(Integer.valueOf(this.point_id));
         System.out.println("searchAll--->" + searchAll);
-        System.out.println(questionsServiceImpl.selectBySearchAll(searchAll, page));
-        return null;
+        //System.out.println();
+        return questionsServiceImpl.selectBySearchAll(searchAll, page);
     }
 
-    @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}/{others}/questionlist", method = RequestMethod.GET)
+    @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}/{others}/question", method = RequestMethod.GET)
     public Map getQuestionList(@PathVariable int grade_id,
                                @PathVariable String subjectName,
                                @PathVariable String point_id,
@@ -146,8 +145,7 @@ public class TiKuController {
             searchAll.setChar_id(Integer.parseInt(matcher.group(3)));
         }
         System.out.println("searchAll--->" + searchAll);
-        System.out.println(questionsServiceImpl.selectBySearchAll(searchAll, page));
-        return null;
+        return questionsServiceImpl.selectBySearchAll(searchAll, page);
     }
 
     private void init() {
