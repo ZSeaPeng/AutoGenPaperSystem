@@ -1,5 +1,4 @@
 const state = {
-    "isFetching": false,
     "grades": [
         {
             "name": "高中",
@@ -41,65 +40,65 @@ const state = {
             ]
         }
     ],
-    "selects": {
-        "points": [
-        {
-            "level": 0,
-            "name": "选择题",
-            "url": "xuanze",
-            "details": [
+    "selects": [{
+            "points": [
             {
-                "level": 1,
-                "name": "单选",
-                "url": "danxuan",
-                "details": []
+                "level": 0,
+                "name": "选择题",
+                "url": "xuanze",
+                "details": [
+                {
+                    "level": 1,
+                    "name": "单选",
+                    "url": "danxuan",
+                    "details": []
+                },
+                {
+                    "level": 1,
+                    "name": "多选",
+                    "url": "duoxuan",
+                    "details": []
+                }
+                ]
             },
             {
-                "level": 1,
-                "name": "多选",
-                "url": "duoxuan",
+                "level": 0,
+                "name": "填空",
+                "url": "tiankong",
                 "details": []
             }
+            ],
+            "diffs": [
+            {
+                "name": "难",
+                "url": "nan"
+            },
+            {
+                "name": "易",
+                "url": "yi"
+            }
+            ],
+            "types": [
+            {
+                "name": "填空",
+                "url": "tk"
+            },
+            {
+                "name": "选择",
+                "url": "xz"
+            },
+            ],
+            "features": [
+            {
+                "name": "中国",
+                "url": "cn"
+            },
+            {
+                "name": "美国",
+                "url": "us"
+            },
             ]
-        },
-        {
-            "level": 0,
-            "name": "填空",
-            "url": "tiankong",
-            "details": []
-        }
-        ],
-        "diffs": [
-        {
-            "name": "难",
-            "url": "nan"
-        },
-        {
-            "name": "易",
-            "url": "yi"
-        }
-        ],
-        "types": [
-        {
-            "name": "填空",
-            "url": "tk"
-        },
-        {
-            "name": "选择",
-            "url": "xz"
-        },
-        ],
-        "features": [
-        {
-            "name": "中国",
-            "url": "cn"
-        },
-        {
-            "name": "美国",
-            "url": "us"
-        },
-        ]
-    },
+        }],
     "questions": {
         "contextLists": [
         {

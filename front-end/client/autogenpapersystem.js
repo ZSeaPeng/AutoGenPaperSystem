@@ -16,7 +16,7 @@ const router = (
   <Provider store={ store }>
     <Router history={ history }>
       <Route path="/" component={Navbar}>
-        <Route path="/:id/*" component={Details} />
+        <Route path="/:sub/*" component={Details}/>
       </Route>
     </Router>
   </Provider>

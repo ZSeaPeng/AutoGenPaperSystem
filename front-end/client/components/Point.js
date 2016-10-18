@@ -8,7 +8,7 @@ const Point = React.createClass({
     render() {
         const { point, i } = this.props;
         const I = i + 1;
-        const isEmpty = point.details.length === 0;
+        const isEmpty = point.pointList.length === 0;
         return (
             <div>
             {
@@ -26,8 +26,8 @@ const Point = React.createClass({
                         initiallyOpen={false}
                         primaryTogglesNestedList={false}
                         nestedItems =
-                        {point.details.map((detail, i) =>
-                            <Point point={detail} key={i} i={i}/>)}
+                        {point.pointList.map((point, i) =>
+                            <Point point={point} key={i} i={i}/>)}
                     >
                         <Link
                             to={`${point.url}`}
