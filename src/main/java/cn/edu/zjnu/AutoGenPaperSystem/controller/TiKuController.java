@@ -103,11 +103,11 @@ public class TiKuController {
             }
             if (!matcher.group(2).equals("0")){
                 session.setAttribute("d",matcher.group(2));
-                t = matcher.group(2);
+                d = matcher.group(2);
             }
             if (!matcher.group(3).equals("0")){
                 session.setAttribute("c",matcher.group(3));
-                t = matcher.group(3);
+                c = matcher.group(3);
             }
         }
 
