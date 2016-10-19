@@ -16,7 +16,7 @@ const Point = React.createClass({
                     ? <ListItem key = { I } nestedLevel={ point.level }>
                         <Link
                             to={`${point.url}`}
-                            style = {{textDecoration: 'none', color: '#1E88E5'}}>
+                            style = {{textDecoration: 'none'}}>
                             {point.name}
                         </Link>
                     </ListItem>
@@ -31,7 +31,7 @@ const Point = React.createClass({
                     >
                         <Link
                             to={`${point.url}`}
-                            style = {{textDecoration: 'none', color: '#1E88E5'}}>
+                            style = {{textDecoration: 'none'}}>
                             {point.name}
                         </Link>
                     </ListItem>

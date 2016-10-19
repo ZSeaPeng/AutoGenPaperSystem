@@ -5,7 +5,7 @@
 
 ## What you should know first
 
-[React](https://facebook.github.io/react/), [React Router](https://github.com/ReactTraining/react-router), [Redux](http://redux.js.org), [webpack](https://webpack.github.io) 
+[React](https://facebook.github.io/react/), [React Router](https://github.com/ReactTraining/react-router), [Redux](http://redux.js.org), [webpack](https://webpack.github.io), [Material-UI](http://www.material-ui.com/#/)
 
 ## Dev Build & Running
 
