@@ -18,5 +18,6 @@
 <a href="/api/tiku/1/yuwen1/point1/questionlist?page=1">题目获取</a>
 <a href="/api/tiku/1/yuwen1/point1/t1d3c1/questionlist?page=1">测试题目难度</a>
 <a href="/api/tiku/1/yuwen1/point1">测试学科返回</a>
+<img src="upload/question/question_id1.JPG" alt="question"/>
 </body>
 </html>

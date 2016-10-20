@@ -7,14 +7,18 @@ public class QuestionsJson {
     private int id;
     private String context;
     private String answer;
+    private String qurl;
+    private String aurl;
 
     public QuestionsJson() {
     }
 
-    public QuestionsJson(int id, String context, String answer) {
+    public QuestionsJson(int id, String context, String answer, String qurl, String aurl) {
         this.id = id;
         this.context = context;
         this.answer = answer;
+        this.qurl = qurl;
+        this.aurl = aurl;
     }
 
     public int getId() {
@@ -41,12 +45,30 @@ public class QuestionsJson {
         this.answer = answer;
     }
 
+    public String getQurl() {
+        return qurl;
+    }
+
+    public void setQurl(String qurl) {
+        this.qurl = qurl;
+    }
+
+    public String getAurl() {
+        return aurl;
+    }
+
+    public void setAurl(String aurl) {
+        this.aurl = aurl;
+    }
+
     @Override
     public String toString() {
         return "QuestionsJson{" +
                 "id=" + id +
                 ", context='" + context + '\'' +
                 ", answer='" + answer + '\'' +
+                ", qurl='" + qurl + '\'' +
+                ", aurl='" + aurl + '\'' +
                 '}';
     }
 }

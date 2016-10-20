@@ -94,7 +94,6 @@ public class TiKuController {
         System.out.println("count---->" + matcher.groupCount());
         if (matcher.find()) {
             System.out.println("t-->" + matcher.group(1));
-
             session.setAttribute("d",matcher.group(2));
             session.setAttribute("c",matcher.group(3));
             if (!matcher.group(1).equals("0")){
