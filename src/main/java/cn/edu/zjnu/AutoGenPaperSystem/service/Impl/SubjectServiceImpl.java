@@ -67,7 +67,7 @@ public class SubjectServiceImpl implements SubjectService {
                 if (subject.getGradeId() == grade.getGradeId()) {
                     try {
                         subMap.put("url", "/tiku/"+grade.getGradeId() + "/"+PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId() +
-                                "/point1");
+                                "/point0");
                     } catch (PinyinException e) {
                         e.printStackTrace();
                     }
