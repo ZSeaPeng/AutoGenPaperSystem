@@ -1,6 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
+import cn.edu.zjnu.AutoGenPaperSystem.model.CharactionJson;
+import cn.edu.zjnu.AutoGenPaperSystem.model.DifficultyJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll;
+import cn.edu.zjnu.AutoGenPaperSystem.model.TypesJson;
 import cn.edu.zjnu.AutoGenPaperSystem.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -117,9 +121,65 @@ public class TiKuController {
         List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
                 this.grade_id, this.others,this.sub_name,this.point_id, t, d, c);
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+//---------------------------------------------
+        Iterator<TypesJson> iterator = typesList.iterator();
+        String regtemp = "t(\\d+)";
+        Pattern patterntemp = Pattern.compile(regtemp);
+        while (iterator.hasNext()){
+            TypesJson typesJsontemp = iterator.next();
+            Matcher matchertemp = patterntemp.matcher(typesJsontemp.getUrl());
+            if (matchertemp.find()){
+               if (matchertemp.group(1).equals(t)){
+                   typesJsontemp.setSelect(true);
+                   break;
+               }
+            }
+
+        }
+
+
+
+ //--------------------------------------------------------
         List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+        //---------------------------------------------
+        Iterator<DifficultyJson> iteratorDi = difficultiesList.iterator();
+        String regDi = "d(\\d+)";
+        Pattern patternDi = Pattern.compile(regDi);
+        while (iteratorDi.hasNext()){
+           DifficultyJson difficultyJson = iteratorDi.next();
+            Matcher matcherDi = patternDi.matcher(difficultyJson.getUrl());
+            if (matcherDi.find()){
+                if (matcherDi.group(1).equals(d)){
+                    difficultyJson.setSelect(true);
+                    break;
+                }
+            }
+
+        }
+
+
+
+        //--------------------------------------------------------
         List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
-        System.out.println("subname---->" + this.sub_name);
+        //---------------------------------------------
+        Iterator<CharactionJson> iteratorchar = charactionsList.iterator();
+        String regchar = "c(\\d+)";
+        Pattern patternchar = Pattern.compile(regchar);
+        while (iteratorchar.hasNext()){
+            CharactionJson charactionJson = iteratorchar.next();
+            Matcher matcherchar = patternchar.matcher(charactionJson.getUrl());
+            if (matcherchar.find()){
+                if (matcherchar.group(1).equals(c)){
+                    charactionJson.setSelect(true);
+                    break;
+                }
+            }
+
+        }
+
+
+
+        //--------------------------------------------------------
         allMap.put("Points", knowLedgeList);
         allMap.put("Types", typesList);
         allMap.put("Difficulty", difficultiesList);

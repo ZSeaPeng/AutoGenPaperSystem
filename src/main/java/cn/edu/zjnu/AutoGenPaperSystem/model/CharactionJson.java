@@ -6,13 +6,23 @@ package cn.edu.zjnu.AutoGenPaperSystem.model;
 public class CharactionJson {
     private String name;
     private String url;
+    private boolean select = false;
 
     public CharactionJson() {
     }
 
-    public CharactionJson(String name, String url) {
+    public CharactionJson(String name, String url, boolean select) {
         this.name = name;
         this.url = url;
+        this.select = select;
+    }
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
     }
 
     @Override

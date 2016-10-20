@@ -7,11 +7,12 @@ public class DifficultyJson {
 
     private String name;
     private String url;
+    private boolean select = false;
 
-    public DifficultyJson(String describe, String url) {
-
-        this.name = describe;
+    public DifficultyJson(String name, String url, boolean select) {
+        this.name = name;
         this.url = url;
+        this.select = select;
     }
 
     public DifficultyJson() {
@@ -23,6 +24,14 @@ public class DifficultyJson {
                 ", describe='" + name + '\'' +
                 ", url='" + url + '\'' +
                 '}';
+    }
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
     }
 
     public String getName() {

@@ -11,6 +11,7 @@ public class KnowledgeJson {
     private List pointList;
     private String url;
 
+
     public KnowledgeJson() {
     }
 
