@@ -24,6 +24,10 @@ module.exports = {
                 loaders: ['babel'],
                 include: path.join(__dirname, 'client')
             },
+          {
+            test: /\.(png|jpg)$/,
+            loader: 'url-loader?limit=8192'
+          },
         ]
     },
     resolve: {

@@ -15,6 +15,7 @@ import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
 import Grade from '../components/Grade';
+import Combine from '../components/Combine';
 
 import { getInitialState } from '../actions/actionCreators';
 
@@ -44,6 +45,14 @@ class Navbar extends Component{
                     <Grade grade={grade} key={i} i={i}/>)
                 }
                 />
+              }
+              {isEmpty
+                ? <div></div>
+                : <MenuItem
+                style = {{lineHeight: '56px', color: '#FFFFFF'}}
+                primaryText = '组    卷'
+                menuItems ={ <Combine/> }
+              />
               }
             </ToolbarGroup>
           </Toolbar>

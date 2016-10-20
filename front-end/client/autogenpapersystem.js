@@ -9,6 +9,8 @@ import css from  './style/main.css'
 //import components
 import Navbar from './container/Navbar';
 import Details from './container/Details';
+import ManualCombine from './container/ManualCombine';
+import AutoCombine from './container/AutoCombine';
 
 import store, { history } from './store';
 
@@ -19,6 +21,8 @@ const router = (
     <Router history={ history }>
       <Route path="/" component={Navbar}>
         <Route path="/:sub/*" component={Details} />
+        <Route path="/manualcombine" component={ManualCombine}/>
+        <Route path="/autocombine" component={AutoCombine}/>
       </Route>
     </Router>
   </Provider>
