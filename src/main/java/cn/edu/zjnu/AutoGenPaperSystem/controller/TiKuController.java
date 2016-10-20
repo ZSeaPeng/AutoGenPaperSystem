@@ -94,12 +94,9 @@ public class TiKuController {
         System.out.println("count---->" + matcher.groupCount());
         if (matcher.find()) {
             System.out.println("t-->" + matcher.group(1));
-//            session.setAttribute("t",matcher.group(1));
-//            session.setAttribute("d",matcher.group(2));
-//            session.setAttribute("c",matcher.group(3));
-//            t = matcher.group(1);
-//            d = matcher.group(2);
-//            c = matcher.group(3);
+
+            session.setAttribute("d",matcher.group(2));
+            session.setAttribute("c",matcher.group(3));
             if (!matcher.group(1).equals("0")){
                 session.setAttribute("t",matcher.group(1));
                 t = matcher.group(1);
@@ -113,6 +110,7 @@ public class TiKuController {
                 c = matcher.group(3);
             }
         }
+
         System.out.println("other---->" + this.others);
         //为测试代码
         Map<String, List> allMap = new HashMap<String, List>();
