@@ -1,6 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
+import cn.edu.zjnu.AutoGenPaperSystem.model.CharactionJson;
+import cn.edu.zjnu.AutoGenPaperSystem.model.DifficultyJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll;
+import cn.edu.zjnu.AutoGenPaperSystem.model.TypesJson;
 import cn.edu.zjnu.AutoGenPaperSystem.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -52,22 +56,22 @@ public class TiKuController {
                        @PathVariable String subjectName,
                        @PathVariable String point_id,
                        HttpSession session) {
-        t= (String) session.getAttribute("t");
-        d= (String) session.getAttribute("d");
-        c= (String) session.getAttribute("c");
-        if (t==null){
-            t="0";
+        t = (String) session.getAttribute("t");
+        d = (String) session.getAttribute("d");
+        c = (String) session.getAttribute("c");
+        if (t == null) {
+            t = "0";
         }
-        if (d==null){
-            d="0";
+        if (d == null) {
+            d = "0";
         }
-        if (c==null){
-            c="0";
+        if (c == null) {
+            c = "0";
         }
         Map<String, List> allMap = new HashMap<String, List>();
         setParam(subjectName, grade_id, point_id);
         List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
-                this.grade_id, this.others,this.sub_name,this.point_id, t, d, c);
+                this.grade_id, this.others, this.sub_name, this.point_id, t, d, c);
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
@@ -86,40 +90,94 @@ public class TiKuController {
                          @PathVariable String point_id,
                          HttpSession session) {
         setParam(subjectName, grade_id, point_id);
-        System.out.println("subnameEnd---->" + this.sub_name);
         this.others = others;
         String reg = "t(\\d+)d(\\d+)c(\\d+)";
         Pattern pattern = Pattern.compile(reg);
         Matcher matcher = pattern.matcher(others);
         System.out.println("count---->" + matcher.groupCount());
         if (matcher.find()) {
-            System.out.println("t-->" + matcher.group(1));
-            session.setAttribute("d",matcher.group(2));
-            session.setAttribute("c",matcher.group(3));
-            if (!matcher.group(1).equals("0")){
-                session.setAttribute("t",matcher.group(1));
+            session.setAttribute("d", matcher.group(2));
+            session.setAttribute("c", matcher.group(3));
+            if (!matcher.group(1).equals("0")) {
+                session.setAttribute("t", matcher.group(1));
                 t = matcher.group(1);
             }
-            if (!matcher.group(2).equals("0")){
-                session.setAttribute("d",matcher.group(2));
+            if (!matcher.group(2).equals("0")) {
+                session.setAttribute("d", matcher.group(2));
                 d = matcher.group(2);
             }
-            if (!matcher.group(3).equals("0")){
-                session.setAttribute("c",matcher.group(3));
+            if (!matcher.group(3).equals("0")) {
+                session.setAttribute("c", matcher.group(3));
                 c = matcher.group(3);
             }
         }
 
-        System.out.println("other---->" + this.others);
         //为测试代码
         Map<String, List> allMap = new HashMap<String, List>();
         setParam(subjectName, grade_id, point_id);
         List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
-                this.grade_id, this.others,this.sub_name,this.point_id, t, d, c);
+                this.grade_id, this.others, this.sub_name, this.point_id, t, d, c);
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+//---------------------------------------------
+        Iterator<TypesJson> iteratorTy = typesList.iterator();
+        String regTy = "t(\\d+)";
+        Pattern patternTy = Pattern.compile(regTy);
+        //System.out.println("iteratorTy.hasNext()--->"+iteratorTy.hasNext());
+        while (iteratorTy.hasNext()) {
+            TypesJson typesJson = iteratorTy.next();
+            Matcher matcherTy = patternTy.matcher(typesJson.getUrl());
+            //System.out.println("typesJson.getUrl()--->"+typesJson.getUrl());
+            matcherTy.find();
+            if (matcherTy.find()) {
+                if (matcherTy.group(1).equals(t)) {
+                    //System.out.println("---->"+matcherTy.group(1).equals(t));
+                    typesJson.setSelect(true);
+                    break;
+                }
+            }
+
+        }
+
+
+        //--------------------------------------------------------
         List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
+        //---------------------------------------------
+        Iterator<DifficultyJson> iteratorDi = difficultiesList.iterator();
+        String regDi = "d(\\d+)";
+        Pattern patternDi = Pattern.compile(regDi);
+        while (iteratorDi.hasNext()) {
+            DifficultyJson difficultyJson = iteratorDi.next();
+            Matcher matcherDi = patternDi.matcher(difficultyJson.getUrl());
+            if (matcherDi.find()) {
+                if (matcherDi.group(1).equals(d)) {
+                    difficultyJson.setSelect(true);
+                    break;
+                }
+            }
+
+        }
+
+
+        //--------------------------------------------------------
         List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
-        System.out.println("subname---->" + this.sub_name);
+        //---------------------------------------------
+        Iterator<CharactionJson> iteratorchar = charactionsList.iterator();
+        String regchar = "c(\\d+)";
+        Pattern patternchar = Pattern.compile(regchar);
+        while (iteratorchar.hasNext()) {
+            CharactionJson charactionJson = iteratorchar.next();
+            Matcher matcherchar = patternchar.matcher(charactionJson.getUrl());
+            if (matcherchar.find()) {
+                if (matcherchar.group(1).equals(c)) {
+                    charactionJson.setSelect(true);
+                    break;
+                }
+            }
+
+        }
+
+
+        //--------------------------------------------------------
         allMap.put("Points", knowLedgeList);
         allMap.put("Types", typesList);
         allMap.put("Difficulty", difficultiesList);
