@@ -6,7 +6,7 @@ const Lest = React.createClass({
         const { type } = this.props;
         return (
             <Link
-              style = {{lineHeight: '56px', margin: '0 5px', padding:'0 10px', textDecoration: 'none'}}
+              style = {{lineHeight: '56px', margin: '0 5px', padding:'0 10px'}}
               to={`${type.url}`}>{type.name}</Link>
         )
     }
