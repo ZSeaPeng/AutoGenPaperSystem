@@ -90,14 +90,12 @@ public class TiKuController {
                          @PathVariable String point_id,
                          HttpSession session) {
         setParam(subjectName, grade_id, point_id);
-        System.out.println("subnameEnd---->" + this.sub_name);
         this.others = others;
         String reg = "t(\\d+)d(\\d+)c(\\d+)";
         Pattern pattern = Pattern.compile(reg);
         Matcher matcher = pattern.matcher(others);
         System.out.println("count---->" + matcher.groupCount());
         if (matcher.find()) {
-            System.out.println("t-->" + matcher.group(1));
             session.setAttribute("d",matcher.group(2));
             session.setAttribute("c",matcher.group(3));
             if (!matcher.group(1).equals("0")){
@@ -114,7 +112,6 @@ public class TiKuController {
             }
         }
 
-        System.out.println("other---->" + this.others);
         //为测试代码
         Map<String, List> allMap = new HashMap<String, List>();
         setParam(subjectName, grade_id, point_id);
@@ -122,17 +119,21 @@ public class TiKuController {
                 this.grade_id, this.others,this.sub_name,this.point_id, t, d, c);
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
 //---------------------------------------------
-        Iterator<TypesJson> iterator = typesList.iterator();
-        String regtemp = "t(\\d+)";
-        Pattern patterntemp = Pattern.compile(regtemp);
-        while (iterator.hasNext()){
-            TypesJson typesJsontemp = iterator.next();
-            Matcher matchertemp = patterntemp.matcher(typesJsontemp.getUrl());
-            if (matchertemp.find()){
-               if (matchertemp.group(1).equals(t)){
-                   typesJsontemp.setSelect(true);
-                   break;
-               }
+        Iterator<TypesJson> iteratorTy = typesList.iterator();
+        String regTy = "t(\\d+)";
+        Pattern patternTy = Pattern.compile(regTy);
+        //System.out.println("iteratorTy.hasNext()--->"+iteratorTy.hasNext());
+        while (iteratorTy.hasNext()){
+            TypesJson typesJson = iteratorTy.next();
+            Matcher matcherTy = patternTy.matcher(typesJson.getUrl());
+            //System.out.println("typesJson.getUrl()--->"+typesJson.getUrl());
+            matcherTy.find();
+            if (matcherTy.find()){
+                if (matcherTy.group(1).equals(t)){
+                    //System.out.println("---->"+matcherTy.group(1).equals(t));
+                    typesJson.setSelect(true);
+                    break;
+                }
             }
 
         }
