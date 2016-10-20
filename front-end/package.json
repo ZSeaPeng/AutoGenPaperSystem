@@ -16,6 +16,7 @@
     "babel-eslint": "^6.0.4",
     "babel-loader": "^6.2.4",
     "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-class-properties": "^6.16.0",
     "babel-plugin-transform-object-rest-spread": "^6.6.5",
     "babel-plugin-transform-react-display-name": "^6.5.0",
     "babel-polyfill": "^6.7.4",
@@ -51,6 +52,8 @@
     "webpack-hot-middleware": "^2.10.0"
   },
   "devDependencies": {
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-preset-stage-2": "^6.17.0",
     "expect": "^1.18.0",
     "expect-jsx": "^2.5.1",
     "mocha": "^2.4.5",

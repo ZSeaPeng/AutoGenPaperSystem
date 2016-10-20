@@ -20,7 +20,7 @@ module.exports = {
           },
           {
             test: /\.js$/,
-            loaders: ['babel?presets[]=react,presets[]=es2015'],
+            loaders: ['babel'],
             include: path.join(__dirname, 'client')
           },
     ]

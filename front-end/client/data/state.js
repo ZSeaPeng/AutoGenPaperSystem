@@ -72,10 +72,12 @@ const state = {
             {
                 "name": "难",
                 "url": "nan"
+                "selects": true;
             },
             {
                 "name": "易",
                 "url": "yi"
+
             }
             ],
             "types": [
