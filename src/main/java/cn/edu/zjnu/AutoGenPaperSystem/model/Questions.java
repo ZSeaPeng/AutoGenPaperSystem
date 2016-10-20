@@ -5,6 +5,8 @@ public class Questions {
 
     private String content;
 
+    private String quesPic_URL;
+
     private Integer subjectId;
 
     private Integer knowledgeId1;
@@ -25,16 +27,20 @@ public class Questions {
 
     private String Answer;
 
+    private String answerPic_URL;
 
-    public Questions(Integer questionsId, String content, String answer) {
+    public Questions(Integer questionsId, String content, String quesPic_URL, String answer, String answerPic_URL) {
         this.questionsId = questionsId;
         this.content = content;
+        this.quesPic_URL = quesPic_URL;
         Answer = answer;
+        this.answerPic_URL = answerPic_URL;
     }
 
-    public Questions(Integer questionsId, String content, Integer subjectId, Integer knowledgeId1, Integer knowledgeId2, Integer knowledgeId3, Integer knowledgeId4, Integer typeId, Integer difficultyId, Integer charactId, Boolean isdelete, String answer) {
+    public Questions(Integer questionsId, String content, String quesPic_URL, Integer subjectId, Integer knowledgeId1, Integer knowledgeId2, Integer knowledgeId3, Integer knowledgeId4, Integer typeId, Integer difficultyId, Integer charactId, Boolean isdelete, String answer, String answerPic_URL) {
         this.questionsId = questionsId;
         this.content = content;
+        this.quesPic_URL = quesPic_URL;
         this.subjectId = subjectId;
         this.knowledgeId1 = knowledgeId1;
         this.knowledgeId2 = knowledgeId2;
@@ -45,6 +51,7 @@ public class Questions {
         this.charactId = charactId;
         this.isdelete = isdelete;
         Answer = answer;
+        this.answerPic_URL = answerPic_URL;
     }
 
     @Override
@@ -52,6 +59,7 @@ public class Questions {
         return "Questions{" +
                 "questionsId=" + questionsId +
                 ", content='" + content + '\'' +
+                ", quesPic_URL='" + quesPic_URL + '\'' +
                 ", subjectId=" + subjectId +
                 ", knowledgeId1=" + knowledgeId1 +
                 ", knowledgeId2=" + knowledgeId2 +
@@ -62,7 +70,24 @@ public class Questions {
                 ", charactId=" + charactId +
                 ", isdelete=" + isdelete +
                 ", Answer='" + Answer + '\'' +
+                ", answerPic_URL='" + answerPic_URL + '\'' +
                 '}';
+    }
+
+    public String getQuesPic_URL() {
+        return quesPic_URL;
+    }
+
+    public void setQuesPic_URL(String quesPic_URL) {
+        this.quesPic_URL = quesPic_URL;
+    }
+
+    public String getAnswerPic_URL() {
+        return answerPic_URL;
+    }
+
+    public void setAnswerPic_URL(String answerPic_URL) {
+        this.answerPic_URL = answerPic_URL;
     }
 
     public Questions() {

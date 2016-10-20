@@ -58,6 +58,8 @@ public class QuestionsServiceImpl implements QuestionsService {
             questionsJson.setId(list.getQuestionsId());
             questionsJson.setContext(list.getContent());
             questionsJson.setAnswer(list.getAnswer());
+            questionsJson.setQurl(list.getQuesPic_URL());
+            questionsJson.setAurl(list.getAnswerPic_URL());
             questionsJsons.add(questionsJson);
         }
         questionsesMap.put("context",questionsJsons);
