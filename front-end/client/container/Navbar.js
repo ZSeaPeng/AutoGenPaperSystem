@@ -5,12 +5,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
+import Divider from 'material-ui/Divider';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import Download from 'material-ui/svg-icons/file/file-download';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
 import Grade from '../components/Grade';
 
@@ -22,6 +24,8 @@ class Navbar extends Component{
     dispatch(getInitialState());
   };
   render() {
+    const path = "/";
+    const show = window.location.pathname !== path;
     const { grades } = this.props;
     const isEmpty = grades.length === 0;
     return (
@@ -41,9 +45,6 @@ class Navbar extends Component{
                 }
                 />
               }
-            </ToolbarGroup>
-            <ToolbarGroup>
-              <RaisedButton label="生成试卷" backgroundColor="#FF5252" labelColor="#FFFFFF"/>
             </ToolbarGroup>
           </Toolbar>
           { this.props.children }

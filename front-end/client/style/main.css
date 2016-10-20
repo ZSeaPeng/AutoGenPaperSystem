@@ -13,3 +13,11 @@ a {
 a:hover {
   color: #FF5252;
 }
+
+.Side {
+  width: 100%;
+  position: fixed;
+  top: 56px;
+  overflow:auto;
+}
+

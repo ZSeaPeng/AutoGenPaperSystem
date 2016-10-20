@@ -1,14 +1,68 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import {List, ListItem} from 'material-ui/List';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
+import Paper from 'material-ui/Paper';
+import {List, ListItem} from 'material-ui/List';
+import Divider from 'material-ui/Divider';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import ActionInfo from 'material-ui/svg-icons/action/info';
+import Subheader from 'material-ui/Subheader';
+import Avatar from 'material-ui/Avatar';
+
+import {
+  blue300,
+  indigo900,
+  pink400,
+} from 'material-ui/styles/colors';
 
 class Choosed extends Component{
   render() {
+    const style = {
+      float: 'right',
+      margin: '16px 0',
+    };
     return (
-      <div>
-
-      </div>
+      <Paper  style={style}>
+      <Menu desktop={true}>
+        <List>
+          <Subheader style={{paddingLeft: "10px"}} inset={true}>已选题目</Subheader>
+            <ListItem
+              disabled={true}
+              leftAvatar={
+                <Avatar
+                  color="#FFFFFF"
+                  backgroundColor="#1E88E5"
+                  size={30}
+                  style={{margin: 5}}
+                >
+                  4
+                </Avatar>
+              }
+            >
+              选择题
+            </ListItem>
+            <ListItem
+              disabled={true}
+              leftAvatar={
+                <Avatar
+                  color="#FFFFFF"
+                  backgroundColor="#1E88E5"
+                  size={30}
+                  style={{margin: 5}}
+                >
+                  5
+                </Avatar>
+              }
+            >
+              阅读题
+            </ListItem>
+        </List>
+        <Divider />
+        <MenuItem primaryText="删除所有" style={{color: '#FF5252'}}/>
+        <MenuItem primaryText="组成试卷"/>
+      </Menu>
+      </Paper>
     )
   }
 };

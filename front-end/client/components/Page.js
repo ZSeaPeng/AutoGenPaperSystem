@@ -5,6 +5,7 @@ class Page extends Component {
   render() {
     const { pageNum, pages } = this.props
     const { pathname } = this.props.location;
+    const path = pathname.replace(/\/question/i, '');
     var rows = [];
     const style = {
       height: '25px',
@@ -17,7 +18,7 @@ class Page extends Component {
     if (pageNum > 1) {
       rows.push(
         <div style = {style}>
-          <Link to={`${pathname}/question?page=${pageNum - 1}`}>上一页</Link>
+          <Link to={`${path}/question?page=${pageNum - 1}`}>上一页</Link>
         </div>
       )
     }
@@ -25,7 +26,7 @@ class Page extends Component {
       if (i > 0 && i <= pages && i !==pageNum ) {
         rows.push(
           <div style={style}>
-            <Link to={`${pathname}/question?page=${i}`}>{i}</Link>
+            <Link to={`${path}/question?page=${i}`}>{i}</Link>
           </div>
         )
       } else if (i === pageNum) {
@@ -44,7 +45,7 @@ class Page extends Component {
     if (pageNum < pages) {
       rows.push(
         <div style = {style}>
-          <Link to={`${pathname}/question?page=${pageNum + 1}`}>下一页</Link>
+          <Link to={`${path}/question?page=${pageNum + 1}`}>下一页</Link>
         </div>
       )
     }
@@ -57,4 +58,3 @@ class Page extends Component {
 }
 
 export default Page;
-

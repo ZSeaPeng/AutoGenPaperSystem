@@ -23,7 +23,6 @@ export const recevieQuestion = json => ({
 });
 
 export const getInitialState = () => dispatch => {
-    // dispatch(request());
     return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/subjectlist')
         .then( response => response.json())
         .then( json =>
@@ -32,7 +31,6 @@ export const getInitialState = () => dispatch => {
 };
 
 export const getSelect = url => dispatch => {
-    // dispatch(request());
     return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}`)
         .then( response => response.json())
         .then( json =>
@@ -40,9 +38,8 @@ export const getSelect = url => dispatch => {
         )
 };
 
-export const getQuestion = url => dispatch => {
-    // dispatch(request());
-    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question?page=1`)
+export const getQuestion = (url, query="?page=1") => dispatch => {
+    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`)
         .then( response => response.json())
         .then( json =>
             dispatch(recevieQuestion(json))

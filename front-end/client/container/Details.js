@@ -12,23 +12,37 @@ import Page from '../components/Page';
 import Choosed from '../components/Choosed';
 
 //add actions
-import { getSelect, getQuestion } from '../actions/actionCreators';
+import { getSelect, getQuestion, getPage } from '../actions/actionCreators';
 
 const Details = React.createClass({
   componentDidMount() {
     const { dispatch } = this.props;
     const pathname= window.location.pathname;
-    dispatch(getSelect(pathname));
-    dispatch(getQuestion(pathname));
+    const path = pathname.replace(/\/question/i, '');
+    const query = window.location.search;
+    if (query === "") {
+      dispatch(getSelect(path));
+      dispatch(getQuestion(path));
+    } else {
+      dispatch(getSelect(path));
+      dispatch(getQuestion(path, query));      
+    }
+
   },
 
   componentDidUpdate (prevProps) {
     const { dispatch } = this.props;
-    const oldPath = prevProps.location.pathname;
-    const newPath = this.props.location.pathname;
-    if (newPath !== oldPath ) {
-        dispatch(getSelect(newPath));
-        dispatch(getQuestion(newPath));
+    const old = prevProps.location.pathname;
+    const oldPath = old.replace(/\/question/i, '');
+    const oldQuery = prevProps.location.search;
+    const lew = this.props.location.pathname;
+    const newPath = lew.replace(/\/question/i, '');
+    const newQuery = this.props.location.search;
+    if (newPath === oldPath && newQuery !== oldQuery) {
+      dispatch(getQuestion(newPath, newQuery))
+    } else if (newPath !== oldPath ) {
+      dispatch(getSelect(newPath));
+      dispatch(getQuestion(newPath));
     }
   },
 
@@ -37,12 +51,13 @@ const Details = React.createClass({
 
     var divStyle = {
       float: 'left',
+      marginLeft: '20%',
       width: '60%'
     };
 
     return (
-      <div>
-        <div style={{float: 'left', width: '20%'}}>
+      <div className="main">
+        <div className="Side" style={{float: 'left', width: '20%'}}>
           <List>
             <Subheader style={{width: '100%'}}>全部知识点</Subheader>
             { Points.map((point, i) => <Point point={point} key={i} i={i}/>)}
@@ -72,11 +87,8 @@ const Details = React.createClass({
           </div>
           <Page {...this.props} pageNum = {pageNum} pages = {pages} />
         </div>
-        <div style={{marginLeft: '80%',width: '20%'}}>
-          <List>
-            <Subheader style={{width: '100%'}}>已选试题</Subheader>
-            <Choosed />
-          </List>
+        <div className="Side" style={{marginLeft: '80%',width: '20%'}}>
+          <Choosed />
         </div>
       </div>
     )
