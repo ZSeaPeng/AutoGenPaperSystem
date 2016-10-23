@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { Component }from 'react';
 import { Link } from 'react-router';
 
-const Lest = React.createClass({
+class Lest extends Component{
   render() {
     const { type } = this.props;
     const { select } = type ;
     return (
       <div>
       {select
-          ?<span 
+          ?<span
             style = {{lineHeight: '56px', margin: '0 5px', padding:'5px 10px', color:'#FFFFFF', background: ' #1E88E5'}}>
             {type.name}
           </span>
@@ -21,6 +21,6 @@ const Lest = React.createClass({
       </div>
     )
   }
-}); 
+};
 
 export default Lest;

@@ -6,11 +6,12 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import css from  './style/main.css'
 
-//import components
+//import container
 import Navbar from './container/Navbar';
 import Details from './container/Details';
 import ManualCombine from './container/ManualCombine';
 import AutoCombine from './container/AutoCombine';
+import Index from './container/Index'
 
 import store, { history } from './store';
 
@@ -20,6 +21,7 @@ const router = (
   <Provider store={ store }>
     <Router history={ history }>
       <Route path="/" component={Navbar}>
+        <IndexRoute component={Index} />
         <Route path="/:sub/*" component={Details} />
         <Route path="/manualcombine" component={ManualCombine}/>
         <Route path="/autocombine" component={AutoCombine}/>

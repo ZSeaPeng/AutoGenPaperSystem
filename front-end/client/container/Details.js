@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+
+//UI
 import {List, ListItem} from 'material-ui/List';
+import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
@@ -25,7 +28,7 @@ const Details = React.createClass({
       dispatch(getQuestion(path));
     } else {
       dispatch(getSelect(path));
-      dispatch(getQuestion(path, query));      
+      dispatch(getQuestion(path, query));
     }
 
   },
