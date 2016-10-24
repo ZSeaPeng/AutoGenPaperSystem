@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 //UI
 import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
@@ -38,7 +39,9 @@ class Navbar extends Component{
         <div>
           <Toolbar style={{backgroundColor: "#1565C0"}}>
             <ToolbarGroup>
-              <ToolbarTitle text="题库" style={{color: '#FFFFFF'}}/>
+              <Link to="/">
+              <ToolbarTitle text='题库' style={{color: '#FFFFFF'}} />
+              </Link>
               {isEmpty
                 ? <div></div>
                 : <MenuItem
@@ -54,7 +57,7 @@ class Navbar extends Component{
                 ? <div></div>
                 : <MenuItem
                 style = {{lineHeight: '56px', color: '#FFFFFF'}}
-                primaryText = '组    卷'
+                primaryText = '组卷'
                 menuItems ={ <Combine/> }
               />
               }
