@@ -9,6 +9,25 @@ class Question extends Component {
     this.state = {
       expanded: false,
     };
+    this.handleAdd = this.handleAdd.bind(this)
+    this.handleDownload = this.handleDownload.bind(this)
+    this.handleCollection = this.handleCollection.bind(this)
+  }
+
+  getInfo() {
+    return this.props.contextList.id
+  }
+
+  handleAdd() {
+    this.props.onChange(this.getInfo(), 'add')
+  }
+
+  handleDownload() {
+    this.props.onChange(this.getInfo(), 'download')
+  }
+
+  handleCollection() {
+    this.props.onChange(this.getInfo(), 'collection')
   }
 
   handleExpandChange = (expanded) => {
@@ -27,9 +46,9 @@ class Question extends Component {
           <img src={`http://${contextList.qurl}`} />
         </CardMedia>
         <CardActions>
-          <FlatButton label="加入试卷" secondary={true} />
-          <FlatButton label="下载试题" secondary={true} />
-          <FlatButton label="收藏试题" secondary={true} />
+          <FlatButton label="加入试卷" secondary={true} onClick={this.handleAdd}/>
+          <FlatButton label="下载试题" secondary={true} onClick={this.handleDownload}/>
+          <FlatButton label="收藏试题" secondary={true} onClick={this.handleCollection}/>
         </CardActions>
         <CardText style={{display: 'inline-block'}}>
           <Toggle

@@ -18,6 +18,7 @@ import {
 
 class Choosed extends Component{
   render() {
+    const { add } = this.props
     const style = {
       float: 'right',
       margin: '16px 0',
@@ -36,7 +37,7 @@ class Choosed extends Component{
                   size={30}
                   style={{margin: 5}}
                 >
-                  4
+                  {add}
                 </Avatar>
               }
             >
@@ -51,7 +52,7 @@ class Choosed extends Component{
                   size={30}
                   style={{margin: 5}}
                 >
-                  5
+                  {add}
                 </Avatar>
               }
             >

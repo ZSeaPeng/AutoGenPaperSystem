@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 //UI
@@ -15,9 +15,29 @@ import Page from '../components/Page';
 import Choosed from '../components/Choosed';
 
 //add actions
-import { getSelect, getQuestion, getPage } from '../actions/actionCreators';
+import {
+  getSelect,
+  getQuestion,
+  add
+} from '../actions/actionCreators';
 
-const Details = React.createClass({
+class Details extends Component {
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(id, type) {
+    const { dispatch } = this.props
+    if (type === 'add') {
+      dispatch(add(id))
+    } else if (type === 'download') {
+      console.log(`download ${id}`)
+    } else if (type === 'collection') {
+      console.log(`collection ${id}`)
+    }
+  }
+
   componentDidMount() {
     const { dispatch } = this.props;
     const pathname= window.location.pathname;
@@ -31,7 +51,7 @@ const Details = React.createClass({
       dispatch(getQuestion(path, query));
     }
 
-  },
+  }
 
   componentDidUpdate (prevProps) {
     const { dispatch } = this.props;
@@ -47,59 +67,65 @@ const Details = React.createClass({
       dispatch(getSelect(newPath));
       dispatch(getQuestion(newPath));
     }
-  },
+  }
 
   render() {
-    const { Points, Difficulty, Charaction, Types, context, pageNum, pages } = this.props;
+    const { Points, Difficulty, Charaction, Types, context, pageNum, pages, add } = this.props;
 
-    var divStyle = {
-      float: 'left',
-      marginLeft: '20%',
-      width: '60%'
+    var style = {
+      sideStyle: {
+        float: 'left', width: '20%'
+      },
+      divStyle: {
+        float: 'left', marginLeft: '20%', width: '60%'
+      },
+      toolStyle: {
+        color: '#FFFFFF',backgroundColor: '#FF5252',padding: '0 16px'
+      }
     };
 
     return (
       <div className="main">
-        <div className="Side" style={{float: 'left', width: '20%'}}>
+        <div className="Side" style={style.sideStyle}>
           <List>
             <Subheader style={{width: '100%'}}>全部知识点</Subheader>
             { Points.map((point, i) => <Point point={point} key={i} i={i}/>)}
           </List>
         </div>
-        <div style={divStyle}>
+        <div style={style.divStyle}>
           <Toolbar style={{padding: '0'}}>
             <ToolbarGroup>
-              <ToolbarTitle text="题型" style={{color: '#FFFFFF',backgroundColor: '#FF5252',padding: '0 16px'}}/>
+              <ToolbarTitle text="题型" style={style.toolStyle}/>
               { Types.map((type, i) => <Lest type={type} key={i} />)}
             </ToolbarGroup>
           </Toolbar>
           <Toolbar  style={{padding: '0'}}>
             <ToolbarGroup>
-              <ToolbarTitle text="难度"  style={{color: '#FFFFFF',backgroundColor: '#FF5252',padding: '0 16px'}}/>
+              <ToolbarTitle text="难度"  style={style.toolStyle}/>
               { Difficulty.map((diff, i) => <Lest type={diff} key={i} />)}
             </ToolbarGroup>
           </Toolbar>
           <Toolbar  style={{padding: '0'}}>
             <ToolbarGroup>
-              <ToolbarTitle text="特点"  style={{color: '#FFFFFF',backgroundColor: '#FF5252',padding: '0 16px'}}/>
+              <ToolbarTitle text="特点"  style={style.toolStyle}/>
               { Charaction.map((feature, i) => <Lest type={feature} key={i}/>)}
             </ToolbarGroup>
           </Toolbar>
           <div>
-            { context.map((contextList, i) => <Question contextList={contextList} key={i} />)}
+            { context.map((contextList, i) => <Question onChange={this.handleChange} contextList={contextList} key={i} />)}
           </div>
           <Page {...this.props} pageNum = {pageNum} pages = {pages} />
         </div>
         <div className="Side" style={{marginLeft: '80%',width: '20%'}}>
-          <Choosed />
+          <Choosed add = {add}/>
         </div>
       </div>
     )
   }
-});
+};
 
 const mapStateToProps = state => {
-  const { selects, questions } = state
+  const { selects, questions, add } = state
   const {
     Points,
     Types,
@@ -129,7 +155,8 @@ const mapStateToProps = state => {
     Charaction,
     context,
     pageNum,
-    pages
+    pages,
+    add
   }
 }
 

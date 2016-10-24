@@ -1,53 +1,17 @@
-import {
-  RECEIVE_INITIAL_STATE,
-  RECEIVE_SELECT,
-  RECEIVE_QUESTION,
-} from '../actions/actionCreators';
-import {
-  combineReducers
-} from 'redux';
-import {
-  routerReducer
-} from 'react-router-redux';
+import { combineReducers } from 'redux'
+import { routerReducer } from 'react-router-redux'
 
-function grades(state = [], action) {
-  switch (action.type) {
-    case RECEIVE_INITIAL_STATE:
-      return [
-        action.posts
-      ];
-    default:
-      return state;
-  }
-};
-
-function questions(state = [], action) {
-  switch (action.type) {
-    case RECEIVE_QUESTION:
-      return [
-        action.posts
-      ];
-    default:
-      return state;
-  }
-};
-
-function selects(state = [], action) {
-  switch (action.type) {
-    case RECEIVE_SELECT:
-      return [
-        action.posts
-      ];
-    default:
-      return state;
-  }
-};
+import grades from './grades'
+import questions from './questions'
+import selects from './selects'
+import add from './add'
 
 const rootReducer = combineReducers({
   grades,
   selects,
   questions,
+  add,
   routing: routerReducer
-});
+})
 
-export default rootReducer;
+export default rootReducer
