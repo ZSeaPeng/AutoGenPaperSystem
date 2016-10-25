@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import ChooseModel from '../components/ChooseModel';
-import ChooseCourse from '../components/ChooseCourse';
 import ConfirmButton from '../components/ConfirmButton';
+import ChooseCourse from '../components/ChooseCourse';
+import ChooseModel from '../components/ChooseModel';
 
 const styles = {
   title: {

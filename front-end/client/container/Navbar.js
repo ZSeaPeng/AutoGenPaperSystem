@@ -1,22 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton';
+import { Link } from 'react-router';
+
+//UI
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 import Divider from 'material-ui/Divider';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import Download from 'material-ui/svg-icons/file/file-download';
-import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import IconButton from 'material-ui/IconButton';
+import IconMenu from 'material-ui/IconMenu';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MenuItem from 'material-ui/MenuItem';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
-import Grade from '../components/Grade';
+//import component
 import Combine from '../components/Combine';
+import Grade from '../components/Grade';
 
+//import action
 import { getInitialState } from '../actions/actionCreators';
 
 class Navbar extends Component{
@@ -34,7 +39,9 @@ class Navbar extends Component{
         <div>
           <Toolbar style={{backgroundColor: "#1565C0"}}>
             <ToolbarGroup>
-              <ToolbarTitle text="题库" style={{color: '#FFFFFF'}}/>
+              <Link to="/">
+              <ToolbarTitle text='题库' style={{color: '#FFFFFF'}} />
+              </Link>
               {isEmpty
                 ? <div></div>
                 : <MenuItem
@@ -50,7 +57,7 @@ class Navbar extends Component{
                 ? <div></div>
                 : <MenuItem
                 style = {{lineHeight: '56px', color: '#FFFFFF'}}
-                primaryText = '组    卷'
+                primaryText = '组卷'
                 menuItems ={ <Combine/> }
               />
               }
