@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by zseapeng on 2016/10/24.
@@ -19,6 +16,10 @@ import java.util.Map;
 public class indexController {
     @RequestMapping(method = RequestMethod.GET)
     public Map getUpdateInfo() {
+
+
+
+
         Map<String,List> map = new HashMap<String, List>();
         List<String> subList = new ArrayList<String>();
         subList.add("语文");
