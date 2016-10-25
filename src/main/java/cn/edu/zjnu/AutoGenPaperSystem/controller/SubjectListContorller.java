@@ -24,16 +24,19 @@ public class SubjectListContorller {
     private SubjectService subjectServiceImpl;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Map getSubjectList() {
+    public List getSubjectList() {
         List subList =  subjectServiceImpl.selectAllSubject();
         Map<String,List> map = new HashMap<String, List>();
         List<String> updatesubList = new ArrayList<String>();
         updatesubList.add("语文");
         updatesubList.add("数学");
         updatesubList.add("机械类");
-        map.put("subject",subList);
+        map.put("sublist",subList);
         map.put("update",updatesubList);
-        return map;
+        List allList = new ArrayList();
+        //allList.add(subList);
+        allList.add(map);
+        return allList;
     }
 
 }
