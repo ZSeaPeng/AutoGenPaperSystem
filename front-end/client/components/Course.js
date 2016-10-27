@@ -11,8 +11,4 @@ class Course extends Component {
   }
 }
 
-Course.propTypes = {
-  course: PropTypes.array.isRequired
-};
-
 export default Course;

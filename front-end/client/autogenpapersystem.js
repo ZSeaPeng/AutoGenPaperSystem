@@ -21,7 +21,7 @@ const router = (
   <Provider store={ store }>
     <Router history={ history }>
       <Route path="/" component={Navbar}>
-        <IndexRoute component={Index} />
+        <IndexRoute component={Index}/>
         <Route path="/:sub/*" component={Details} />
         <Route path="/manualcombine" component={ManualCombine}/>
         <Route path="/autocombine" component={AutoCombine}/>

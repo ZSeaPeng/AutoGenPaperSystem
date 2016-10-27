@@ -1,4 +1,5 @@
 import React, { Component }from 'react';
+import { Link } from 'react-router';
 
 //UI
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
@@ -6,6 +7,7 @@ import Divider from 'material-ui/Divider';
 
 class News extends Component {
   render() {
+    const { news } = this.props;
     const style = {
       Card: {
         backgroundColor: '#FAFAFA',
@@ -14,39 +16,19 @@ class News extends Component {
       },
       div: {
         position: 'absolute',
-        top: 300,
+        top: 450,
         left: 100
       }
     }
     return (
       <div style={style.div}>
-        <Card style = {style.Card}>
-          <CardHeader
-            title="New Topic"
-          />
-          <Divider />
-          <CardText>
-            Deteils
-          </CardText>
-        </Card>
-        <Card style = {style.Card}>
-          <CardHeader
-            title="New Topic"
-          />
-          <Divider />
-          <CardText>
-            Deteils
-          </CardText>
-        </Card>
-        <Card style = {style.Card}>
-          <CardHeader
-            title="New Topic"
-          />
-          <Divider />
-          <CardText>
-            Deteils
-          </CardText>
-        </Card>
+        { news.map((nee, i) =>
+          <Card style = {style.Card}>
+            <CardText>
+              <Link to = "/">{nee}</Link> 有更新
+            </CardText>
+          </Card>
+        )}
       </div>
     );
   }

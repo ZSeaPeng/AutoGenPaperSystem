@@ -9,6 +9,7 @@ import {orange500, blue500} from 'material-ui/styles/colors';
 class SignUp extends Component {
   render() {
     const style = {
+      zIndex: 9999,
       height: 270,
       width: 300,
       margin: 20,
@@ -16,7 +17,7 @@ class SignUp extends Component {
       textAlign: 'center',
       display: 'inline-block',
       position: 'absolute',
-      top: 150,
+      top: 100,
       right: 100
     };
 
@@ -34,7 +35,7 @@ class SignUp extends Component {
           />
           <br />
           <br />
-          <RaisedButton label="登陆" secondary={true} fullWidth={true} />
+          <RaisedButton label="登录" secondary={true} fullWidth={true} />
         </div>
       </Paper>
       </div>

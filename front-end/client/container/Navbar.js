@@ -21,6 +21,10 @@ import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import Combine from '../components/Combine';
 import Grade from '../components/Grade';
 
+//pic
+import zhituku from '../img/zhitiku.png';
+import phone from '../img/phone.png'
+
 //import action
 import { getInitialState } from '../actions/actionCreators';
 
@@ -37,18 +41,19 @@ class Navbar extends Component{
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div>
+          <div></div>
           <Toolbar style={{backgroundColor: "#1565C0"}}>
             <ToolbarGroup>
               <Link to="/">
-              <ToolbarTitle text='题库' style={{color: '#FFFFFF'}} />
+                <img src={zhituku} style={{height: '100%'}} />
               </Link>
               {isEmpty
                 ? <div></div>
                 : <MenuItem
                 style = {{lineHeight: '56px', color: '#FFFFFF'}}
-                primaryText = '试题库'
+                primaryText = '科目'
                 menuItems =
-                { grades[0].map((grade, i) =>
+                { grades[0][0].sublist.map((grade, i) =>
                     <Grade grade={grade} key={i} i={i}/>)
                 }
                 />
@@ -61,6 +66,10 @@ class Navbar extends Component{
                 menuItems ={ <Combine/> }
               />
               }
+            </ToolbarGroup>
+            <ToolbarGroup>
+              <img src={phone}/>
+              <ToolbarTitle text="0571-87002755" style = {{lineHeight: '56px', color: '#FFFFFF'}}/>
             </ToolbarGroup>
           </Toolbar>
           { this.props.children }
