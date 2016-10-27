@@ -1,5 +1,8 @@
 package cn.edu.zjnu.AutoGenPaperSystem.model;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 public class Questions {
     private Integer questionsId;
 
@@ -29,6 +32,10 @@ public class Questions {
 
     private String answerPic_URL;
 
+    private Timestamp updateTime;
+
+    private Timestamp uploadTime;
+
     public Questions(Integer questionsId, String content, String quesPic_URL, String answer, String answerPic_URL) {
         this.questionsId = questionsId;
         this.content = content;
@@ -37,7 +44,7 @@ public class Questions {
         this.answerPic_URL = answerPic_URL;
     }
 
-    public Questions(Integer questionsId, String content, String quesPic_URL, Integer subjectId, Integer knowledgeId1, Integer knowledgeId2, Integer knowledgeId3, Integer knowledgeId4, Integer typeId, Integer difficultyId, Integer charactId, Boolean isdelete, String answer, String answerPic_URL) {
+    public Questions(Integer questionsId, String content, String quesPic_URL, Integer subjectId, Integer knowledgeId1, Integer knowledgeId2, Integer knowledgeId3, Integer knowledgeId4, Integer typeId, Integer difficultyId, Integer charactId, Boolean isdelete, String answer, String answerPic_URL, Timestamp updateTime, Timestamp uploadTime) {
         this.questionsId = questionsId;
         this.content = content;
         this.quesPic_URL = quesPic_URL;
@@ -52,6 +59,8 @@ public class Questions {
         this.isdelete = isdelete;
         Answer = answer;
         this.answerPic_URL = answerPic_URL;
+        this.updateTime = updateTime;
+        this.uploadTime = uploadTime;
     }
 
     @Override
@@ -71,7 +80,25 @@ public class Questions {
                 ", isdelete=" + isdelete +
                 ", Answer='" + Answer + '\'' +
                 ", answerPic_URL='" + answerPic_URL + '\'' +
+                ", updateTime=" + updateTime +
+                ", uploadTime=" + uploadTime +
                 '}';
+    }
+
+    public Timestamp getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Timestamp updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Timestamp getUploadTime() {
+        return uploadTime;
+    }
+
+    public void setUploadTime(Timestamp uploadTime) {
+        this.uploadTime = uploadTime;
     }
 
     public String getQuesPic_URL() {
