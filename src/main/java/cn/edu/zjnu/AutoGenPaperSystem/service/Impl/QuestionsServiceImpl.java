@@ -69,76 +69,50 @@ public class QuestionsServiceImpl implements QuestionsService {
 
     @Override
     public List selectUploadTime() {
-        List<Questions> questionses=questionsMapper.selectUploadTime();;
+        List<Questions> questionses=questionsMapper.selectUploadTime();
+        Subject subject;
         List<UpdateInfoJson> updateInfoJsonList = new ArrayList<UpdateInfoJson>();
-        Date date=new Date();
-        for (Questions list:questionses) {
-            UpdateInfoJson updateInfoJson = new UpdateInfoJson();
-            if (date.getDate() == list.getUploadTime().getDate()) {
-                int i = 0;
-                int[] s = new int[500];
-                Boolean flag = true;
-                for (int k : s) {
-                    if (k == list.getSubjectId()) {
-                        flag = false;
-                    }
-                }
-                if (flag == true) {
-                    s[i] = list.getSubjectId();
-                    i++;
-                    Subject subject = subjectMapper.selectByPrimaryKey(list.getSubjectId());
+        int i=0;
+        int year=0,month=0,date=0;
+//        System.out.println(questionses);
+//        Date date=new Date();
+        for (Questions list:questionses){
+            int []s=new int[500];
+            UpdateInfoJson updateInfoJson=new UpdateInfoJson();
+            if (year!=list.getUploadTime().getYear()||month!=list.getUploadTime().getMonth()||date!=list.getUploadTime().getDate()){
+                year=list.getUploadTime().getYear();
+                month=list.getUploadTime().getMonth();
+                date=list.getUploadTime().getDate();
+                i++;
+                if(i<=3){
+//                    System.out.println(list.getUploadTime().getDate());
+                    int j=0;
+                    s[j]=list.getSubjectId();
+                    j++;
+                    subject=subjectMapper.selectByPrimaryKey(list.getSubjectId());
                     updateInfoJson.setSub(subject.getSubjectName());
                     updateInfoJson.setDate(list.getUploadTime().toString());
-                    updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate() + "/" + subject.getSubjectName());
+                    updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate()+"/"+subject.getSubjectName());
                     updateInfoJsonList.add(updateInfoJson);
-                } else {
-                    continue;
+                }
+                else {
+                    break;
                 }
             }
-            else if (date.getDate() - 1 == list.getUploadTime().getDate()) {
-                int i = 0;
-                int[] s = new int[500];
-                Boolean flag = true;
-                for (int k : s) {
-                    if (k == list.getSubjectId()) {
-                        flag = false;
+            else {
+                for (int k:s){
+                    if (k==list.getSubjectId()){
+                        continue;
                     }
                 }
-                if (flag == true) {
-                    s[i] = list.getSubjectId();
-                    i++;
-                    Subject subject = subjectMapper.selectByPrimaryKey(list.getSubjectId());
-                    updateInfoJson.setSub(subject.getSubjectName());
-                    updateInfoJson.setDate(list.getUploadTime().toString());
-                    updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate() + "/" + subject.getSubjectName());
-                    updateInfoJsonList.add(updateInfoJson);
-                } else {
-                    continue;
-                }
+//                System.out.println(list.getUploadTime().getDate());
+                subject=subjectMapper.selectByPrimaryKey(list.getSubjectId());
+                updateInfoJson.setSub(subject.getSubjectName());
+                updateInfoJson.setDate(list.getUploadTime().toString());
+                updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate()+"/"+subject.getSubjectName());
+                updateInfoJsonList.add(updateInfoJson);
             }
-            else if (date.getDate() - 2 == list.getUploadTime().getDate()) {
-                int i = 0;
-                int[] s = new int[500];
-                Boolean flag = true;
-                for (int k : s) {
-                    if (k == list.getSubjectId()) {
-                        flag = false;
-                    }
-                }
-                if (flag == true) {
-                    s[i] = list.getSubjectId();
-                    i++;
-                    Subject subject = subjectMapper.selectByPrimaryKey(list.getSubjectId());
-                    updateInfoJson.setSub(subject.getSubjectName());
-                    updateInfoJson.setDate(list.getUploadTime().toString());
-                    updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate() + "/" + subject.getSubjectName());
-                    updateInfoJsonList.add(updateInfoJson);
-                } else {
-                    continue;
-                }
-            } else {
-                break;
-            }
+
         }
         return updateInfoJsonList;
     }
