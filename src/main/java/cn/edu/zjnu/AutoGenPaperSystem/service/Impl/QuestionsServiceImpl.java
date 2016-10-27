@@ -1,19 +1,18 @@
 package cn.edu.zjnu.AutoGenPaperSystem.service.Impl;
 
 import cn.edu.zjnu.AutoGenPaperSystem.dao.QuestionsMapper;
-import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
-import cn.edu.zjnu.AutoGenPaperSystem.model.QuestionsJson;
-import cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll;
+import cn.edu.zjnu.AutoGenPaperSystem.dao.SubjectMapper;
+import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.stuxuhai.jpinyin.PinyinException;
+import com.github.stuxuhai.jpinyin.PinyinFormat;
+import com.github.stuxuhai.jpinyin.PinyinHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by zseapeng on 2016/9/22.
@@ -23,6 +22,8 @@ public class QuestionsServiceImpl implements QuestionsService {
 
     @Resource
     private QuestionsMapper questionsMapper;
+    @Resource
+    private SubjectMapper subjectMapper;
 
     public int deleteByPrimaryKey(Integer questionsId) {
         return 0;
@@ -68,4 +69,73 @@ public class QuestionsServiceImpl implements QuestionsService {
         questionsesMap.put("pages",pageInfo.getPages());
         return questionsesMap;
     }
+
+    @Override
+    public List selectUploadTime() {
+        List<Questions> questionses=questionsMapper.selectUploadTime();
+        Subject subject;
+        List<UpdateInfoJson> updateInfoJsonList = new ArrayList<UpdateInfoJson>();
+        int i=0,p=0;
+        int year=0,month=0,date=0;
+        int []s=new int[500];
+//        System.out.println(questionses);
+//        Date date=new Date();
+        for (Questions list:questionses){
+            UpdateInfoJson updateInfoJson=new UpdateInfoJson();
+            if (year!=list.getUploadTime().getYear()||month!=list.getUploadTime().getMonth()||date!=list.getUploadTime().getDate()){
+                year=list.getUploadTime().getYear();
+                month=list.getUploadTime().getMonth();
+                date=list.getUploadTime().getDate();
+                i++;
+                if(i<=3){
+//                    System.out.println(list.getUploadTime().getDate());
+                    int j=0;
+                    s[j]=list.getSubjectId();
+                    j++;
+                    p=j;
+                    subject=subjectMapper.selectByPrimaryKey(list.getSubjectId());
+                    updateInfoJson.setSub(subject.getSubjectName());
+                    updateInfoJson.setDate(list.getUploadTime().toString());
+                    try {
+                        int y=year+1900,m=month+1;
+                        updateInfoJson.setUrl("/updateinfo/" +y +""+m+""+list.getUploadTime().getDate()+"/"+ PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE)+subject.getSubjectId());
+                    } catch (PinyinException e) {
+                        e.printStackTrace();
+                    }
+                    updateInfoJsonList.add(updateInfoJson);
+                }
+                else {
+                    break;
+                }
+            }
+            else {
+                Boolean flag=true;
+                for (int k=0;k<500;k++){
+                    if (s[k]==list.getSubjectId()){
+                        flag=false;
+                    }
+                }
+                if (flag==true){
+                    s[p]=list.getSubjectId();
+                    p++;
+                    subject=subjectMapper.selectByPrimaryKey(list.getSubjectId());
+                    updateInfoJson.setSub(subject.getSubjectName());
+                    updateInfoJson.setDate(list.getUploadTime().toString());
+                    try {
+                        int y=year+1900,m=month+1;
+                        updateInfoJson.setUrl("/updateinfo/" +y +""+m+""+list.getUploadTime().getDate()+"/"+ PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE)+subject.getSubjectId());
+                    } catch (PinyinException e) {
+                        e.printStackTrace();
+                    }
+                    updateInfoJsonList.add(updateInfoJson);
+                }
+                else {
+                    continue;
+                }
+            }
+
+        }
+        return updateInfoJsonList;
+    }
+
 }

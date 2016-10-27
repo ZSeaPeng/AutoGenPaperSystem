@@ -33,13 +33,15 @@
     <sql id="Base_Column_List">
     Questions_ID, Content,QuesPic_URL, Subject_ID, Knowledge_ID1, Knowledge_ID2, Knowledge_ID3, Knowledge_ID4,
     Type_ID, Difficulty_ID, Charact_ID, Isdelete, Answer,AnswerPic_URL,UpdateTime,UploadTime
-  </sql>
+    </sql>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from questions
         where Questions_ID = #{questionsId,jdbcType=INTEGER}
     </select>
+
     <select id="selectBySearchAll" resultMap="QuestionMAp"
             parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll">
         SELECT
@@ -67,6 +69,11 @@
             </if>
         </where>
     </select>
+
+    <select id="selectUploadTime" resultMap="BaseResultMap">
+        SELECT * FROM questions ORDER BY UploadTime DESC
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from questions
     where Questions_ID = #{questionsId,jdbcType=INTEGER}
