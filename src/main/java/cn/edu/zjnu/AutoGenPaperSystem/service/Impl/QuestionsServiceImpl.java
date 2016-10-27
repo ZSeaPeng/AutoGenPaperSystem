@@ -97,7 +97,8 @@ public class QuestionsServiceImpl implements QuestionsService {
                     updateInfoJson.setSub(subject.getSubjectName());
                     updateInfoJson.setDate(list.getUploadTime().toString());
                     try {
-                        updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getYear()+1900+""+list.getUploadTime().getMonth()+1+""+list.getUploadTime().getDate()+"/"+ PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE)+subject.getSubjectId());
+                        int y=year+1900,m=month+1;
+                        updateInfoJson.setUrl("/updateinfo/" +y +""+m+""+list.getUploadTime().getDate()+"/"+ PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE)+subject.getSubjectId());
                     } catch (PinyinException e) {
                         e.printStackTrace();
                     }
@@ -121,7 +122,8 @@ public class QuestionsServiceImpl implements QuestionsService {
                     updateInfoJson.setSub(subject.getSubjectName());
                     updateInfoJson.setDate(list.getUploadTime().toString());
                     try {
-                        updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getYear()+""+list.getUploadTime().getMonth()+""+list.getUploadTime().getDate()+"/"+PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE)+subject.getSubjectId());
+                        int y=year+1900,m=month+1;
+                        updateInfoJson.setUrl("/updateinfo/" +y +""+m+""+list.getUploadTime().getDate()+"/"+ PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE)+subject.getSubjectId());
                     } catch (PinyinException e) {
                         e.printStackTrace();
                     }
