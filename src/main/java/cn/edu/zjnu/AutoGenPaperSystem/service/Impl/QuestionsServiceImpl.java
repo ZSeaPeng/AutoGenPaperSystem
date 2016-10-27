@@ -75,12 +75,12 @@ public class QuestionsServiceImpl implements QuestionsService {
         List<Questions> questionses=questionsMapper.selectUploadTime();
         Subject subject;
         List<UpdateInfoJson> updateInfoJsonList = new ArrayList<UpdateInfoJson>();
-        int i=0;
+        int i=0,p=0;
         int year=0,month=0,date=0;
+        int []s=new int[500];
 //        System.out.println(questionses);
 //        Date date=new Date();
         for (Questions list:questionses){
-            int []s=new int[500];
             UpdateInfoJson updateInfoJson=new UpdateInfoJson();
             if (year!=list.getUploadTime().getYear()||month!=list.getUploadTime().getMonth()||date!=list.getUploadTime().getDate()){
                 year=list.getUploadTime().getYear();
@@ -92,11 +92,12 @@ public class QuestionsServiceImpl implements QuestionsService {
                     int j=0;
                     s[j]=list.getSubjectId();
                     j++;
+                    p=j;
                     subject=subjectMapper.selectByPrimaryKey(list.getSubjectId());
                     updateInfoJson.setSub(subject.getSubjectName());
                     updateInfoJson.setDate(list.getUploadTime().toString());
                     try {
-                        updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate()+"/"+ PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE));
+                        updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getYear()+1900+""+list.getUploadTime().getMonth()+1+""+list.getUploadTime().getDate()+"/"+ PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE)+subject.getSubjectId());
                     } catch (PinyinException e) {
                         e.printStackTrace();
                     }
@@ -107,21 +108,28 @@ public class QuestionsServiceImpl implements QuestionsService {
                 }
             }
             else {
-                for (int k:s){
-                    if (k==list.getSubjectId()){
-                        continue;
+                Boolean flag=true;
+                for (int k=0;k<500;k++){
+                    if (s[k]==list.getSubjectId()){
+                        flag=false;
                     }
                 }
-//                System.out.println(list.getUploadTime().getDate());
-                subject=subjectMapper.selectByPrimaryKey(list.getSubjectId());
-                updateInfoJson.setSub(subject.getSubjectName());
-                updateInfoJson.setDate(list.getUploadTime().toString());
-                try {
-                    updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate()+"/"+PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE));
-                } catch (PinyinException e) {
-                    e.printStackTrace();
+                if (flag==true){
+                    s[p]=list.getSubjectId();
+                    p++;
+                    subject=subjectMapper.selectByPrimaryKey(list.getSubjectId());
+                    updateInfoJson.setSub(subject.getSubjectName());
+                    updateInfoJson.setDate(list.getUploadTime().toString());
+                    try {
+                        updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getYear()+""+list.getUploadTime().getMonth()+""+list.getUploadTime().getDate()+"/"+PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE)+subject.getSubjectId());
+                    } catch (PinyinException e) {
+                        e.printStackTrace();
+                    }
+                    updateInfoJsonList.add(updateInfoJson);
                 }
-                updateInfoJsonList.add(updateInfoJson);
+                else {
+                    continue;
+                }
             }
 
         }
