@@ -21,4 +21,6 @@ public interface QuestionsMapper {
     int updateByPrimaryKey(Questions record);
 
     List<Questions> selectBySearchAll(SearchAll searchAll);
+
+    List<Questions> selectUploadTime();
 }
