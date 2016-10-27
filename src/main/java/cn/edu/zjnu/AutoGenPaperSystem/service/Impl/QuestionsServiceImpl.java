@@ -6,6 +6,9 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.stuxuhai.jpinyin.PinyinException;
+import com.github.stuxuhai.jpinyin.PinyinFormat;
+import com.github.stuxuhai.jpinyin.PinyinHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -92,7 +95,11 @@ public class QuestionsServiceImpl implements QuestionsService {
                     subject=subjectMapper.selectByPrimaryKey(list.getSubjectId());
                     updateInfoJson.setSub(subject.getSubjectName());
                     updateInfoJson.setDate(list.getUploadTime().toString());
-                    updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate()+"/"+subject.getSubjectName());
+                    try {
+                        updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate()+"/"+ PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE));
+                    } catch (PinyinException e) {
+                        e.printStackTrace();
+                    }
                     updateInfoJsonList.add(updateInfoJson);
                 }
                 else {
@@ -109,7 +116,11 @@ public class QuestionsServiceImpl implements QuestionsService {
                 subject=subjectMapper.selectByPrimaryKey(list.getSubjectId());
                 updateInfoJson.setSub(subject.getSubjectName());
                 updateInfoJson.setDate(list.getUploadTime().toString());
-                updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate()+"/"+subject.getSubjectName());
+                try {
+                    updateInfoJson.setUrl("/updateinfo/" + list.getUploadTime().getDate()+"/"+PinyinHelper.convertToPinyinString(subject.getSubjectName(),"", PinyinFormat.WITHOUT_TONE));
+                } catch (PinyinException e) {
+                    e.printStackTrace();
+                }
                 updateInfoJsonList.add(updateInfoJson);
             }
 
