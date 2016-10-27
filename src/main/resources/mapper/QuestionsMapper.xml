@@ -17,6 +17,8 @@
             <arg column="Isdelete" jdbcType="BIT" javaType="java.lang.Boolean"/>
             <arg column="Answer" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="AnswerPic_URL" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="UpdateTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+            <arg column="UploadTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
         </constructor>
     </resultMap>
     <resultMap id="QuestionMAp" type="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
@@ -30,7 +32,7 @@
     </resultMap>
     <sql id="Base_Column_List">
     Questions_ID, Content,QuesPic_URL, Subject_ID, Knowledge_ID1, Knowledge_ID2, Knowledge_ID3, Knowledge_ID4,
-    Type_ID, Difficulty_ID, Charact_ID, Isdelete, Answer,AnswerPic_URL
+    Type_ID, Difficulty_ID, Charact_ID, Isdelete, Answer,AnswerPic_URL,UpdateTime,UploadTime
   </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
@@ -73,11 +75,11 @@
     insert into questions (Questions_ID, Content,QuesPic_URL, Subject_ID,
       Knowledge_ID1, Knowledge_ID2, Knowledge_ID3, 
       Knowledge_ID4, Type_ID, Difficulty_ID, 
-      Charact_ID, Isdelete, Answer,AnswerPic_URL)
+      Charact_ID, Isdelete, Answer,AnswerPic_URL,UpdateTime,UploadTime)
     values (#{questionsId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR},#{quesPic_URL,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER},
       #{knowledgeId1,jdbcType=INTEGER}, #{knowledgeId2,jdbcType=INTEGER}, #{knowledgeId3,jdbcType=INTEGER}, 
       #{knowledgeId4,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{difficultyId,jdbcType=INTEGER}, 
-      #{charactId,jdbcType=INTEGER}, #{isdelete,jdbcType=BIT},#{answer,jdbcType=VARCHAR}),#{answerPic_URL,jdbcType=VARCHAR})
+      #{charactId,jdbcType=INTEGER}, #{isdelete,jdbcType=BIT},#{answer,jdbcType=VARCHAR}),#{answerPic_URL,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},#{uploadTime,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
         insert into questions
@@ -124,6 +126,10 @@
             <if test="answerPic_URL !=null">
                 AnswerPic_URL,
             </if>
+            <if test="uploadTime !=null">
+            UpdateTime,
+            </if>
+            UploadTime,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="questionsId != null">
@@ -166,8 +172,13 @@
                 #{answer,jdbcType=VARCHAR},
             </if>
             <if test="answerPic_URL !=null">
-                #{answerPic_URL,jdbcType=VARCHAR}
+                #{answerPic_URL,jdbcType=VARCHAR},
             </if>
+            <if test="updateTime !=null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            NOW()
+
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
@@ -210,7 +221,13 @@
                 Answer = #{answer,jdbcType=VARCHAR},
             </if>
             <if test="answerPic_URL !=null">
-                AnswerPic_URL = #{answerPic_URL,jdbcType=VARCHAR}
+                AnswerPic_URL = #{answerPic_URL,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime !=null">
+                UpdateTime=#{updateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="uploadTime !=null">
+                UploadTime=#{uploadTime,jdbcType=TIMESTAMP}
             </if>
         </set>
         where Questions_ID = #{questionsId,jdbcType=INTEGER}
@@ -229,7 +246,9 @@
       Charact_ID = #{charactId,jdbcType=INTEGER},
       Isdelete = #{isdelete,jdbcType=BIT},
       Answer = #{answer,jdbcType=VARCHAR},
-      AnswerPic_URL = #{answerPic_URL,jdbcType=VARCHAR}
+      AnswerPic_URL = #{answerPic_URL,jdbcType=VARCHAR},
+      UpdateTime=NULL ,
+      Upload=Upload
     where Questions_ID = #{questionsId,jdbcType=INTEGER}
   </update>
 </mapper>
