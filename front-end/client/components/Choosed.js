@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
+
+//UI
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
@@ -10,12 +12,6 @@ import ActionInfo from 'material-ui/svg-icons/action/info';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 
-import {
-  blue300,
-  indigo900,
-  pink400,
-} from 'material-ui/styles/colors';
-
 class Choosed extends Component{
   render() {
     const { add } = this.props
@@ -24,7 +20,7 @@ class Choosed extends Component{
       margin: '16px 0',
     };
     return (
-      <Paper  style={style}>
+      <Paper style={style}>
       <Menu desktop={true}>
         <List>
           <Subheader style={{paddingLeft: "10px"}} inset={true}>已选题目</Subheader>

@@ -41,7 +41,6 @@ class Navbar extends Component{
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div>
-          <div></div>
           <Toolbar style={{backgroundColor: "#1565C0"}}>
             <ToolbarGroup>
               <Link to="/">

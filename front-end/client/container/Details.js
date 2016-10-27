@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 //UI
+import Menu from 'material-ui/Menu';
 import {List, ListItem} from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
@@ -73,20 +74,17 @@ class Details extends Component {
     const { Points, Difficulty, Charaction, Types, context, pageNum, pages, add } = this.props;
 
     var style = {
-      sideStyle: {
-        float: 'left', width: '20%'
-      },
       divStyle: {
-        float: 'left', marginLeft: '20%', width: '60%'
+        float: 'left', marginLeft: '20%', width: '820px'
       },
       toolStyle: {
-        color: '#FFFFFF',backgroundColor: '#FF5252',padding: '0 16px'
+        color: '#FFFFFF',backgroundColor: '#FF5252',padding: '0 16px', zIndex: 0
       }
     };
 
     return (
       <div className="main">
-        <div className="Side" style={style.sideStyle}>
+        <div className="Side sideStyle">
           <List>
             <Subheader style={{width: '100%'}}>全部知识点</Subheader>
             { Points.map((point, i) => <Point point={point} key={i} i={i}/>)}
@@ -116,7 +114,7 @@ class Details extends Component {
           </div>
           <Page {...this.props} pageNum = {pageNum} pages = {pages} />
         </div>
-        <div className="Side" style={{marginLeft: '80%',width: '20%'}}>
+        <div className="Side" style={{ right: 0,width: '270px'}}>
           <Choosed add = {add}/>
         </div>
       </div>

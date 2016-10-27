@@ -25,3 +25,13 @@ a:hover {
   overflow:auto;
 }
 
+.sideStyle {
+  left: 0;
+  width: 250px;
+  z-index: 9999;
+  background-color: #FFFFFF;
+  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+  border-radius: 2px;
+  top: 72px;
+}
+

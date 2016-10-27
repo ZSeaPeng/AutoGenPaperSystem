@@ -7,6 +7,31 @@ import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
 
 class SignUp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: ''
+    }
+    this.usernameChange = this.usernameChange.bind(this);
+    this.passwordChange = this.passwordChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  usernameChange(e) {
+    this.state.username = e.target.value
+  }
+
+  passwordChange(e) {
+    this.state.password = e.target.value
+  }
+
+  handleSubmit() {
+    var username = this.state.username;
+    var password = this.state.password;
+    this.props.onChange(username, password);
+  }
+
   render() {
     const style = {
       zIndex: 9999,
@@ -27,15 +52,17 @@ class SignUp extends Component {
         <div style={{marginTop: '30px',padding: '0 15px'}}>
           <TextField
             floatingLabelText="用户名"
+            onChange={ this.usernameChange }
           />
           <br />
           <TextField
             floatingLabelText="密码"
             type="password"
+            onChange={ this.passwordChange }
           />
           <br />
           <br />
-          <RaisedButton label="登录" secondary={true} fullWidth={true} />
+          <RaisedButton label="登录" secondary={true} fullWidth={true} onClick={this.handleSubmit}/>
         </div>
       </Paper>
       </div>

@@ -6,7 +6,7 @@ class Lest extends Component{
     const { type } = this.props;
     const { select } = type ;
     return (
-      <div>
+      <div style={{zIndex: 0}}>
       {select
           ?<span
             style = {{lineHeight: '56px', margin: '0 5px', padding:'5px 10px', color:'#FFFFFF', background: ' #1E88E5'}}>

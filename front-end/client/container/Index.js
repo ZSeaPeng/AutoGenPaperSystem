@@ -7,6 +7,15 @@ import News from '../components/News';
 import SignUp from '../components/SignUp';
 
 class Index extends Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(username, password) {
+    console.log(username, password);
+  }
+
   render() {
     const settings = {
       dots: true,
@@ -26,7 +35,7 @@ class Index extends Component {
     const isEmpty = grades.length === 0;
     return (
       <div>
-        <SignUp />
+        <SignUp onChange={this.handleSubmit}/>
         {isEmpty
           ? <div></div>
           : <div>

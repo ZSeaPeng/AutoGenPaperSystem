@@ -9,9 +9,9 @@ class Question extends Component {
     this.state = {
       expanded: false,
     };
-    this.handleAdd = this.handleAdd.bind(this)
-    this.handleDownload = this.handleDownload.bind(this)
-    this.handleCollection = this.handleCollection.bind(this)
+    this.handleAdd = this.handleAdd.bind(this);
+    this.handleDownload = this.handleDownload.bind(this);
+    this.handleCollection = this.handleCollection.bind(this);
   }
 
   getInfo() {
