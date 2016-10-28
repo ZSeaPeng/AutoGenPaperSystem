@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
+
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Toggle from 'material-ui/Toggle';
 
 class Question extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      show: {display: 'inline-block'},
+      hide: {display: 'none'},
       expanded: false,
     };
     this.handleAdd = this.handleAdd.bind(this);
@@ -19,7 +23,10 @@ class Question extends Component {
   }
 
   handleAdd() {
-    this.props.onChange(this.getInfo(), 'add')
+    this.props.onChange(this.getInfo(), 'add');
+    const temp = this.state.show;
+    this.state.show = this.state.hide;
+    this.state.hide = temp;
   }
 
   handleDownload() {
@@ -46,7 +53,8 @@ class Question extends Component {
           <img src={`http://${contextList.qurl}`} />
         </CardMedia>
         <CardActions>
-          <FlatButton label="加入试卷" secondary={true} onClick={this.handleAdd}/>
+          <FlatButton label="加入试卷" secondary={true} onClick={this.handleAdd} style={this.state.show}/>
+          <RaisedButton label="移除试卷" secondary={true} onClick={this.handleAdd} style={this.state.hide}/>
           <FlatButton label="下载试题" secondary={true} onClick={this.handleDownload}/>
           <FlatButton label="收藏试题" secondary={true} onClick={this.handleCollection}/>
         </CardActions>

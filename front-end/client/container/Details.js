@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 //UI
-import Menu from 'material-ui/Menu';
 import {List, ListItem} from 'material-ui/List';
+import Menu from 'material-ui/Menu';
 import Paper from 'material-ui/Paper';
 import Subheader from 'material-ui/Subheader';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
@@ -19,23 +19,29 @@ import Choosed from '../components/Choosed';
 import {
   getSelect,
   getQuestion,
-  add
+  add,
+  remove
 } from '../actions/actionCreators';
 
 class Details extends Component {
   constructor(props) {
-    super(props)
-    this.handleChange = this.handleChange.bind(this)
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(id, type) {
-    const { dispatch } = this.props
+    const { aktion } = this.props;
+    const { dispatch } = this.props;
     if (type === 'add') {
-      dispatch(add(id))
+      if (aktion.indexOf(id) === -1) {
+        dispatch(add(id));
+      } else {
+        dispatch(remove(id))
+      }
     } else if (type === 'download') {
-      console.log(`download ${id}`)
+      console.log(`download ${id}`);
     } else if (type === 'collection') {
-      console.log(`collection ${id}`)
+      console.log(`collection ${id}`);
     }
   }
 
@@ -51,7 +57,6 @@ class Details extends Component {
       dispatch(getSelect(path));
       dispatch(getQuestion(path, query));
     }
-
   }
 
   componentDidUpdate (prevProps) {
@@ -71,7 +76,9 @@ class Details extends Component {
   }
 
   render() {
-    const { Points, Difficulty, Charaction, Types, context, pageNum, pages, add } = this.props;
+    const { Points, Difficulty, Charaction, Types, context, pageNum, pages, aktion } = this.props;
+
+    console.log(aktion)
 
     var style = {
       divStyle: {
@@ -115,7 +122,7 @@ class Details extends Component {
           <Page {...this.props} pageNum = {pageNum} pages = {pages} />
         </div>
         <div className="Side" style={{ right: 0,width: '270px'}}>
-          <Choosed add = {add}/>
+          <Choosed add = {aktion.length}/>
         </div>
       </div>
     )
@@ -123,7 +130,7 @@ class Details extends Component {
 };
 
 const mapStateToProps = state => {
-  const { selects, questions, add } = state
+  const { selects, questions, aktion } = state
   const {
     Points,
     Types,
@@ -154,7 +161,7 @@ const mapStateToProps = state => {
     context,
     pageNum,
     pages,
-    add
+    aktion
   }
 }
 

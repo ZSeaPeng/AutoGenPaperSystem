@@ -4,13 +4,13 @@ import { routerReducer } from 'react-router-redux'
 import grades from './grades'
 import questions from './questions'
 import selects from './selects'
-import add from './add'
+import aktion from './aktion'
 
 const rootReducer = combineReducers({
   grades,
   selects,
   questions,
-  add,
+  aktion,
   routing: routerReducer
 })
 

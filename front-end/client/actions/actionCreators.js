@@ -1,9 +1,10 @@
-export const RECEIVE_INITIAL_STATE = 'RECEIVE_INITIAL_STATE'
-export const RECEIVE_SELECT = 'RECEIVE_SELECT'
-export const RECEIVE_QUESTION = 'RECEIVE_QUESTION'
-export const ADD = 'ADD'
-export const DOWNLOAD = 'DOWNLOAD'
-export const COLLECTION = 'COLLECTION'
+export const RECEIVE_INITIAL_STATE = 'RECEIVE_INITIAL_STATE';
+export const RECEIVE_SELECT = 'RECEIVE_SELECT';
+export const RECEIVE_QUESTION = 'RECEIVE_QUESTION';
+export const ADD = 'ADD';
+export const REMOVE = 'REMOVE';
+export const DOWNLOAD = 'DOWNLOAD';
+export const COLLECTION = 'COLLECTION';
 
 // send to the reducer
 export const recevieInitialState = json => ({
@@ -24,6 +25,11 @@ export const recevieQuestion = json => ({
 
 export const add = id => ({
     type: ADD,
+    id
+})
+
+export const remove = id => ({
+    type: REMOVE,
     id
 })
 
