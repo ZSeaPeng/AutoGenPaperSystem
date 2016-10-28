@@ -1,6 +1,7 @@
 package cn.edu.zjnu.AutoGenPaperSystem.service;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
+import cn.edu.zjnu.AutoGenPaperSystem.model.QuestionsJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface QuestionsService {
     Map selectBySearchAll(SearchAll searchAll,int nowpage);
 
     List selectUploadTime();
+
+    Map selectQuestionByTime(int subjectId, String date,int nowpage);
 }
