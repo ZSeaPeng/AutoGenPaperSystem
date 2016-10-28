@@ -94,7 +94,7 @@ public class TiKuController {
         String reg = "t(\\d+)d(\\d+)c(\\d+)";
         Pattern pattern = Pattern.compile(reg);
         Matcher matcher = pattern.matcher(others);
-        System.out.println("count---->" + matcher.groupCount());
+       // System.out.println("count---->" + matcher.groupCount());
         if (matcher.find()) {
             session.setAttribute("d", matcher.group(2));
             session.setAttribute("c", matcher.group(3));
@@ -194,11 +194,11 @@ public class TiKuController {
 
         System.out.println("page--->" + page);
         setParam(subjectName, grade_id, point_id);
-        System.out.println("point--->" + this.point_id);
-        System.out.println("Integer.valueOf(this.point_id)--->" + Integer.valueOf(this.point_id));
+        //System.out.println("point--->" + this.point_id);
+        //System.out.println("Integer.valueOf(this.point_id)--->" + Integer.valueOf(this.point_id));
         searchAll.setSub_id(this.sub_id);
         searchAll.setKnow_id(Integer.valueOf(this.point_id));
-        System.out.println("searchAll--->" + searchAll);
+        //System.out.println("searchAll--->" + searchAll);
         //System.out.println();
         return questionsServiceImpl.selectBySearchAll(searchAll, page);
     }
