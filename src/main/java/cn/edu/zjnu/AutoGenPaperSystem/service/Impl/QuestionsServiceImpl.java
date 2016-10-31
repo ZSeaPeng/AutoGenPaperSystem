@@ -138,4 +138,26 @@ public class QuestionsServiceImpl implements QuestionsService {
         return updateInfoJsonList;
     }
 
+    @Override
+    public Map selectQuestionByTime(int subjectId, String date,int nowpage) {
+        PageHelper.startPage(nowpage,5);
+        List<Questions> questionsList=questionsMapper.selectQuestionByTime(subjectId,date);
+        List<QuestionsJson> questionsJsonList=new ArrayList<QuestionsJson>();
+        Map<String,Object> questionMap=new HashMap<String, Object>();
+        for (Questions list : questionsList){
+            QuestionsJson questionsJson=new QuestionsJson();
+            questionsJson.setId(list.getQuestionsId());
+            questionsJson.setContext(list.getContent());
+            questionsJson.setQurl(list.getQuesPic_URL());
+            questionsJson.setAnswer(list.getAnswer());
+            questionsJson.setAurl(list.getAnswerPic_URL());
+            questionsJsonList.add(questionsJson);
+        }
+        questionMap.put("context",questionsJsonList);
+        PageInfo pageInfo=new PageInfo(questionsList);
+        questionMap.put("pageNum",pageInfo.getPageNum());
+        questionMap.put("pages",pageInfo.getPages());
+        return questionMap;
+    }
+
 }

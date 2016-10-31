@@ -74,6 +74,13 @@
         SELECT * FROM questions ORDER BY UploadTime DESC
     </select>
 
+    <select id="selectQuestionByTime" resultMap="QuestionMAp">
+        SELECT
+        Questions_ID,Content,QuesPic_URL,Answer,AnswerPic_URL
+        FROM questions
+        WHERE Subject_ID=#{param1} AND date(UploadTime)=#{param2}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from questions
     where Questions_ID = #{questionsId,jdbcType=INTEGER}

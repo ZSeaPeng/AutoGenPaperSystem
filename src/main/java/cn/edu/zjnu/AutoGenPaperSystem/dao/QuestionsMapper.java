@@ -23,4 +23,6 @@ public interface QuestionsMapper {
     List<Questions> selectBySearchAll(SearchAll searchAll);
 
     List<Questions> selectUploadTime();
+
+    List<Questions> selectQuestionByTime(int subjectId, String date);
 }
