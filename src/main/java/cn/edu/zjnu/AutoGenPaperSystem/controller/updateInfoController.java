@@ -18,13 +18,14 @@ import java.util.regex.Pattern;
 public class updateInfoController {
     @Resource
     private QuestionsService questionsServiceImpl;
+
     @RequestMapping(value = "/{date}/{subjectName}", method = RequestMethod.GET)
     public Map getUpdateQuestion(@PathVariable String date,
                                  @PathVariable String subjectName,
                                  @RequestParam int page) {
         date = getDateForm(date);
         int subId = getSubId(subjectName);
-        Map map = questionsServiceImpl.selectQuestionByTime(subId,date,page);
+        Map map = questionsServiceImpl.selectQuestionByTime(subId, date, page);
         //System.out.println(map);
         return map;
 
@@ -35,7 +36,8 @@ public class updateInfoController {
         String newDate = date.substring(0, 4) + "-" + date.substring(4, 6) + "-" + date.substring(6, 8);
         return newDate;
     }
-    private int getSubId(String subjectName){
+
+    private int getSubId(String subjectName) {
         String regEx = "[^0-9]";
         Pattern p = Pattern.compile(regEx);
         Matcher matcher = p.matcher(subjectName);
