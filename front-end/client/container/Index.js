@@ -6,6 +6,9 @@ var Slider = require('react-slick');
 import News from '../components/News';
 import SignUp from '../components/SignUp';
 
+//add actions
+import { login } from '../actions/actionCreators'
+
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +16,8 @@ class Index extends Component {
   }
 
   handleSubmit(username, password) {
-    console.log(username, password);
+    const { dispatch } = this.props;
+    dispatch(login(username, password))
   }
 
   render() {
@@ -31,8 +35,8 @@ class Index extends Component {
       top: 100,
       left: 90
     }
-    const { grades } = this.props;
-    const isEmpty = grades.length === 0;
+    const { update } = this.props;
+    const isEmpty = update.length === 0;
     return (
       <div>
         <SignUp onChange={this.handleSubmit}/>
@@ -47,7 +51,7 @@ class Index extends Component {
               <div><img src='http://placekitten.com/g/400/200' /></div>
             </Slider>
             </div>
-            <News news={grades[0][0].update}/>
+            <News news={ update }/>
           </div>
         }
       </div>
@@ -55,8 +59,12 @@ class Index extends Component {
   }
 };
 
-const mapStateToProps = state => ({
-  grades: state.grades
-});
+const mapStateToProps = state => {
+  const { grades } = state;
+  const { update } = grades;
+  return {
+    update
+  }
+}
 
 export default connect(mapStateToProps)(Index);
