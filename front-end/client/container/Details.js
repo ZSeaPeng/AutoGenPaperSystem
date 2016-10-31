@@ -78,8 +78,6 @@ class Details extends Component {
   render() {
     const { Points, Difficulty, Charaction, Types, context, pageNum, pages, aktion } = this.props;
 
-    console.log(aktion)
-
     var style = {
       divStyle: {
         float: 'left', marginLeft: '20%', width: '820px'
@@ -117,7 +115,7 @@ class Details extends Component {
             </ToolbarGroup>
           </Toolbar>
           <div>
-            { context.map((contextList, i) => <Question onChange={this.handleChange} contextList={contextList} key={i} />)}
+            { context.map((contextList, i) => <Question pageNum={pageNum} onChange={this.handleChange} contextList={contextList} key={i} i={i}/>)}
           </div>
           <Page {...this.props} pageNum = {pageNum} pages = {pages} />
         </div>
@@ -127,31 +125,22 @@ class Details extends Component {
       </div>
     )
   }
-};
+}
 
 const mapStateToProps = state => {
-  const { selects, questions, aktion } = state
+  const { selects, questions, aktion } = state;
   const {
     Points,
     Types,
     Difficulty,
     Charaction
-  } = selects[0] || {
-    Points: [],
-    Types: [],
-    Difficulty: [],
-    Charaction: []
-  }
+  } = selects;
 
   const {
     context,
     pageNum,
     pages
-  } = questions[0] || {
-    context: [],
-    pageNum: 1,
-    pages: 1
-  }
+  } = questions;
 
   return {
     Points,
@@ -163,7 +152,7 @@ const mapStateToProps = state => {
     pages,
     aktion
   }
-}
+};
 
 
 export default connect(mapStateToProps)(Details);

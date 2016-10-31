@@ -8,65 +8,81 @@ export const COLLECTION = 'COLLECTION';
 
 // send to the reducer
 export const recevieInitialState = json => ({
-    type: RECEIVE_INITIAL_STATE,
-    posts: json
+  type: RECEIVE_INITIAL_STATE,
+  posts: json
 });
 
 
 export const recevieSelect = json => ({
-    type: RECEIVE_SELECT,
-    posts: json
+  type: RECEIVE_SELECT,
+  posts: json
 });
 
 export const recevieQuestion = json => ({
-    type: RECEIVE_QUESTION,
-    posts: json
+  type: RECEIVE_QUESTION,
+  posts: json
 });
 
 export const add = id => ({
-    type: ADD,
-    id
+  type: ADD,
+  id
 })
 
 export const remove = id => ({
-    type: REMOVE,
-    id
+  type: REMOVE,
+  id
 })
 
 export const download = id => ({
-    type: DOWNLOAD,
-    id
+  type: DOWNLOAD,
+  id
 })
 
 export const collection = id => ({
-    type: COLLECTION,
-    id
+  type: COLLECTION,
+  id
 })
 
 //asyn
 //fetch state for the index page
 export const getInitialState = () => dispatch => {
-    return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/subjectlist')
-        .then( response => response.json())
-        .then( json =>
-            dispatch(recevieInitialState(json))
-        )
+  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/subjectlist')
+    .then(response => response.json())
+    .then(json =>
+      dispatch(recevieInitialState(json))
+    )
 };
 
 //fetch state for all the sellections
 export const getSelect = url => dispatch => {
-    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}`)
-        .then( response => response.json())
-        .then( json =>
-            dispatch(recevieSelect(json))
-        )
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}`)
+    .then(response => response.json())
+    .then(json =>
+      dispatch(recevieSelect(json))
+    )
 };
 
 //fetch questions you need
-export const getQuestion = (url, query="?page=1") => dispatch => {
-    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`)
-        .then( response => response.json())
-        .then( json =>
-            dispatch(recevieQuestion(json))
-        )
+export const getQuestion = (url, query = "?page=1") => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`)
+    .then(response => response.json())
+    .then(json =>
+      dispatch(recevieQuestion(json))
+    )
 };
+
+export const login = (username, password) => dispatch => {
+  // return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/login`, {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //     username: username,
+  //     password: password
+  //   })
+  // })
+  //   .then(response => response.json())
+  //   .then(json =>
+  //     console.log(json))
+  //   .catch(e =>
+  //     console.log(e))
+  console.log(username, password);
+}

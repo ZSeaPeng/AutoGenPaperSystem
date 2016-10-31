@@ -36,8 +36,8 @@ class Navbar extends Component{
   render() {
     const path = "/";
     const show = window.location.pathname !== path;
-    const { grades } = this.props;
-    const isEmpty = grades.length === 0;
+    const { sublist } = this.props;
+    const isEmpty = sublist.length === 0;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div>
@@ -52,7 +52,7 @@ class Navbar extends Component{
                 style = {{lineHeight: '56px', color: '#FFFFFF'}}
                 primaryText = '科目'
                 menuItems =
-                { grades[0][0].sublist.map((grade, i) =>
+                { sublist.map((grade, i) =>
                     <Grade grade={grade} key={i} i={i}/>)
                 }
                 />
@@ -83,8 +83,12 @@ Navbar.propTypes = {
   grades: PropTypes.array.isRequired
 };
 
-const mapStateToProps = state => ({
-  grades: state.grades
-});
+const mapStateToProps = state => {
+  const { grades } = state;
+  const { sublist } = grades;
+  return {
+    sublist
+  }
+}
 
 export default connect(mapStateToProps)(Navbar);

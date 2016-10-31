@@ -46,9 +46,17 @@ class Question extends Component {
   };
 
   render() {
-    const { contextList } = this.props;
+    const { contextList, pageNum, i } = this.props;
+    var style = {};
+
+    if( parseInt(i) >= 5 * pageNum - 5 && parseInt(i) < 5 * pageNum ) {
+      style = { margin: 10 }
+    } else {
+      style = { display: 'none' }
+    }
+
     return (
-      <Card style={{margin: '10px'}} expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+      <Card style={style} expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
         <CardMedia>
           <img src={`http://${contextList.qurl}`} />
         </CardMedia>
