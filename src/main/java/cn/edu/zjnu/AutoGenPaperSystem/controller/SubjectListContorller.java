@@ -25,7 +25,7 @@ public class SubjectListContorller {
     private QuestionsService questionsServiceImpl;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List getSubjectList() {
+    public Map getSubjectList() {
         List subList = subjectServiceImpl.selectAllSubject();
         Map<String, List> map = new HashMap<String, List>();
         List<List> updatesubList = new ArrayList<List>();
@@ -59,10 +59,7 @@ public class SubjectListContorller {
         updatesubList.add(three);
         map.put("sublist", subList);
         map.put("update", updatesubList);
-        List allList = new ArrayList();
-        //allList.add(subList);
-        allList.add(map);
-        return allList;
+        return map;
     }
 
 
