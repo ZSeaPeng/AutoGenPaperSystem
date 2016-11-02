@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
+    <constructor >
+      <idArg column="User_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="UserName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UserPassword" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Downloadable" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Permission_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SubjectCan" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UserChosen" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UserCollection" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    User_ID, UserName, UserPassword, Downloadable, Permission_ID, SubjectCan, UserChosen, 
+    UserCollection
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from User
+    where User_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from User
+    where User_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
+    insert into User (User_ID, UserName, UserPassword, 
+      Downloadable, Permission_ID, SubjectCan, 
+      UserChosen, UserCollection)
+    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, 
+      #{downloadable,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER}, #{subjectcan,jdbcType=VARCHAR}, 
+      #{userchosen,jdbcType=VARCHAR}, #{usercollection,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
+    insert into User
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        User_ID,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="userpassword != null" >
+        UserPassword,
+      </if>
+      <if test="downloadable != null" >
+        Downloadable,
+      </if>
+      <if test="permissionId != null" >
+        Permission_ID,
+      </if>
+      <if test="subjectcan != null" >
+        SubjectCan,
+      </if>
+      <if test="userchosen != null" >
+        UserChosen,
+      </if>
+      <if test="usercollection != null" >
+        UserCollection,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadable != null" >
+        #{downloadable,jdbcType=INTEGER},
+      </if>
+      <if test="permissionId != null" >
+        #{permissionId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectcan != null" >
+        #{subjectcan,jdbcType=VARCHAR},
+      </if>
+      <if test="userchosen != null" >
+        #{userchosen,jdbcType=VARCHAR},
+      </if>
+      <if test="usercollection != null" >
+        #{usercollection,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
+    update User
+    <set >
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userpassword != null" >
+        UserPassword = #{userpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadable != null" >
+        Downloadable = #{downloadable,jdbcType=INTEGER},
+      </if>
+      <if test="permissionId != null" >
+        Permission_ID = #{permissionId,jdbcType=INTEGER},
+      </if>
+      <if test="subjectcan != null" >
+        SubjectCan = #{subjectcan,jdbcType=VARCHAR},
+      </if>
+      <if test="userchosen != null" >
+        UserChosen = #{userchosen,jdbcType=VARCHAR},
+      </if>
+      <if test="usercollection != null" >
+        UserCollection = #{usercollection,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where User_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
+    update User
+    set UserName = #{username,jdbcType=VARCHAR},
+      UserPassword = #{userpassword,jdbcType=VARCHAR},
+      Downloadable = #{downloadable,jdbcType=INTEGER},
+      Permission_ID = #{permissionId,jdbcType=INTEGER},
+      SubjectCan = #{subjectcan,jdbcType=VARCHAR},
+      UserChosen = #{userchosen,jdbcType=VARCHAR},
+      UserCollection = #{usercollection,jdbcType=VARCHAR}
+    where User_ID = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -57,8 +57,8 @@ public class QuestionsServiceImpl implements QuestionsService {
         for(Questions list:questionses) {
             QuestionsJson questionsJson=new QuestionsJson();
             questionsJson.setId(list.getQuestionsId());
-            questionsJson.setContext(list.getContent());
-            questionsJson.setAnswer(list.getAnswer());
+           // questionsJson.setContext(list.getContent());
+           // questionsJson.setAnswer(list.getAnswer());
             questionsJson.setQurl(list.getQuesPic_URL());
             questionsJson.setAurl(list.getAnswerPic_URL());
             questionsJsons.add(questionsJson);
@@ -147,9 +147,9 @@ public class QuestionsServiceImpl implements QuestionsService {
         for (Questions list : questionsList){
             QuestionsJson questionsJson=new QuestionsJson();
             questionsJson.setId(list.getQuestionsId());
-            questionsJson.setContext(list.getContent());
+            //questionsJson.setContext(list.getContent());
             questionsJson.setQurl(list.getQuesPic_URL());
-            questionsJson.setAnswer(list.getAnswer());
+           // questionsJson.setAnswer(list.getAnswer());
             questionsJson.setAurl(list.getAnswerPic_URL());
             questionsJsonList.add(questionsJson);
         }
