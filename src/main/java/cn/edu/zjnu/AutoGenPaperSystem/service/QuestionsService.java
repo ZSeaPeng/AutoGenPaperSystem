@@ -24,11 +24,11 @@ public interface QuestionsService {
 
     int updateByPrimaryKey(Questions record);
 
-    Map selectBySearchAll(SearchAll searchAll,int nowpage);
+    Map selectBySearchAll(SearchAll searchAll,int nowpage,Integer userId);
 
     List selectUploadTime();
 
     Map selectQuestionByTime(int subjectId, String date,int nowpage);
 
-    List selectQuestionByIdList(Integer userId);
+//    List selectQuestionByIdList(Integer userId);
 }
