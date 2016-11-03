@@ -1,8 +1,8 @@
 package cn.edu.zjnu.AutoGenPaperSystem.service;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
-import cn.edu.zjnu.AutoGenPaperSystem.model.QuestionsJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -10,6 +10,7 @@ import java.util.Map;
 /**
  * Created by zseapeng on 2016/9/22.
  */
+@Repository
 public interface QuestionsService {
     int deleteByPrimaryKey(Integer questionsId);
 

@@ -1,9 +1,10 @@
 package cn.edu.zjnu.AutoGenPaperSystem.dao;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.Charaction;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface CharactionMapper {
     int deleteByPrimaryKey(Integer charactId);
 
