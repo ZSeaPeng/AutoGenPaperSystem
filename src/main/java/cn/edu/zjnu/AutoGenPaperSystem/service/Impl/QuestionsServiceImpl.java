@@ -64,30 +64,23 @@ public class QuestionsServiceImpl implements QuestionsService {
             questionsJson.setAurl(list.getAnswerPic_URL());
             questionsJsons.add(questionsJson);
         }
-        List chosenList=new ArrayList();
-        List collectList=new ArrayList();
+        List questionsList=new ArrayList();
         User user=userMapper.selectByPrimaryKey(userId);
-        String chose=user.getUserchosen();
-        String collection=user.getUsercollection();
-        String []strings=chose.split(",");
-        String []collstrings=collection.split(",");
+        String s=user.getUserchosen();
+        String []strings=s.split(",");
         for (String list:strings){
             Map<String,Object> questionsMap=new HashMap<String, Object>();
             Questions questions=new Questions();
             questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
             questionsMap.put("id",questions.getQuestionsId());
             questionsMap.put("type",questions.getTypes().getTypeName());
-            chosenList.add(questionsMap);
-        }
-        for (String list:collstrings){
-            collectList.add(list);
+            questionsList.add(questionsMap);
         }
         questionsesMap.put("context",questionsJsons);
         PageInfo pageInfo=new PageInfo(questionses);
         questionsesMap.put("pageNum",pageInfo.getPageNum());
         questionsesMap.put("pages",pageInfo.getPages());
-        questionsesMap.put("userChosen",chosenList);
-        questionsesMap.put("userCollection",collectList);
+        questionsesMap.put("userChosen",questionsList);
         return questionsesMap;
     }
 
