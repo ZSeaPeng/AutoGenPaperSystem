@@ -28,4 +28,6 @@ public interface QuestionsService {
     List selectUploadTime();
 
     Map selectQuestionByTime(int subjectId, String date,int nowpage);
+
+    List selectQuestionByIdList(Integer userId);
 }

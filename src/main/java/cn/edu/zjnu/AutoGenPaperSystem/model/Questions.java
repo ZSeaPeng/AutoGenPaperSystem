@@ -36,6 +36,8 @@ public class Questions {
 
     private Timestamp uploadTime;
 
+    private Types types;
+
     public Questions(Integer questionsId, String content, String quesPic_URL, String answer, String answerPic_URL) {
         this.questionsId = questionsId;
         this.content = content;
@@ -44,7 +46,7 @@ public class Questions {
         this.answerPic_URL = answerPic_URL;
     }
 
-    public Questions(Integer questionsId, String content, String quesPic_URL, Integer subjectId, Integer knowledgeId1, Integer knowledgeId2, Integer knowledgeId3, Integer knowledgeId4, Integer typeId, Integer difficultyId, Integer charactId, Boolean isdelete, String answer, String answerPic_URL, Timestamp updateTime, Timestamp uploadTime) {
+    public Questions(Integer questionsId, String content, String quesPic_URL, Integer subjectId, Integer knowledgeId1, Integer knowledgeId2, Integer knowledgeId3, Integer knowledgeId4, Integer typeId, Integer difficultyId, Integer charactId, Boolean isdelete, String answer, String answerPic_URL, Timestamp updateTime, Timestamp uploadTime, Types types) {
         this.questionsId = questionsId;
         this.content = content;
         this.quesPic_URL = quesPic_URL;
@@ -61,6 +63,7 @@ public class Questions {
         this.answerPic_URL = answerPic_URL;
         this.updateTime = updateTime;
         this.uploadTime = uploadTime;
+        this.types = types;
     }
 
     @Override
@@ -82,7 +85,16 @@ public class Questions {
                 ", answerPic_URL='" + answerPic_URL + '\'' +
                 ", updateTime=" + updateTime +
                 ", uploadTime=" + uploadTime +
+                ", types=" + types +
                 '}';
+    }
+
+    public Types getTypes() {
+        return types;
+    }
+
+    public void setTypes(Types types) {
+        this.types = types;
     }
 
     public Timestamp getUpdateTime() {

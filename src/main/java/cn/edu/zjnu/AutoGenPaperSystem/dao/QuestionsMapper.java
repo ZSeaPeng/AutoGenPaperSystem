@@ -25,4 +25,6 @@ public interface QuestionsMapper {
     List<Questions> selectUploadTime();
 
     List<Questions> selectQuestionByTime(int subjectId, String date);
+
+    Questions selectQuestionByIdList(Integer questionsId);
 }

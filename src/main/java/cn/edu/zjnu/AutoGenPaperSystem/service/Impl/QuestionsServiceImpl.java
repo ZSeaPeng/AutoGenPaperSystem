@@ -2,6 +2,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.service.Impl;
 
 import cn.edu.zjnu.AutoGenPaperSystem.dao.QuestionsMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.SubjectMapper;
+import cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import com.github.pagehelper.PageHelper;
@@ -24,6 +25,8 @@ public class QuestionsServiceImpl implements QuestionsService {
     private QuestionsMapper questionsMapper;
     @Resource
     private SubjectMapper subjectMapper;
+    @Resource
+    private UserMapper userMapper;
 
     public int deleteByPrimaryKey(Integer questionsId) {
         return 0;
@@ -158,6 +161,23 @@ public class QuestionsServiceImpl implements QuestionsService {
         questionMap.put("pageNum",pageInfo.getPageNum());
         questionMap.put("pages",pageInfo.getPages());
         return questionMap;
+    }
+
+    @Override
+    public List selectQuestionByIdList(Integer userId) {
+        List questionsList=new ArrayList();
+        User user=userMapper.selectByPrimaryKey(userId);
+        String s=user.getUserchosen();
+        String []strings=s.split(",");
+        for (String list:strings){
+            Map<String,Object> questionsMap=new HashMap<String, Object>();
+            Questions questions=new Questions();
+            questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
+            questionsMap.put("id:",questions.getQuestionsId());
+            questionsMap.put("type:",questions.getTypes().getTypeName());
+            questionsList.add(questionsMap);
+        }
+        return questionsList;
     }
 
 }
