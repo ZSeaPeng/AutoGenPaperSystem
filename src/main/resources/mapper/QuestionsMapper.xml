@@ -4,7 +4,7 @@
     <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
         <constructor>
             <idArg column="Questions_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="Content" jdbcType="LONGTEXT" javaType="java.lang.String"/>
+            <arg column="Content" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="QuesPic_URL" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="Subject_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
             <arg column="Knowledge_ID1" jdbcType="INTEGER" javaType="java.lang.Integer"/>
@@ -24,7 +24,7 @@
     <resultMap id="QuestionMAp" type="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
         <constructor>
             <idArg column="Questions_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-            <arg column="Content" jdbcType="LONGTEXT" javaType="java.lang.String"/>
+            <arg column="Content" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="QuesPic_URL" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="Answer" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="AnswerPic_URL" jdbcType="VARCHAR" javaType="java.lang.String"/>
