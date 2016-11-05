@@ -128,4 +128,9 @@
       UserCollection = #{usercollection,jdbcType=VARCHAR}
     where User_ID = #{userId,jdbcType=INTEGER}
   </update>
+  <update id="updateByUserId" >
+    UPDATE User
+    SET UserChosen=#{param1}
+    WHERE User_ID = #{param2}
+  </update>
 </mapper>

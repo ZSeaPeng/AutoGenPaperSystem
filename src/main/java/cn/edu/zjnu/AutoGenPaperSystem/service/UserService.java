@@ -17,4 +17,6 @@ public interface UserService  {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    int updateByUserId(String chosen,int userId);
 }
