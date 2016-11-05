@@ -1,10 +1,11 @@
-package cn.edu.zjnu.AutoGenPaperSystem.dao;
+package cn.edu.zjnu.AutoGenPaperSystem.service;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserMapper {
+/**
+ * Created by zseapeng on 2016/11/4.
+ */
+public interface UserService  {
     int deleteByPrimaryKey(Integer userId);
 
     int insert(User record);
@@ -16,7 +17,4 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-
-
-
 }
