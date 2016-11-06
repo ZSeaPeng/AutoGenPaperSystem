@@ -177,20 +177,13 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     @Override
-    public List selectQuestionByUserId(Integer userId) {
-        List questionsList=new ArrayList();
-        User user=userMapper.selectByPrimaryKey(userId);
-        String s=user.getUserchosen();
-        String []strings=s.split(",");
-        for (String list:strings){
-            Map<String,Object> questionsMap=new HashMap<String, Object>();
-            Questions questions=new Questions();
-            questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
-            questionsMap.put("id:",questions.getQuestionsId());
-            questionsMap.put("type:",questions.getTypes().getTypeName());
-            questionsList.add(questionsMap);
-        }
-        return questionsList;
+    public Map selectQuestionByIdList(Integer questionsId) {
+        Map<String,Object> questionsMap=new HashMap<String, Object>();
+        Questions questions=new Questions();
+        questions= questionsMapper.selectQuestionByIdList(questionsId);
+        questionsMap.put("id:",questions.getQuestionsId());
+        questionsMap.put("type:",questions.getTypes().getTypeName());
+        return questionsMap;
     }
 
 
