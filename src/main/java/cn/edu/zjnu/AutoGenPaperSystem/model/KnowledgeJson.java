@@ -10,9 +10,10 @@ public class KnowledgeJson {
     private String name;
     private List pointList;
     private String url;
-
+    private boolean select;
 
     public KnowledgeJson() {
+        this.select = false;
     }
 
     public KnowledgeJson(int level,String name, List contextList, String url) {
@@ -52,6 +53,14 @@ public class KnowledgeJson {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public boolean isSelect() {
+        return select;
+    }
+
+    public void setSelect(boolean select) {
+        this.select = select;
     }
 
     @Override

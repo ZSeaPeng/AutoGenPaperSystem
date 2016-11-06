@@ -1,9 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
-import cn.edu.zjnu.AutoGenPaperSystem.model.CharactionJson;
-import cn.edu.zjnu.AutoGenPaperSystem.model.DifficultyJson;
-import cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll;
-import cn.edu.zjnu.AutoGenPaperSystem.model.TypesJson;
+import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -94,7 +91,7 @@ public class TiKuController {
         String reg = "t(\\d+)d(\\d+)c(\\d+)";
         Pattern pattern = Pattern.compile(reg);
         Matcher matcher = pattern.matcher(others);
-       // System.out.println("count---->" + matcher.groupCount());
+
         if (matcher.find()) {
             session.setAttribute("d", matcher.group(2));
             session.setAttribute("c", matcher.group(3));
@@ -117,20 +114,42 @@ public class TiKuController {
         setParam(subjectName, grade_id, point_id);
         List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
                 this.grade_id, this.others, this.sub_name, this.point_id, t, d, c);
+
+        //---------------------------------------------
+        //Iterator<KnowledgeJson> iteratorKnow = knowLedgeList.iterator();
+        //String regKnow = "/point(\\d+)/";
+        //Pattern patternKnow = Pattern.compile(regKnow);
+        //while (iteratorKnow.hasNext()) {
+        //    KnowledgeJson knowledgeJson = iteratorKnow.next();
+        //    Matcher matcherKnow = patternKnow.matcher(knowledgeJson.getUrl());
+        //
+        //   //matcherKnow.find();
+        //    if (matcherKnow.find()) {
+        //        System.out.println("point_id--->"+point_id);
+        //        System.out.println("matcherKnow.group(1)-----"+matcherKnow.group(1));
+        //        if (matcherKnow.group(1).equals(point_id)) {
+        //            knowledgeJson.setSelect(true);
+        //            break;
+        //        }
+        //    }
+        //
+        //}
+
+
+
+
+
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
 //---------------------------------------------
         Iterator<TypesJson> iteratorTy = typesList.iterator();
         String regTy = "t(\\d+)";
         Pattern patternTy = Pattern.compile(regTy);
-        //System.out.println("iteratorTy.hasNext()--->"+iteratorTy.hasNext());
         while (iteratorTy.hasNext()) {
             TypesJson typesJson = iteratorTy.next();
             Matcher matcherTy = patternTy.matcher(typesJson.getUrl());
-            //System.out.println("typesJson.getUrl()--->"+typesJson.getUrl());
             matcherTy.find();
             if (matcherTy.find()) {
                 if (matcherTy.group(1).equals(t)) {
-                    //System.out.println("---->"+matcherTy.group(1).equals(t));
                     typesJson.setSelect(true);
                     break;
                 }
@@ -192,15 +211,10 @@ public class TiKuController {
                                @PathVariable String point_id,
                                @RequestParam int page) {
 
-        System.out.println("page--->" + page);
         setParam(subjectName, grade_id, point_id);
-        //System.out.println("point--->" + this.point_id);
-        //System.out.println("Integer.valueOf(this.point_id)--->" + Integer.valueOf(this.point_id));
         searchAll.setSub_id(this.sub_id);
         searchAll.setKnow_id(Integer.valueOf(this.point_id));
-        //System.out.println("searchAll--->" + searchAll);
-        //System.out.println();
-        return questionsServiceImpl.selectBySearchAll(searchAll, page);
+        return questionsServiceImpl.selectBySearchAll(searchAll, page, 1);
     }
 
     @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}/{others}/question", method = RequestMethod.GET)
@@ -218,15 +232,12 @@ public class TiKuController {
         String reg = "t(\\d+)d(\\d+)c(\\d+)";
         Pattern pattern = Pattern.compile(reg);
         Matcher matcher = pattern.matcher(others);
-        System.out.println("count---->" + matcher.groupCount());
         if (matcher.find()) {
-            System.out.println("t-->" + matcher.group(1));
             searchAll.setTypes_id(Integer.parseInt(matcher.group(1)));
             searchAll.setDiff_id(Integer.parseInt(matcher.group(2)));
             searchAll.setChar_id(Integer.parseInt(matcher.group(3)));
         }
-        System.out.println("searchAll--->" + searchAll);
-        return questionsServiceImpl.selectBySearchAll(searchAll, page);
+        return questionsServiceImpl.selectBySearchAll(searchAll, page, 1);
     }
 
     private void init() {

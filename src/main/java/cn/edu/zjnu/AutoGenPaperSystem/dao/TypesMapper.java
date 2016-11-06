@@ -1,9 +1,10 @@
 package cn.edu.zjnu.AutoGenPaperSystem.dao;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.Types;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface TypesMapper {
     int deleteByPrimaryKey(Integer typeId);
 

@@ -7,9 +7,6 @@ public class Types {
 
     private Integer subjectId;
 
-    //private boolean select  = false;
-
-
     public Types(Integer typeId, String typeName, Integer subjectId) {
         this.typeId = typeId;
         this.typeName = typeName;
@@ -42,15 +39,5 @@ public class Types {
 
     public void setSubjectId(Integer subjectId) {
         this.subjectId = subjectId;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Types{" +
-                "typeId=" + typeId +
-                ", typeName='" + typeName + '\'' +
-                ", subjectId=" + subjectId +
-                '}';
     }
 }

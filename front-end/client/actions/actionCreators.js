@@ -63,7 +63,7 @@ export const toggle = details => ({
 //asyn
 //fetch state for the index page
 export const getInitialState = () => dispatch => {
-    return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/subjectlist')
+    return fetch('http://localhost:8110/AutoGenPaperSystem/api/subjectlist')
         .then( response => response.json())
         .then( json =>
             dispatch(recevieInitialState(json))
@@ -72,7 +72,7 @@ export const getInitialState = () => dispatch => {
 
 //fetch state for all the sellections
 export const getSelect = url => dispatch => {
-    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}`)
+    return fetch(`http://localhost:8110/AutoGenPaperSystem/api${url}`)
         .then( response => response.json())
         .then( json =>
             dispatch(recevieSelect(json))
@@ -81,7 +81,7 @@ export const getSelect = url => dispatch => {
 
 //fetch questions you need
 export const getQuestion = (url, query="?page=1") => dispatch => {
-    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`)
+    return fetch(`http://localhost:8110/AutoGenPaperSystem/api${url}/question${query}`)
         .then( response => response.json())
         .then( json =>
             dispatch(recevieQuestion(json))

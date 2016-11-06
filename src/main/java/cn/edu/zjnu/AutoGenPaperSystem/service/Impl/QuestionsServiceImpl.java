@@ -2,6 +2,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.service.Impl;
 
 import cn.edu.zjnu.AutoGenPaperSystem.dao.QuestionsMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.SubjectMapper;
+import cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import com.github.pagehelper.PageHelper;
@@ -24,6 +25,8 @@ public class QuestionsServiceImpl implements QuestionsService {
     private QuestionsMapper questionsMapper;
     @Resource
     private SubjectMapper subjectMapper;
+    @Resource
+    private UserMapper userMapper;
 
     public int deleteByPrimaryKey(Integer questionsId) {
         return 0;
@@ -49,7 +52,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         return 0;
     }
 
-    public Map selectBySearchAll(SearchAll searchAll,int nowpage) {
+    public Map selectBySearchAll(SearchAll searchAll,int nowpage,Integer userId) {
         PageHelper.startPage(nowpage,5);
         List<Questions> questionses=questionsMapper.selectBySearchAll(searchAll);
         List<QuestionsJson> questionsJsons = new ArrayList<QuestionsJson>();
@@ -57,16 +60,34 @@ public class QuestionsServiceImpl implements QuestionsService {
         for(Questions list:questionses) {
             QuestionsJson questionsJson=new QuestionsJson();
             questionsJson.setId(list.getQuestionsId());
-            questionsJson.setContext(list.getContent());
-            questionsJson.setAnswer(list.getAnswer());
             questionsJson.setQurl(list.getQuesPic_URL());
             questionsJson.setAurl(list.getAnswerPic_URL());
             questionsJsons.add(questionsJson);
+        }
+        List chosenList=new ArrayList();
+        List collectList=new ArrayList();
+        User user=userMapper.selectByPrimaryKey(userId);
+        String chose=user.getUserchosen();
+        String collection=user.getUsercollection();
+        String []strings=chose.split(",");
+        String []collstrings=collection.split(",");
+        for (String list:strings){
+            Map<String,Object> questionsMap=new HashMap<String, Object>();
+            Questions questions=new Questions();
+            questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
+            questionsMap.put("id",questions.getQuestionsId());
+            questionsMap.put("type",questions.getTypes().getTypeName());
+            chosenList.add(questionsMap);
+        }
+        for (String list:collstrings){
+            collectList.add(list);
         }
         questionsesMap.put("context",questionsJsons);
         PageInfo pageInfo=new PageInfo(questionses);
         questionsesMap.put("pageNum",pageInfo.getPageNum());
         questionsesMap.put("pages",pageInfo.getPages());
+        questionsesMap.put("userChosen",chosenList);
+        questionsesMap.put("userCollection",collectList);
         return questionsesMap;
     }
 
@@ -78,8 +99,6 @@ public class QuestionsServiceImpl implements QuestionsService {
         int i=0,p=0;
         int year=0,month=0,date=0;
         int []s=new int[500];
-//        System.out.println(questionses);
-//        Date date=new Date();
         for (Questions list:questionses){
             UpdateInfoJson updateInfoJson=new UpdateInfoJson();
             if (year!=list.getUploadTime().getYear()||month!=list.getUploadTime().getMonth()||date!=list.getUploadTime().getDate()){
@@ -88,7 +107,6 @@ public class QuestionsServiceImpl implements QuestionsService {
                 date=list.getUploadTime().getDate();
                 i++;
                 if(i<=3){
-//                    System.out.println(list.getUploadTime().getDate());
                     int j=0;
                     s[j]=list.getSubjectId();
                     j++;
@@ -147,9 +165,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         for (Questions list : questionsList){
             QuestionsJson questionsJson=new QuestionsJson();
             questionsJson.setId(list.getQuestionsId());
-            questionsJson.setContext(list.getContent());
             questionsJson.setQurl(list.getQuesPic_URL());
-            questionsJson.setAnswer(list.getAnswer());
             questionsJson.setAurl(list.getAnswerPic_URL());
             questionsJsonList.add(questionsJson);
         }
@@ -159,5 +175,16 @@ public class QuestionsServiceImpl implements QuestionsService {
         questionMap.put("pages",pageInfo.getPages());
         return questionMap;
     }
+
+    @Override
+    public Map selectQuestionByIdList(Integer questionsId) {
+        Map<String,Object> questionsMap=new HashMap<String, Object>();
+        Questions questions=new Questions();
+        questions= questionsMapper.selectQuestionByIdList(questionsId);
+        questionsMap.put("id:",questions.getQuestionsId());
+        questionsMap.put("type:",questions.getTypes().getTypeName());
+        return questionsMap;
+    }
+
 
 }

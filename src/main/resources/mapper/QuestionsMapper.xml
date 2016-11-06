@@ -30,6 +30,14 @@
             <arg column="AnswerPic_URL" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
+
+    <resultMap id="QuestionType" type="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
+        <id property="questionsId" column="Questions_ID"/>
+        <association property="types" javaType="cn.edu.zjnu.AutoGenPaperSystem.model.Types">
+            <result property="typeName" column="Type_name"/>
+        </association>
+    </resultMap>
+
     <sql id="Base_Column_List">
     Questions_ID, Content,QuesPic_URL, Subject_ID, Knowledge_ID1, Knowledge_ID2, Knowledge_ID3, Knowledge_ID4,
     Type_ID, Difficulty_ID, Charact_ID, Isdelete, Answer,AnswerPic_URL,UpdateTime,UploadTime
@@ -81,6 +89,12 @@
         WHERE Subject_ID=#{param1} AND date(UploadTime)=#{param2}
     </select>
 
+    <select id="selectQuestionByIdList" resultMap="QuestionType" parameterType="java.lang.Integer">
+        SELECT
+        questions.Questions_ID,types.Type_name
+        FROM questions,types
+        WHERE questions.Type_ID=types.Type_ID AND questions.Questions_ID=#{questionsId,jdbcType=INTEGER}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from questions
     where Questions_ID = #{questionsId,jdbcType=INTEGER}

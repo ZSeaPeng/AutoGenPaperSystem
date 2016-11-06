@@ -13,20 +13,19 @@ import java.util.regex.Pattern;
  * Created by zseapeng on 2016/10/28.
  */
 @Controller
-@RequestMapping(value = "api/updateinfo")
+@RequestMapping(value = "/api/updateinfo")
 @ResponseBody
 public class updateInfoController {
     @Resource
     private QuestionsService questionsServiceImpl;
 
-    @RequestMapping(value = "/{date}/{subjectName}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{date}/{subjectName}/question", method = RequestMethod.GET)
     public Map getUpdateQuestion(@PathVariable String date,
                                  @PathVariable String subjectName,
                                  @RequestParam int page) {
         date = getDateForm(date);
         int subId = getSubId(subjectName);
         Map map = questionsServiceImpl.selectQuestionByTime(subId, date, page);
-        //System.out.println(map);
         return map;
 
     }

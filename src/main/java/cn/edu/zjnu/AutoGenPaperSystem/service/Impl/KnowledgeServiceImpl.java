@@ -79,10 +79,16 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             level = 0;
             KnowledgeJson knowledgeJson = new KnowledgeJson();
             knowledgeJson.setLevel(level);
+
+
+            if (String.valueOf(knowledge.getKnowledgeId()).equals(pointId)){
+                knowledgeJson.setSelect(true);
+            }
             knowledgeJson.setName(knowledge.getKnowledgeName());
-            knowledgeJson.setPointList(getKnowledgeJson(knowledge.getKnowledgeId(), grade_id, others, subName, t, d, c, 1));
+            knowledgeJson.setPointList(getKnowledgeJson(knowledge.getKnowledgeId(), grade_id, others, subName, t, d, c, 1,pointId));
             knowledgeJson.setUrl("/tiku/" + grade_id + "/" + subName + "/point" + knowledge.getKnowledgeId() +
                     "/t" + t + "d" + d + "c" + c);
+
             knowledgeJsons.add(knowledgeJson);
         }
 
@@ -91,7 +97,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     }
 
 
-    private List getKnowledgeJson(int knowledgeId, int grade_id, String others, String subName, String t, String d, String c, int level) {
+    private List getKnowledgeJson(int knowledgeId, int grade_id, String others, String subName, String t, String d, String c, int level,String pointId) {
         List<Knowledge> knowledgeList = knowledgeMapper.selectSecondKnowledgeByKnowId1(knowledgeId);
         List<KnowledgeJson> knowledgeJsonList = new ArrayList<KnowledgeJson>();
         for (Knowledge knowledge2 : knowledgeList) {
@@ -102,9 +108,12 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             List<KnowledgeJson> k = new ArrayList<KnowledgeJson>();
 
             leves = level+1;
-            k = getKnowledgeJson(knowledge2.getKnowledgeId(), grade_id, others, subName, t, d, c, leves);
+            k = getKnowledgeJson(knowledge2.getKnowledgeId(), grade_id, others, subName, t, d, c, leves,pointId);
             if (k != null) {
                 knowledgeJson2.setPointList(k);
+            }
+            if (String.valueOf(knowledge2.getKnowledgeId()).equals(pointId)){
+                knowledgeJson2.setSelect(true);
             }
             knowledgeJson2.setUrl("/tiku/" + grade_id + "/" + subName + "/point" + knowledge2.getKnowledgeId() +
                     "/t" + t + "d" + d + "c" + c);
