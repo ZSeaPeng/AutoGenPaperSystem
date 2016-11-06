@@ -3,8 +3,11 @@ export const RECEIVE_SELECT = 'RECEIVE_SELECT';
 export const RECEIVE_QUESTION = 'RECEIVE_QUESTION';
 export const ADD = 'ADD';
 export const REMOVE = 'REMOVE';
+export const REMOVEALL = 'REMOVEALL';
 export const DOWNLOAD = 'DOWNLOAD';
 export const COLLECTION = 'COLLECTION';
+export const DISCOLL = 'DISCOLL';
+export const TOGGLE = 'TOGGLE';
 
 // send to the reducer
 export const recevieInitialState = json => ({
@@ -23,24 +26,38 @@ export const recevieQuestion = json => ({
     posts: json
 });
 
-export const add = id => ({
+export const add = details => ({
     type: ADD,
-    id
+    details
 })
 
-export const remove = id => ({
+export const remove = details => ({
     type: REMOVE,
-    id
+    details
 })
 
-export const download = id => ({
+export const removeAll = () => ({
+  type: REMOVEALL
+})
+
+export const download = details => ({
     type: DOWNLOAD,
-    id
+    details
 })
 
-export const collection = id => ({
+export const collection = details => ({
     type: COLLECTION,
-    id
+    details
+})
+
+export const discoll = details => ({
+  type: DISCOLL,
+  details
+})
+
+export const toggle = details => ({
+  type: TOGGLE,
+  details
 })
 
 //asyn
@@ -70,3 +87,34 @@ export const getQuestion = (url, query="?page=1") => dispatch => {
             dispatch(recevieQuestion(json))
         )
 };
+
+export const login = (username, password) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/login`, {
+    method: 'POST',
+    body: JSON.stringify({
+      username: username,
+      password: password
+    })
+  })
+    .then(response => response.json())
+    .then(json =>
+      console.log(json))
+    .catch(e =>
+      console.log(e))
+  // console.log(username, password)
+}
+
+export const ansyAdd = (details) =>  dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/add`, {
+    method: 'POST',
+    body: JSON.stringify({
+      userid: details.userid,
+      id: details.id
+    })
+      .then(response => response.json())
+      .then(json =>
+        dispatch(add(json)))
+      .catch(e =>
+        console.log(e))
+  })
+}

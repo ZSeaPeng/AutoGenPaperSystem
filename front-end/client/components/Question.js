@@ -8,14 +8,14 @@ import Toggle from 'material-ui/Toggle';
 class Question extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      show: {display: 'inline-block'},
-      hide: {display: 'none'},
-      expanded: false,
-    };
+    this.handleToggle = this.handleToggle.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleDownload = this.handleDownload.bind(this);
     this.handleCollection = this.handleCollection.bind(this);
+  }
+
+  getI() {
+    return this.props.i;
   }
 
   getInfo() {
@@ -23,10 +23,8 @@ class Question extends Component {
   }
 
   handleAdd() {
-    this.props.onChange(this.getInfo(), 'add');
-    const temp = this.state.show;
-    this.state.show = this.state.hide;
-    this.state.hide = temp;
+    const { userid } = this.props;
+    this.props.onChange({id: this.getInfo(), userid: userid}, 'add');
   }
 
   handleDownload() {
@@ -34,41 +32,57 @@ class Question extends Component {
   }
 
   handleCollection() {
-    this.props.onChange(this.getInfo(), 'collection')
+    const { userid } = this.props;
+    this.props.onChange({id: this.getInfo(), userid: userid}, 'collection')
   }
 
-  handleExpandChange = (expanded) => {
-    this.setState({expanded: expanded});
-  };
-
-  handleToggle = (event, toggle) => {
-    this.setState({expanded: toggle});
+  handleToggle(event, toggle) {
+    this.props.onChange({toggle: toggle, i: this.getI()}, 'toggle')
   };
 
   render() {
-    const { contextList, pageNum, i } = this.props;
-    var style = {};
+    const { contextList, pageNum, userChosen, userCollection } = this.props;
+    var style = { margin: 10 };
+    var style1 = {}, style2 = {}, style3 = {}, style4 = {};
+    var j = 0, k = 0;
 
-    if( parseInt(i) >= 5 * pageNum - 5 && parseInt(i) < 5 * pageNum ) {
-      style = { margin: 10 }
+    userChosen.map((chosen,i) => {
+      if (chosen.id === contextList.id) {
+        j++;
+      }
+    })
+
+    if (j === 1) {
+      style1 = {display: 'none'};
+      style2 = {display: 'inline-block'};
     } else {
-      style = { display: 'none' }
+      style2 = {display: 'none'};
+      style1 = {display: 'inline-block'};
+    }
+
+    if(userCollection.indexOf(contextList.id) === -1) {
+      style4 = {display: 'none'};
+      style3 = {display: 'inline-block'};
+    } else {
+      style3 = {display: 'none'};
+      style4 = {display: 'inline-block'};
     }
 
     return (
-      <Card style={style} expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
+      <Card style={style} expanded={contextList.expanded}>
         <CardMedia>
           <img src={`http://${contextList.qurl}`} />
         </CardMedia>
         <CardActions>
-          <FlatButton label="加入试卷" secondary={true} onClick={this.handleAdd} style={this.state.show}/>
-          <RaisedButton label="移除试卷" secondary={true} onClick={this.handleAdd} style={this.state.hide}/>
+          <FlatButton label="加入试卷" secondary={true} onClick={this.handleAdd} style={style1}/>
+          <RaisedButton label="移除试卷" secondary={true} onClick={this.handleAdd} style={style2}/>
           <FlatButton label="下载试题" secondary={true} onClick={this.handleDownload}/>
-          <FlatButton label="收藏试题" secondary={true} onClick={this.handleCollection}/>
+          <FlatButton label="收藏试题" secondary={true} onClick={this.handleCollection} style={style3}/>
+          <RaisedButton label="取消收藏" secondary={true} onClick={this.handleCollection} style={style4}/>
         </CardActions>
         <CardText style={{display: 'inline-block'}}>
           <Toggle
-            toggled={this.state.expanded}
+            toggled={contextList.expanded}
             onToggle={this.handleToggle}
             labelPosition="right"
             label="查看解析"

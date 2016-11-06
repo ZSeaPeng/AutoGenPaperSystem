@@ -11,7 +11,8 @@ import Navbar from './container/Navbar';
 import Details from './container/Details';
 import ManualCombine from './container/ManualCombine';
 import AutoCombine from './container/AutoCombine';
-import Index from './container/Index'
+import Index from './container/Index';
+import Update from './container/Update';
 
 import store, { history } from './store';
 
@@ -22,6 +23,7 @@ const router = (
     <Router history={ history }>
       <Route path="/" component={Navbar}>
         <IndexRoute component={Index}/>
+        <Route path="/updateinfo/*" component={Update} />
         <Route path="/:sub/*" component={Details} />
         <Route path="/manualcombine" component={ManualCombine}/>
         <Route path="/autocombine" component={AutoCombine}/>

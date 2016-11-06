@@ -3,13 +3,13 @@ import { RECEIVE_INITIAL_STATE } from '../actions/actionCreators';
 function grades(state = {
     sublist:[],
     update: [],
-    img: []}, action) {
+    userid: ""}, action) {
   switch (action.type) {
     case RECEIVE_INITIAL_STATE:
       return {
         sublist: [ ...action.posts.sublist ],
         update: [ ...action.posts.update ],
-        img: [ ...action.posts.img ]
+        userid: action.posts.userid
       };
     default:
       return state;

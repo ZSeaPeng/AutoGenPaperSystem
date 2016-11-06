@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 class Lest extends Component{
   render() {
     const { type } = this.props;
-    const { select } = type ;
+    const { select } = type;
     return (
       <div style={{zIndex: 0}}>
       {select

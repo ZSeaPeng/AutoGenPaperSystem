@@ -10,7 +10,6 @@ const rootReducer = combineReducers({
   grades,
   selects,
   questions,
-  aktion,
   routing: routerReducer
 })
 

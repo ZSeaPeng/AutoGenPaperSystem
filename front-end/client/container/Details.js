@@ -19,8 +19,12 @@ import Choosed from '../components/Choosed';
 import {
   getSelect,
   getQuestion,
-  add,
-  remove
+  asynAdd,
+  remove,
+  toggle,
+  collection,
+  discoll,
+  removeAll
 } from '../actions/actionCreators';
 
 class Details extends Component {
@@ -29,19 +33,41 @@ class Details extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(id, type) {
-    const { aktion } = this.props;
-    const { dispatch } = this.props;
+  handleChange(details, type) {
+    const { userChosen, userCollection, dispatch } = this.props;
+    var j = 0, k = 0, m = 0, n = 0;
     if (type === 'add') {
-      if (aktion.indexOf(id) === -1) {
-        dispatch(add(id));
+      if(details === 'all') {
+        dispatch(removeAll());
       } else {
-        dispatch(remove(id))
+        userChosen.map((chosen, i) => {
+          if ( chosen.id === details.id ) {
+            k = i;
+            j++;
+          }
+        });
+        if (j === 0) {
+          dispatch(asynAdd(details));
+        } else {
+          dispatch(remove({ ...details, k: k}))
+        }
       }
     } else if (type === 'download') {
-      console.log(`download ${id}`);
+      console.log(`download ${details}`);
     } else if (type === 'collection') {
-      console.log(`collection ${id}`);
+      userCollection.map((collection, i) => {
+        if ( collection === details.id ) {
+          n = i;
+          m++;
+        }
+      });
+      if (m === 0) {
+        dispatch(collection(details));
+      } else {
+        dispatch(discoll({ ...details, k: n}))
+      }
+    } else if (type === 'toggle') {
+      dispatch(toggle(details));
     }
   }
 
@@ -76,7 +102,7 @@ class Details extends Component {
   }
 
   render() {
-    const { Points, Difficulty, Charaction, Types, context, pageNum, pages, aktion } = this.props;
+    const { Points, Difficulty, Charaction, Types, context, pageNum, pages, userChosen } = this.props;
 
     var style = {
       divStyle: {
@@ -115,12 +141,12 @@ class Details extends Component {
             </ToolbarGroup>
           </Toolbar>
           <div>
-            { context.map((contextList, i) => <Question pageNum={pageNum} onChange={this.handleChange} contextList={contextList} key={i} i={i}/>)}
+            { context.map((contextList, i) => <Question {...this.props} onChange={this.handleChange} contextList={contextList} key={i} i={i}/>)}
           </div>
           <Page {...this.props} pageNum = {pageNum} pages = {pages} />
         </div>
         <div className="Side" style={{ right: 0,width: '270px'}}>
-          <Choosed add = {aktion.length}/>
+          <Choosed userChosen = {userChosen} onChange={this.handleChange}/>
         </div>
       </div>
     )
@@ -128,7 +154,9 @@ class Details extends Component {
 }
 
 const mapStateToProps = state => {
-  const { selects, questions, aktion } = state;
+  const { selects, questions, grades } = state;
+  const { userid } = grades;
+
   const {
     Points,
     Types,
@@ -139,10 +167,13 @@ const mapStateToProps = state => {
   const {
     context,
     pageNum,
-    pages
+    pages,
+    userChosen,
+    userCollection
   } = questions;
 
   return {
+    userid,
     Points,
     Types,
     Difficulty,
@@ -150,7 +181,8 @@ const mapStateToProps = state => {
     context,
     pageNum,
     pages,
-    aktion
+    userChosen,
+    userCollection
   }
 };
 
