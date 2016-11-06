@@ -176,22 +176,22 @@ public class QuestionsServiceImpl implements QuestionsService {
         return questionMap;
     }
 
-//    @Override
-//    public List selectQuestionByIdList(Integer userId) {
-//        List questionsList=new ArrayList();
-//        User user=userMapper.selectByPrimaryKey(userId);
-//        String s=user.getUserchosen();
-//        String []strings=s.split(",");
-//        for (String list:strings){
-//            Map<String,Object> questionsMap=new HashMap<String, Object>();
-//            Questions questions=new Questions();
-//            questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
-//            questionsMap.put("id:",questions.getQuestionsId());
-//            questionsMap.put("type:",questions.getTypes().getTypeName());
-//            questionsList.add(questionsMap);
-//        }
-//        return questionsList;
-//    }
+    @Override
+    public List selectQuestionByUserId(Integer userId) {
+        List questionsList=new ArrayList();
+        User user=userMapper.selectByPrimaryKey(userId);
+        String s=user.getUserchosen();
+        String []strings=s.split(",");
+        for (String list:strings){
+            Map<String,Object> questionsMap=new HashMap<String, Object>();
+            Questions questions=new Questions();
+            questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
+            questionsMap.put("id:",questions.getQuestionsId());
+            questionsMap.put("type:",questions.getTypes().getTypeName());
+            questionsList.add(questionsMap);
+        }
+        return questionsList;
+    }
 
 
 }
