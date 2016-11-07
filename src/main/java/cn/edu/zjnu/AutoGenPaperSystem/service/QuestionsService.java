@@ -30,5 +30,5 @@ public interface QuestionsService {
 
     Map selectQuestionByTime(int subjectId, String date,int nowpage,Integer userId);
 
-    Map selectQuestionByIdList(Integer questionsId);
+//    Map selectQuestionByIdList(Integer questionsId);
 }

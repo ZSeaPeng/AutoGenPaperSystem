@@ -2,6 +2,8 @@ package cn.edu.zjnu.AutoGenPaperSystem.service;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 
+import java.util.Map;
+
 /**
  * Created by zseapeng on 2016/11/4.
  */
@@ -18,5 +20,5 @@ public interface UserService  {
 
     int updateByPrimaryKey(User record);
 
-    int updateByUserId(String chosen,int userId);
+    Map updateByUserId(String chosen, int userId);
 }

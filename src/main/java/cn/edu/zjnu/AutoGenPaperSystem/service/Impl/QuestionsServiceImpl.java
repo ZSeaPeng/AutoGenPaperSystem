@@ -196,15 +196,15 @@ public class QuestionsServiceImpl implements QuestionsService {
         return questionMap;
     }
 
-    @Override
-    public Map selectQuestionByIdList(Integer questionsId) {
-        Map<String,Object> questionsMap=new HashMap<String, Object>();
-        Questions questions=new Questions();
-        questions= questionsMapper.selectQuestionByIdList(questionsId);
-        questionsMap.put("id:",questions.getQuestionsId());
-        questionsMap.put("type:",questions.getTypes().getTypeName());
-        return questionsMap;
-    }
+//    @Override
+//    public Map selectQuestionByIdList(Integer questionsId) {
+//        Map<String,Object> questionsMap=new HashMap<String, Object>();
+//        Questions questions=new Questions();
+//        questions= questionsMapper.selectQuestionByIdList(questionsId);
+//        questionsMap.put("id:",questions.getQuestionsId());
+//        questionsMap.put("type:",questions.getTypes().getTypeName());
+//        return questionsMap;
+//    }
 
 
 }
