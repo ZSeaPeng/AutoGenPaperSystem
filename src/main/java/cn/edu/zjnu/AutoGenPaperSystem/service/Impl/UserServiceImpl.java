@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by sgt on 2016/11/5.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
     @Resource
     private UserMapper userMapper;
     @Resource
@@ -53,36 +53,58 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map updateByUserId(String chosen, int userId) {
-        User user = userMapper.selectByPrimaryKey(userId);
-        String[] quesId = user.getUserchosen().split(",");
-        String change = "";
-        int i = 0;
-        Boolean flag = false;
-        for (String list : quesId) {
-            if (list.equals(chosen)) {
-                flag = true;
+        User user=userMapper.selectByPrimaryKey(userId);
+        String []quesId=user.getUserchosen().split(",");
+        String change="";
+        int i=0;
+        Boolean flag=false;
+        for (String list:quesId){
+            if (list.equals(chosen)){
+                flag=true;
                 continue;
             }
-            change = change + list + ",";
+            change=change+list+",";
         }
-        if (flag == false) {
-            change = change + chosen;
-        } else {
-            change = change.substring(0, change.length() - 1);
+        if (flag==false){
+            change=change+chosen;
         }
-        i = userMapper.updateByUserId(change, userId);
-        Map<String, Object> questionsMap = new HashMap<String, Object>();
-        if (i > 0) {
-            Questions questions;
-            questions = questionsMapper.selectQuestionByIdList(Integer.parseInt(chosen));
-            System.out.println("questions--" + questions);
-            System.out.println("questions.getQuestionsId()---" + questions.getQuestionsId());
-
-            questionsMap.put("id:", questions.getQuestionsId());
-            questionsMap.put("type:", questions.getTypes().getTypeName());
-        } else {
-            questionsMap.put("Error", "更新失败");
+        else {
+            change=change.substring(0,change.length()-1);
+        }
+        i=userMapper.updateByUserId(change,userId);
+        Map<String,Object> questionsMap=new HashMap<String, Object>();
+        if (i>0){
+            Questions questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(chosen));
+            questionsMap.put("id:",questions.getQuestionsId());
+            questionsMap.put("type:",questions.getTypes().getTypeName());
+        }
+        else {
+            questionsMap.put("Error","更新失败");
         }
         return questionsMap;
+    }
+
+    @Override
+    public int updateCollectByUserId(String collect, int userId) {
+        User user=userMapper.selectByPrimaryKey(userId);
+        String []quesId=user.getUsercollection().split(",");
+        String change="";
+        int i=0;
+        Boolean flag=false;
+        for (String list:quesId){
+            if (list.equals(collect)){
+                flag=true;
+                continue;
+            }
+            change=change+list+",";
+        }
+        if (flag==false){
+            change=change+collect;
+        }
+        else {
+            change=change.substring(0,change.length()-1);
+        }
+        i=userMapper.updateCollectByUserId(change,userId);
+        return i;
     }
 }
