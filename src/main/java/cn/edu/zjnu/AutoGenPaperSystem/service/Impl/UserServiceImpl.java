@@ -74,8 +74,7 @@ public class UserServiceImpl implements UserService{
         i=userMapper.updateByUserId(change,userId);
         Map<String,Object> questionsMap=new HashMap<String, Object>();
         if (i>0){
-            Questions questions;
-            questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(chosen));
+            Questions questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(chosen));
             questionsMap.put("id:",questions.getQuestionsId());
             questionsMap.put("type:",questions.getTypes().getTypeName());
         }
@@ -83,5 +82,29 @@ public class UserServiceImpl implements UserService{
             questionsMap.put("Error","更新失败");
         }
         return questionsMap;
+    }
+
+    @Override
+    public int updateCollectByUserId(String collect, int userId) {
+        User user=userMapper.selectByPrimaryKey(userId);
+        String []quesId=user.getUsercollection().split(",");
+        String change="";
+        int i=0;
+        Boolean flag=false;
+        for (String list:quesId){
+            if (list.equals(collect)){
+                flag=true;
+                continue;
+            }
+            change=change+list+",";
+        }
+        if (flag==false){
+            change=change+collect;
+        }
+        else {
+            change=change.substring(0,change.length()-1);
+        }
+        i=userMapper.updateCollectByUserId(change,userId);
+        return i;
     }
 }

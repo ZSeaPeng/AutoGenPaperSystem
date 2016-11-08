@@ -21,4 +21,6 @@ public interface UserService  {
     int updateByPrimaryKey(User record);
 
     Map updateByUserId(String chosen, int userId);
+
+    int updateCollectByUserId(String collect,int userId);
 }
