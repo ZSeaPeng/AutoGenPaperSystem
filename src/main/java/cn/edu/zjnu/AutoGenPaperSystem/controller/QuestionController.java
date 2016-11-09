@@ -5,6 +5,7 @@ import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/api/question")
+@ResponseBody
 public class QuestionController {
     @Resource
     private UserService userServiceImpl;
@@ -22,9 +24,8 @@ public class QuestionController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map AddQuestion(Integer userid, String qid) {
-        System.out.println("qid----"+qid);
-        System.out.println("userid--"+userid);
-        return userServiceImpl.updateByUserId(qid, userid);
+        Map map = userServiceImpl.updateByUserId(qid, userid);
+        return map;
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
