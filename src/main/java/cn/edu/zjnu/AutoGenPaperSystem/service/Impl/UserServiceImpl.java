@@ -78,9 +78,6 @@ public class UserServiceImpl implements UserService{
 
             questionsMap.put("id",questions.getQuestionsId());
             questionsMap.put("type",questions.getTypes().getTypeName());
-
-            questionsMap.put("id:",questions.getQuestionsId());
-            questionsMap.put("type:",questions.getTypes().getTypeName());
             questionsMap.put("k",k);
         }
         else {
