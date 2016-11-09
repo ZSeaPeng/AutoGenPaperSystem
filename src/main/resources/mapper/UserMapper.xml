@@ -133,4 +133,9 @@
     SET UserChosen=#{param1}
     WHERE User_ID = #{param2}
   </update>
+  <update id="updateCollectByUserId">
+    UPDATE User
+    SET UserCollection=#{param1}
+    WHERE User_ID = #{param2}
+  </update>
 </mapper>

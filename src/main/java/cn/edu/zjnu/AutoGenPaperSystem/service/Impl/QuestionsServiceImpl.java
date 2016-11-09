@@ -157,7 +157,7 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     @Override
-    public Map selectQuestionByTime(int subjectId, String date,int nowpage) {
+    public Map selectQuestionByTime(int subjectId, String date,int nowpage,Integer userId) {
         PageHelper.startPage(nowpage,5);
         List<Questions> questionsList=questionsMapper.selectQuestionByTime(subjectId,date);
         List<QuestionsJson> questionsJsonList=new ArrayList<QuestionsJson>();
@@ -169,22 +169,42 @@ public class QuestionsServiceImpl implements QuestionsService {
             questionsJson.setAurl(list.getAnswerPic_URL());
             questionsJsonList.add(questionsJson);
         }
+        List chosenList=new ArrayList();
+        List collectList=new ArrayList();
+        User user=userMapper.selectByPrimaryKey(userId);
+        String chose=user.getUserchosen();
+        String collection=user.getUsercollection();
+        String []strings=chose.split(",");
+        String []collstrings=collection.split(",");
+        for (String list:strings){
+            Map<String,Object> questionsMap=new HashMap<String, Object>();
+            Questions questions=new Questions();
+            questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
+            questionsMap.put("id",questions.getQuestionsId());
+            questionsMap.put("type",questions.getTypes().getTypeName());
+            chosenList.add(questionsMap);
+        }
+        for (String list:collstrings){
+            collectList.add(list);
+        }
         questionMap.put("context",questionsJsonList);
         PageInfo pageInfo=new PageInfo(questionsList);
         questionMap.put("pageNum",pageInfo.getPageNum());
         questionMap.put("pages",pageInfo.getPages());
+        questionMap.put("userChosen",chosenList);
+        questionMap.put("userCollection",collectList);
         return questionMap;
     }
 
-    @Override
-    public Map selectQuestionByIdList(Integer questionsId) {
-        Map<String,Object> questionsMap=new HashMap<String, Object>();
-        Questions questions=new Questions();
-        questions= questionsMapper.selectQuestionByIdList(questionsId);
-        questionsMap.put("id:",questions.getQuestionsId());
-        questionsMap.put("type:",questions.getTypes().getTypeName());
-        return questionsMap;
-    }
+//    @Override
+//    public Map selectQuestionByIdList(Integer questionsId) {
+//        Map<String,Object> questionsMap=new HashMap<String, Object>();
+//        Questions questions=new Questions();
+//        questions= questionsMapper.selectQuestionByIdList(questionsId);
+//        questionsMap.put("id:",questions.getQuestionsId());
+//        questionsMap.put("type:",questions.getTypes().getTypeName());
+//        return questionsMap;
+//    }
 
 
 }

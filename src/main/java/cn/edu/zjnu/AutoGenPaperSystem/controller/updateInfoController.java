@@ -25,7 +25,8 @@ public class updateInfoController {
                                  @RequestParam int page) {
         date = getDateForm(date);
         int subId = getSubId(subjectName);
-        Map map = questionsServiceImpl.selectQuestionByTime(subId, date, page);
+        //记得改userid!!!!!!!!!!!!!!!!!!!!!!!
+        Map map = questionsServiceImpl.selectQuestionByTime(subId, date, page,1);
         return map;
 
     }

@@ -19,5 +19,5 @@ public interface UserMapper {
 
     int updateByUserId(String chosen,int userId);
 
-
+    int updateCollectByUserId(String collect,int userId);
 }
