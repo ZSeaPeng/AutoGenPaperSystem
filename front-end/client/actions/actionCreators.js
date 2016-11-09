@@ -63,28 +63,28 @@ export const toggle = details => ({
 //asyn
 //fetch state for the index page
 export const getInitialState = () => dispatch => {
-    return fetch('http://localhost:8110/AutoGenPaperSystem/api/subjectlist')
+    return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/subjectlist')
         .then( response => response.json())
         .then( json =>
-            dispatch(recevieInitialState(json))
+          dispatch(recevieInitialState(json))
         )
 };
 
 //fetch state for all the sellections
 export const getSelect = url => dispatch => {
-    return fetch(`http://localhost:8110/AutoGenPaperSystem/api${url}`)
+    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}`)
         .then( response => response.json())
         .then( json =>
-            dispatch(recevieSelect(json))
+          dispatch(recevieSelect(json))
         )
 };
 
 //fetch questions you need
 export const getQuestion = (url, query="?page=1") => dispatch => {
-    return fetch(`http://localhost:8110/AutoGenPaperSystem/api${url}/question${query}`)
+    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`)
         .then( response => response.json())
         .then( json =>
-            dispatch(recevieQuestion(json))
+          dispatch(recevieQuestion(json))
         )
 };
 
@@ -104,17 +104,25 @@ export const login = (username, password) => dispatch => {
   // console.log(username, password)
 }
 
-export const ansyAdd = (details) =>  dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/add`, {
+export const asynAdd = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/add`, {
     method: 'POST',
-    body: JSON.stringify({
-      userid: details.userid,
-      id: details.id
-    })
-      .then(response => response.json())
-      .then(json =>
-        dispatch(add(json)))
-      .catch(e =>
-        console.log(e))
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'userid=' + details.userid + '&qid=' + details.id
   })
-}
+    .then(response => {
+      if (response.ok) {
+        response.json()
+      } else {
+        console.log('not ok')
+      }
+    })
+    .then(json =>
+      dispatch(add(json)))
+    .catch(e =>
+      console.log(e.message)
+    )
+};
