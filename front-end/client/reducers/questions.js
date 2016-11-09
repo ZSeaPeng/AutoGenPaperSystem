@@ -35,7 +35,7 @@ function questions(state = { context: [], pageNum: 1, pages: 1, userChosen: [], 
           ...state.userChosen,
           {
             id: action.details.id,
-            type: action.details.userid
+            type: action.details.type
           }
         ]
       };

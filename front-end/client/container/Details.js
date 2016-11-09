@@ -20,11 +20,11 @@ import {
   getSelect,
   getQuestion,
   asynAdd,
-  remove,
+  asynRemove,
   toggle,
-  collection,
-  discoll,
-  removeAll
+  asynCollection,
+  asynDiscoll,
+  asynRemoveAll
 } from '../actions/actionCreators';
 
 class Details extends Component {
@@ -38,7 +38,7 @@ class Details extends Component {
     var j = 0, k = 0, m = 0, n = 0;
     if (type === 'add') {
       if(details === 'all') {
-        dispatch(removeAll());
+        dispatch(asynRemoveAll());
       } else {
         userChosen.map((chosen, i) => {
           if ( chosen.id === details.id ) {
@@ -49,22 +49,22 @@ class Details extends Component {
         if (j === 0) {
           dispatch(asynAdd(details));
         } else {
-          dispatch(remove({ ...details, k: k}))
+          dispatch(asynRemove({ ...details, k: k}))
         }
       }
     } else if (type === 'download') {
       console.log(`download ${details}`);
     } else if (type === 'collection') {
       userCollection.map((collection, i) => {
-        if ( collection === details.id ) {
+        if ( collection == details.id ) {
           n = i;
           m++;
         }
       });
       if (m === 0) {
-        dispatch(collection(details));
+        dispatch(asynCollection(details));
       } else {
-        dispatch(discoll({ ...details, k: n}))
+        dispatch(asynDiscoll({ ...details, k: n}))
       }
     } else if (type === 'toggle') {
       dispatch(toggle(details));
