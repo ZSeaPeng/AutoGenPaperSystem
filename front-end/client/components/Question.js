@@ -52,6 +52,12 @@ class Question extends Component {
       }
     })
 
+    userCollection.map((collection,i) => {
+      if (collection == contextList.id) {
+        k++;
+      }
+    })
+
     if (j === 1) {
       style1 = {display: 'none'};
       style2 = {display: 'inline-block'};
@@ -60,12 +66,12 @@ class Question extends Component {
       style1 = {display: 'inline-block'};
     }
 
-    if(userCollection.indexOf(contextList.id) === -1) {
-      style4 = {display: 'none'};
-      style3 = {display: 'inline-block'};
-    } else {
+    if(k === 1) {
       style3 = {display: 'none'};
       style4 = {display: 'inline-block'};
+    } else {
+      style4 = {display: 'none'};
+      style3 = {display: 'inline-block'};
     }
 
     return (

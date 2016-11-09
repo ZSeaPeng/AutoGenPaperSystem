@@ -88,6 +88,81 @@ export const getQuestion = (url, query="?page=1") => dispatch => {
         )
 };
 
+export const asynAdd = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/add`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=0'
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(add(json))
+    )
+};
+
+export const asynRemove = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/remove`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=' + details.k
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(remove(json))
+    )
+};
+
+export const asynCollection = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/save`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=0'
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(collection(json))
+    )
+};
+
+export const asynDiscoll = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/delete`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=' + details.k
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(discoll(json))
+    )
+};
+
+export const asynRemoveAll = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/removeall`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'userid=' + details.userid
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(removeAll())
+    )
+};
+
 export const login = (username, password) => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/login`, {
     method: 'POST',
@@ -103,26 +178,3 @@ export const login = (username, password) => dispatch => {
       console.log(e))
   // console.log(username, password)
 }
-
-export const asynAdd = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/add`, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: 'userid=' + details.userid + '&qid=' + details.id
-  })
-    .then(response => {
-      if (response.ok) {
-        response.json()
-      } else {
-        console.log('not ok')
-      }
-    })
-    .then(json =>
-      dispatch(add(json)))
-    .catch(e =>
-      console.log(e.message)
-    )
-};
