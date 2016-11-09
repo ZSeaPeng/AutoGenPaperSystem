@@ -23,10 +23,15 @@ state = {
     Difficulty: [{name: "", url: "", select: false},{},...{}]
   },
   question: {
-    context: [{id: 1, qurl: "", aurl: "", expanded: false},{},...{}],-
+    context: [{id: 1, qurl: "", aurl: "", expanded: false},{},...{}],
     pageNum: 1,
     pages: 1,
     userChosen: [{id: 1, type: ""},{},...{}],
     userCollection: [...id]
+  },
+  paper: {
+    course: '',
+    type: '',
+    context:[{id: 1, qurl: "", aurl: "", expanded: false, type: ""},{},...{}]
   }
 }

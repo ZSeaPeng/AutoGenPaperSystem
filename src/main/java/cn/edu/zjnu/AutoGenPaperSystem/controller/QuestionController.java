@@ -24,8 +24,9 @@ public class QuestionController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map AddQuestion(Integer userid, String qid) {
-        Map map = userServiceImpl.updateByUserId(qid, userid);
-        return map;
+        System.out.println("qid----"+qid);
+        System.out.println("userid--"+userid);
+        return userServiceImpl.updateByUserId(qid, userid);
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
