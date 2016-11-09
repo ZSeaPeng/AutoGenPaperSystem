@@ -24,17 +24,13 @@ public class QuestionController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public Map AddQuestion(Integer userid, String qid) {
-        System.out.println("qid----"+qid);
-        System.out.println("userid--"+userid);
         Map map = userServiceImpl.updateByUserId(qid, userid);
-        System.out.println(map);
         return map;
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public void RemoveQuestion(Integer userid, String qid) {
-        userServiceImpl.updateByUserId(qid, userid);
-
+    public Map RemoveQuestion(Integer userid, String qid) {
+        return userServiceImpl.updateByUserId(qid, userid);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
