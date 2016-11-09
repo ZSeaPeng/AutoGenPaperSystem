@@ -23,4 +23,6 @@ public interface UserService  {
     Map updateByUserId(String chosen, int userId,String k);
 
     Map updateCollectByUserId(String collect,int userId,String k);
+
+    int allremove(int userid);
 }

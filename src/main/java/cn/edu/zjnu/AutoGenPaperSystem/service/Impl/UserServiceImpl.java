@@ -113,6 +113,13 @@ public class UserServiceImpl implements UserService{
         return questionmap;
     }
 
+    @Override
+    public int allremove(int userid) {
+        User user = userMapper.selectByPrimaryKey(userid);
+        int i = userMapper.updateByUserId("0",userid);
+        return i;
+    }
+
 }
 
 

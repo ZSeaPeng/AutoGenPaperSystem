@@ -32,10 +32,10 @@ public class QuestionController {
     public Map RemoveQuestion(Integer userid, String qid,String k) {
         return userServiceImpl.updateByUserId(qid, userid,k);
     }
-    @RequestMapping(value = "/allremove",method = RequestMethod.GET)
-    public int AllRemove(){
-
-        return 0;
+    @RequestMapping(value = "/allremove",method = RequestMethod.POST)
+    public int AllRemove(Integer userid){
+        System.out.println("userid---"+userid);
+        return userServiceImpl.allremove(userid);
     }
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public Map SaveQuestion(Integer userid, String qid,String k) {
