@@ -149,7 +149,7 @@ export const asynDiscoll = (details) => dispatch => {
 };
 
 export const asynRemoveAll = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/removeall`, {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/allremove`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -162,6 +162,8 @@ export const asynRemoveAll = (details) => dispatch => {
       dispatch(removeAll())
     )
 };
+
+// export const asynSubmit = ()
 
 export const login = (username, password) => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/login`, {

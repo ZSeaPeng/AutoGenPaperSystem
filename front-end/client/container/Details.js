@@ -34,11 +34,11 @@ class Details extends Component {
   }
 
   handleChange(details, type) {
-    const { userChosen, userCollection, dispatch } = this.props;
+    const { userChosen, userid, userCollection, dispatch } = this.props;
     var j = 0, k = 0, m = 0, n = 0;
     if (type === 'add') {
       if(details === 'all') {
-        dispatch(asynRemoveAll());
+        dispatch(asynRemoveAll({userid: userid}));
       } else {
         userChosen.map((chosen, i) => {
           if ( chosen.id === details.id ) {
@@ -52,8 +52,6 @@ class Details extends Component {
           dispatch(asynRemove({ ...details, k: k}))
         }
       }
-    } else if (type === 'download') {
-      console.log(`download ${details}`);
     } else if (type === 'collection') {
       userCollection.map((collection, i) => {
         if ( collection == details.id ) {
@@ -68,6 +66,8 @@ class Details extends Component {
       }
     } else if (type === 'toggle') {
       dispatch(toggle(details));
+    } else if (type === 'submit') {
+      console.log(`submit`);
     }
   }
 
