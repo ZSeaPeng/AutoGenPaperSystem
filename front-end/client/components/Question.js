@@ -10,7 +10,6 @@ class Question extends Component {
     super(props);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
-    this.handleDownload = this.handleDownload.bind(this);
     this.handleCollection = this.handleCollection.bind(this);
   }
 
@@ -19,16 +18,12 @@ class Question extends Component {
   }
 
   getInfo() {
-    return this.props.contextList.id
+    return this.props.contextList.id;
   }
 
   handleAdd() {
     const { userid } = this.props;
     this.props.onChange({id: this.getInfo(), userid: userid}, 'add');
-  }
-
-  handleDownload() {
-    this.props.onChange(this.getInfo(), 'download')
   }
 
   handleCollection() {
@@ -82,7 +77,6 @@ class Question extends Component {
         <CardActions>
           <FlatButton label="加入试卷" secondary={true} onClick={this.handleAdd} style={style1}/>
           <RaisedButton label="移除试卷" secondary={true} onClick={this.handleAdd} style={style2}/>
-          <FlatButton label="下载试题" secondary={true} onClick={this.handleDownload}/>
           <FlatButton label="收藏试题" secondary={true} onClick={this.handleCollection} style={style3}/>
           <RaisedButton label="取消收藏" secondary={true} onClick={this.handleCollection} style={style4}/>
         </CardActions>

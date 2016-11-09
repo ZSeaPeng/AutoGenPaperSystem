@@ -13,6 +13,7 @@ import ManualCombine from './container/ManualCombine';
 import AutoCombine from './container/AutoCombine';
 import Index from './container/Index';
 import Update from './container/Update';
+import Paper from './container/Paper';
 
 import store, { history } from './store';
 
@@ -25,6 +26,7 @@ const router = (
         <IndexRoute component={Index}/>
         <Route path="/updateinfo/*" component={Update} />
         <Route path="/:sub/*" component={Details} />
+        <Route path="/testpaper" component={Paper} />
         <Route path="/manualcombine" component={ManualCombine}/>
         <Route path="/autocombine" component={AutoCombine}/>
       </Route>
