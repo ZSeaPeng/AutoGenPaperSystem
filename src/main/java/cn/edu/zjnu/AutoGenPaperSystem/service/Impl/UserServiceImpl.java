@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Map updateByUserId(String chosen, int userId,String k) {
+    public Map updateByUserId(String chosen, int userId,int k) {
         User user=userMapper.selectByPrimaryKey(userId);
         String []quesId=user.getUserchosen().split(",");
         String change="";
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Map updateCollectByUserId(String collect, int userId,String k) {
+    public Map updateCollectByUserId(String collect, int userId,int k) {
         User user=userMapper.selectByPrimaryKey(userId);
         String []quesId=user.getUsercollection().split(",");
         String change="";
@@ -111,6 +111,13 @@ public class UserServiceImpl implements UserService{
         questionmap.put("id",collect);
         questionmap.put("k",k);
         return questionmap;
+    }
+
+    @Override
+    public int allremove(int userid) {
+        User user = userMapper.selectByPrimaryKey(userid);
+        int i = userMapper.updateByUserId("0",userid);
+        return i;
     }
 
 }

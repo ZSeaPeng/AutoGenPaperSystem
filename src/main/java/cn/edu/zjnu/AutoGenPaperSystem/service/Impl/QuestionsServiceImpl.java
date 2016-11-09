@@ -70,17 +70,21 @@ public class QuestionsServiceImpl implements QuestionsService {
         String chose=user.getUserchosen();
         String collection=user.getUsercollection();
         String []strings=chose.split(",");
+       if (!strings[0].equals("0")) {
+           for (String list : strings) {
+               Map<String, Object> questionsMap = new HashMap<String, Object>();
+               Questions questions = new Questions();
+               questions = questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
+               questionsMap.put("id", questions.getQuestionsId());
+               questionsMap.put("type", questions.getTypes().getTypeName());
+               chosenList.add(questionsMap);
+           }
+       }
         String []collstrings=collection.split(",");
-        for (String list:strings){
-            Map<String,Object> questionsMap=new HashMap<String, Object>();
-            Questions questions=new Questions();
-            questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
-            questionsMap.put("id",questions.getQuestionsId());
-            questionsMap.put("type",questions.getTypes().getTypeName());
-            chosenList.add(questionsMap);
-        }
-        for (String list:collstrings){
-            collectList.add(list);
+        if (!collstrings[0].equals("0")) {
+            for (String list : collstrings) {
+                collectList.add(list);
+            }
         }
         questionsesMap.put("context",questionsJsons);
         PageInfo pageInfo=new PageInfo(questionses);
