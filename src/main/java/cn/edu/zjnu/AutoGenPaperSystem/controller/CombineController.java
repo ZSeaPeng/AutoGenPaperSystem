@@ -2,9 +2,9 @@ package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -14,14 +14,16 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @RequestMapping(value = "/api/combine")
-@Repository
+@ResponseBody
 public class CombineController {
     @Resource
     private SubjectService subjectServiceImpl;
-    @RequestMapping(value = "/manual",method = RequestMethod.POST)
-    public String Manual(int subid, int wordtype, HttpSession session){
-        session.setAttribute("wordsubid",subid);
-        session.setAttribute("wordtype",wordtype);
-        return subjectServiceImpl.selectByPrimaryKey(subid);
+
+    @RequestMapping(value = "/manual", method = RequestMethod.POST)
+    public String Manual(Integer subid, Integer wordtype, HttpSession session) {
+        session.setAttribute("wordsubid", subid);
+        session.setAttribute("wordtype", wordtype);
+        String url = "{\"url\":" + subjectServiceImpl.selectByPrimaryKey(subid) + "}";
+        return url;
     }
 }
