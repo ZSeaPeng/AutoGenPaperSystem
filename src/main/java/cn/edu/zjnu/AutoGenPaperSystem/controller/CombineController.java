@@ -21,9 +21,11 @@ public class CombineController {
 
     @RequestMapping(value = "/manual", method = RequestMethod.POST)
     public String Manual(Integer subid, Integer wordtype, HttpSession session) {
+        System.out.println("sbid---"+subid);
         session.setAttribute("wordsubid", subid);
         session.setAttribute("wordtype", wordtype);
         String url = "{\"url\":" + subjectServiceImpl.selectByPrimaryKey(subid) + "}";
+
         return url;
     }
 
