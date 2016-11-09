@@ -34,14 +34,14 @@ public class QuestionController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public void SaveQuestion(Integer userid, String qid) {
-
+    public int SaveQuestion(Integer userid, String qid) {
+        return userServiceImpl.updateCollectByUserId(qid, userid);
 
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public void DeleteQuestion(Integer userid, String qid) {
-
+    public int DeleteQuestion(Integer userid, String qid) {
+        return userServiceImpl.updateCollectByUserId(qid, userid);
 
     }
 }
