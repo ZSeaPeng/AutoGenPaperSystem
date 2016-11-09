@@ -26,4 +26,10 @@ public class CombineController {
         String url = "{\"url\":" + subjectServiceImpl.selectByPrimaryKey(subid) + "}";
         return url;
     }
+
+    @RequestMapping(value = "/auto",method = RequestMethod.POST)
+    public void Auto(){
+
+
+    }
 }

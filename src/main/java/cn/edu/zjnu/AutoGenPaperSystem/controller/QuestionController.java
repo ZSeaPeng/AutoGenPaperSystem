@@ -34,7 +34,6 @@ public class QuestionController {
     }
     @RequestMapping(value = "/allremove",method = RequestMethod.POST)
     public int AllRemove(Integer userid){
-        System.out.println("userid---"+userid);
         return userServiceImpl.allremove(userid);
     }
     @RequestMapping(value = "/save", method = RequestMethod.POST)

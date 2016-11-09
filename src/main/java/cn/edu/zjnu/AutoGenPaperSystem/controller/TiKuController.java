@@ -72,7 +72,6 @@ public class TiKuController {
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
-        System.out.println("subname---->" + this.sub_name);
         allMap.put("Points", knowLedgeList);
         allMap.put("Types", typesList);
         allMap.put("Difficulty", difficultiesList);
