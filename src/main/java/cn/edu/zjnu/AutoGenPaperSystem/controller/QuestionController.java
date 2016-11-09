@@ -23,29 +23,25 @@ public class QuestionController {
     private QuestionsService questionsServiceImpl;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Map AddQuestion(Integer userid, String qid) {
-        System.out.println("qid----"+qid);
-        System.out.println("userid--"+userid);
-        Map map = userServiceImpl.updateByUserId(qid, userid);
-        System.out.println(map);
-        return map;
+    public Map AddQuestion(Integer userid, String qid,String k) {
+        return userServiceImpl.updateByUserId(qid, userid,k);
+
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public void RemoveQuestion(Integer userid, String qid) {
-        userServiceImpl.updateByUserId(qid, userid);
-
+    public Map RemoveQuestion(Integer userid, String qid,String k) {
+        return userServiceImpl.updateByUserId(qid, userid,k);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public void SaveQuestion(Integer userid, String qid) {
-
+    public Map SaveQuestion(Integer userid, String qid,String k) {
+        return userServiceImpl.updateCollectByUserId(qid, userid,k);
 
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public void DeleteQuestion(Integer userid, String qid) {
-
+    public Map DeleteQuestion(Integer userid, String qid,String k) {
+        return userServiceImpl.updateCollectByUserId(qid, userid,k);
 
     }
 }

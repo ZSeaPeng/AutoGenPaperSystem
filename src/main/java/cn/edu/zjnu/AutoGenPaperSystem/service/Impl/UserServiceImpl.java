@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Map updateByUserId(String chosen, int userId) {
+    public Map updateByUserId(String chosen, int userId,String k) {
         User user=userMapper.selectByPrimaryKey(userId);
         String []quesId=user.getUserchosen().split(",");
         String change="";
@@ -75,8 +75,10 @@ public class UserServiceImpl implements UserService{
         Map<String,Object> questionsMap=new HashMap<String, Object>();
         if (i>0){
             Questions questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(chosen));
-            questionsMap.put("id:",questions.getQuestionsId());
-            questionsMap.put("type:",questions.getTypes().getTypeName());
+
+            questionsMap.put("id",questions.getQuestionsId());
+            questionsMap.put("type",questions.getTypes().getTypeName());
+            questionsMap.put("k",k);
         }
         else {
             questionsMap.put("Error","更新失败");
@@ -85,7 +87,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public int updateCollectByUserId(String collect, int userId) {
+    public Map updateCollectByUserId(String collect, int userId,String k) {
         User user=userMapper.selectByPrimaryKey(userId);
         String []quesId=user.getUsercollection().split(",");
         String change="";
@@ -105,6 +107,12 @@ public class UserServiceImpl implements UserService{
             change=change.substring(0,change.length()-1);
         }
         i=userMapper.updateCollectByUserId(change,userId);
-        return i;
+        Map questionmap = new HashMap();
+        questionmap.put("id",collect);
+        questionmap.put("k",k);
+        return questionmap;
     }
+
 }
+
+
