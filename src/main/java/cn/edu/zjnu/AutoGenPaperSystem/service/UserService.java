@@ -20,7 +20,7 @@ public interface UserService  {
 
     int updateByPrimaryKey(User record);
 
-    Map updateByUserId(String chosen, int userId);
+    Map updateByUserId(String chosen, int userId,String k);
 
-    int updateCollectByUserId(String collect,int userId);
+    Map updateCollectByUserId(String collect,int userId,String k);
 }
