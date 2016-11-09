@@ -42,8 +42,16 @@ public class SubjectServiceImpl implements SubjectService {
         return 0;
     }
 
-    public Subject selectByPrimaryKey(Integer subjectId) {
-        return null;
+    public String selectByPrimaryKey(Integer subjectId) {
+        Subject subject = subjectMapper.selectByPrimaryKey(subjectId);
+        String url = "";
+        try {
+             url = "/tiku/1/"+PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId() +"/point0";
+        } catch (PinyinException e) {
+            e.printStackTrace();
+        }
+
+        return url;
     }
 
     public int updateByPrimaryKeySelective(Subject record) {
