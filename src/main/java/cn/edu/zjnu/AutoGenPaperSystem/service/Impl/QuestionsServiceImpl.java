@@ -163,6 +163,7 @@ public class QuestionsServiceImpl implements QuestionsService {
     @Override
     public Map selectQuestionByTime(int subjectId, String date,int nowpage,Integer userId) {
         PageHelper.startPage(nowpage,5);
+        System.out.println("date---"+date);
         List<Questions> questionsList=questionsMapper.selectQuestionByTime(subjectId,date);
         List<QuestionsJson> questionsJsonList=new ArrayList<QuestionsJson>();
         Map<String,Object> questionMap=new HashMap<String, Object>();
@@ -179,17 +180,21 @@ public class QuestionsServiceImpl implements QuestionsService {
         String chose=user.getUserchosen();
         String collection=user.getUsercollection();
         String []strings=chose.split(",");
-        String []collstrings=collection.split(",");
-        for (String list:strings){
-            Map<String,Object> questionsMap=new HashMap<String, Object>();
-            Questions questions=new Questions();
-            questions= questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
-            questionsMap.put("id",questions.getQuestionsId());
-            questionsMap.put("type",questions.getTypes().getTypeName());
-            chosenList.add(questionsMap);
+        if (!strings[0].equals("0")) {
+            for (String list : strings) {
+                Map<String, Object> questionsMap = new HashMap<String, Object>();
+                Questions questions = new Questions();
+                questions = questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
+                questionsMap.put("id", questions.getQuestionsId());
+                questionsMap.put("type", questions.getTypes().getTypeName());
+                chosenList.add(questionsMap);
+            }
         }
-        for (String list:collstrings){
-            collectList.add(list);
+        String []collstrings=collection.split(",");
+        if (!collstrings[0].equals("0")) {
+            for (String list : collstrings) {
+                collectList.add(list);
+            }
         }
         questionMap.put("context",questionsJsonList);
         PageInfo pageInfo=new PageInfo(questionsList);
