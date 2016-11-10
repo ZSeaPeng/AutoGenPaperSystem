@@ -24,7 +24,7 @@ public class CombineController {
         System.out.println("sbid---"+subid);
         session.setAttribute("wordsubid", subid);
         session.setAttribute("wordtype", wordtype);
-        String url = "{\"url\":" + subjectServiceImpl.selectByPrimaryKey(subid) + "}";
+        String url = "{\"url\":" +"\""+subjectServiceImpl.selectByPrimaryKey(subid) + "\"}";
 
         return url;
     }
