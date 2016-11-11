@@ -131,6 +131,34 @@ public class UserServiceImpl implements UserService{
 
         return userMapper.selectAllUsers();
     }
+
+    @Override
+    public int UpdateSubjectCanByUserId(String subId, int userId) {
+        String subjectCan = userMapper.selectSubjectCanByUserId(userId);
+        //if (subjectCan.equals("0")){
+        //    subjectCan = "";
+        //}
+        String []quesId=subjectCan.split(",");
+        String change="";
+        System.out.println("quesId---"+quesId[0]);
+        int i=0;
+        Boolean flag=false;
+        for (String list:quesId){
+            if (list.equals(subId)){
+                flag=true;
+                continue;
+            }
+            change=change+list+",";
+        }
+        if (flag==false){
+            change=change+subId;
+        }
+        else {
+            change=change.substring(0,change.length()-1);
+        }
+        i=userMapper.updateSubjectCanByUserId(userId, change);
+        return i;
+    }
 }
 
 

@@ -20,20 +20,29 @@ public class AdminOperateController {
     @Resource
     private UserService userServiceImpl;
 
-    @RequestMapping(value = "/userlist",method = RequestMethod.GET)
-    public List getAllUsers(){
-        for (User u:userServiceImpl.selestAllUsers()){
-            System.out.println("id---"+u.getUserId());
-            
-        }
+    @RequestMapping(value = "/userlist", method = RequestMethod.GET)
+    public List getAllUsers() {
         return userServiceImpl.selestAllUsers();
     }
 
-    @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public void addUser(){
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public void addUser() {
         User user = new User();
         user.setUsername("test1");
         user.setUserpassword("123456");
         userServiceImpl.insertSelective(user);
     }
+
+    @RequestMapping(value = "/addsubjectcan", method = RequestMethod.POST)
+    public int addSubjectCan(int userid, String subid) {
+
+        return userServiceImpl.UpdateSubjectCanByUserId(subid, userid);
+    }
+
+    @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
+    public int removeSubjectCan(int userid, String subid) {
+
+        return userServiceImpl.UpdateSubjectCanByUserId(subid, userid);
+    }
+
 }

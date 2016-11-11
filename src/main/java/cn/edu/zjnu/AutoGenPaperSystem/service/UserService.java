@@ -30,4 +30,6 @@ public interface UserService  {
     int selectByUserName(String userName);
 
     List<User> selestAllUsers();
+
+    int UpdateSubjectCanByUserId(String subId,int userId);
 }

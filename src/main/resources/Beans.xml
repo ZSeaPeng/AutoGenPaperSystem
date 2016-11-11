@@ -28,6 +28,8 @@
 	<mvc:default-servlet-handler/>
 
 	<mvn:annotation-driven/>
+	<!--<import resource="classpath:Shiro.xml"/>-->
+
 	<!--<mvn:resources mapping="/static/**" location="WEB-INF/jsp"/>-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="suffix" value=".html"/>
@@ -89,5 +91,15 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
+
+
+	<!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"-->
+		  <!--depends-on="lifecycleBeanPostProcessor">-->
+		<!--<property name="proxyTargetClass" value="true" />-->
+	<!--</bean>-->
+
+	<!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
+		<!--<property name="securityManager" ref="securityManager"/>-->
+	<!--</bean>-->
 
 </beans>
