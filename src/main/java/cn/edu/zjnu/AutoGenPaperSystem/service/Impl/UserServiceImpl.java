@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int insertSelective(User record) {
-        return 0;
+        return userMapper.insertSelective(record);
     }
 
     @Override
@@ -120,6 +121,16 @@ public class UserServiceImpl implements UserService{
         return i;
     }
 
+    @Override
+    public int selectByUserName(String userName) {
+        return userMapper.selectByUserName(userName);
+    }
+
+    @Override
+    public List<User> selestAllUsers() {
+
+        return userMapper.selectAllUsers();
+    }
 }
 
 

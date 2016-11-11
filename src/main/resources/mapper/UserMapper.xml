@@ -3,33 +3,39 @@
 <mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper" >
   <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
     <constructor >
-      <idArg column="User_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <idArg column="UserId" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="UserName" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="UserPassword" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="Downloadable" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="Permission_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PermissionId" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="SubjectCan" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="UserChosen" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="UserCollection" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    User_ID, UserName, UserPassword, Downloadable, Permission_ID, SubjectCan, UserChosen, 
+    UserId, UserName, UserPassword, Downloadable, PermissionId, SubjectCan, UserChosen,
     UserCollection
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from User
-    where User_ID = #{userId,jdbcType=INTEGER}
+    where UserId = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUserName" resultType="java.lang.Integer">
+    SELECT * FROM User WHERE UserName = #{userName}
+  </select>
+  <select id="selectAllUsers" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.User">
+    SELECT * FROM User
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from User
-    where User_ID = #{userId,jdbcType=INTEGER}
+    where UserId = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
-    insert into User (User_ID, UserName, UserPassword, 
-      Downloadable, Permission_ID, SubjectCan, 
+    insert into User (UserId, UserName, UserPassword,
+      Downloadable, PermissionId, SubjectCan,
       UserChosen, UserCollection)
     values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, 
       #{downloadable,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER}, #{subjectcan,jdbcType=VARCHAR}, 
@@ -39,7 +45,7 @@
     insert into User
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
-        User_ID,
+        UserId,
       </if>
       <if test="username != null" >
         UserName,
@@ -51,7 +57,7 @@
         Downloadable,
       </if>
       <if test="permissionId != null" >
-        Permission_ID,
+        PermissionId,
       </if>
       <if test="subjectcan != null" >
         SubjectCan,
@@ -103,7 +109,7 @@
         Downloadable = #{downloadable,jdbcType=INTEGER},
       </if>
       <if test="permissionId != null" >
-        Permission_ID = #{permissionId,jdbcType=INTEGER},
+        PermissionId = #{permissionId,jdbcType=INTEGER},
       </if>
       <if test="subjectcan != null" >
         SubjectCan = #{subjectcan,jdbcType=VARCHAR},
@@ -115,27 +121,27 @@
         UserCollection = #{usercollection,jdbcType=VARCHAR},
       </if>
     </set>
-    where User_ID = #{userId,jdbcType=INTEGER}
+    where UserId = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
     update User
     set UserName = #{username,jdbcType=VARCHAR},
       UserPassword = #{userpassword,jdbcType=VARCHAR},
       Downloadable = #{downloadable,jdbcType=INTEGER},
-      Permission_ID = #{permissionId,jdbcType=INTEGER},
+      PermissionId = #{permissionId,jdbcType=INTEGER},
       SubjectCan = #{subjectcan,jdbcType=VARCHAR},
       UserChosen = #{userchosen,jdbcType=VARCHAR},
       UserCollection = #{usercollection,jdbcType=VARCHAR}
-    where User_ID = #{userId,jdbcType=INTEGER}
+    where UserId = #{userId,jdbcType=INTEGER}
   </update>
   <update id="updateByUserId" >
     UPDATE User
     SET UserChosen=#{param1}
-    WHERE User_ID = #{param2}
+    WHERE UserId = #{param2}
   </update>
   <update id="updateCollectByUserId">
     UPDATE User
     SET UserCollection=#{param1}
-    WHERE User_ID = #{param2}
+    WHERE UserId = #{param2}
   </update>
 </mapper>
