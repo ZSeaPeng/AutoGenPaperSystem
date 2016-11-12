@@ -1,5 +1,8 @@
 package cn.edu.zjnu.AutoGenPaperSystem.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private Integer userId;
 
@@ -17,6 +20,8 @@ public class User {
 
     private String usercollection;
 
+    private List add;
+
     public User(Integer userId, String username, String userpassword, Integer downloadable, Integer permissionId, String subjectcan, String userchosen, String usercollection) {
         this.userId = userId;
         this.username = username;
@@ -30,6 +35,7 @@ public class User {
 
     public User() {
         super();
+       this.add = new ArrayList();
     }
 
     public Integer getUserId() {
@@ -94,6 +100,14 @@ public class User {
 
     public void setUsercollection(String usercollection) {
         this.usercollection = usercollection == null ? null : usercollection.trim();
+    }
+
+    public List getAdd() {
+        return add;
+    }
+
+    public void setAdd(List add) {
+        this.add = add;
     }
 
     @Override
