@@ -63,7 +63,7 @@ export const toggle = details => ({
 //asyn
 //fetch state for the index page
 export const getInitialState = () => dispatch => {
-    return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/subjectlist')
+    return fetch('http://localhost:8110/AutoGenPaperSystem/api/subjectlist')
         .then( response => response.json())
         .then( json =>
           dispatch(recevieInitialState(json))
@@ -72,7 +72,7 @@ export const getInitialState = () => dispatch => {
 
 //fetch state for all the sellections
 export const getSelect = url => dispatch => {
-    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}`)
+    return fetch(`http://localhost:8110/AutoGenPaperSystem/api${url}`)
         .then( response => response.json())
         .then( json =>
           dispatch(recevieSelect(json))
@@ -81,7 +81,7 @@ export const getSelect = url => dispatch => {
 
 //fetch questions you need
 export const getQuestion = (url, query="?page=1") => dispatch => {
-    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`)
+    return fetch(`http://localhost:8110/AutoGenPaperSystem/api${url}/question${query}`)
         .then( response => response.json())
         .then( json =>
           dispatch(recevieQuestion(json))
@@ -89,7 +89,7 @@ export const getQuestion = (url, query="?page=1") => dispatch => {
 };
 
 export const asynAdd = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/add`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/add`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -104,7 +104,7 @@ export const asynAdd = (details) => dispatch => {
 };
 
 export const asynRemove = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/remove`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/remove`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -119,7 +119,7 @@ export const asynRemove = (details) => dispatch => {
 };
 
 export const asynCollection = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/save`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/save`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -134,7 +134,7 @@ export const asynCollection = (details) => dispatch => {
 };
 
 export const asynDiscoll = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/delete`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/delete`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -149,7 +149,7 @@ export const asynDiscoll = (details) => dispatch => {
 };
 
 export const asynRemoveAll = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/allremove`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/allremove`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -166,7 +166,7 @@ export const asynRemoveAll = (details) => dispatch => {
 // export const asynSubmit = ()
 
 export const login = (username, password) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/login`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/login`, {
     method: 'POST',
     body: JSON.stringify({
       username: username,

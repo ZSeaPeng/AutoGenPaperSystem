@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by zseapeng on 2016/11/11.
@@ -36,11 +35,10 @@ public class AdminOperateController {
     }
 
     @RequestMapping(value = "/change", method = RequestMethod.POST)
-    public Map addSubjectCan(@RequestBody Map map) {
-        User user = (User) map.get("user");
+    public User addSubjectCan(@RequestBody User user) {
         userServiceImpl.updateByPrimaryKeySelective(user);
-        ((User) map.get("user")).setAdd(null);
-        return map;
+        user.getAdd().clear();
+        return user;
     }
 
     @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
