@@ -44,6 +44,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int updateByPrimaryKeySelective(User record) {
+        List addChange = record.getAdd();
+        String subjectCan = record.getSubjectcan();
+        for (Object add :addChange){
+            subjectCan = subjectCan+","+String.valueOf(add);
+        }
+        record.setSubjectcan(subjectCan);
         return userMapper.updateByPrimaryKeySelective(record);
     }
 
