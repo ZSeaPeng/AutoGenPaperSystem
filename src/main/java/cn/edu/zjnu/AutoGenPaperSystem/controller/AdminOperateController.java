@@ -34,7 +34,7 @@ public class AdminOperateController {
         userServiceImpl.insertSelective(user);
     }
 
-    @RequestMapping(value = "/change", method = RequestMethod.POST)
+    @RequestMapping(value = "/change", method = RequestMethod.OPTIONS)
     public User addSubjectCan(@RequestBody User user) {
         userServiceImpl.updateByPrimaryKeySelective(user);
         user.getAdd().clear();
