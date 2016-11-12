@@ -46,7 +46,7 @@ public class AdminOperateController {
 
         userServiceImpl.UpdateSubjectCanByUserId(subid, userid);
         String subjectCan = userServiceImpl.selectSubjectCanByUserId(userid);
-        String response = "{\"k:\"" + k + ",\"subjectcan:\"" + subjectCan + "}";
+        String response = "{\"k\":" + k + ",\"subjectcan\":" + subjectCan + "}";
         return response;
     }
 
