@@ -159,6 +159,11 @@ public class UserServiceImpl implements UserService{
         i=userMapper.updateSubjectCanByUserId(userId, change);
         return i;
     }
+
+    @Override
+    public String selectSubjectCanByUserId(int userId) {
+        return userMapper.selectSubjectCanByUserId(userId);
+    }
 }
 
 
