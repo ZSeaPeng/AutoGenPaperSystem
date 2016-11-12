@@ -3,6 +3,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.controller;
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +26,7 @@ public class AdminOperateController {
         return userServiceImpl.selestAllUsers();
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/adduser", method = RequestMethod.POST)
     public void addUser() {
         User user = new User();
         user.setUsername("test1");
@@ -33,16 +34,19 @@ public class AdminOperateController {
         userServiceImpl.insertSelective(user);
     }
 
-    @RequestMapping(value = "/addsubjectcan", method = RequestMethod.POST)
-    public int addSubjectCan(int userid, String subid) {
+    @RequestMapping(value = "/change", method = RequestMethod.POST)
+    public User addSubjectCan(@RequestBody User user) {
 
-        return userServiceImpl.UpdateSubjectCanByUserId(subid, userid);
+        userServiceImpl.updateByPrimaryKeySelective(user);
+        return user;
     }
 
     @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
-    public int removeSubjectCan(int userid, String subid) {
+    public String removeSubjectCan(int userid, String subid) {
 
-        return userServiceImpl.UpdateSubjectCanByUserId(subid, userid);
+        int i = userServiceImpl.UpdateSubjectCanByUserId(subid, userid);
+        String response = "{\"userid:\"" + userid + "\"i:\"" + i + "}";
+        return response;
     }
 
 }
