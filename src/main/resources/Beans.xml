@@ -24,9 +24,9 @@
 	<context:property-placeholder location="classpath*:mysql.properties"/>
 	<context:component-scan base-package="cn.edu.zjnu.AutoGenPaperSystem.**"/>
 
-	<!--<mvc:cors>-->
-		<!--<mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>-->
-	<!--</mvc:cors>-->
+	<mvc:cors>
+		<mvc:mapping path="/api/*" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
+	</mvc:cors>
 
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
@@ -95,7 +95,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean class="cn.edu.zjnu.AutoGenPaperSystem.util.CorsConfigurerAdapter"></bean>
+	<!--<bean class="cn.edu.zjnu.AutoGenPaperSystem.util.CorsConfigurerAdapter"></bean>-->
 
 	<!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"-->
 		  <!--depends-on="lifecycleBeanPostProcessor">-->
