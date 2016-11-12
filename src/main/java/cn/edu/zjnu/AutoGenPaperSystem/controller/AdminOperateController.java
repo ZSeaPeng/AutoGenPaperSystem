@@ -42,10 +42,10 @@ public class AdminOperateController {
     }
 
     @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
-    public String removeSubjectCan(int userid, String subid) {
+    public String removeSubjectCan(int userid, String subid,int k,int i) {
 
-        int i = userServiceImpl.UpdateSubjectCanByUserId(subid, userid);
-        String response = "{\"userid:\"" + userid + "\"i:\"" + i + "}";
+        userServiceImpl.UpdateSubjectCanByUserId(subid, userid);
+        String response = "{\"k:\"" + k + ",\"i:\"" + i + "}";
         return response;
     }
 
