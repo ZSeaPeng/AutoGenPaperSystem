@@ -46,8 +46,13 @@ public class AdminOperateController {
 
         userServiceImpl.UpdateSubjectCanByUserId(subid, userid);
         String subjectCan = userServiceImpl.selectSubjectCanByUserId(userid);
-        String response = "{\"k\":" + k + ",\"subjectcan\":" + "\""+subjectCan +"\""+ "}";
+        String response = "{\"k\":" + k + ",\"subjectcan\":" + "\"" + subjectCan + "\"" + "}";
         return response;
+    }
+
+    @RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
+    public int deleteUser(int userid) {
+        return userServiceImpl.deleteByPrimaryKey(userid);
     }
 
 }
