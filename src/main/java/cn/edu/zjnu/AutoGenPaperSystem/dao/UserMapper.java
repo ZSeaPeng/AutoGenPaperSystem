@@ -3,6 +3,8 @@ package cn.edu.zjnu.AutoGenPaperSystem.dao;
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface UserMapper {
     int deleteByPrimaryKey(Integer userId);
@@ -17,7 +19,15 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    int updateByUserId(String chosen,int userId);
+    int updateByUserId(String chosen, int userId);
 
-    int updateCollectByUserId(String collect,int userId);
+    int updateCollectByUserId(String collect, int userId);
+
+    int selectByUserName(String userName);
+
+    List<User> selectAllUsers();
+
+    int updateSubjectCanByUserId(int userId,String subId);
+
+    String selectSubjectCanByUserId(int userId);
 }

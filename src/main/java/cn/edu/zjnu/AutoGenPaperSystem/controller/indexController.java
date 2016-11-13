@@ -18,8 +18,6 @@ public class indexController {
     public Map getUpdateInfo() {
 
 
-
-
         Map<String,List> map = new HashMap<String, List>();
         List<String> subList = new ArrayList<String>();
         subList.add("语文");

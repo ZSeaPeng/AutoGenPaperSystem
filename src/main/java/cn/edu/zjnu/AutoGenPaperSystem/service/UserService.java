@@ -2,6 +2,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.service;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,4 +26,12 @@ public interface UserService  {
     Map updateCollectByUserId(String collect,int userId,int k);
 
     int allremove(int userid);
+
+    int selectByUserName(String userName);
+
+    List<User> selestAllUsers();
+
+    int UpdateSubjectCanByUserId(String subId,int userId);
+
+    String selectSubjectCanByUserId(int userId);
 }

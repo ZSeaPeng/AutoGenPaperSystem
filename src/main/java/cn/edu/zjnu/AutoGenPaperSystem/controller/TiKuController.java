@@ -37,6 +37,7 @@ public class TiKuController {
     private CharacterService characterServiceImpl;
 
     private static SearchAll searchAll = new SearchAll();
+    private static int userId = 1;
 
 
     private int sub_id = 0;
@@ -72,7 +73,6 @@ public class TiKuController {
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
-        System.out.println("subname---->" + this.sub_name);
         allMap.put("Points", knowLedgeList);
         allMap.put("Types", typesList);
         allMap.put("Difficulty", difficultiesList);
@@ -214,7 +214,9 @@ public class TiKuController {
         setParam(subjectName, grade_id, point_id);
         searchAll.setSub_id(this.sub_id);
         searchAll.setKnow_id(Integer.valueOf(this.point_id));
-        return questionsServiceImpl.selectBySearchAll(searchAll, page, 1);
+
+
+        return questionsServiceImpl.selectBySearchAll(searchAll, page, userId);
     }
 
     @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}/{others}/question", method = RequestMethod.GET)
@@ -237,7 +239,9 @@ public class TiKuController {
             searchAll.setDiff_id(Integer.parseInt(matcher.group(2)));
             searchAll.setChar_id(Integer.parseInt(matcher.group(3)));
         }
-        return questionsServiceImpl.selectBySearchAll(searchAll, page, 1);
+
+        //userid
+        return questionsServiceImpl.selectBySearchAll(searchAll, page, userId);
     }
 
     private void init() {

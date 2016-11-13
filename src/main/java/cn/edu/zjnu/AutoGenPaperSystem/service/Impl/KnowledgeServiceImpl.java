@@ -52,7 +52,6 @@ public class KnowledgeServiceImpl implements KnowledgeService {
      * @return
      */
     public List<Knowledge> selectKnowledgeBySubjectId(Integer subjectId, int gradeID, String subName) {
-        System.out.println("url--->" + "/" + gradeID + "/" + subName);
         return knowledgeMapper.selectKnowledgeBySubjectId(subjectId);
     }
 
