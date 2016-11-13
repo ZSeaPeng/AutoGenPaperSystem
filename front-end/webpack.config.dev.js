@@ -24,10 +24,14 @@ module.exports = {
                 loaders: ['babel'],
                 include: path.join(__dirname, 'client')
             },
-          {
-            test: /\.(png|jpg)$/,
-            loader: 'url-loader?limit=8192'
-          },
+            {
+              test: /\.(png|jpg|gif)$/,
+              loader: 'url-loader?limit=8192'
+            },
+            {
+              test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
+              loader: 'url?prefix=font/&limit=10000'
+            }
         ]
     },
     resolve: {

@@ -1,4 +1,4 @@
-import { RECEIVE_INITIAL_STATE } from '../actions/actionCreators';
+import { RECEIVE_INITIAL_STATE, LOGIN } from '../actions/actionCreators';
 
 function grades(state = {
     sublist:[],
@@ -14,6 +14,11 @@ function grades(state = {
         userid: action.posts.userid
         // img: [ ...action.posts.img ]
       };
+    case LOGIN:
+      return {
+        ...state,
+        userid: action.posts.userid
+      }
     default:
       return state;
   }

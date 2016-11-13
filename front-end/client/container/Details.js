@@ -66,8 +66,6 @@ class Details extends Component {
       }
     } else if (type === 'toggle') {
       dispatch(toggle(details));
-    } else if (type === 'submit') {
-      console.log(`submit`);
     }
   }
 

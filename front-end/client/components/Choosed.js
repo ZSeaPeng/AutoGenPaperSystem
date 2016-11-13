@@ -16,15 +16,10 @@ class Choosed extends Component{
   constructor(props) {
     super(props);
     this.handleRemove = this.handleRemove.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleRemove() {
     this.props.onChange('all','add');
-  }
-
-  handleSubmit() {
-    this.props.onChange('','submit');
   }
 
   render() {
@@ -78,7 +73,7 @@ class Choosed extends Component{
           </List>
           <Divider />
           <MenuItem primaryText="点击删除所有" style={{color: '#FF5252'}} onClick={this.handleRemove}/>
-          <MenuItem primaryText="点击组成试卷" onClick={this.handleSubmit}/>
+          <MenuItem><Link to='/testpaper'>点击组成试卷</Link></MenuItem>
         </Menu>
       </Paper>
     )

@@ -24,12 +24,16 @@ module.exports = {
             include: path.join(__dirname, 'client')
           },
           {
-            test: /\.(png|jpg)$/,
+            test: /\.(png|jpg|gif)$/,
             loader: 'url-loader?limit=8192'
           },
           {
             test: /\.less$/,
             loader: "style!css!less"
+          },
+          {
+            test: /\.woff|\.woff2|\.svg|.eot|\.ttf/,
+            loader: 'url?prefix=font/&limit=10000'
           }
     ]
   },

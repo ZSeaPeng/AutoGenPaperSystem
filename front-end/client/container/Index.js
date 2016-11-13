@@ -7,7 +7,7 @@ import News from '../components/News';
 import SignUp from '../components/SignUp';
 
 //add actions
-import { login } from '../actions/actionCreators'
+import { asynLogin } from '../actions/actionCreators'
 
 class Index extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class Index extends Component {
 
   handleSubmit(username, password) {
     const { dispatch } = this.props;
-    dispatch(login(username, password))
+    dispatch(asynLogin(username, password))
   }
 
   render() {
@@ -35,11 +35,15 @@ class Index extends Component {
       top: 100,
       left: 90
     }
-    const { update } = this.props;
+    const { update, userid } = this.props;
     const isEmpty = update.length === 0;
+    const isNull = userid === '';
     return (
       <div>
-        <SignUp onChange={this.handleSubmit}/>
+        {isNull
+          ? <div></div>
+          : <SignUp onChange={this.handleSubmit}/>
+        }
         {isEmpty
           ? <div></div>
           : <div>
@@ -61,9 +65,10 @@ class Index extends Component {
 
 const mapStateToProps = state => {
   const { grades } = state;
-  const { update } = grades;
+  const { update, userid } = grades;
   return {
-    update
+    update,
+    userid
   }
 }
 

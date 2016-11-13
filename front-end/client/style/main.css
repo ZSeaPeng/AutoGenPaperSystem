@@ -1,5 +1,5 @@
-@import 'slick.min.css'
-@import 'slick-theme.min.css'
+@import 'slick-theme.min.css';
+@import 'slick.min.css';
 
 html,body{
   width:100%;
