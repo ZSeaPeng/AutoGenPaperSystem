@@ -4,10 +4,17 @@ import {
   ADDSUBPRE,
   REMOVESUBPRE,
   USERCHANGE,
-  DELETEUSER
+  DELETEUSER,
+  ADDNEWSUBPRE,
+  REMOVENEWSUBPRE,
+  CREATEUSER
 } from '../actions/actionCreators';
 
-function userList(state={old: [], new: {}}, action) {
+function userList(state={old: [], new: {
+  username: '',
+  password: '',
+  subjects: []
+}}, action) {
   switch (action.type) {
     case USERLIST:
       return {
@@ -76,6 +83,39 @@ function userList(state={old: [], new: {}}, action) {
           ...state.old.slice(0, action.details.k),
           ...state.old.slice(action.details.k + 1)
         ]
+      };
+    case ADDNEWSUBPRE:
+     return {
+      ...state,
+      new: {
+        ...state.new,
+        subjects: [
+          ...state.new.subjects,
+          action.details.subid
+        ]
+      }
+    };
+    case REMOVENEWSUBPRE:
+      return {
+        ...state,
+        new: {
+          ...state.new,
+          subjects: [
+            ...state.new.subjects.slice(0, action.details.k),
+            ...state.new.subjects.slice(action.details.k + 1)
+          ]
+        }
+      };
+    case CREATEUSER:
+      return {
+        old: [
+          ...action.details
+        ],
+        new: {
+          username: '',
+          password: '',
+          subjects: []
+        }
       };
     default:
       return state;

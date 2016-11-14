@@ -2,26 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 //UI
-import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 
 //add component
 import UserDetail from './UserDetail';
+import NewUserChip from '../components/NewUserChip'
 
 //add action
-import { getUserList } from '../actions/actionCreators';
+import { getUserList, addNewSubPre, removeNewSubPre, asynCreateUser } from '../actions/actionCreators';
 
 
 class ControlUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: false
+      type: false,
+      username: '',
+      password: ''
     };
+    this.handleChange = this.handleChange.bind(this);
     this.handleAddUser = this.handleAddUser.bind(this);
     this.usernameChange = this.usernameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleAddUser() {
@@ -36,13 +43,56 @@ class ControlUser extends Component {
     this.state.password = e.target.value
   }
 
+  handleChange(detail, type) {
+    const { dispatch, userList } = this.props;
+    var count = 0, k = 0;
+    if(type === 'add') {
+      for (let i = 0; i < userList.new.subjects.length; i++) {
+        if(detail.subid === userList.new.subjects[i]) {
+          count++;
+          k = i;
+        }
+      }
+      if(count === 0) {
+        dispatch(addNewSubPre(detail));
+      } else {
+        dispatch(removeNewSubPre({...detail, k: k}))
+      }
+    }
+  }
+
+  handleSubmit() {
+    const { username, password } = this.state;
+    const { userList } = this.props;
+    var count = 0;
+    var reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
+    if( username === '' || password === '') {
+      count++;
+      alert('用户名或密码不能为空');
+    }
+    if(!reg.test(password) || password.length < 8) {
+      count++;
+      alert('密码强度太低，请至少八位，并包含字母数字')
+    }
+    for (let i = 0; i < userList.old.length; i++) {
+      if (username === userList.old[i].username) {
+        count++;
+        alert('用户名重复');
+      }
+    }
+    if(count === 0) {
+      dispatch(asynCreateUser({username: username, password: password, add: userList.new.subjects}));
+    }
+  }
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getUserList());
   }
 
   render() {
-    const { userList } = this.props;
+    const { userList, sublist } = this.props;
+    const isEmpty = sublist.length === 0;
     var styles = {
       button: {
         position: 'fixed',
@@ -59,15 +109,16 @@ class ControlUser extends Component {
         flexWrap: 'wrap',
         alignItems: 'flex-start'
       },
-      paper: {}
+      card: {}
     };
 
     if(this.state.type) {
-      styles.paper = {
+      styles.card = {
+        padding: '1%',
         position: 'fixed',
         margin: 'auto',
-        height: 300,
-        width: 300,
+        height: '350px',
+        maxWidth: '30%',
         top: 0,
         left: 0,
         right: 0,
@@ -75,7 +126,7 @@ class ControlUser extends Component {
         zIndex: 9999
       }
     } else {
-      styles.paper = {
+      styles.card = {
         display: 'none'
       }
     }
@@ -90,9 +141,29 @@ class ControlUser extends Component {
             <ContentAdd />
           </FloatingActionButton>
         </div>
-        <Paper style={styles.paper} zDepth={5}>
-
-        </Paper>
+        <Card style={styles.card}>
+          <TextField
+            floatingLabelText="用户名"
+            floatingLabelFixed={true}
+            onChange={ this.usernameChange }
+          /><br />
+          <TextField
+            floatingLabelText="密码"
+            floatingLabelFixed={true}
+            onChange={ this.passwordChange }
+          /><br />
+          <div>点击以添加</div>
+          {!isEmpty
+            ? <div style={styles.wrapper}>
+              {
+                sublist[0].contextList.map((context, i) =>
+                  <NewUserChip key={i} i={i} sub={context} user={userList.new} onChange={this.handleChange}/>)
+              }
+            </div>
+            : <div></div>
+          }
+          <RaisedButton label="确认添加用户" fullWidth={true} secondary={true} onClick = {this.handleSubmit}/>
+        </Card>
       </div>
     )
   }
