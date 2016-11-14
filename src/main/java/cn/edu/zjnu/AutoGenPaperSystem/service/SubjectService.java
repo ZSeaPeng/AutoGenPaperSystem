@@ -22,5 +22,7 @@ public interface SubjectService {
 
     List selectAllSubject();
 
+    List selectAllSubjectOnAdmin();
+
     List<Subject> selectByGradeId(int id);
 }

@@ -5,6 +5,7 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.Grade;
 import cn.edu.zjnu.AutoGenPaperSystem.model.SubJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.Subject;
 import cn.edu.zjnu.AutoGenPaperSystem.service.GradeService;
+import cn.edu.zjnu.AutoGenPaperSystem.service.KnowledgeService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
 import com.github.stuxuhai.jpinyin.PinyinException;
 import com.github.stuxuhai.jpinyin.PinyinFormat;
@@ -27,6 +28,8 @@ public class SubjectServiceImpl implements SubjectService {
     private SubjectMapper subjectMapper;
     @Resource
     private GradeService gradeServiceImpl;
+    @Resource
+    private KnowledgeService knowledgeServiceImpl;
 
     private static String localhost = "http://10.15.86.22:8111/AutoGenPaperSystem/api";
 
@@ -88,6 +91,23 @@ public class SubjectServiceImpl implements SubjectService {
             subJsonList.add(subJson);
         }
         return subJsonList;
+    }
+
+    @Override
+    public List selectAllSubjectOnAdmin() {
+        List subjects = new ArrayList();
+        subjects.clear();
+        List<Subject> subjectList =  subjectMapper.selectAllSubject();
+        for (Subject subject:subjectList){
+            //System.out.println(subject);
+            Map map = new HashMap();
+            map.clear();
+            map.put("subName",subject.getSubjectName());
+            map.put("points",knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(subject.getSubjectId(),0,"","","","","",""));
+            subjects.add(map);
+        }
+
+        return subjects;
     }
 
     public List<Subject> selectByGradeId(int id) {

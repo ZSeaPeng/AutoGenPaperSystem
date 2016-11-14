@@ -1,6 +1,7 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
+import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,8 @@ import java.util.List;
 public class AdminOperateController {
     @Resource
     private UserService userServiceImpl;
-
+    @Resource
+    private SubjectService subjectServiceImpl;
     @RequestMapping(value = "/userlist", method = RequestMethod.GET)
     public List getAllUsers() {
         return userServiceImpl.selestAllUsers();
@@ -55,4 +57,13 @@ public class AdminOperateController {
         return userServiceImpl.deleteByPrimaryKey(userid);
     }
 
+    @RequestMapping(value = "/courselist",method = RequestMethod.GET)
+    public List getCourseList(){
+        return subjectServiceImpl.selectAllSubjectOnAdmin();
+    }
+
+    @RequestMapping(value = "/addsubject",method = RequestMethod.POST)
+    public void addSubject(String subName){
+
+    }
 }
