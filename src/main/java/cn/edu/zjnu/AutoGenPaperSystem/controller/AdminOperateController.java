@@ -1,5 +1,7 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
+import cn.edu.zjnu.AutoGenPaperSystem.model.KnowledgeJson;
+import cn.edu.zjnu.AutoGenPaperSystem.model.Subject;
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zseapeng on 2016/11/11.
@@ -23,22 +27,25 @@ public class AdminOperateController {
     private UserService userServiceImpl;
     @Resource
     private SubjectService subjectServiceImpl;
+
     @RequestMapping(value = "/userlist", method = RequestMethod.GET)
     public List getAllUsers() {
         return userServiceImpl.selestAllUsers();
     }
 
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
-    public void addUser() {
-        User user = new User();
-        user.setUsername("test1");
-        user.setUserpassword("123456");
-        userServiceImpl.insertSelective(user);
+    public User addUser(@RequestBody User user) {
+        if (userServiceImpl.insertSelective(user)==0){
+            return null;
+        }
+        return user;
     }
 
     @RequestMapping(value = "/change", method = RequestMethod.POST)
     public User addSubjectCan(@RequestBody User user) {
-        userServiceImpl.updateByPrimaryKeySelective(user);
+        if (userServiceImpl.updateByPrimaryKeySelective(user)==0){
+            return null;
+        }
         user.getAdd().clear();
         return user;
     }
@@ -46,7 +53,9 @@ public class AdminOperateController {
     @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
     public String removeSubjectCan(int userid, String subid, int k) {
 
-        userServiceImpl.UpdateSubjectCanByUserId(subid, userid);
+        if (userServiceImpl.UpdateSubjectCanByUserId(subid, userid)==0){
+            return null;
+        }
         String subjectCan = userServiceImpl.selectSubjectCanByUserId(userid);
         String response = "{\"k\":" + k + ",\"subjectcan\":" + "\"" + subjectCan + "\"" + "}";
         return response;
@@ -57,13 +66,24 @@ public class AdminOperateController {
         return userServiceImpl.deleteByPrimaryKey(userid);
     }
 
-    @RequestMapping(value = "/courselist",method = RequestMethod.GET)
-    public List getCourseList(){
+    @RequestMapping(value = "/courselist", method = RequestMethod.GET)
+    public List getCourseList() {
         return subjectServiceImpl.selectAllSubjectOnAdmin();
     }
 
-    @RequestMapping(value = "/addsubject",method = RequestMethod.POST)
-    public void addSubject(String subName){
-
+    @RequestMapping(value = "/addsubject", method = RequestMethod.POST)
+    public Map addSubject(String subname) {
+        Subject subject = new Subject();
+        subject.setSubjectName(subname);
+        subject.setGradeId(1);
+        int i = subjectServiceImpl.insertSelective(subject);
+        if (i==0){
+            return null;
+        }
+        Map map = new HashMap();
+        map.clear();
+        map.put("subName",subname);
+        map.put("points",new KnowledgeJson());
+        return map;
     }
 }

@@ -42,7 +42,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     public int insertSelective(Subject record) {
-        return 0;
+        return subjectMapper.insertSelective(record);
     }
 
     public String selectByPrimaryKey(Integer subjectId) {
