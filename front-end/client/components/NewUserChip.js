@@ -2,14 +2,10 @@ import React from 'react';
 
 import Chip from 'material-ui/Chip';
 
-export default class UnChosenChip extends React.Component {
+export default class NewUserChip extends React.Component {
   constructor(props) {
     super(props);
     this.handleTouchTap = this.handleTouchTap.bind(this);
-  }
-
-  getUser() {
-    return this.props.user.userId;
   }
 
   getInfo() {
@@ -17,14 +13,20 @@ export default class UnChosenChip extends React.Component {
   }
 
   handleTouchTap() {
-    this.props.onChange(this.getInfo(), 'add');
+    this.props.onChange({subid: this.getInfo()}, 'add');
   }
 
   render() {
     const { sub, user } = this.props;
-    var chip;
+    var chip = {}, count = 0;
 
-    if(user.add.indexOf(sub.subid) === -1) {
+    for (let i = 0; i < user.subjects.length; i++) {
+      if(user.subjects[i] == sub.subid) {
+        count++;
+      }
+    }
+
+    if( count === 0) {
       chip = {
         margin: 4
       }

@@ -14,9 +14,12 @@ export const LOGIN = 'LOGIN';
 export const USERLIST = 'USERLIST';
 export const REMOVESUBJECT = 'REMOVESUBJECT';
 export const ADDSUBPRE = 'ADDSUBPRE';
+export const ADDNEWSUBPRE = 'ADDNEWSUBPRE';
 export const REMOVESUBPRE = 'REMOVESUBPRE';
+export const REMOVENEWSUBPRE = 'REMOVENEWSUBPRE';
 export const USERCHANGE = 'USERCHANGE';
 export const DELETEUSER = 'DELETEUSER';
+export const CREATEUSER = 'CREATEUSER';
 
 /**
  * 真正与reducer沟通的函数
@@ -98,9 +101,21 @@ export const addSubPre = details => ({
   details
 });
 
+//管理员对新用户预添加科目使用权限
+export const addNewSubPre = details => ({
+  type: ADDNEWSUBPRE,
+  details
+});
+
 //管理员对用户取消预添加科目使用权限
 export const removeSubPre = details => ({
   type: REMOVESUBPRE,
+  details
+});
+
+//管理员对新用户取消预添加科目使用权限
+export const removeNewSubPre = details => ({
+  type: REMOVENEWSUBPRE,
   details
 });
 
@@ -113,6 +128,12 @@ export const userChange = details => ({
 //管理员删除某用户
 export const deleteUser = details => ({
   type: DELETEUSER,
+  details
+});
+
+//管理员添加新用户
+export const createUser = details => ({
+  type: CREATEUSER,
   details
 });
 
@@ -272,7 +293,7 @@ export const asynChange = (details) => dispatch => {
 
 //对应deleteUser()
 export const asynDeleteUser = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/detaleuser`, {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deleteuser`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -283,6 +304,24 @@ export const asynDeleteUser = (details) => dispatch => {
     .then(response => response.json())
     .then(json =>
       dispatch(deleteUser({json, k: details.k}))
+    )
+};
+
+//对应createUser()
+export const asynCreateUser = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/createuser`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({
+      ...details
+    })
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(createUser(json))
     )
 };
 
