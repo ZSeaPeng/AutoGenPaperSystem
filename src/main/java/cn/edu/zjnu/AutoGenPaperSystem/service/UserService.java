@@ -34,4 +34,6 @@ public interface UserService  {
     int UpdateSubjectCanByUserId(String subId,int userId);
 
     String selectSubjectCanByUserId(int userId);
+
+    int updateIsDeleteByUserId(Integer usaerid);
 }

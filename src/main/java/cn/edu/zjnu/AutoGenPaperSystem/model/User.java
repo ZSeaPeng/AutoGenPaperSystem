@@ -22,6 +22,8 @@ public class User {
 
     private List add;
 
+    private Integer isDelete;
+
     public User(Integer userId, String username, String userpassword, Integer downloadable, Integer permissionId, String subjectcan, String userchosen, String usercollection) {
         this.userId = userId;
         this.username = username;
@@ -35,7 +37,8 @@ public class User {
 
     public User() {
         super();
-       this.add = new ArrayList();
+        this.add = new ArrayList();
+        this.isDelete = 0;
     }
 
     public Integer getUserId() {

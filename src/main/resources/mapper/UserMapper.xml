@@ -11,26 +11,27 @@
 			<arg column="SubjectCan" jdbcType="VARCHAR" javaType="java.lang.String"/>
 			<arg column="UserChosen" jdbcType="VARCHAR" javaType="java.lang.String"/>
 			<arg column="UserCollection" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<arg column="isDelete" jdbcType="INTEGER" javaType="Integer"/>
 		</constructor>
 	</resultMap>
 	<sql id="Base_Column_List">
     UserId, UserName, UserPassword, Downloadable, PermissionId, SubjectCan, UserChosen,
-    UserCollection
+    UserCollection,isDelete
   </sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List"/>
 		from User
-		where UserId = #{userId,jdbcType=INTEGER}
+		where UserId = #{userId,jdbcType=INTEGER} and isDelete = 0
 	</select>
 	<select id="selectByUserName" resultType="java.lang.Integer">
-    SELECT * FROM User WHERE UserName = #{userName}
+    SELECT * FROM User WHERE UserName = #{userName} and isDelete = 0
   </select>
 	<select id="selectAllUsers" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.User">
-    SELECT * FROM User
+    SELECT * FROM User WHERE  isDelete = 0
   </select>
 	<select id="selectSubjectCanByUserId" resultType="java.lang.String">
-		SELECT SubjectCan FROM User WHERE userId = #{userId}
+		SELECT SubjectCan FROM User WHERE userId = #{userId} and isDelete = 0
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from User
@@ -152,4 +153,9 @@
     SET SubjectCan = #{param2}
     where userId = #{param1}
   </update>
+	<update id="updateIsDeleteByUserId">
+		UPDATE User
+		SET isDelete = 1
+		WHERE userId = #{usaerid}
+	</update>
 </mapper>

@@ -44,6 +44,7 @@ public class AdminOperateController {
         return user;
     }
 
+
     @RequestMapping(value = "/change", method = RequestMethod.POST)
     public User addSubjectCan(@RequestBody User user) {
         if (userServiceImpl.updateByPrimaryKeySelective(user)==0){
@@ -53,6 +54,11 @@ public class AdminOperateController {
         return user;
     }
 
+    @RequestMapping(value = "/deleteuser",method = RequestMethod.POST)
+    public int deleteUser(Integer userid){
+
+        return userServiceImpl.updateIsDeleteByUserId(userid);
+    }
     @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
     public String removeSubjectCan(int userid, String subid, int k) {
 
@@ -64,10 +70,10 @@ public class AdminOperateController {
         return response;
     }
 
-    @RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
-    public int deleteUser(int userid) {
-        return userServiceImpl.deleteByPrimaryKey(userid);
-    }
+    //@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
+    //public int deleteUser(int userid) {
+    //    return userServiceImpl.deleteByPrimaryKey(userid);
+    //}
 
     @RequestMapping(value = "/courselist", method = RequestMethod.GET)
     public List getCourseList() {
