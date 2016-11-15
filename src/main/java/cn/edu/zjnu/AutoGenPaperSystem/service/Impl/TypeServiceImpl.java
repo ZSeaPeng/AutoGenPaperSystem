@@ -48,6 +48,7 @@ public class TypeServiceImpl implements TypeService {
         List<Types> typesList = typesMapper.selectTypesBySubjectId(subjectId);
         for (Types types:typesList){
             TypesJson json = new TypesJson();
+            json.setId(types.getTypeId());
             json.setName(types.getTypeName());
             json.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+
                     types.getTypeId()+"d"+d+"c"+c);

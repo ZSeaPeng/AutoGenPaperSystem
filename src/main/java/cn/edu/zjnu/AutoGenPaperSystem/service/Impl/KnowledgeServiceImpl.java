@@ -83,6 +83,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
             if (String.valueOf(knowledge.getKnowledgeId()).equals(pointId)){
                 knowledgeJson.setSelect(true);
             }
+            knowledgeJson.setId(knowledge.getKnowledgeId());
             knowledgeJson.setName(knowledge.getKnowledgeName());
             knowledgeJson.setPointList(getKnowledgeJson(knowledge.getKnowledgeId(), grade_id, others, subName, t, d, c, 1,pointId));
             knowledgeJson.setUrl("/tiku/" + grade_id + "/" + subName + "/point" + knowledge.getKnowledgeId() +
@@ -102,6 +103,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         for (Knowledge knowledge2 : knowledgeList) {
             int leves = level;
             KnowledgeJson knowledgeJson2 = new KnowledgeJson();
+            knowledgeJson2.setId(knowledge2.getKnowledgeId());
             knowledgeJson2.setName(knowledge2.getKnowledgeName());
             knowledgeJson2.setLevel(leves);
             List<KnowledgeJson> k = new ArrayList<KnowledgeJson>();

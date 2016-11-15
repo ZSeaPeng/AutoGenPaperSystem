@@ -4,6 +4,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.model;
  * Created by zseapeng on 2016/9/29.
  */
 public class TypesJson {
+    private int id;
     private String name;
     private String url;
     private boolean select = false;
@@ -39,6 +40,14 @@ public class TypesJson {
 
     public void setSelect(boolean select) {
         this.select = select;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

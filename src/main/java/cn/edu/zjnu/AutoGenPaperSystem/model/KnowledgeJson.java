@@ -6,6 +6,7 @@ import java.util.List;
  * Created by zseapeng on 2016/9/28.
  */
 public class KnowledgeJson {
+    private int id;
     private int level;
     private String name;
     private List pointList;
@@ -61,6 +62,14 @@ public class KnowledgeJson {
 
     public void setSelect(boolean select) {
         this.select = select;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
