@@ -9,11 +9,14 @@ public class Knowledge {
 
     private Integer superiorId;
 
-    public Knowledge(Integer knowledgeId, String knowledgeName, Integer subjectId, Integer superiorId) {
+    private Integer isDelete;
+
+    public Knowledge(Integer knowledgeId, String knowledgeName, Integer subjectId, Integer superiorId, Integer isDelete) {
         this.knowledgeId = knowledgeId;
         this.knowledgeName = knowledgeName;
         this.subjectId = subjectId;
         this.superiorId = superiorId;
+        this.isDelete = isDelete;
     }
 
     public Knowledge() {
@@ -50,6 +53,14 @@ public class Knowledge {
 
     public void setSuperiorId(Integer superiorId) {
         this.superiorId = superiorId;
+    }
+
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
     }
 
     @Override

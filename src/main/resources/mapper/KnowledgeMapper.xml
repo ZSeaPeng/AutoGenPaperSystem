@@ -7,10 +7,11 @@
 			<arg column="Knowledge_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
 			<arg column="Subject_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
 			<arg column="Superior_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+			<arg column="isDelete" jdbcType="INTEGER" javaType="Integer"/>
 		</constructor>
 	</resultMap>
 	<sql id="Base_Column_List">
-    Knowledge_ID, Knowledge_name, Subject_ID, Superior_ID
+    Knowledge_ID, Knowledge_name, Subject_ID, Superior_ID,isDelete,
   </sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
@@ -23,19 +24,19 @@
     SELECT
     *
     FROM knowledge
-    WHERE Subject_ID=#{subjectId}
+    WHERE Subject_ID=#{subjectId} and isDelete=0
   </select>
 	<select id="selectFirstKnowledgeBySubjectId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT
     *
     FROM knowledge
-    WHERE Subject_ID=#{subjectId} and Superior_ID = 0
+    WHERE Subject_ID=#{subjectId} and isDelete = 0 and Superior_ID = 0
   </select>
 	<select id="selectSecondKnowledgeByKnowId1" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT
     *
     FROM knowledge
-    WHERE Superior_ID = #{knowId1}
+    WHERE Superior_ID = #{knowId1} and isDelete = 0
   </select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -101,4 +102,10 @@
       Superior_ID = #{superiorId,jdbcType=INTEGER}
     where Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
   </update>
+	<update id="updateIsDeleteById">
+		UPDATE knowledge
+		SET isDelete = 1
+		WHERE Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
+
+	</update>
 </mapper>

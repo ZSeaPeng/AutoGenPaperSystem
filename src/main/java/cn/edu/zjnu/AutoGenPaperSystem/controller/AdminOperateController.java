@@ -3,6 +3,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.controller;
 import cn.edu.zjnu.AutoGenPaperSystem.model.KnowledgeJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.Subject;
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
+import cn.edu.zjnu.AutoGenPaperSystem.service.KnowledgeService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class AdminOperateController {
     private UserService userServiceImpl;
     @Resource
     private SubjectService subjectServiceImpl;
+    @Resource
+    private KnowledgeService knowledgeServiceImpl;
 
     @RequestMapping(value = "/userlist", method = RequestMethod.GET)
     public List getAllUsers() {
@@ -85,5 +88,13 @@ public class AdminOperateController {
         map.put("subName",subname);
         map.put("points",new KnowledgeJson());
         return map;
+    }
+
+    @RequestMapping(value = "/deletepoint",method = RequestMethod.POST)
+    public List deletePoint(Integer pointid){
+        if (knowledgeServiceImpl.updateIsDeleteById(pointid)==0){
+            return null;
+        }
+        return subjectServiceImpl.selectAllSubjectOnAdmin();
     }
 }
