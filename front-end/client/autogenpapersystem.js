@@ -14,8 +14,6 @@ import AutoCombine from './container/AutoCombine';
 import Index from './container/Index';
 import Update from './container/Update';
 import Paper from './container/Paper';
-import ControlUser from './container/ControlUser';
-import ControlCourse from './container/ControlCourse';
 import Admin from './container/Admin';
 
 import store, { history } from './store';

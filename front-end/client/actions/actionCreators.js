@@ -147,25 +147,29 @@ export const createUser = details => ({
   details
 });
 
+//添加新科目
 export const createCourse = details => ({
   type: CREATECOURSE,
   details
 });
 
+//删除科目
 export const deleteCourse = details => ({
   type: DELETECOURSE,
   details
 });
 
+//创建节点
 export const createNode = details => ({
   type: CREATENODE,
   details
-})
+});
 
+//删除节点
 export const deleteNode = details => ({
   type: DELETENODE,
   details
-})
+});
 
 /*
 * 异步动作
@@ -363,6 +367,8 @@ export const asynCreateUser = (details) => dispatch => {
     )
 };
 
+
+//对应createCourse()
 export const asynCreateCourse = (details) => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/addcourse`, {
     method: 'POST',
@@ -370,7 +376,7 @@ export const asynCreateCourse = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'subName=' + details
+    body: 'course=' + details
   })
     .then(response => response.json())
     .then(json =>
@@ -378,6 +384,7 @@ export const asynCreateCourse = (details) => dispatch => {
     )
 };
 
+//对应deleteCourse()
 export const asynDeleteCourse = (details) => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deletecourse`, {
     method: 'POST',
@@ -393,6 +400,7 @@ export const asynDeleteCourse = (details) => dispatch => {
     )
 };
 
+//对应createNode()
 export const asynCreateNode = (details) => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/addpoint`, {
     method: 'POST',
@@ -408,6 +416,7 @@ export const asynCreateNode = (details) => dispatch => {
     )
 };
 
+//对应deleteNode()
 export const asynDeleteNode = (details) => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deletepoint`, {
     method: 'POST',
@@ -415,7 +424,7 @@ export const asynDeleteNode = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'id=' + details.id
+    body: 'pointid=' + details.id
   })
     .then(response => response.json())
     .then(json =>
