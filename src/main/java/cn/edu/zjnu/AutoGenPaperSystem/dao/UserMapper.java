@@ -23,7 +23,11 @@ public interface UserMapper {
 
     int updateCollectByUserId(String collect, int userId);
 
+    int updateIsDeleteByUserId(Integer userid);
+
     int selectByUserName(String userName);
+
+    User selectUserByUserName(String userName);
 
     List<User> selectAllUsers();
 

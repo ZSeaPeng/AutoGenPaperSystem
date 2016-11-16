@@ -170,6 +170,16 @@ public class UserServiceImpl implements UserService{
     public String selectSubjectCanByUserId(int userId) {
         return userMapper.selectSubjectCanByUserId(userId);
     }
+
+    @Override
+    public int updateIsDeleteByUserId(Integer userid) {
+        return userMapper.updateIsDeleteByUserId(userid);
+    }
+
+    @Override
+    public User selectUserByUserName(String userName) {
+        return userMapper.selectUserByUserName(userName);
+    }
 }
 
 

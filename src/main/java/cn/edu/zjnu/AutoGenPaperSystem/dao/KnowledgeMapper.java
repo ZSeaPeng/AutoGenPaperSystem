@@ -19,6 +19,9 @@ public interface KnowledgeMapper {
 
     int updateByPrimaryKey(Knowledge record);
 
+    int updateIsDeleteById(Integer knowledgeId);
+
+
     List<Knowledge> selectKnowledgeBySubjectId(Integer subjectId);
 
 

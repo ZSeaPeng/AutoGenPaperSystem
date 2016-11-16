@@ -1,7 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.dao;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.Subject;
-import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,10 +15,14 @@ public interface SubjectMapper {
 
     Subject selectByPrimaryKey(Integer subjectId);
 
+    int selectBysubName(String subName);
+
     //Subject selectBysubjectname(String subjectname);
 
 
     int updateByPrimaryKeySelective(Subject record);
+
+    int updateIsDeleteBySubId(Integer subId);
 
     int updateByPrimaryKey(Subject record);
 

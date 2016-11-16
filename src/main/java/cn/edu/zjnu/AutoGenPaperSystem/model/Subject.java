@@ -7,15 +7,20 @@ public class Subject {
 
     private Integer gradeId;
 
+    private Integer isDelete;
 
-    public Subject(Integer subjectId, String subjectName, Integer gradeId) {
+
+    public Subject(Integer subjectId, String subjectName, Integer gradeId, Integer isDelete) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;
         this.gradeId = gradeId;
+        this.isDelete = isDelete;
     }
+
 
     public Subject() {
         super();
+        this.isDelete = 0;
     }
 
     public Integer getSubjectId() {
@@ -42,6 +47,13 @@ public class Subject {
         this.gradeId = gradeId;
     }
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
 
     @Override
     public String toString() {

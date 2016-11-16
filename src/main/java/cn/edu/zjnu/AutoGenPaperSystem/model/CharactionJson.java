@@ -4,6 +4,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.model;
  * Created by sgt on 2016/10/14.
  */
 public class CharactionJson {
+    private int id;
     private String name;
     private String url;
     private boolean select = false;
@@ -47,5 +48,13 @@ public class CharactionJson {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

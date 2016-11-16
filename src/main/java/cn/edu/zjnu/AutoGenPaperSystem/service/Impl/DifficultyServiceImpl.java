@@ -48,6 +48,7 @@ public class DifficultyServiceImpl implements DifficultyService {
         List<Difficulty> difficulties=difficultyMapper.selectAllDifficult();
         for (Difficulty list:difficulties){
             DifficultyJson difficultyJson=new DifficultyJson();
+            difficultyJson.setId(list.getDifficultyId());
             difficultyJson.setName(""+list.getUplimit()+"-"+list.getLowlimit()+"("+list.getDescribe()+")");
             difficultyJson.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+t+"d"+
                     list.getDifficultyId()+"c"+c);

@@ -6,30 +6,34 @@
       <idArg column="Subject_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="Subject_name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="Grade_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="isDelete" jdbcType="INTEGER" javaType="Integer"/>
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    Subject_ID, Subject_name, Grade_ID
+    Subject_ID, Subject_name, Grade_ID,isDelete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List" />
     from subject
-    where Subject_ID = #{subjectId,jdbcType=INTEGER}
+    where Subject_ID = #{subjectId,jdbcType=INTEGER} and isDelete = 0
   </select>
 
   <select id="selectAllSubject" resultMap="BaseResultMap">
     select
     *
-    from subject
+    from subject WHERE isDelete = 0
   </select>
 
   <select id="selectByGradeId" resultMap="BaseResultMap" parameterType="int">
-    SELECT * FROM subject WHERE Grade_ID = #{id}
+    SELECT * FROM subject WHERE Grade_ID = #{id} and isDelete = 0
    </select>
+	<select id="selectBysubName" resultType="java.lang.Integer">
+      SELECT subject_id FROM subject WHERE subject_name = #{subName} and isDelete = 0
+    </select>
 
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from subject
     where Subject_ID = #{subjectId,jdbcType=INTEGER}
   </delete>
@@ -81,5 +85,8 @@
     set Subject_name = #{subjectName,jdbcType=VARCHAR},
       Grade_ID = #{gradeId,jdbcType=INTEGER}
     where Subject_ID = #{subjectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateIsDeleteBySubId">
+    UPDATE subject set isDelete = 1 WHERE Subject_ID = #{subjectId,jdbcType=INTEGER}
   </update>
 </mapper>

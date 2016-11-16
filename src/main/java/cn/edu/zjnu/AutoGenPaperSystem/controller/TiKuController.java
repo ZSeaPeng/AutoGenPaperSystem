@@ -37,7 +37,7 @@ public class TiKuController {
     private CharacterService characterServiceImpl;
 
     private static SearchAll searchAll = new SearchAll();
-    private static int userId = 1;
+    private static int userId = 3;
 
 
     private int sub_id = 0;
