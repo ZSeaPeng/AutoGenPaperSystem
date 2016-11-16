@@ -21,6 +21,7 @@ public interface KnowledgeMapper {
 
     int updateIsDeleteById(Integer knowledgeId);
 
+
     List<Knowledge> selectKnowledgeBySubjectId(Integer subjectId);
 
 

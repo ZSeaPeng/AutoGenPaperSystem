@@ -29,7 +29,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     }
 
     public int insertSelective(Knowledge record) {
-        return 0;
+        return knowledgeMapper.insertSelective(record);
     }
 
     public Knowledge selectByPrimaryKey(Integer knowledgeId) {

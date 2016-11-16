@@ -1,5 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
+import cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge;
 import cn.edu.zjnu.AutoGenPaperSystem.model.KnowledgeJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.Subject;
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
@@ -38,7 +39,7 @@ public class AdminOperateController {
 
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
     public User addUser(@RequestBody User user) {
-        if (userServiceImpl.insertSelective(user)==0){
+        if (userServiceImpl.insertSelective(user) == 0) {
             return null;
         }
         return user;
@@ -47,22 +48,18 @@ public class AdminOperateController {
 
     @RequestMapping(value = "/change", method = RequestMethod.POST)
     public User addSubjectCan(@RequestBody User user) {
-        if (userServiceImpl.updateByPrimaryKeySelective(user)==0){
+        if (userServiceImpl.updateByPrimaryKeySelective(user) == 0) {
             return null;
         }
         user.getAdd().clear();
         return user;
     }
 
-    @RequestMapping(value = "/deleteuser",method = RequestMethod.POST)
-    public int deleteUser(Integer userid){
 
-        return userServiceImpl.updateIsDeleteByUserId(userid);
-    }
     @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
     public String removeSubjectCan(int userid, String subid, int k) {
 
-        if (userServiceImpl.UpdateSubjectCanByUserId(subid, userid)==0){
+        if (userServiceImpl.UpdateSubjectCanByUserId(subid, userid) == 0) {
             return null;
         }
         String subjectCan = userServiceImpl.selectSubjectCanByUserId(userid);
@@ -86,25 +83,40 @@ public class AdminOperateController {
         subject.setSubjectName(course);
         subject.setGradeId(1);
         int i = subjectServiceImpl.insertSelective(subject);
-        if (i==0){
+        if (i == 0) {
             return null;
         }
         Map map = new HashMap();
         map.clear();
-        map.put("subName",course);
-        map.put("points",new KnowledgeJson());
+        map.put("subName", course);
+        map.put("points", new KnowledgeJson());
         return map;
     }
 
-    @RequestMapping(value = "/deletepoint",method = RequestMethod.POST)
-    public List deletePoint(Integer pointid){
-        if (knowledgeServiceImpl.updateIsDeleteById(pointid)==0){
+    @RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
+    public int deleteUser(Integer userid) {
+
+        return userServiceImpl.updateIsDeleteByUserId(userid);
+    }
+
+    @RequestMapping(value = "/deletepoint", method = RequestMethod.POST)
+    public List deletePoint(Integer pointid) {
+        if (knowledgeServiceImpl.updateIsDeleteById(pointid) == 0) {
             return null;
         }
         return subjectServiceImpl.selectAllSubjectOnAdmin();
     }
-    @RequestMapping(value = "/addpoint",method = RequestMethod.POST)
-    public void addPoint(){
 
+    @RequestMapping(value = "/addpoint", method = RequestMethod.POST)
+    public List addPoint(String subName, int id, int i, String point) {
+        int subId = subjectServiceImpl.selectBysubName(subName);
+        Knowledge knowledge = new Knowledge();
+        knowledge.setKnowledgeName(point);
+        knowledge.setSubjectId(subId);
+        knowledge.setSuperiorId(id);
+        if (knowledgeServiceImpl.insertSelective(knowledge)==0){
+            return null;
+        }
+        return subjectServiceImpl.selectAllSubjectOnAdmin();
     }
 }

@@ -25,4 +25,6 @@ public interface SubjectService {
     List selectAllSubjectOnAdmin();
 
     List<Subject> selectByGradeId(int id);
+
+    int selectBysubName(String subName);
 }

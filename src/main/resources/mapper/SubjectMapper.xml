@@ -27,9 +27,12 @@
   <select id="selectByGradeId" resultMap="BaseResultMap" parameterType="int">
     SELECT * FROM subject WHERE Grade_ID = #{id}
    </select>
+	<select id="selectBysubName" resultType="java.lang.Integer">
+      SELECT subject_id FROM subject WHERE subject_name = #{subName}
+    </select>
 
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from subject
     where Subject_ID = #{subjectId,jdbcType=INTEGER}
   </delete>

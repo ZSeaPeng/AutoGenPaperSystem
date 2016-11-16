@@ -21,6 +21,7 @@ public class Knowledge {
 
     public Knowledge() {
         super();
+        this.isDelete = 0;
     }
 
     public Integer getKnowledgeId() {

@@ -113,4 +113,9 @@ public class SubjectServiceImpl implements SubjectService {
     public List<Subject> selectByGradeId(int id) {
         return subjectMapper.selectByGradeId(id);
     }
+
+    @Override
+    public int selectBysubName(String subName) {
+        return subjectMapper.selectBysubName(subName);
+    }
 }
