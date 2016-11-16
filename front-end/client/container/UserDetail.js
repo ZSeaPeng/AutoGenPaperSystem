@@ -71,21 +71,35 @@ class UserDetail extends Component {
   }
 
   handleSubmit() {
-    const { user, i, dispatch } = this.props;
-    var username = this.state.username;
-    var password = this.state.password;
+    const { user, i, dispatch, userList } = this.props;
+    let username = this.state.username;
+    let password = this.state.password;
+    let reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
+    let count = 0;
     if(username === "" && password === "") {
       dispatch(asynChange({user: user, k: i}))
     } else if (username === "" && password != "") {
-      dispatch(asynChange({user: {...user, userpassword: password}, k: i}))
+      if(!reg.test(password) || password.length < 8) {
+        alert('密码强度太低，请至少八位，并包含字母数字')
+      } else {
+        dispatch(asynChange({user: {...user, userpassword: password}, k: i}))
+      }
     } else if (username != "" && password === "") {
-      dispatch(asynChange({user: {...user, username: username}, k: i}))
+      for (let i = 0; i < userList.old.length; i++) {
+        if (username === userList.old[i].username) {
+          count++;
+          alert('用户名重复');
+        }
+      }
+      if( count === 0) {
+        dispatch(asynChange({user: {...user, username: username}, k: i}))
+      }
     }
-   }
+  }
 
   render() {
     const { user, sublist } = this.props;
-    var subject = [], nosub = [];
+    let subject = [], nosub = [];
     const subjectCan = user.subjectcan.split(",");
 
     for(let i = 1; i < subjectCan.length; i++ ) {

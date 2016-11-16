@@ -12,6 +12,7 @@ export const DISCOLL = 'DISCOLL';
 export const TOGGLE = 'TOGGLE';
 export const LOGIN = 'LOGIN';
 export const USERLIST = 'USERLIST';
+export const COURSELIST = 'COURSELIST';
 export const REMOVESUBJECT = 'REMOVESUBJECT';
 export const ADDSUBPRE = 'ADDSUBPRE';
 export const ADDNEWSUBPRE = 'ADDNEWSUBPRE';
@@ -20,6 +21,10 @@ export const REMOVENEWSUBPRE = 'REMOVENEWSUBPRE';
 export const USERCHANGE = 'USERCHANGE';
 export const DELETEUSER = 'DELETEUSER';
 export const CREATEUSER = 'CREATEUSER';
+export const CREATECOURSE = 'CREATECOURSE';
+export const DELETECOURSE = 'DELETECOURSE';
+export const CREATENODE = 'CREATENODE';
+export const DELETENODE = 'CREATENODE';
 
 /**
  * 真正与reducer沟通的函数
@@ -45,6 +50,11 @@ export const recevieQuestion = json => ({
 //管理员管理用户接面所需的各种用户资料
 export const userList = json => ({
   type: USERLIST,
+  posts: json
+});
+
+export const courseList = json => ({
+  type: COURSELIST,
   posts: json
 });
 
@@ -137,6 +147,26 @@ export const createUser = details => ({
   details
 });
 
+export const createCourse = details => ({
+  type: CREATECOURSE,
+  details
+});
+
+export const deleteCourse = details => ({
+  type: DELETECOURSE,
+  details
+});
+
+export const createNode = details => ({
+  type: CREATENODE,
+  details
+})
+
+export const deleteNode = details => ({
+  type: DELETENODE,
+  details
+})
+
 /*
 * 异步动作
 * redux 本身没有异步处理能力, 这里用了中间件thunk
@@ -174,6 +204,14 @@ export const getUserList = () => dispatch => {
     .then( response => response.json())
     .then( json =>
       dispatch(userList(json))
+    )
+};
+
+export const getCourseList = () => dispatch => {
+  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/courselist')
+    .then( response => response.json())
+    .then( json =>
+      dispatch(courseList(json))
     )
 };
 
@@ -309,7 +347,7 @@ export const asynDeleteUser = (details) => dispatch => {
 
 //对应createUser()
 export const asynCreateUser = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/createuser`, {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/adduser`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -322,6 +360,66 @@ export const asynCreateUser = (details) => dispatch => {
     .then(response => response.json())
     .then(json =>
       dispatch(createUser(json))
+    )
+};
+
+export const asynCreateCourse = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/addcourse`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'subName=' + details
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(createCourse(json))
+    )
+};
+
+export const asynDeleteCourse = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deletecourse`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'subName=' + details.subName
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(deleteCourse({json: json, i: details.i}))
+    )
+};
+
+export const asynCreateNode = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/addpoint`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'subName=' + details.subName + '&id=' + details.id + '&point=' + details.point
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(createNode({json: json, i: details.i}))
+    )
+};
+
+export const asynDeleteNode = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deletepoint`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'id=' + details.id
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(deleteNode({json: json, i: details.i}))
     )
 };
 

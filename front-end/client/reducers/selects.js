@@ -16,6 +16,6 @@ function selects(state = {
     default:
       return state;
   }
-};
+}
 
 export default selects;

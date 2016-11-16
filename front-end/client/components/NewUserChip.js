@@ -18,7 +18,7 @@ export default class NewUserChip extends React.Component {
 
   render() {
     const { sub, user } = this.props;
-    var chip = {}, count = 0;
+    let chip = {}, count = 0;
 
     for (let i = 0; i < user.subjects.length; i++) {
       if(user.subjects[i] == sub.subid) {

@@ -22,7 +22,7 @@ export default class UnChosenChip extends React.Component {
 
   render() {
     const { sub, user } = this.props;
-    var chip;
+    let chip;
 
     if(user.add.indexOf(sub.subid) === -1) {
       chip = {

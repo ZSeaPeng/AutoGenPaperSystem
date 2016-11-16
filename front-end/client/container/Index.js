@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-var Slider = require('react-slick');
+let Slider = require('react-slick');
 
 //UI
 import News from '../components/News';
@@ -34,7 +34,7 @@ class Index extends Component {
       position: 'absolute',
       top: 100,
       left: 90
-    }
+    };
     const { update, userid } = this.props;
     const isEmpty = update.length === 0;
     const isNull = userid === '';
@@ -61,7 +61,7 @@ class Index extends Component {
       </div>
     );
   }
-};
+}
 
 const mapStateToProps = state => {
   const { grades } = state;
@@ -70,6 +70,6 @@ const mapStateToProps = state => {
     update,
     userid
   }
-}
+};
 
 export default connect(mapStateToProps)(Index);

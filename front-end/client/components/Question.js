@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardMedia, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import Toggle from 'material-ui/Toggle';
@@ -36,22 +36,22 @@ class Question extends Component {
   };
 
   render() {
-    const { contextList, pageNum, userChosen, userCollection } = this.props;
-    var style = { margin: 10 };
-    var style1 = {}, style2 = {}, style3 = {}, style4 = {};
-    var j = 0, k = 0;
+    const { contextList, userChosen, userCollection } = this.props;
+    let style = { margin: 10 };
+    let style1 = {}, style2 = {}, style3 = {}, style4 = {};
+    let j = 0, k = 0;
 
     userChosen.map((chosen,i) => {
       if (chosen.id === contextList.id) {
         j++;
       }
-    })
+    });
 
     userCollection.map((collection,i) => {
       if (collection == contextList.id) {
         k++;
       }
-    })
+    });
 
     if (j === 1) {
       style1 = {display: 'none'};
@@ -94,6 +94,6 @@ class Question extends Component {
       </Card>
     )
   }
-};
+}
 
 export default Question;

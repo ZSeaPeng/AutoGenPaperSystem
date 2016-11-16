@@ -21,6 +21,6 @@ class Lest extends Component{
       </div>
     )
   }
-};
+}
 
 export default Lest;

@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 
 //UI
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
-import ActionInfo from 'material-ui/svg-icons/action/info';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 

@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 //UI
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import {Card, CardText} from 'material-ui/Card';
 
 //add component
 import UserDetail from './UserDetail';
@@ -14,7 +12,6 @@ import NewUserChip from '../components/NewUserChip'
 
 //add action
 import { getUserList, addNewSubPre, removeNewSubPre, asynCreateUser } from '../actions/actionCreators';
-
 
 class ControlUser extends Component {
   constructor(props) {
@@ -45,7 +42,7 @@ class ControlUser extends Component {
 
   handleChange(detail, type) {
     const { dispatch, userList } = this.props;
-    var count = 0, k = 0;
+    let count = 0, k = 0;
     if(type === 'add') {
       for (let i = 0; i < userList.new.subjects.length; i++) {
         if(detail.subid === userList.new.subjects[i]) {
@@ -63,9 +60,10 @@ class ControlUser extends Component {
 
   handleSubmit() {
     const { username, password } = this.state;
-    const { userList } = this.props;
-    var count = 0;
-    var reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
+    const { userList, dispatch } = this.props;
+    let count = 0;
+    let subject = '0,' + userList.new.subjects.toString();
+    let reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
     if( username === '' || password === '') {
       count++;
       alert('用户名或密码不能为空');
@@ -81,7 +79,8 @@ class ControlUser extends Component {
       }
     }
     if(count === 0) {
-      dispatch(asynCreateUser({username: username, password: password, add: userList.new.subjects}));
+      dispatch(asynCreateUser({username: username, userpassword: password, subjectcan: subject}));
+      this.setState({type: !this.state.type})
     }
   }
 
@@ -93,7 +92,7 @@ class ControlUser extends Component {
   render() {
     const { userList, sublist } = this.props;
     const isEmpty = sublist.length === 0;
-    var styles = {
+    let styles = {
       button: {
         position: 'fixed',
         bottom: 20,
@@ -117,13 +116,14 @@ class ControlUser extends Component {
         padding: '1%',
         position: 'fixed',
         margin: 'auto',
-        height: '350px',
+        height: '390px',
         maxWidth: '30%',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 9999
+        zIndex: 9999,
+        boxShadow: '5px 5px 100px #888888'
       }
     } else {
       styles.card = {
@@ -134,12 +134,14 @@ class ControlUser extends Component {
     return (
       <div>
         <div style={styles.div}>
+          <Card style={{maxWidth: "30%", margin: 10, display: 'inline-block'}} onClick={this.handleAddUser}>
+            <CardText style={{fontSize: 36, color: '#9E9E9E'}}>
+              添加用户
+            </CardText>
+          </Card>
           { userList.old.map((user, i) =>
             <UserDetail { ...this.props } user = {user} key={i} i={i}/>)
           }
-          <FloatingActionButton style={styles.button} onClick={this.handleAddUser}>
-            <ContentAdd />
-          </FloatingActionButton>
         </div>
         <Card style={styles.card}>
           <TextField
@@ -163,6 +165,7 @@ class ControlUser extends Component {
             : <div></div>
           }
           <RaisedButton label="确认添加用户" fullWidth={true} secondary={true} onClick = {this.handleSubmit}/>
+          <RaisedButton style={{marginTop: 10}} label="取消操作" fullWidth={true} onClick = {this.handleAddUser}/>
         </Card>
       </div>
     )

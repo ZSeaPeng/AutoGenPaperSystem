@@ -6,7 +6,7 @@ const style = {
   chip: {
     margin: 4,
   }
-}
+};
 
 export default class ChosenChip extends React.Component {
   constructor(props) {

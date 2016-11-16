@@ -51,7 +51,7 @@ function questions(state = { context: [], pageNum: 1, pages: 1, userChosen: [], 
       return {
         ...state,
         userChosen: []
-      }
+      };
     case COLLECTION:
       return {
         ... state,
@@ -71,6 +71,6 @@ function questions(state = { context: [], pageNum: 1, pages: 1, userChosen: [], 
     default:
       return state;
   }
-};
+}
 
 export default questions;

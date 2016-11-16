@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import {List, ListItem} from 'material-ui/List';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
+import {ListItem} from 'material-ui/List';
 
 class Point extends Component{
   render() {
@@ -11,7 +10,7 @@ class Point extends Component{
     const { select } = point;
     const style = {
       color: '#FF5252'
-    }
+    };
     return (
       <div>
       {
@@ -46,7 +45,7 @@ class Point extends Component{
       </div>
     )
   }
-};
+}
 
 export default Point;
 
