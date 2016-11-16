@@ -80,10 +80,10 @@ public class AdminOperateController {
         return subjectServiceImpl.selectAllSubjectOnAdmin();
     }
 
-    @RequestMapping(value = "/addsubject", method = RequestMethod.POST)
-    public Map addSubject(String subname) {
+    @RequestMapping(value = "/addcourse", method = RequestMethod.POST)
+    public Map addSubject(String course) {
         Subject subject = new Subject();
-        subject.setSubjectName(subname);
+        subject.setSubjectName(course);
         subject.setGradeId(1);
         int i = subjectServiceImpl.insertSelective(subject);
         if (i==0){
@@ -91,7 +91,7 @@ public class AdminOperateController {
         }
         Map map = new HashMap();
         map.clear();
-        map.put("subName",subname);
+        map.put("subName",course);
         map.put("points",new KnowledgeJson());
         return map;
     }
@@ -102,5 +102,9 @@ public class AdminOperateController {
             return null;
         }
         return subjectServiceImpl.selectAllSubjectOnAdmin();
+    }
+    @RequestMapping(value = "/addpoint",method = RequestMethod.POST)
+    public void addPoint(){
+
     }
 }
