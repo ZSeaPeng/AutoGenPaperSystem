@@ -27,6 +27,8 @@ public interface UserMapper {
 
     int selectByUserName(String userName);
 
+    User selectUserByUserName(String userName);
+
     List<User> selectAllUsers();
 
     int updateSubjectCanByUserId(int userId,String subId);

@@ -65,6 +65,11 @@ public class SubjectServiceImpl implements SubjectService {
         return 0;
     }
 
+    @Override
+    public int updateIsDeleteBySubId(Integer subId) {
+        return subjectMapper.updateIsDeleteBySubId(subId);
+    }
+
     public List selectAllSubject() {
         List<SubJson> subJsonList = new ArrayList<SubJson>();
         List<Grade> gradeList = gradeServiceImpl.selectAllGrade();

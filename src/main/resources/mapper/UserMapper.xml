@@ -33,6 +33,9 @@
 	<select id="selectSubjectCanByUserId" resultType="java.lang.String">
 		SELECT SubjectCan FROM User WHERE userId = #{userId} and isDelete = 0
 	</select>
+	<select id="selectUserByUserName" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.User">
+		SELECT * FROM User WHERE userName = #{userName}
+	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from User
     where UserId = #{userId,jdbcType=INTEGER}

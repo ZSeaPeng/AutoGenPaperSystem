@@ -175,6 +175,11 @@ public class UserServiceImpl implements UserService{
     public int updateIsDeleteByUserId(Integer userid) {
         return userMapper.updateIsDeleteByUserId(userid);
     }
+
+    @Override
+    public User selectUserByUserName(String userName) {
+        return userMapper.selectUserByUserName(userName);
+    }
 }
 
 

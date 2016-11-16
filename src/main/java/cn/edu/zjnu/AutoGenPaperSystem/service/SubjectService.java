@@ -20,6 +20,8 @@ public interface SubjectService {
 
     int updateByPrimaryKey(Subject record);
 
+    int updateIsDeleteBySubId(Integer subId);
+
     List selectAllSubject();
 
     List selectAllSubjectOnAdmin();

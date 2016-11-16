@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class AdminOperateController {
         if (userServiceImpl.insertSelective(user) == 0) {
             return null;
         }
-        return user;
+        return userServiceImpl.selectUserByUserName(user.getUsername());
     }
 
 
@@ -77,6 +78,13 @@ public class AdminOperateController {
         return subjectServiceImpl.selectAllSubjectOnAdmin();
     }
 
+    @RequestMapping(value = "/deletecourse",method = RequestMethod.POST)
+    public List deleteCourse(Integer subid){
+        if (subjectServiceImpl.updateIsDeleteBySubId(subid)==0){
+            return null;
+        }
+        return subjectServiceImpl.selectAllSubjectOnAdmin();
+    }
     @RequestMapping(value = "/addcourse", method = RequestMethod.POST)
     public Map addSubject(String course) {
         Subject subject = new Subject();
@@ -89,9 +97,14 @@ public class AdminOperateController {
         Map map = new HashMap();
         map.clear();
         map.put("subName", course);
-        map.put("points", new KnowledgeJson());
+        List knowedgeJsonList = new ArrayList();
+        knowedgeJsonList.add(new KnowledgeJson());
+        map.put("points", knowedgeJsonList);
+        knowedgeJsonList.clear();
         return map;
     }
+
+
 
     @RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
     public int deleteUser(Integer userid) {
