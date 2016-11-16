@@ -101,7 +101,8 @@ public class AdminOperateController {
 
     @RequestMapping(value = "/deletepoint", method = RequestMethod.POST)
     public List deletePoint(Integer pointid) {
-        if (knowledgeServiceImpl.updateIsDeleteById(pointid) == 0) {
+
+        if (knowledgeServiceImpl.updateIsDeleteById(pointid) == 0){
             return null;
         }
         return subjectServiceImpl.selectAllSubjectOnAdmin();

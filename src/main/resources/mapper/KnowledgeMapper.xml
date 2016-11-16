@@ -106,6 +106,5 @@
 		UPDATE knowledge
 		SET isDelete = 1
 		WHERE Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
-
 	</update>
 </mapper>
