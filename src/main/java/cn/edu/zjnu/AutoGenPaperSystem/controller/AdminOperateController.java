@@ -108,7 +108,7 @@ public class AdminOperateController {
     }
 
     @RequestMapping(value = "/addpoint", method = RequestMethod.POST)
-    public List addPoint(String subName, int id, int i, String point) {
+    public List addPoint(String subName, int id, String point) {
         int subId = subjectServiceImpl.selectBysubName(subName);
         Knowledge knowledge = new Knowledge();
         knowledge.setKnowledgeName(point);
