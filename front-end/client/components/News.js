@@ -2,8 +2,7 @@ import React, { Component }from 'react';
 import { Link } from 'react-router';
 
 //UI
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import {Card, CardText} from 'material-ui/Card';
 
 class News extends Component {
   render() {
@@ -19,7 +18,7 @@ class News extends Component {
         top: 450,
         left: 100
       }
-    }
+    };
     return (
       <div style={style.div}>
         { news.map((nee, i) =>

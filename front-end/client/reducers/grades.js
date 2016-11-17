@@ -18,10 +18,10 @@ function grades(state = {
       return {
         ...state,
         userid: action.posts.userid
-      }
+      };
     default:
       return state;
   }
-};
+}
 
 export default grades;

@@ -3,10 +3,10 @@ import { Link } from 'react-router';
 
 class Page extends Component {
   render() {
-    const { pageNum, pages } = this.props
+    const { pageNum, pages } = this.props;
     const { pathname } = this.props.location;
     const path = pathname.replace(/\/question/i, '');
-    var rows = [];
+    let rows = [];
     const style = {
       height: '25px',
       border: '1px solid #C5CAE9',
@@ -14,7 +14,7 @@ class Page extends Component {
       lineHeight: '25px',
       margin: '1px 1px 5px 1px',
       padding: '0 10px'
-    }
+    };
     if (pageNum > 1) {
       rows.push(
         <div style = {style}>

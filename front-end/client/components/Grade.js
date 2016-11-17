@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
 
 import Course from './Course'
 
@@ -15,7 +13,7 @@ class Grade extends Component{
       </div>
     )
   }
-};
+}
 
 Grade.propTypes = {
   grades: PropTypes.array.isRequired

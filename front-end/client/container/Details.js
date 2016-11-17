@@ -2,11 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 //UI
-import {List, ListItem} from 'material-ui/List';
-import Menu from 'material-ui/Menu';
-import Paper from 'material-ui/Paper';
+import {List} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 
 //add components
 import Lest from '../components/Lest';
@@ -35,7 +33,7 @@ class Details extends Component {
 
   handleChange(details, type) {
     const { userChosen, userid, userCollection, dispatch } = this.props;
-    var j = 0, k = 0, m = 0, n = 0;
+    let j = 0, k = 0, m = 0, n = 0;
     if (type === 'add') {
       if(details === 'all') {
         dispatch(asynRemoveAll({userid: userid}));
@@ -102,7 +100,7 @@ class Details extends Component {
   render() {
     const { Points, Difficulty, Charaction, Types, context, pageNum, pages, userChosen } = this.props;
 
-    var style = {
+    let style = {
       divStyle: {
         float: 'left', marginLeft: '20%', width: '820px'
       },

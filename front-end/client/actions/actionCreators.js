@@ -12,6 +12,7 @@ export const DISCOLL = 'DISCOLL';
 export const TOGGLE = 'TOGGLE';
 export const LOGIN = 'LOGIN';
 export const USERLIST = 'USERLIST';
+export const COURSELIST = 'COURSELIST';
 export const REMOVESUBJECT = 'REMOVESUBJECT';
 export const ADDSUBPRE = 'ADDSUBPRE';
 export const ADDNEWSUBPRE = 'ADDNEWSUBPRE';
@@ -20,58 +21,83 @@ export const REMOVENEWSUBPRE = 'REMOVENEWSUBPRE';
 export const USERCHANGE = 'USERCHANGE';
 export const DELETEUSER = 'DELETEUSER';
 export const CREATEUSER = 'CREATEUSER';
+export const CREATECOURSE = 'CREATECOURSE';
+export const DELETECOURSE = 'DELETECOURSE';
+export const CREATENODE = 'CREATENODE';
+export const DELETENODE = 'CREATENODE';
 
-// send to the reducer
+/**
+ * 真正与reducer沟通的函数
+ * */
+//首页科目列表, 更新数据, 轮播图链接
 export const recevieInitialState = json => ({
-    type: RECEIVE_INITIAL_STATE,
-    posts: json
+  type: RECEIVE_INITIAL_STATE,
+  posts: json
 });
 
-
+//选题界面的各种选项
 export const recevieSelect = json => ({
-    type: RECEIVE_SELECT,
-    posts: json
+  type: RECEIVE_SELECT,
+  posts: json
 });
 
 //选题界面的各种题目,同时包括页码信息
 export const recevieQuestion = json => ({
-    type: RECEIVE_QUESTION,
-    posts: json
+  type: RECEIVE_QUESTION,
+  posts: json
 });
 
+//管理员管理用户接面所需的各种用户资料
+export const userList = json => ({
+  type: USERLIST,
+  posts: json
+});
+
+export const courseList = json => ({
+  type: COURSELIST,
+  posts: json
+});
+
+//登录动作
+export const login = json => ({
+  type: LOGIN,
+  posts: json
+});
+
+//选课界面添加题目
 export const add = details => ({
-    type: ADD,
-    details
-})
+  type: ADD,
+  details
+});
 
+//选课界面取消添加题目
 export const remove = details => ({
-    type: REMOVE,
-    details
-})
+  type: REMOVE,
+  details
+});
 
+//选课界面取消添加的所有题目
 export const removeAll = () => ({
   type: REMOVEALL
-})
+});
 
-export const download = details => ({
-    type: DOWNLOAD,
-    details
-})
-
+//选课界面收藏题目
 export const collection = details => ({
-    type: COLLECTION,
-    details
-})
+  type: COLLECTION,
+  details
+});
 
+//选课界面取消收藏题目
 export const discoll = details => ({
   type: DISCOLL,
   details
-})
+});
 
+//选课界面查看答案动作
 export const toggle = details => ({
   type: TOGGLE,
   details
-})
+});
 
 //管理员取消用户对某项科目的使用权限
 export const removeSubject = details => ({
@@ -121,41 +147,81 @@ export const createUser = details => ({
   details
 });
 
+//添加新科目
+export const createCourse = details => ({
+  type: CREATECOURSE,
+  details
+});
+
+//删除科目
+export const deleteCourse = details => ({
+  type: DELETECOURSE,
+  details
+});
+
+//创建节点
+export const createNode = details => ({
+  type: CREATENODE,
+  details
+});
+
+//删除节点
+export const deleteNode = details => ({
+  type: DELETENODE,
+  details
+});
+
 /*
 * 异步动作
 * redux 本身没有异步处理能力, 这里用了中间件thunk
 * */
 //对应recevieInitialState()
-//asyn
-//fetch state for the index page
 export const getInitialState = () => dispatch => {
-    return fetch('http://localhost:8110/AutoGenPaperSystem/api/subjectlist')
-        .then( response => response.json())
-        .then( json =>
-          dispatch(recevieInitialState(json))
-        )
+  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/subjectlist')
+    .then( response => response.json())
+    .then( json =>
+      dispatch(recevieInitialState(json))
+    )
 };
 
-//fetch state for all the sellections
+//对应recevieSelect()
 export const getSelect = url => dispatch => {
-    return fetch(`http://localhost:8110/AutoGenPaperSystem/api${url}`)
-        .then( response => response.json())
-        .then( json =>
-          dispatch(recevieSelect(json))
-        )
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}`)
+    .then( response => response.json())
+    .then( json =>
+      dispatch(recevieSelect(json))
+    )
 };
 
 //对应recevieQuestion()
 export const getQuestion = (url, query="?page=1") => dispatch => {
-    return fetch(`http://localhost:8110/AutoGenPaperSystem/api${url}/question${query}`)
-        .then( response => response.json())
-        .then( json =>
-          dispatch(recevieQuestion(json))
-        )
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`)
+    .then( response => response.json())
+    .then( json =>
+      dispatch(recevieQuestion(json))
+    )
 };
 
+//对应userList()
+export const getUserList = () => dispatch => {
+  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/userlist')
+    .then( response => response.json())
+    .then( json =>
+      dispatch(userList(json))
+    )
+};
+
+export const getCourseList = () => dispatch => {
+  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/courselist')
+    .then( response => response.json())
+    .then( json =>
+      dispatch(courseList(json))
+    )
+};
+
+//对应add()
 export const asynAdd = (details) => dispatch => {
-  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/add`, {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/add`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -169,8 +235,9 @@ export const asynAdd = (details) => dispatch => {
     )
 };
 
+//对应remove()
 export const asynRemove = (details) => dispatch => {
-  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/remove`, {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/remove`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -184,8 +251,9 @@ export const asynRemove = (details) => dispatch => {
     )
 };
 
+//对应collection()
 export const asynCollection = (details) => dispatch => {
-  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/save`, {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/save`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -199,8 +267,9 @@ export const asynCollection = (details) => dispatch => {
     )
 };
 
+//对应discoll()
 export const asynDiscoll = (details) => dispatch => {
-  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/delete`, {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/delete`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -230,23 +299,36 @@ export const asynRemoveAll = (details) => dispatch => {
     )
 };
 
-// export const asynSubmit = ()
-
-export const login = (username, password) => dispatch => {
-  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/login`, {
+//对应removeSubject()
+export const asynRemoveSubject = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/removesubjectcan`, {
     method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'userid=' + details.userId + '&subid=' + details.subid + '&i=' + details.i + '&k=' + details.k
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(removeSubject(json))
+    )
+};
+
+//对应change()
+export const asynChange = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/change`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
     body: JSON.stringify({
-      username: username,
-      password: password
+      ...details.user,
     })
   })
     .then(response => response.json())
     .then(json =>
-      console.log(json))
-    .catch(e =>
-      console.log(e))
-  // console.log(username, password)
-}
       dispatch(userChange({user:json, k: details.k}))
     )
 };
@@ -269,7 +351,7 @@ export const asynDeleteUser = (details) => dispatch => {
 
 //对应createUser()
 export const asynCreateUser = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/createuser`, {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/adduser`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -282,6 +364,71 @@ export const asynCreateUser = (details) => dispatch => {
     .then(response => response.json())
     .then(json =>
       dispatch(createUser(json))
+    )
+};
+
+
+//对应createCourse()
+export const asynCreateCourse = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/addcourse`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'course=' + details
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(createCourse(json))
+    )
+};
+
+//对应deleteCourse()
+export const asynDeleteCourse = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deletecourse`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'subName=' + details.subName
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(deleteCourse({json: json, i: details.i}))
+    )
+};
+
+//对应createNode()
+export const asynCreateNode = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/addpoint`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'subName=' + details.subName + '&id=' + details.id + '&point=' + details.point
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(createNode({json: json, i: details.i}))
+    )
+};
+
+//对应deleteNode()
+export const asynDeleteNode = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deletepoint`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'pointid=' + details.id
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(deleteNode({json: json, i: details.i}))
     )
 };
 

@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import {orange500, blue500} from 'material-ui/styles/colors';
 
 class SignUp extends Component {
   constructor(props) {
@@ -12,7 +11,7 @@ class SignUp extends Component {
     this.state = {
       username: '',
       password: ''
-    }
+    };
     this.usernameChange = this.usernameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,8 +26,8 @@ class SignUp extends Component {
   }
 
   handleSubmit() {
-    var username = this.state.username;
-    var password = this.state.password;
+    let username = this.state.username;
+    let password = this.state.password;
     this.props.onChange(username, password);
   }
 
@@ -68,6 +67,6 @@ class SignUp extends Component {
       </div>
     );
   }
-};
+}
 
 export default SignUp;

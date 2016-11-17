@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import css from  './style/main.css'
@@ -14,8 +14,6 @@ import AutoCombine from './container/AutoCombine';
 import Index from './container/Index';
 import Update from './container/Update';
 import Paper from './container/Paper';
-import ControlUser from './container/ControlUser';
-import ControlCourse from './container/ControlCourse';
 import Admin from './container/Admin';
 
 import store, { history } from './store';
@@ -29,10 +27,7 @@ const router = (
         <IndexRoute component={Index}/>
         <Route path="/updateinfo/*" component={Update} />
         <Route path="/testpaper" component={Paper} />
-        <Route path="/admin" component={Admin} >
-          <Route path="/admin/course" component={ControlCourse} />
-          <Route path="/admin/user" component={ControlUser} />
-        </Route>
+        <Route path="/admin" component={Admin} />
         <Route path="/:sub/*" component={Details} />
         <Route path="/manualcombine" component={ManualCombine}/>
         <Route path="/autocombine" component={AutoCombine}/>

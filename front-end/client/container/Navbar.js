@@ -3,18 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 //UI
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
-import Divider from 'material-ui/Divider';
-import Download from 'material-ui/svg-icons/file/file-download';
-import DropDownMenu from 'material-ui/DropDownMenu';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 
 //import component
@@ -34,8 +26,6 @@ class Navbar extends Component{
     dispatch(getInitialState());
   };
   render() {
-    const path = "/";
-    const show = window.location.pathname !== path;
     const { sublist } = this.props;
     const isEmpty = sublist.length === 0;
     return (
@@ -76,7 +66,7 @@ class Navbar extends Component{
       </MuiThemeProvider>
     )
   }
-};
+}
 
 Navbar.propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -89,6 +79,6 @@ const mapStateToProps = state => {
   return {
     sublist
   }
-}
+};
 
 export default connect(mapStateToProps)(Navbar);

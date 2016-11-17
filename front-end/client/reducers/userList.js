@@ -109,7 +109,8 @@ function userList(state={old: [], new: {
     case CREATEUSER:
       return {
         old: [
-          ...action.details
+          ...state.old,
+          action.details
         ],
         new: {
           username: '',

@@ -5,13 +5,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-//UI
-import {List, ListItem} from 'material-ui/List';
-import Menu from 'material-ui/Menu';
-import Paper from 'material-ui/Paper';
-import Subheader from 'material-ui/Subheader';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
-
 //add component
 import Question from '../components/Question';
 import Page from '../components/Page';
@@ -19,7 +12,6 @@ import Choosed from '../components/Choosed';
 
 //add actions
 import {
-  getSelect,
   getQuestion,
   asynAdd,
   asynRemove,
@@ -37,7 +29,7 @@ class Update extends Component {
 
   handleChange(details, type) {
     const { userChosen, userid, userCollection, dispatch } = this.props;
-    var j = 0, k = 0, m = 0, n = 0;
+    let j = 0, k = 0, m = 0, n = 0;
     if (type === 'add') {
       if(details === 'all') {
         dispatch(asynRemoveAll({userid: userid}));
@@ -99,9 +91,9 @@ class Update extends Component {
   }
 
   render() {
-    const { Points, Difficulty, Charaction, Types, context, pageNum, pages, userChosen } = this.props;
+    const { context, pageNum, pages, userChosen } = this.props;
 
-    var style = {
+    let style = {
       divStyle: {
         float: 'left', marginLeft: '20%', width: '820px'
       },
@@ -146,6 +138,6 @@ const mapStateToProps = state => {
     userChosen,
     userCollection
   }
-}
+};
 
 export default connect(mapStateToProps)(Update);

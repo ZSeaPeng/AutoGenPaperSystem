@@ -1,5 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router'
+
+import {Tabs, Tab} from 'material-ui/Tabs';
+
+import ControlUser from './ControlUser';
+import ControlCourse from './ControlCourse';
 
 export default class Admin extends React.Component {
   constructor(props) {
@@ -8,11 +12,11 @@ export default class Admin extends React.Component {
 
   render() {
     return (
-      <div>
-        <Link to="/admin/user">管理用户</Link>
-        <Link to="/admin/course">管理学科</Link>
-        { this.props.children }
-      </div>
+      <Tabs>
+        <Tab style={{backgroundColor: '#1976D2'}} label="管理用户"><ControlUser/></Tab>
+        <Tab style={{backgroundColor: '#1976D2'}} label="管理学科"><ControlCourse/></Tab>
+      </Tabs>
+
     );
   }
 }

@@ -24,7 +24,7 @@ public class User {
 
     private Integer isDelete;
 
-    public User(Integer userId, String username, String userpassword, Integer downloadable, Integer permissionId, String subjectcan, String userchosen, String usercollection) {
+    public User(Integer userId, String username, String userpassword, Integer downloadable, Integer permissionId, String subjectcan, String userchosen, String usercollection,  Integer isDelete) {
         this.userId = userId;
         this.username = username;
         this.userpassword = userpassword;
@@ -33,6 +33,7 @@ public class User {
         this.subjectcan = subjectcan;
         this.userchosen = userchosen;
         this.usercollection = usercollection;
+        this.isDelete = isDelete;
     }
 
     public User() {
