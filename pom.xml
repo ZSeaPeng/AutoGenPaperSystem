@@ -147,6 +147,12 @@
 		<version>1.1.7</version>
 	</dependency>
 
+	<!-- Spring 整合Shiro需要的依赖 -->
+	<dependency>
+		<groupId>org.apache.shiro</groupId>
+		<artifactId>shiro-core</artifactId>
+		<version>1.2.3</version>
+	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
 	<dependency>
 		<groupId>org.apache.shiro</groupId>
