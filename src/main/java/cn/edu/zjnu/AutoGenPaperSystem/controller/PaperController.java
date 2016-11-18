@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zseapeng on 2016/11/18.
@@ -22,8 +22,10 @@ public class PaperController {
     @Resource
     private UserService userServiceImpl;
     @RequestMapping(value = "/getinfo", method = RequestMethod.GET)
-    public List getInfo(){
-        return userServiceImpl.selectUserChosenByUSerId(userId);
+    public Map getInfo(){
+        String type = "";
+        String subName = "";
+        return userServiceImpl.selectUserChosenByUSerId(userId,type,subName);
     }
 
 }

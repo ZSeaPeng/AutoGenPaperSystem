@@ -39,5 +39,5 @@ public interface UserService  {
 
     User selectUserByUserName(String userName);
 
-    List selectUserChosenByUSerId(int userId);
+    Map selectUserChosenByUSerId(int userId, String type, String subName);
 }

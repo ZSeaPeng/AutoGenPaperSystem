@@ -178,9 +178,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List selectUserChosenByUSerId(int userId) {
-
+    public Map selectUserChosenByUSerId(int userId, String type, String subName) {
+        if (type.equals("")){
+            type = "默认类型";
+        }
+        if (subName.equals("")){
+            subName = "默认学科";
+        }
+        Map lastMap = new HashMap();
         List lastList = new ArrayList();
+        lastMap.put("Type", type);
+        lastMap.put("subName",subName);
         String chosenTemp = userMapper.selectUserChosenByUSerId(userId);
         String[] questionIds = chosenTemp.split(",");
         Set<String> typeSet = new HashSet();
@@ -205,7 +213,7 @@ public class UserServiceImpl implements UserService {
             questionsJsonList.clear();
             for (Questions q : questionsList) {
 
-               // System.out.println(q.getTypes().getTypeName());
+                // System.out.println(q.getTypes().getTypeName());
                 if (q.getTypes().getTypeName().equals(typeName)) {
                     QuestionsJson questionsJson = new QuestionsJson();
                     questionsJson.setId(q.getQuestionsId());
@@ -214,17 +222,12 @@ public class UserServiceImpl implements UserService {
                     questionsJsonList.add(questionsJson);
                 }
             }
-            map.put("questions",questionsJsonList);
+            map.put("questions", questionsJsonList);
             lastList.add(map);
         }
+        lastMap.put("questions",lastList);
 
-
-        //for (String typeName:typeSet){
-        //    Map map = new HashMap();
-        //    map.put("type",typeName);
-        //
-        //}
-        return lastList;
+        return lastMap;
     }
 }
 
