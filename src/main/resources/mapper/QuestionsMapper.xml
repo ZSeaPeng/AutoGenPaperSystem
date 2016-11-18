@@ -33,6 +33,8 @@
 
     <resultMap id="QuestionType" type="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
         <id property="questionsId" column="Questions_ID"/>
+        <result property="quesPic_URL" column="QuesPic_URL"/>
+        <result property="answerPic_URL" column="AnswerPic_URL"/>
         <association property="types" javaType="cn.edu.zjnu.AutoGenPaperSystem.model.Types">
             <result property="typeName" column="Type_name"/>
         </association>
@@ -91,7 +93,7 @@
 
     <select id="selectQuestionByIdList" resultMap="QuestionType" parameterType="java.lang.Integer">
         SELECT
-        questions.Questions_ID,types.Type_name
+        questions.Questions_ID,types.Type_name,questions.QuesPic_URL,questions.AnswerPic_URL
         FROM questions,types
         WHERE questions.Type_ID=types.Type_ID AND questions.Questions_ID=#{questionsId,jdbcType=INTEGER}
     </select>
