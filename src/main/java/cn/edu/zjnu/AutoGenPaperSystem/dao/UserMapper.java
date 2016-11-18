@@ -34,4 +34,6 @@ public interface UserMapper {
     int updateSubjectCanByUserId(int userId,String subId);
 
     String selectSubjectCanByUserId(int userId);
+
+    String selectUserChosenByUSerId(int userId);
 }

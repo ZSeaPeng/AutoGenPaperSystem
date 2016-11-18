@@ -19,4 +19,6 @@ public interface TypesMapper {
     int updateByPrimaryKey(Types record);
 
     List<Types> selectTypesBySubjectId(Integer subjectId);
+
+
 }

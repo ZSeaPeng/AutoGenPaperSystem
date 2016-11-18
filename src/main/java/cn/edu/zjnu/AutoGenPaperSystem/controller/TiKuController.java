@@ -37,7 +37,7 @@ public class TiKuController {
     private CharacterService characterServiceImpl;
 
     private static SearchAll searchAll = new SearchAll();
-    private static int userId = 3;
+    private static int userId = 9;
 
 
     private int sub_id = 0;
@@ -48,6 +48,8 @@ public class TiKuController {
     private String t = "0";
     private String d = "0";
     private String c = "0";
+    //private HttpSession httpSession;
+    //private Integer userId = (Integer) httpSession.getAttribute("userid");
 
     @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}", method = RequestMethod.GET)
     public Map getInfo(@PathVariable int grade_id,
@@ -77,6 +79,7 @@ public class TiKuController {
         allMap.put("Types", typesList);
         allMap.put("Difficulty", difficultiesList);
         allMap.put("Charaction", charactionsList);
+        System.out.println("userId--------"+userId);
         return allMap;
     }
 

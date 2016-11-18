@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Map updateByUserId(String chosen, int userId,int k) {
+        System.out.println("userId========="+userId);
         User user=userMapper.selectByPrimaryKey(userId);
         String []quesId=user.getUserchosen().split(",");
         String change="";
@@ -146,7 +147,7 @@ public class UserServiceImpl implements UserService{
         //}
         String []quesId=subjectCan.split(",");
         String change="";
-        System.out.println("quesId---"+quesId[0]);
+        //System.out.println("quesId---"+quesId[0]);
         int i=0;
         Boolean flag=false;
         for (String list:quesId){
@@ -179,6 +180,19 @@ public class UserServiceImpl implements UserService{
     @Override
     public User selectUserByUserName(String userName) {
         return userMapper.selectUserByUserName(userName);
+    }
+
+    @Override
+    public String selectUserChosenByUSerId(int userId) {
+
+
+        String chosenTemp = userMapper.selectUserChosenByUSerId(userId);
+        String[] questionIds = chosenTemp.split(",");
+        for (String  s:questionIds){
+            System.out.println(s);
+        }
+
+        return null;
     }
 }
 

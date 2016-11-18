@@ -38,4 +38,6 @@ public interface UserService  {
     int updateIsDeleteByUserId(Integer usaerid);
 
     User selectUserByUserName(String userName);
+
+    String selectUserChosenByUSerId(int userId);
 }

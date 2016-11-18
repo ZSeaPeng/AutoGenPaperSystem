@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.RolesMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Roles" >
+    <constructor >
+      <idArg column="Roles_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="Role_Name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Description" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Resource_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Available" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Roles_ID, Role_Name, Description, Resource_ID, Available
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from Roles
+    where Roles_ID = #{rolesId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from Roles
+    where Roles_ID = #{rolesId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Roles" >
+    insert into Roles (Roles_ID, Role_Name, Description, 
+      Resource_ID, Available)
+    values (#{rolesId,jdbcType=BIGINT}, #{roleName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{resourceId,jdbcType=VARCHAR}, #{available,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Roles" >
+    insert into Roles
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rolesId != null" >
+        Roles_ID,
+      </if>
+      <if test="roleName != null" >
+        Role_Name,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="resourceId != null" >
+        Resource_ID,
+      </if>
+      <if test="available != null" >
+        Available,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rolesId != null" >
+        #{rolesId,jdbcType=BIGINT},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        #{available,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Roles" >
+    update Roles
+    <set >
+      <if test="roleName != null" >
+        Role_Name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null" >
+        Resource_ID = #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="available != null" >
+        Available = #{available,jdbcType=BIT},
+      </if>
+    </set>
+    where Roles_ID = #{rolesId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Roles" >
+    update Roles
+    set Role_Name = #{roleName,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      Resource_ID = #{resourceId,jdbcType=VARCHAR},
+      Available = #{available,jdbcType=BIT}
+    where Roles_ID = #{rolesId,jdbcType=BIGINT}
+  </update>
+</mapper>
