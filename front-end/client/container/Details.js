@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import styles from '../style/main.css'
 
 //UI
 import {List} from 'material-ui/List';
@@ -111,7 +112,7 @@ class Details extends Component {
 
     return (
       <div className="main">
-        <div className="Side sideStyle">
+        <div className={styles.sideStyle}>
           <List>
             <Subheader style={{width: '100%'}}>全部知识点</Subheader>
             { Points.map((point, i) => <Point point={point} key={i} i={i}/>)}
@@ -141,7 +142,7 @@ class Details extends Component {
           </div>
           <Page {...this.props} pageNum = {pageNum} pages = {pages} />
         </div>
-        <div className="Side" style={{ right: 0,width: '270px'}}>
+        <div className={styles.Side} style={{ right: 0,width: '270px'}}>
           <Choosed userChosen = {userChosen} onChange={this.handleChange}/>
         </div>
       </div>

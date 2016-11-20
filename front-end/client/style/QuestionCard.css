@@ -1,0 +1,65 @@
+.Card {
+  box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+  margin: 20px 10px;
+  border-radius: 2px;
+}
+
+.notRadio {
+  display: flex;
+  justify-content: space-between;
+}
+
+.h4 {
+  display: inline-block;
+  margin: 0;
+}
+
+.main {
+  position: absolute;
+  margin-left: 50%;
+  left: -400px;
+  width: 900px;
+  display: -webkit-flex;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.second {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.td1 {
+  padding: 20px 50px;
+  border: 1px solid black;
+}
+
+.td2 {
+  padding: 5px;
+  border: 1px solid black;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.div {
+  display: flex;
+  width: 1000px;
+  position: absolute;
+  margin-left: 50%;
+  left: -500px;
+}
+
+.table {
+  border-collapse: collapse;
+  padding: 10px 3px;
+  transform: rotate(-90deg);
+  margin: 300px 0 0 -200px;
+}
+
+.h3 {
+  display: flex;
+  justify-content: center;
+}

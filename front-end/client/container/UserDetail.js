@@ -128,7 +128,6 @@ class UserDetail extends Component {
         <CardHeader
           avatar=""
           title={user.username}
-          subtitle={`密码: ${user.userpassword}`}
         />
         <div style={styles.wrapper}>
           {subject.map((sub, i) =>

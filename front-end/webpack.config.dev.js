@@ -17,7 +17,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 include: path.join(__dirname, 'client'),
-                loader: 'style-loader!css-loader'
+                loader: 'style-loader!css-loader?modules'
             },
             {
                 test: /\.js$/,

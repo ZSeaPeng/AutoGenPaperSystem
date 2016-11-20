@@ -25,6 +25,10 @@ export const CREATECOURSE = 'CREATECOURSE';
 export const DELETECOURSE = 'DELETECOURSE';
 export const CREATENODE = 'CREATENODE';
 export const DELETENODE = 'CREATENODE';
+export const TESTPAPER = 'TESTPAPER';
+export const CHANGELENGTH = 'CHANGELENGTH';
+export const CHANGEOTHERS = 'CHANGEOTHERS';
+export const CHANGERADIOS = 'CHANGERADIOS';
 
 /**
  * 真正与reducer沟通的函数
@@ -170,6 +174,26 @@ export const deleteNode = details => ({
   type: DELETENODE,
   details
 });
+
+//试卷预览界面初始数据
+export const testPaper = details => ({
+  type: TESTPAPER,
+  details
+});
+
+export const changeRadios = details => ({
+  type: CHANGERADIOS,
+  details
+})
+
+export const changeOthers = details => ({
+  type: CHANGEOTHERS,
+  details
+})
+
+export const changeLength = () => ({
+  type: CHANGELENGTH
+})
 
 /*
 * 异步动作
@@ -432,6 +456,15 @@ export const asynDeleteNode = (details) => dispatch => {
     )
 };
 
+//对应testPaper()
+export const getTestPaper = () => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/paper/getinfo`)
+    .then(response => response.json())
+    .then(json =>
+      dispatch(testPaper(json))
+    )
+};
+
 //对应login()
 export const asynLogin = (username, password) => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/login`, {
@@ -440,7 +473,7 @@ export const asynLogin = (username, password) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'userid=' + username + '&password=' + password
+    body: 'username=' + username + '&password=' + password
   })
     .then(response => response.json())
     .then(json =>

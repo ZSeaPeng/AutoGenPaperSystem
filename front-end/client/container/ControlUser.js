@@ -123,7 +123,7 @@ class ControlUser extends Component {
         right: 0,
         bottom: 0,
         zIndex: 9999,
-        boxShadow: '5px 5px 100px #888888'
+        boxShadow: '0 0 0 999px rgba(0, 0, 0, .7)'
       }
     } else {
       styles.card = {

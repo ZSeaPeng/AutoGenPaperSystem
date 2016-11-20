@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import style from '!style!css!../style/slick.min.css';
+import styles from '!style!css!../style/slick-theme.min.css';
 let Slider = require('react-slick');
 
 //UI
