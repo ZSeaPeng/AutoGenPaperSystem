@@ -7,6 +7,7 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import cn.edu.zjnu.AutoGenPaperSystem.service.KnowledgeService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,7 @@ public class AdminOperateController {
 
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
     public User addUser(@RequestBody User user) {
+        user.setUserpassword(String.valueOf(new Md5Hash(user.getUserpassword(),user.getUserpassword())));
         if (userServiceImpl.insertSelective(user) == 0) {
             return null;
         }

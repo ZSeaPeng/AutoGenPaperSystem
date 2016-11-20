@@ -36,6 +36,9 @@
 	<select id="selectUserByUserName" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.User">
 		SELECT * FROM User WHERE userName = #{userName}
 	</select>
+	<select id="selectUserChosenByUSerId" resultType="java.lang.String">
+	  SELECT UserChosen FROM User WHERE userId = #{userId}
+	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from User
     where UserId = #{userId,jdbcType=INTEGER}
