@@ -3,68 +3,58 @@ import { connect } from 'react-redux';
 import styles from '../style/QuestionCard.css';
 
 //import action
-import { getTestPaper, changeLength, changeOthers, changeRadios } from '../actions/actionCreators';
+import { getTestPaper, paperDown, paperUp, paperDelete, paperUup, paperDdown } from '../actions/actionCreators';
 
 import FlatButton from 'material-ui/FlatButton';
 
 //component
 import QuestionCard from '../components/QuestionCard';
 import NotRadio from '../components/NotRadio';
-
-let others = [], radios = [], length = 0;
+import PaperChoosed from '../components/PaperChoosed';
 
 class Paper extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.getInfo = this.getInfo.bind(this);
+    this.handleChange = this.handelChange.bind(this);
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getTestPaper());
-    setTimeout(getInfo(), 1000);
   };
 
-  getInfo() {
+  handelChange(details, type) {
     const { dispatch } = this.props;
-    const { subName, Type, questions, others, radios, length } = this.props.testPaper;
-    for (let i = 0; i < questions.length; i++) {
-      if(questions[i].type === '单选题') {
-        dispatch(changeRadios(questions[i].questions))
-      } else {
-        dispatch(changeOthers(questions[i]));
-        dispatch(changeLength);
-      }
-    }
-  }
-
-  handleChange(details, type) {
     if(type === 'up') {
-      console.log(details)
-    } else if (type === 'down') {
-      console.log(details)
-    } else if (type === 'delete') {
-      if(details.titleId === "") {
-        radios = [...radios.slice(0, details.i), ...radios.slice(details.i + 1)];
-        console.log(radios);
+      if(!details.title) {
+        dispatch(paperUp(details))
       } else {
-        others[details.titleId].questions = [...others[details.titleId].questions.slice(0, details.i), ...others[details.titleId].questions.slice(details.i + 1)];
-        console.log(others);
+        dispatch(paperUup(details))
       }
+    } else if (type === 'down') {
+      if(!details.title) {
+        dispatch(paperDown(details))
+      } else {
+        dispatch(paperDdown(details))
+      }
+    } else if (type === 'delete') {
+      dispatch(paperDelete(details))
     }
   }
 
   render() {
-    const { subName, Type, questions, others, radios, length } = this.props.testPaper;
-    // for (let i = 0; i < questions.length; i++) {
-    //   if(questions[i].type === '单选题') {
-    //     dispatch(changeRadios(questions[i].questions))
-    //   } else {
-    //     dispatch(changeOthers(questions[i]));
-    //     dispatch(changeLength);      }
-    // }
-    this.getInfo();
+    const { subName, Type, questions } = this.props.testPaper;
+    let others = [], radios = {i: 0, questions: []}, length = 0;
+    for (let i = 0; i < questions.length; i++) {
+      if(questions[i].type === '单选题') {
+        radios = {...radios, i: i, questions: [...questions[i].questions]};
+      } else {
+        others = [...others, {...questions[i], i: i}];
+        length += questions[i].questions.length;
+      }
+    }
+    const otherL = length === 0;
+    const radioL = radios.questions.length === 0;
     return (
       <div className={styles.div}>
         <table className={styles.table}>
@@ -79,18 +69,27 @@ class Paper extends Component {
           <header>
             <h2>{subName}{Type}卷</h2>
           </header>
-          <section className={styles.second}>
-            <h3 className={styles.h3}>第I卷（选择题）</h3>
-            <p style={{margin: 0}}>本试卷第一部分共有{radios.length}道试题。</p>
-            <h4 style={{margin: 0}}>一、单选题（共{radios.length}小题）</h4>
-            {radios.map((radio, i) => <QuestionCard key={i} radio={radio} i={i} length={radios.length} onChange={this.handleChange}/>)}
-          </section>
-          <section className={styles.second}>
+          {radioL
+            ? null
+            : <section className={styles.second}>
+              <h3 className={styles.h3}>第I卷（选择题）</h3>
+              <p style={{margin: 0}}>本试卷第一部分共有{radios.questions.length}道试题。</p>
+              <h4 style={{margin: 0}}>一、单选题（共{radios.questions.length}小题）</h4>
+              {radios.questions.map((radio, i) => <QuestionCard key={i} radio={radio} index={radios.i} i={i} length={radios.questions.length} onChange={this.handleChange}/>)}
+            </section>
+          }
+          {otherL
+            ? null
+            : <section className={styles.second}>
             <h3 className={styles.h3}>第II卷（非选择题）</h3>
             <p style={{margin: 0}}>本试卷第一部分共有{length}道试题。</p>
             {others.map((other,i) => <NotRadio i={i} key={i} other={other} length={others.length} onChange={this.handleChange}/>)}
           </section>
+          }
         </section>
+        <div className={styles.Side} style={{ right: 0,width: '270px'}}>
+          <PaperChoosed radios={radios} others={others} />
+        </div>
       </div>
     );
   }

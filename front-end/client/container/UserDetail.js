@@ -92,7 +92,8 @@ class UserDetail extends Component {
         }
       }
       if( count === 0) {
-        dispatch(asynChange({user: {...user, username: username}, k: i}))
+        dispatch(asynChange({user: {...user, username: username}, k: i}));
+        this.setState({expanded: !this.state.expanded});
       }
     }
   }

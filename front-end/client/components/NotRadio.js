@@ -18,42 +18,48 @@ export default class NotRadio extends React.Component {
 
   handleDown() {
     const { i, other } = this.props;
-    this.props.onChange({i, title: true, type: other.type}, 'down')
+    this.props.onChange({index: other.i, title: true}, 'down')
   }
 
   handleUp() {
     const { i, other } = this.props;
-    this.props.onChange({i, title: true, type: other.type}, 'up')
+    this.props.onChange({index: other.i, title: true}, 'up')
   }
 
   handleChange(details, type) {
     const { other, i } = this.props;
-    this.props.onChange({...details, titleId: i}, type);
+    this.props.onChange({...details}, type);
   }
 
   render() {
     const { other, i, length } = this.props;
     const first = i === 0;
     const last = i + 1 == length;
+    const empty = other.questions.length === 0;
     return (
-      <div >
-        <div className={styles.notRadio}>
-          <h4 className={styles.h4}>{nzhcn.encodeS(i + 2)}、{other.type}(共{other.questions.length}小题)</h4>
-          <div>
-            {first
-              ? null
-              : <FlatButton label="上移" onClick={this.handleUp}/>
-            }
-            {last
-              ? null
-              : <FlatButton label="下移" onClick={this.handleDown}/>
-            }
+      <div>
+      {empty
+        ? null
+        : <div>
+          <div className={styles.notRadio}>
+            <h4 className={styles.h4}>{nzhcn.encodeS(i + 2)}、{other.type}(共{other.questions.length}小题)</h4>
+            <div>
+              {first
+                ? null
+                : <FlatButton label="上移" onClick={this.handleUp}/>
+              }
+              {last
+                ? null
+                : <FlatButton label="下移" onClick={this.handleDown}/>
+              }
+            </div>
           </div>
+          {other.questions.map((question, i) =>
+            <QuestionCard key={i} radio={question} i={i} index={other.i} length={other.questions.length} onChange={this.handleChange}/>
+          )}
         </div>
-        {other.questions.map((question, i) =>
-          <QuestionCard key={i} radio={question} i={i} length={other.questions.length} onChange={this.handleChange}/>
-        )}
+      }
       </div>
-    );
+    )
   }
 }

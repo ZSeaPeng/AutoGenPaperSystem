@@ -25,18 +25,18 @@ export default class QuestionCard extends React.Component {
   }
 
   handleDelete() {
-    const { i } = this.props;
-    this.props.onChange({i, titleId: ""}, 'delete')
+    const { i, index } = this.props;
+    this.props.onChange({i, index}, 'delete')
   }
 
   handleDown() {
-    const { i } = this.props;
-    this.props.onChange({i, title: false, type: ""}, 'down')
+    const { i, index } = this.props;
+    this.props.onChange({i, index, title: false, type: ""}, 'down')
   }
 
   handleUp() {
-    const { i } = this.props;
-    this.props.onChange({i, title: false, type: ""}, 'up')
+    const { i, index } = this.props;
+    this.props.onChange({i, index, title: false, type: ""}, 'up')
   }
 
   render() {

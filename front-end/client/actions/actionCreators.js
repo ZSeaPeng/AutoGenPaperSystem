@@ -26,9 +26,11 @@ export const DELETECOURSE = 'DELETECOURSE';
 export const CREATENODE = 'CREATENODE';
 export const DELETENODE = 'CREATENODE';
 export const TESTPAPER = 'TESTPAPER';
-export const CHANGELENGTH = 'CHANGELENGTH';
-export const CHANGEOTHERS = 'CHANGEOTHERS';
-export const CHANGERADIOS = 'CHANGERADIOS';
+export const PAPERDOWN = 'PAPERDOWN';
+export const PAPERUP = 'PAPERUP';
+export const PAPERDDOWN = 'PAPERDDOWN';
+export const PAPERDELETE = 'PAPERDELETE';
+export const PAPERUUP = 'PAPERUUP';
 
 /**
  * 真正与reducer沟通的函数
@@ -181,19 +183,30 @@ export const testPaper = details => ({
   details
 });
 
-export const changeRadios = details => ({
-  type: CHANGERADIOS,
+export const paperDelete = details => ({
+  type: PAPERDELETE,
   details
-})
+});
 
-export const changeOthers = details => ({
-  type: CHANGEOTHERS,
+export const paperUp = details => ({
+  type: PAPERUP,
   details
-})
+});
 
-export const changeLength = () => ({
-  type: CHANGELENGTH
-})
+export const paperDown = details => ({
+  type: PAPERDOWN,
+  details
+});
+
+export const paperUup = details => ({
+  type: PAPERUUP,
+  details
+});
+
+export const paperDdown = details => ({
+  type: PAPERDDOWN,
+  details
+});
 
 /*
 * 异步动作
@@ -210,7 +223,10 @@ export const getInitialState = () => dispatch => {
 
 //对应recevieSelect()
 export const getSelect = url => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}`)
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
     .then( response => response.json())
     .then( json =>
       dispatch(recevieSelect(json))
@@ -219,7 +235,10 @@ export const getSelect = url => dispatch => {
 
 //对应recevieQuestion()
 export const getQuestion = (url, query="?page=1") => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`)
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
     .then( response => response.json())
     .then( json =>
       dispatch(recevieQuestion(json))
@@ -228,7 +247,10 @@ export const getQuestion = (url, query="?page=1") => dispatch => {
 
 //对应userList()
 export const getUserList = () => dispatch => {
-  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/userlist')
+  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/userlist', {
+    method: 'GET',
+    credentials: 'include'
+  })
     .then( response => response.json())
     .then( json =>
       dispatch(userList(json))
@@ -236,7 +258,10 @@ export const getUserList = () => dispatch => {
 };
 
 export const getCourseList = () => dispatch => {
-  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/courselist')
+  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/courselist', {
+    method: 'GET',
+    credentials: 'include'
+  })
     .then( response => response.json())
     .then( json =>
       dispatch(courseList(json))
@@ -251,7 +276,8 @@ export const asynAdd = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=0'
+    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=0',
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -267,7 +293,8 @@ export const asynRemove = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=' + details.k
+    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=' + details.k,
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -283,7 +310,8 @@ export const asynCollection = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=0'
+    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=0',
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -299,7 +327,8 @@ export const asynDiscoll = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=' + details.k
+    body: 'userid=' + details.userid + '&qid=' + details.id + '&k=' + details.k,
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -315,7 +344,8 @@ export const asynRemoveAll = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'userid=' + details.userid
+    body: 'userid=' + details.userid,
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -331,7 +361,8 @@ export const asynRemoveSubject = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'userid=' + details.userId + '&subid=' + details.subid + '&i=' + details.i + '&k=' + details.k
+    body: 'userid=' + details.userId + '&subid=' + details.subid + '&i=' + details.i + '&k=' + details.k,
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -349,7 +380,8 @@ export const asynChange = (details) => dispatch => {
     },
     body: JSON.stringify({
       ...details.user,
-    })
+    }),
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -365,7 +397,8 @@ export const asynDeleteUser = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'userid=' + details.userId
+    body: 'userid=' + details.userId,
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -383,7 +416,8 @@ export const asynCreateUser = (details) => dispatch => {
     },
     body: JSON.stringify({
       ...details
-    })
+    }),
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -400,7 +434,8 @@ export const asynCreateCourse = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'course=' + details
+    body: 'course=' + details,
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -416,7 +451,8 @@ export const asynDeleteCourse = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'subName=' + details.subName
+    body: 'subName=' + details.subName,
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -432,7 +468,8 @@ export const asynCreateNode = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'subName=' + details.subName + '&id=' + details.id + '&point=' + details.point
+    body: 'subName=' + details.subName + '&id=' + details.id + '&point=' + details.point,
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -448,7 +485,8 @@ export const asynDeleteNode = (details) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'pointid=' + details.id
+    body: 'pointid=' + details.id,
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
@@ -458,7 +496,10 @@ export const asynDeleteNode = (details) => dispatch => {
 
 //对应testPaper()
 export const getTestPaper = () => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/paper/getinfo`)
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/paper/getinfo`, {
+    method: 'GET',
+    credentials: 'include'
+  })
     .then(response => response.json())
     .then(json =>
       dispatch(testPaper(json))
@@ -473,7 +514,8 @@ export const asynLogin = (username, password) => dispatch => {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'username=' + username + '&password=' + password
+    body: 'username=' + username + '&password=' + password,
+    credentials: 'include'
   })
     .then(response => response.json())
     .then(json =>
