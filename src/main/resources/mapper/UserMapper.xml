@@ -24,9 +24,7 @@
 		from User
 		where UserId = #{userId,jdbcType=INTEGER} and isDelete = 0
 	</select>
-	<select id="selectByUserName" resultType="java.lang.Integer">
-    SELECT * FROM User WHERE UserName = #{userName} and isDelete = 0
-  </select>
+
 	<select id="selectAllUsers" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.User">
     SELECT * FROM User WHERE  isDelete = 0
   </select>
@@ -39,6 +37,7 @@
 	<select id="selectUserChosenByUSerId" resultType="java.lang.String">
 	  SELECT UserChosen FROM User WHERE userId = #{userId}
 	</select>
+
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from User
     where UserId = #{userId,jdbcType=INTEGER}

@@ -1,6 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
-import cn.edu.zjnu.AutoGenPaperSystem.model.*;
+import cn.edu.zjnu.AutoGenPaperSystem.model.CharactionJson;
+import cn.edu.zjnu.AutoGenPaperSystem.model.DifficultyJson;
+import cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll;
+import cn.edu.zjnu.AutoGenPaperSystem.model.TypesJson;
 import cn.edu.zjnu.AutoGenPaperSystem.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +23,7 @@ import java.util.regex.Pattern;
  */
 @Controller
 @RequestMapping(value = "/api/tiku")
+@SessionAttributes("userid")
 @ResponseBody
 public class TiKuController {
 
@@ -37,7 +41,6 @@ public class TiKuController {
     private CharacterService characterServiceImpl;
 
     private static SearchAll searchAll = new SearchAll();
-    private static int userId = 9;
 
 
     private int sub_id = 0;
@@ -48,14 +51,16 @@ public class TiKuController {
     private String t = "0";
     private String d = "0";
     private String c = "0";
-    //private HttpSession httpSession;
-    //private Integer userId = (Integer) httpSession.getAttribute("userid");
+
 
     @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}", method = RequestMethod.GET)
     public Map getInfo(@PathVariable int grade_id,
                        @PathVariable String subjectName,
                        @PathVariable String point_id,
-                       HttpSession session) {
+                       HttpSession session,
+                       @ModelAttribute("userid") Integer userid) {
+       //int userid = (Integer)session.getAttribute("userid");
+        System.out.println("userId--------"+userid);
         t = (String) session.getAttribute("t");
         d = (String) session.getAttribute("d");
         c = (String) session.getAttribute("c");
@@ -68,6 +73,7 @@ public class TiKuController {
         if (c == null) {
             c = "0";
         }
+       // System.out.println("session.getAttribute(\"userid\")==========="+session.getAttribute("userid"));
         Map<String, List> allMap = new HashMap<String, List>();
         setParam(subjectName, grade_id, point_id);
         List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
@@ -79,7 +85,7 @@ public class TiKuController {
         allMap.put("Types", typesList);
         allMap.put("Difficulty", difficultiesList);
         allMap.put("Charaction", charactionsList);
-        System.out.println("userId--------"+userId);
+
         return allMap;
     }
 
@@ -212,14 +218,15 @@ public class TiKuController {
     public Map getQuestionList(@PathVariable int grade_id,
                                @PathVariable String subjectName,
                                @PathVariable String point_id,
-                               @RequestParam int page) {
+                               @RequestParam int page,
+                               HttpSession session) {
 
         setParam(subjectName, grade_id, point_id);
         searchAll.setSub_id(this.sub_id);
         searchAll.setKnow_id(Integer.valueOf(this.point_id));
 
 
-        return questionsServiceImpl.selectBySearchAll(searchAll, page, userId);
+        return questionsServiceImpl.selectBySearchAll(searchAll, page, (Integer) session.getAttribute("userid"));
     }
 
     @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}/{others}/question", method = RequestMethod.GET)
@@ -227,7 +234,8 @@ public class TiKuController {
                                @PathVariable String subjectName,
                                @PathVariable String point_id,
                                @PathVariable String others,
-                               @RequestParam int page) {
+                               @RequestParam int page,
+                               HttpSession session) {
 
         setParam(subjectName, grade_id, point_id);
         this.others = others;
@@ -244,7 +252,8 @@ public class TiKuController {
         }
 
         //userid
-        return questionsServiceImpl.selectBySearchAll(searchAll, page, userId);
+        System.out.println("getUserId()------"+session.getAttribute("userid"));
+        return questionsServiceImpl.selectBySearchAll(searchAll, page, (Integer) session.getAttribute("userid"));
     }
 
     private void init() {
@@ -267,6 +276,12 @@ public class TiKuController {
         Matcher matcher = p.matcher(subjectName);
         this.sub_id = Integer.parseInt(matcher.replaceAll("").trim());
     }
+    //private int getUserId(){
+    //    userId = (Integer)session.getAttribute("userid");
+    //    System.out.println(userId);
+    //    return userId;
+    //}
+
 }
 //━━━━━━神兽出没━━━━━━
 //　　  ┏┓　    ┏┓

@@ -24,7 +24,7 @@ public interface QuestionsService {
 
     int updateByPrimaryKey(Questions record);
 
-    Map selectBySearchAll(SearchAll searchAll,int nowpage,Integer userId);
+    Map selectBySearchAll(SearchAll searchAll, int nowpage, int userId);
 
     List selectUploadTime();
 

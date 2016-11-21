@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -25,7 +26,7 @@ public class SubjectListContorller {
     private QuestionsService questionsServiceImpl;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Map getSubjectList() {
+    public Map getSubjectList(HttpSession session) {
         List subList = subjectServiceImpl.selectAllSubject();
         Map<String, Object> map = new HashMap<String, Object>();
         List<List> updatesubList = new ArrayList<List>();
@@ -59,7 +60,7 @@ public class SubjectListContorller {
         updatesubList.add(three);
         map.put("sublist", subList);
         map.put("update", updatesubList);
-        map.put("userid",1);
+        map.put("userid",session.getAttribute("userid"));
         return map;
     }
 

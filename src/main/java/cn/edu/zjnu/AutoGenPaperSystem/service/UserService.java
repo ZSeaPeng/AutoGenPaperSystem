@@ -27,7 +27,7 @@ public interface UserService  {
 
     int allremove(int userid);
 
-    int selectByUserName(String userName);
+    User selectByUserName(String userName);
 
     List<User> selestAllUsers();
 
