@@ -25,7 +25,6 @@ public interface UserMapper {
 
     int updateIsDeleteByUserId(Integer userid);
 
-    int selectByUserName(String userName);
 
     User selectUserByUserName(String userName);
 

@@ -52,7 +52,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         return 0;
     }
 
-    public Map selectBySearchAll(SearchAll searchAll, int nowpage, Integer userId) {
+    public Map selectBySearchAll(SearchAll searchAll, int nowpage, int userId) {
         PageHelper.startPage(nowpage, 5);
         List<Questions> questionses = questionsMapper.selectBySearchAll(searchAll);
         List<QuestionsJson> questionsJsons = new ArrayList<QuestionsJson>();
@@ -184,13 +184,14 @@ public class QuestionsServiceImpl implements QuestionsService {
         String[] strings = chose.split(",");
 
         for (String list : strings) {
+            System.out.println("list----"+list);
             Map<String, Object> questionsMap = new HashMap<String, Object>();
             Questions questions = new Questions();
-            if (!strings.equals("0")) {
+            if (!list.equals("0")) {
+
                 questions = questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
                 questionsMap.put("id", questions.getQuestionsId());
                 questionsMap.put("type", questions.getTypes().getTypeName());
-
                 chosenList.add(questionsMap);
             }
         }

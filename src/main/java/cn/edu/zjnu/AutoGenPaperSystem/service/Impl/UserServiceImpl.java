@@ -6,6 +6,7 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
 import cn.edu.zjnu.AutoGenPaperSystem.model.QuestionsJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,6 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updateByPrimaryKeySelective(User record) {
+        record.setUserpassword(String.valueOf(new Md5Hash(record.getUserpassword(), record.getUserpassword())));
         List addChange = record.getAdd();
         String subjectCan = userMapper.selectSubjectCanByUserId(record.getUserId());
         for (Object add : addChange) {
@@ -59,7 +61,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map updateByUserId(String chosen, int userId, int k) {
-        System.out.println("userId=========" + userId);
+        //System.out.println("userId=========" + userId);
         User user = userMapper.selectByPrimaryKey(userId);
         String[] quesId = user.getUserchosen().split(",");
         String change = "";
@@ -125,8 +127,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int selectByUserName(String userName) {
-        return userMapper.selectByUserName(userName);
+    public User selectByUserName(String userName) {
+        return userMapper.selectUserByUserName(userName);
     }
 
     @Override
@@ -138,12 +140,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public int UpdateSubjectCanByUserId(String subId, int userId) {
         String subjectCan = userMapper.selectSubjectCanByUserId(userId);
-        //if (subjectCan.equals("0")){
-        //    subjectCan = "";
-        //}
         String[] quesId = subjectCan.split(",");
         String change = "";
-        //System.out.println("quesId---"+quesId[0]);
         int i = 0;
         Boolean flag = false;
         for (String list : quesId) {
@@ -179,16 +177,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map selectUserChosenByUSerId(int userId, String type, String subName) {
-        if (type.equals("")){
+        if (type.equals("")) {
             type = "默认类型";
         }
-        if (subName.equals("")){
+        if (subName.equals("")) {
             subName = "默认学科";
         }
         Map lastMap = new HashMap();
         List lastList = new ArrayList();
         lastMap.put("Type", type);
-        lastMap.put("subName",subName);
+        lastMap.put("subName", subName);
         String chosenTemp = userMapper.selectUserChosenByUSerId(userId);
         String[] questionIds = chosenTemp.split(",");
         Set<String> typeSet = new HashSet();
@@ -225,7 +223,7 @@ public class UserServiceImpl implements UserService {
             map.put("questions", questionsJsonList);
             lastList.add(map);
         }
-        lastMap.put("questions",lastList);
+        lastMap.put("questions", lastList);
 
         return lastMap;
     }
