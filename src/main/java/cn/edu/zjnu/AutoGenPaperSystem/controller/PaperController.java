@@ -3,10 +3,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.controller;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -17,9 +14,10 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/api/paper")
 @ResponseBody
+@SessionAttributes("userid")
 public class PaperController {
 
-    private static int userId = 9;
+
 
     @Resource
     private UserService userServiceImpl;
@@ -28,10 +26,10 @@ public class PaperController {
 
 
     @RequestMapping(value = "/getinfo", method = RequestMethod.GET)
-    public Map getInfo() {
+    public Map getInfo(@ModelAttribute("userid") Integer userid) {
         String type = "";
         String subName = "";
-        return userServiceImpl.selectUserChosenByUSerId(userId, type, subName);
+        return userServiceImpl.selectUserChosenByUSerId(userid, type, subName);
     }
 
     @RequestMapping(value = "/paperlist", method = RequestMethod.POST)

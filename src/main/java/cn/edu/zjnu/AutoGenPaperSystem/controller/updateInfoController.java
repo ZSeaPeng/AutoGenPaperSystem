@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,17 +20,16 @@ public class updateInfoController {
     @Resource
     private QuestionsService questionsServiceImpl;
 
-    private HttpSession session;
-    private int userId;
 
     @RequestMapping(value = "/{date}/{subjectName}/question", method = RequestMethod.GET)
     public Map getUpdateQuestion(@PathVariable String date,
                                  @PathVariable String subjectName,
-                                 @RequestParam int page) {
+                                 @RequestParam int page,
+                                 @ModelAttribute("userid") Integer userid) {
         date = getDateForm(date);
         int subId = getSubId(subjectName);
         //记得改userid!!!!!!!!!!!!!!!!!!!!!!!
-        Map map = questionsServiceImpl.selectQuestionByTime(subId, date, page, getUserId());
+        Map map = questionsServiceImpl.selectQuestionByTime(subId, date, page, userid);
         return map;
 
     }
@@ -50,8 +48,4 @@ public class updateInfoController {
         return subId;
     }
 
-    private int getUserId(){
-        userId = (Integer) session.getAttribute("userid");
-        return userId;
-    }
 }

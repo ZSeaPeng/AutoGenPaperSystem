@@ -13,7 +13,10 @@ import com.github.stuxuhai.jpinyin.PinyinHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zseapeng on 2016/9/22.
@@ -66,32 +69,33 @@ public class QuestionsServiceImpl implements QuestionsService {
         }
         List chosenList = new ArrayList();
         List collectList = new ArrayList();
-        User user = userMapper.selectByPrimaryKey(userId);
-        String chose = user.getUserchosen();
-        String collection = user.getUsercollection();
-        String[] strings = chose.split(",");
-        // System.out.println("strings.length---"+strings.length);
+        if (userId != -1) {
+            User user = userMapper.selectByPrimaryKey(userId);
+            String chose = user.getUserchosen();
+            String collection = user.getUsercollection();
+            String[] strings = chose.split(",");
+            // System.out.println("strings.length---"+strings.length);
 
-        for (String list : strings) {
-            Map<String, Object> questionsMap = new HashMap<String, Object>();
-            Questions questions = new Questions();
-            if (!list.equals("0")) {
-                questions = questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
-                questionsMap.put("id", questions.getQuestionsId());
-                questionsMap.put("type", questions.getTypes().getTypeName());
+            for (String list : strings) {
+                Map<String, Object> questionsMap = new HashMap<String, Object>();
+                Questions questions = new Questions();
+                if (!list.equals("0")) {
+                    questions = questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
+                    questionsMap.put("id", questions.getQuestionsId());
+                    questionsMap.put("type", questions.getTypes().getTypeName());
 
-                // System.out.println("questionsesMap------"+questionsesMap);
-                chosenList.add(questionsMap);
+                    // System.out.println("questionsesMap------"+questionsesMap);
+                    chosenList.add(questionsMap);
+                }
+            }
+
+            String[] collstrings = collection.split(",");
+
+            for (String list : collstrings) {
+
+                collectList.add(list);
             }
         }
-
-        String[] collstrings = collection.split(",");
-
-        for (String list : collstrings) {
-
-            collectList.add(list);
-        }
-
         questionsesMap.put("context", questionsJsons);
         PageInfo pageInfo = new PageInfo(questionses);
         questionsesMap.put("pageNum", pageInfo.getPageNum());
@@ -178,30 +182,31 @@ public class QuestionsServiceImpl implements QuestionsService {
         }
         List chosenList = new ArrayList();
         List collectList = new ArrayList();
-        User user = userMapper.selectByPrimaryKey(userId);
-        String chose = user.getUserchosen();
-        String collection = user.getUsercollection();
-        String[] strings = chose.split(",");
+        if (userId !=-1) {
+            User user = userMapper.selectByPrimaryKey(userId);
+            String chose = user.getUserchosen();
+            String collection = user.getUsercollection();
+            String[] strings = chose.split(",");
 
-        for (String list : strings) {
-            System.out.println("list----"+list);
-            Map<String, Object> questionsMap = new HashMap<String, Object>();
-            Questions questions = new Questions();
-            if (!list.equals("0")) {
+            for (String list : strings) {
+                System.out.println("list----" + list);
+                Map<String, Object> questionsMap = new HashMap<String, Object>();
+                Questions questions = new Questions();
+                if (!list.equals("0")) {
 
-                questions = questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
-                questionsMap.put("id", questions.getQuestionsId());
-                questionsMap.put("type", questions.getTypes().getTypeName());
-                chosenList.add(questionsMap);
+                    questions = questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
+                    questionsMap.put("id", questions.getQuestionsId());
+                    questionsMap.put("type", questions.getTypes().getTypeName());
+                    chosenList.add(questionsMap);
+                }
+            }
+
+            String[] collstrings = collection.split(",");
+
+            for (String list : collstrings) {
+                collectList.add(list);
             }
         }
-
-        String[] collstrings = collection.split(",");
-
-        for (String list : collstrings) {
-            collectList.add(list);
-        }
-
         questionMap.put("context", questionsJsonList);
         PageInfo pageInfo = new PageInfo(questionsList);
         questionMap.put("pageNum", pageInfo.getPageNum());
