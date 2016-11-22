@@ -28,11 +28,11 @@ public class LoginController {
         User userTemp = userServiceImpl.selectUserByUserName(username);
 
         if (userTemp == null){
-            return "{\"error\":"+"\"unknow username\"}";
+            return "{\"error\":"+"\"username\"}";
         }
 
         if (!userTemp.getUserpassword().equals(tempPassword)){
-            return "{\"error\":"+"\"wrong password\"}";
+            return "{\"error\":"+"\"password\"}";
         }
         //model.put("userid",Integer.valueOf(userTemp.getUserId()));
         model.addAttribute("userid",Integer.valueOf(userTemp.getUserId()));
