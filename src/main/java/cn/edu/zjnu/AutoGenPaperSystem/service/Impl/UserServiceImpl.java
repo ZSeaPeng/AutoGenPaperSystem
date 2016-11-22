@@ -226,18 +226,18 @@ public class UserServiceImpl implements UserService {
 
         //改变顺序
         Iterator iterator = lastList.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Map mapTemp = (Map) iterator.next();
-            if (mapTemp.get("type").equals("单选题")){
-               iterator.remove();
-                lastList.add(lastList.size(),mapTemp);
+            if (mapTemp.get("type").equals("单选题")) {
+                iterator.remove();
+                lastList.add(lastList.size(), mapTemp);
                 break;
             }
 
         }
 
-        for (Object object:lastList){
-            System.out.println("object-------"+object);
+        for (Object object : lastList) {
+            System.out.println("object-------" + object);
         }
         lastMap.put("questions", lastList);
 

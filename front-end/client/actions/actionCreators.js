@@ -214,7 +214,7 @@ export const paperDdown = details => ({
 * */
 //对应recevieInitialState()
 export const getInitialState = () => dispatch => {
-  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/subjectlist')
+  return fetch('http://localhost:8110/AutoGenPaperSystem/api/subjectlist')
     .then( response => response.json())
     .then( json =>
       dispatch(recevieInitialState(json))
@@ -223,7 +223,7 @@ export const getInitialState = () => dispatch => {
 
 //对应recevieSelect()
 export const getSelect = url => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api${url}`, {
     method: 'GET',
     credentials: 'include'
   })
@@ -235,7 +235,7 @@ export const getSelect = url => dispatch => {
 
 //对应recevieQuestion()
 export const getQuestion = (url, query="?page=1") => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api${url}/question${query}`, {
     method: 'GET',
     credentials: 'include'
   })
@@ -247,7 +247,7 @@ export const getQuestion = (url, query="?page=1") => dispatch => {
 
 //对应userList()
 export const getUserList = () => dispatch => {
-  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/userlist', {
+  return fetch('http://localhost:8110/AutoGenPaperSystem/api/admin/userlist', {
     method: 'GET',
     credentials: 'include'
   })
@@ -258,7 +258,7 @@ export const getUserList = () => dispatch => {
 };
 
 export const getCourseList = () => dispatch => {
-  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/courselist', {
+  return fetch('http://localhost:8110/AutoGenPaperSystem/api/admin/courselist', {
     method: 'GET',
     credentials: 'include'
   })
@@ -270,7 +270,7 @@ export const getCourseList = () => dispatch => {
 
 //对应add()
 export const asynAdd = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/add`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/add`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -287,7 +287,7 @@ export const asynAdd = (details) => dispatch => {
 
 //对应remove()
 export const asynRemove = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/remove`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/remove`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -304,7 +304,7 @@ export const asynRemove = (details) => dispatch => {
 
 //对应collection()
 export const asynCollection = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/save`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/save`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -321,7 +321,7 @@ export const asynCollection = (details) => dispatch => {
 
 //对应discoll()
 export const asynDiscoll = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/delete`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/delete`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -338,7 +338,7 @@ export const asynDiscoll = (details) => dispatch => {
 
 //对应removeAll()
 export const asynRemoveAll = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/question/allremove`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/question/allremove`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -355,7 +355,7 @@ export const asynRemoveAll = (details) => dispatch => {
 
 //对应removeSubject()
 export const asynRemoveSubject = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/removesubjectcan`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/admin/removesubjectcan`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -372,7 +372,7 @@ export const asynRemoveSubject = (details) => dispatch => {
 
 //对应change()
 export const asynChange = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/change`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/admin/change`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -391,7 +391,7 @@ export const asynChange = (details) => dispatch => {
 
 //对应deleteUser()
 export const asynDeleteUser = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deleteuser`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/admin/deleteuser`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -408,7 +408,7 @@ export const asynDeleteUser = (details) => dispatch => {
 
 //对应createUser()
 export const asynCreateUser = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/adduser`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/admin/adduser`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -428,7 +428,7 @@ export const asynCreateUser = (details) => dispatch => {
 
 //对应createCourse()
 export const asynCreateCourse = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/addcourse`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/admin/addcourse`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -445,7 +445,7 @@ export const asynCreateCourse = (details) => dispatch => {
 
 //对应deleteCourse()
 export const asynDeleteCourse = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deletecourse`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/admin/deletecourse`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -462,7 +462,7 @@ export const asynDeleteCourse = (details) => dispatch => {
 
 //对应createNode()
 export const asynCreateNode = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/addpoint`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/admin/addpoint`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -479,7 +479,7 @@ export const asynCreateNode = (details) => dispatch => {
 
 //对应deleteNode()
 export const asynDeleteNode = (details) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deletepoint`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/admin/deletepoint`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
@@ -496,7 +496,7 @@ export const asynDeleteNode = (details) => dispatch => {
 
 //对应testPaper()
 export const getTestPaper = () => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/paper/getinfo`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/paper/getinfo`, {
     method: 'GET',
     credentials: 'include'
   })
@@ -508,7 +508,7 @@ export const getTestPaper = () => dispatch => {
 
 //对应login()
 export const asynLogin = (username, password) => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/login`, {
+  return fetch(`http://localhost:8110/AutoGenPaperSystem/api/login`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',

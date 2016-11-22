@@ -23,21 +23,22 @@ public class LoginController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody String Login(String username, String password, ModelMap model, HttpSession session){
+    public @ResponseBody Object Login(String username, String password, ModelMap model, HttpSession session){
         String tempPassword= String.valueOf(new Md5Hash(password,password));
         User userTemp = userServiceImpl.selectUserByUserName(username);
 
         if (userTemp == null){
-            return "用户不存在";
+            return "{\"error\":"+"\"用户名错误\"}";
         }
 
         if (!userTemp.getUserpassword().equals(tempPassword)){
-            return "密码错误";
+            return "{\"error\":"+"\"密码错误\"}";
         }
-        model.put("userid",Integer.valueOf(userTemp.getUserId()));
+        //model.put("userid",Integer.valueOf(userTemp.getUserId()));
         model.addAttribute("userid",Integer.valueOf(userTemp.getUserId()));
-        System.out.println("userTemp.getUserId()-----"+userTemp.getUserId());
-        return "{\"success\":success}";
+
+
+        return userTemp;
     }
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
     public void Logout(@ModelAttribute("userid") Integer userid){

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +16,7 @@ import java.util.regex.Pattern;
  */
 @Controller
 @RequestMapping(value = "/api/updateinfo")
-@SessionAttributes("userid")
+//@SessionAttributes("userid")
 @ResponseBody
 public class updateInfoController {
     @Resource
@@ -25,7 +27,14 @@ public class updateInfoController {
     public Map getUpdateQuestion(@PathVariable String date,
                                  @PathVariable String subjectName,
                                  @RequestParam int page,
-                                 @ModelAttribute("userid") Integer userid) {
+                                 HttpServletRequest servletRequest) {
+        HttpSession session = servletRequest.getSession();
+        int userid;
+        try {
+            userid = (Integer) session.getAttribute("userid");
+        } catch (Exception e) {
+            userid = -1;
+        }
         date = getDateForm(date);
         int subId = getSubId(subjectName);
         //记得改userid!!!!!!!!!!!!!!!!!!!!!!!
