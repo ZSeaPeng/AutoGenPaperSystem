@@ -26,9 +26,9 @@ public class AdminLoginController {
     @RequestMapping(value = "/login",method = RequestMethod.POST)
 
     @ResponseBody
-    public Object Login(HttpSession session,ModelMap model, String adminname,
+    public Object Login(HttpSession session,ModelMap model, String username,
                         String password) {
-        Admin admin = adminServiceImpl.selectByadminName(adminname);
+        Admin admin = adminServiceImpl.selectByadminName(username);
         if (admin == null) {
             return "{\"error\":"+"\"username\"}";
         }
@@ -39,7 +39,7 @@ public class AdminLoginController {
         //model.put("adminpassword", password);
         session.setAttribute("adminpassword",password);
         System.out.println(admin.toString());
-        return admin;
+        return admin.getAdminname();
 
     }
 
