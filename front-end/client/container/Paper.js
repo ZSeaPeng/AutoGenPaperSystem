@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styles from '../style/QuestionCard.css';
+import store, { history } from '../store';
 
 //import action
-import { getTestPaper, paperDown, paperUp, paperDelete, paperUup, paperDdown } from '../actions/actionCreators';
-
-import FlatButton from 'material-ui/FlatButton';
+import { getOldTestPaper, getTestPaper, paperDown, paperUp, paperDelete, paperUup, paperDdown } from '../actions/actionCreators';
 
 //component
 import QuestionCard from '../components/QuestionCard';
@@ -20,7 +19,12 @@ class Paper extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
+    const search = window.location.search;
+    if(search === '') {
     dispatch(getTestPaper());
+    } else {
+      dispatch(getOldTestPaper(query));
+    }
   };
 
   handelChange(details, type) {
@@ -43,6 +47,11 @@ class Paper extends Component {
   }
 
   render() {
+    const { userid } = this.props.grades;
+      if(userid === -1) {
+        alert("请先登录");
+        history.push('/')
+      }
     const { subName, Type, questions } = this.props.testPaper;
     let others = [], radios = {i: 0, questions: []}, length = 0;
     for (let i = 0; i < questions.length; i++) {

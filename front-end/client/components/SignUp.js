@@ -42,13 +42,22 @@ class SignUp extends Component {
       display: 'inline-block',
       position: 'absolute',
       top: 100,
-      right: 100
+      right: 100,
+      paddingTop: 30
     };
+    let error = "";
+
+    if (this.props.error === "username") {
+      error = "用户名错误";
+    } else if (this.props.error === "password") {
+      error = "密码错误";
+    }
 
     return (
       <div>
       <Paper style={style} zDepth={1}>
-        <div style={{marginTop: '30px',padding: '0 15px'}}>
+        <div style={{color: 'red'}}>{error}</div>
+        <div style={{padding: '0 15px'}}>
           <TextField
             floatingLabelText="用户名"
             onChange={ this.usernameChange }

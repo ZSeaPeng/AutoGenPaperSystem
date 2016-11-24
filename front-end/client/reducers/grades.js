@@ -1,9 +1,11 @@
-import { RECEIVE_INITIAL_STATE, LOGIN } from '../actions/actionCreators';
+import { RECEIVE_INITIAL_STATE, LOGIN, LOGINERROR, LOGOUT } from '../actions/actionCreators';
 
 function grades(state = {
     sublist:[],
     update: [],
-    userid: "",
+    userid: -1,
+    error: "",
+    username: ""
     // img: []
 }, action) {
   switch (action.type) {
@@ -11,13 +13,25 @@ function grades(state = {
       return {
         sublist: [ ...action.posts.sublist ],
         update: [ ...action.posts.update ],
-        userid: action.posts.userid
+        userid: action.posts.userid,
+        error: ""
         // img: [ ...action.posts.img ]
       };
     case LOGIN:
       return {
         ...state,
-        userid: action.posts.userid
+        userid: action.posts.userId,
+        username: action.posts.username
+      };
+    case LOGINERROR:
+      return {
+        ...state,
+        error: action.details.error
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        userid: -1
       };
     default:
       return state;

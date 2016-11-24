@@ -10,6 +10,8 @@ import MenuItem from 'material-ui/MenuItem';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
 
+import { finalAction } from '../actions/actionCreators'
+
 class PaperChoosed extends Component{
   constructor(props) {
     super(props);
@@ -17,7 +19,7 @@ class PaperChoosed extends Component{
   }
 
   handleSubmit() {
-    const { radios, others } = this.props;
+    const { dispatch, radios, others } = this.props;
     let array = [];
     for (let i = 0; i < radios.questions.length; i++) {
       array.push(radios.questions[i].id);
@@ -27,7 +29,7 @@ class PaperChoosed extends Component{
         array.push(others[i].questions[j].id);
       }
     }
-    console.log(array);
+    dispatch(finalAction(array));
   }
 
   render() {

@@ -1,7 +1,3 @@
-/**
-  *for user to look up question updates.
-  */
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styles from '../style/main.css';
@@ -14,7 +10,6 @@ import Choosed from '../components/Choosed';
 
 //add actions
 import {
-  getInitialState,
   getQuestion,
   asynAdd,
   asynRemove,
@@ -24,7 +19,7 @@ import {
   asynRemoveAll
 } from '../actions/actionCreators';
 
-class Update extends Component {
+class Collections extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -148,4 +143,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps)(Update);
+export default connect(mapStateToProps)(Collections)

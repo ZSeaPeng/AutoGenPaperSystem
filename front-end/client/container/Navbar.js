@@ -18,16 +18,27 @@ import zhituku from '../img/zhitiku.png';
 import phone from '../img/phone.png'
 
 //import action
-import { getInitialState } from '../actions/actionCreators';
+import { getInitialState, asynLogout } from '../actions/actionCreators';
 
 class Navbar extends Component{
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout() {
+    const { dispatch, userid } = this.props;
+    dispatch(asynLogout(userid));
+  }
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(getInitialState());
   };
   render() {
-    const { sublist } = this.props;
+    const { sublist, userid, username } = this.props;
     const isEmpty = sublist.length === 0;
+    const isLogin = userid === -1;
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div>
@@ -57,8 +68,15 @@ class Navbar extends Component{
               }
             </ToolbarGroup>
             <ToolbarGroup>
-              <img src={phone}/>
-              <ToolbarTitle text="0571-87002755" style = {{lineHeight: '56px', color: '#FFFFFF'}}/>
+              {isLogin
+                ? null
+                : <div>
+                  <small>用户</small>
+                  <Link to="/userindex">{username}</Link>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <div onClick={this.handleLogout}>登出</div>
+                </div>
+              }
             </ToolbarGroup>
           </Toolbar>
           { this.props.children }
@@ -75,9 +93,11 @@ Navbar.propTypes = {
 
 const mapStateToProps = state => {
   const { grades } = state;
-  const { sublist } = grades;
+  const { sublist, userid, username } = grades;
   return {
-    sublist
+    sublist,
+    userid,
+    username
   }
 };
 
