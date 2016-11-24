@@ -42,7 +42,8 @@ public class LoginController {
         return userTemp;
     }
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
-    public String Logout(SessionStatus sessionStatus){
+    public @ResponseBody String Logout(SessionStatus sessionStatus){
+        //System.out.println("-----------");
         sessionStatus.setComplete();
         return "{\"info\":\"logout\"}";
     }
