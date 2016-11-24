@@ -4,10 +4,8 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.Admin;
 import cn.edu.zjnu.AutoGenPaperSystem.service.AdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -17,13 +15,13 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @SessionAttributes("adminpassword")
-@RequestMapping("/api/admin/login")
+@RequestMapping("/api/admin")
 public class AdminLoginController {
 
     @Resource
     private AdminService adminServiceImpl;
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
 
     @ResponseBody
     public Object Login(HttpSession session,ModelMap model, String adminname,
@@ -41,5 +39,11 @@ public class AdminLoginController {
         System.out.println(admin.toString());
         return admin;
 
+    }
+
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public String Logout(@ModelAttribute("adminpassword") String password, SessionStatus sessionStatus){
+        sessionStatus.setComplete();
+        return "{\"info\":\"logout\"}";
     }
 }
