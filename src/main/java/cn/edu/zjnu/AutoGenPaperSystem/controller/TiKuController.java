@@ -63,7 +63,7 @@ public class TiKuController {
         HttpSession session1 = servletRequest.getSession();
         int userid;
         try {
-            userid = (Integer) session.getAttribute("userid");
+            userid = (Integer) session1.getAttribute("userid");
         }catch (Exception e){
             userid = -1;
         }

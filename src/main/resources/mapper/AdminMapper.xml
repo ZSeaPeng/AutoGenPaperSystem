@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.AdminMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Admin" >
+    <constructor >
+      <arg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="adminName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="adminPassword" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Admin" >
+    insert into admin (id, adminName, adminPassword
+      )
+    values (#{id,jdbcType=INTEGER}, #{adminname,jdbcType=VARCHAR}, #{adminpassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Admin" >
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="adminname != null" >
+        adminName,
+      </if>
+      <if test="adminpassword != null" >
+        adminPassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adminname != null" >
+        #{adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpassword != null" >
+        #{adminpassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+	<select id="selectByadminName" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Admin">
+      SELECT * FROM admin where adminname = #{adminName}
+    </select>
+</mapper>

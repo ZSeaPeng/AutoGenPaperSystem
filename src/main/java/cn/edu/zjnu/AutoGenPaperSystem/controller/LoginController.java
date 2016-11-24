@@ -34,7 +34,7 @@ public class LoginController {
         if (!userTemp.getUserpassword().equals(tempPassword)){
             return "{\"error\":"+"\"password\"}";
         }
-        //model.put("userid",Integer.valueOf(userTemp.getUserId()));
+        model.put("userid",Integer.valueOf(userTemp.getUserId()));
         model.addAttribute("userid",Integer.valueOf(userTemp.getUserId()));
 
 
