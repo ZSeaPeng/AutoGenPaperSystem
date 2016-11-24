@@ -6,6 +6,7 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -14,15 +15,15 @@ import javax.servlet.http.HttpSession;
  * Created by zseapeng on 2016/11/16.
  */
 @Controller
-@RequestMapping(value = "/api/login")
-@SessionAttributes("userid")
+@RequestMapping(value = "/api")
+@SessionAttributes({"userid","adminpassword"})
 public class LoginController {
 
     @Resource
     private UserService userServiceImpl;
 
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public @ResponseBody Object Login(String username, String password, ModelMap model, HttpSession session){
         String tempPassword= String.valueOf(new Md5Hash(password,password));
         User userTemp = userServiceImpl.selectUserByUserName(username);
@@ -41,9 +42,9 @@ public class LoginController {
         return userTemp;
     }
     @RequestMapping(value = "/logout",method = RequestMethod.GET)
-    public void Logout(@ModelAttribute("userid") Integer userid){
-
-        System.out.println("userid---"+userid);
+    public String Logout(SessionStatus sessionStatus){
+        sessionStatus.setComplete();
+        return "{\"info\":\"logout\"}";
     }
 
 }
