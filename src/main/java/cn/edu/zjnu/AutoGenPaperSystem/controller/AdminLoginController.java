@@ -39,7 +39,7 @@ public class AdminLoginController {
         //model.put("adminpassword", password);
         session.setAttribute("adminpassword",password);
         System.out.println(admin.toString());
-        return "{\"username\""+"\""+admin.getAdminname()+"\"";
+        return "{\"username\":"+"\""+admin.getAdminname()+"\"";
 
     }
 
