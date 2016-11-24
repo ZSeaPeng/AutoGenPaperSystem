@@ -4,11 +4,11 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.UpdateInfoJson;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -18,6 +18,7 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/api/subjectlist")
 @ResponseBody
+//@SessionAttributes("userid")
 public class SubjectListContorller {
 
     @Resource
@@ -25,8 +26,19 @@ public class SubjectListContorller {
     @Resource
     private QuestionsService questionsServiceImpl;
 
+
     @RequestMapping(method = RequestMethod.GET)
-    public Map getSubjectList(HttpSession session) {
+    public Map getSubjectList(ModelMap model, HttpServletRequest httpServletRequest) {
+       HttpSession session = httpServletRequest.getSession();
+        int userid;
+        try {
+            userid = (Integer) session.getAttribute("userid");
+        }catch (Exception e){
+            userid = -1;
+        }
+
+        System.out.println("session======="+userid);
+
         List subList = subjectServiceImpl.selectAllSubject();
         Map<String, Object> map = new HashMap<String, Object>();
         List<List> updatesubList = new ArrayList<List>();
@@ -60,7 +72,8 @@ public class SubjectListContorller {
         updatesubList.add(three);
         map.put("sublist", subList);
         map.put("update", updatesubList);
-        map.put("userid",session.getAttribute("userid"));
+        System.out.println("useridError====="+userid);
+        map.put("userid",userid);
         return map;
     }
 

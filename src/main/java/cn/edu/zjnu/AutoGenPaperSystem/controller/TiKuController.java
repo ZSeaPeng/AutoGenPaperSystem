@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,7 +24,7 @@ import java.util.regex.Pattern;
  */
 @Controller
 @RequestMapping(value = "/api/tiku")
-@SessionAttributes("userid")
+//@SessionAttributes("userid")
 @ResponseBody
 public class TiKuController {
 
@@ -58,7 +59,14 @@ public class TiKuController {
                        @PathVariable String subjectName,
                        @PathVariable String point_id,
                        HttpSession session,
-                       @ModelAttribute("userid") Integer userid) {
+                       HttpServletRequest servletRequest) {
+        HttpSession session1 = servletRequest.getSession();
+        int userid;
+        try {
+            userid = (Integer) session.getAttribute("userid");
+        }catch (Exception e){
+            userid = -1;
+        }
        //int userid = (Integer)session.getAttribute("userid");
         System.out.println("userId--------"+userid);
         t = (String) session.getAttribute("t");
@@ -94,7 +102,15 @@ public class TiKuController {
                          @PathVariable int grade_id,
                          @PathVariable String subjectName,
                          @PathVariable String point_id,
-                         HttpSession session) {
+                         HttpSession session,
+                         HttpServletRequest servletRequest) {
+        HttpSession httpSession = servletRequest.getSession();
+        int userid;
+        try {
+            userid = (Integer) httpSession.getAttribute("userid");
+        }catch (Exception e){
+            userid = -1;
+        }
         setParam(subjectName, grade_id, point_id);
         this.others = others;
         String reg = "t(\\d+)d(\\d+)c(\\d+)";
@@ -219,14 +235,21 @@ public class TiKuController {
                                @PathVariable String subjectName,
                                @PathVariable String point_id,
                                @RequestParam int page,
-                               HttpSession session) {
+                               HttpServletRequest servletRequest) {
 
         setParam(subjectName, grade_id, point_id);
         searchAll.setSub_id(this.sub_id);
         searchAll.setKnow_id(Integer.valueOf(this.point_id));
+        HttpSession session = servletRequest.getSession();
+        int userid;
+        try {
+            userid = (Integer) session.getAttribute("userid");
+        }catch (Exception e){
+            userid = -1;
+        }
 
 
-        return questionsServiceImpl.selectBySearchAll(searchAll, page, (Integer) session.getAttribute("userid"));
+        return questionsServiceImpl.selectBySearchAll(searchAll, page, userid);
     }
 
     @RequestMapping(value = "/{grade_id}/{subjectName}/point{point_id}/{others}/question", method = RequestMethod.GET)
@@ -235,7 +258,14 @@ public class TiKuController {
                                @PathVariable String point_id,
                                @PathVariable String others,
                                @RequestParam int page,
-                               HttpSession session) {
+                               HttpServletRequest servletRequest) {
+        HttpSession session = servletRequest.getSession();
+        int userid;
+        try {
+            userid = (Integer) session.getAttribute("userid");
+        }catch (Exception e){
+            userid = -1;
+        }
 
         setParam(subjectName, grade_id, point_id);
         this.others = others;
@@ -252,8 +282,9 @@ public class TiKuController {
         }
 
         //userid
-        System.out.println("getUserId()------"+session.getAttribute("userid"));
-        return questionsServiceImpl.selectBySearchAll(searchAll, page, (Integer) session.getAttribute("userid"));
+
+
+        return questionsServiceImpl.selectBySearchAll(searchAll, page, userid);
     }
 
     private void init() {
