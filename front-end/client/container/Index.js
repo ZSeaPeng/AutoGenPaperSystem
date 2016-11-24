@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+//不要删
 import style from '!style!css!../style/slick.min.css';
 import styles from '!style!css!../style/slick-theme.min.css';
 let Slider = require('react-slick');
@@ -37,14 +38,14 @@ class Index extends Component {
       top: 100,
       left: 90
     };
-    const { update, userid } = this.props;
+    const { update, userid, error } = this.props;
     const isEmpty = update.length === 0;
-    const isNull = userid === '';
+    const isNull = userid === -1;
     return (
       <div>
         {isNull
-          ? <div></div>
-          : <SignUp onChange={this.handleSubmit}/>
+          ? <SignUp error={error} onChange={this.handleSubmit}/>
+          : <div></div>
         }
         {isEmpty
           ? <div></div>
@@ -67,10 +68,11 @@ class Index extends Component {
 
 const mapStateToProps = state => {
   const { grades } = state;
-  const { update, userid } = grades;
+  const { update, userid, error } = grades;
   return {
     update,
-    userid
+    userid,
+    error
   }
 };
 

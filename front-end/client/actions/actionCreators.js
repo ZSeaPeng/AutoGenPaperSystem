@@ -1,3 +1,4 @@
+import { history } from '../store';
 /**
  * 本项用于定义用户的各种动作
  * */
@@ -11,6 +12,8 @@ export const COLLECTION = 'COLLECTION';
 export const DISCOLL = 'DISCOLL';
 export const TOGGLE = 'TOGGLE';
 export const LOGIN = 'LOGIN';
+export const LOGINERROR = 'LOGINERROR';
+export const LOGOUT = 'LOGOUT';
 export const USERLIST = 'USERLIST';
 export const COURSELIST = 'COURSELIST';
 export const REMOVESUBJECT = 'REMOVESUBJECT';
@@ -31,6 +34,7 @@ export const PAPERUP = 'PAPERUP';
 export const PAPERDDOWN = 'PAPERDDOWN';
 export const PAPERDELETE = 'PAPERDELETE';
 export const PAPERUUP = 'PAPERUUP';
+export const RECEIVE_USERINFO = 'RECEIVE_USERINFO';
 
 /**
  * 真正与reducer沟通的函数
@@ -68,6 +72,11 @@ export const courseList = json => ({
 export const login = json => ({
   type: LOGIN,
   posts: json
+});
+
+export const loginError = details => ({
+  type: LOGINERROR,
+  details
 });
 
 //选课界面添加题目
@@ -208,6 +217,16 @@ export const paperDdown = details => ({
   details
 });
 
+export const recevieUserInfo = details => ({
+  type: RECEIVE_USERINFO,
+  details
+});
+
+export const logout = details => ({
+  type: LOGOUT,
+  details
+});
+
 /*
 * 异步动作
 * redux 本身没有异步处理能力, 这里用了中间件thunk
@@ -251,10 +270,15 @@ export const getUserList = () => dispatch => {
     method: 'GET',
     credentials: 'include'
   })
-    .then( response => response.json())
-    .then( json =>
+    .then( response => {
+      if(response.status!==200){
+        history.push('/');
+        return;
+      }
+      response.json().then( json =>
       dispatch(userList(json))
     )
+    })
 };
 
 export const getCourseList = () => dispatch => {
@@ -506,6 +530,44 @@ export const getTestPaper = () => dispatch => {
     )
 };
 
+export const getOldTestPaper = (query="?paper=1") => dispatch => {
+    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/paper${query}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(testPaper(json))
+    )
+};
+
+export const finalAction = (array) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/paper/makepaper`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify([...array]),
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(json =>
+      console.log(json)
+    )
+};
+
+export const asynRecUserInfo = () => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/paper/makepaper`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(recevieUserInfo(json))
+    )
+};
+
 //对应login()
 export const asynLogin = (username, password) => dispatch => {
   return fetch(`http://localhost:8110/AutoGenPaperSystem/api/login`, {
@@ -518,7 +580,50 @@ export const asynLogin = (username, password) => dispatch => {
     credentials: 'include'
   })
     .then(response => response.json())
+    .then(json => {
+        if('error' in json) {
+          dispatch(loginError(json))
+        } else {
+          dispatch(login(json))
+        }
+      }
+    )
+};
+
+export const adminLogin = (username, password) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/login`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'username=' + username + '&password=' + password,
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(json => {
+        if('error' in json) {
+          dispatch(loginError(json))
+        } else {
+          dispatch(login(json));
+          history.push('/admin')
+        }
+      }
+    )
+};
+
+export const asynLogout = (userid) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/login`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'userId=' + userid,
+    credentials: 'include'
+  })
+    .then(response => response.json())
     .then(json =>
-      dispatch(login(json))
+      dispatch(logout(json))
     )
 };

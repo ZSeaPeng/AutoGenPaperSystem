@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import styles from '../style/main.css'
+import styles from '../style/main.css';
+import { history } from '../store';
 
 //UI
 import {List} from 'material-ui/List';
@@ -16,6 +17,7 @@ import Choosed from '../components/Choosed';
 
 //add actions
 import {
+  getInitialState,
   getSelect,
   getQuestion,
   asynAdd,
@@ -23,7 +25,8 @@ import {
   toggle,
   asynCollection,
   asynDiscoll,
-  asynRemoveAll
+  asynRemoveAll,
+  loginError
 } from '../actions/actionCreators';
 
 class Details extends Component {
@@ -35,36 +38,41 @@ class Details extends Component {
   handleChange(details, type) {
     const { userChosen, userid, userCollection, dispatch } = this.props;
     let j = 0, k = 0, m = 0, n = 0;
-    if (type === 'add') {
-      if(details === 'all') {
-        dispatch(asynRemoveAll({userid: userid}));
-      } else {
-        userChosen.map((chosen, i) => {
-          if ( chosen.id === details.id ) {
-            k = i;
-            j++;
+    if (type === 'toggle') {
+      dispatch(toggle(details));
+    } else if (userid !== -1) {
+      if(type === 'add') {
+        if(details === 'all') {
+          dispatch(asynRemoveAll({userid: userid}));
+        } else {
+          userChosen.map((chosen, i) => {
+            if ( chosen.id === details.id ) {
+              k = i;
+              j++;
+            }
+          });
+          if (j === 0) {
+            dispatch(asynAdd(details));
+          } else {
+            dispatch(asynRemove({ ...details, k: k}))
+          }
+        }
+      } else if (type === 'collection') {
+        userCollection.map((collection, i) => {
+          if ( collection == details.id ) {
+            n = i;
+            m++;
           }
         });
-        if (j === 0) {
-          dispatch(asynAdd(details));
+        if (m === 0) {
+          dispatch(asynCollection(details));
         } else {
-          dispatch(asynRemove({ ...details, k: k}))
+          dispatch(asynDiscoll({ ...details, k: n}))
         }
       }
-    } else if (type === 'collection') {
-      userCollection.map((collection, i) => {
-        if ( collection == details.id ) {
-          n = i;
-          m++;
-        }
-      });
-      if (m === 0) {
-        dispatch(asynCollection(details));
-      } else {
-        dispatch(asynDiscoll({ ...details, k: n}))
-      }
-    } else if (type === 'toggle') {
-      dispatch(toggle(details));
+    } else {
+      alert("请先登录");
+      history.push('/')
     }
   }
 
