@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectByPrimaryKey(Integer userId) {
-        return null;
+        return userMapper.selectByPrimaryKey(userId);
     }
 
     @Override

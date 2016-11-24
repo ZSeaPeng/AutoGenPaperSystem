@@ -85,6 +85,10 @@
 		<filter-name>characterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/WEB-INF/jsp/errorPage.jsp</location>
+	</error-page>
 	<!--<filter>-->
 		<!--<filter-name>cors</filter-name>-->
 		<!--<filter-class>cn.edu.zjnu.AutoGenPaperSystem.util.CORSFilter</filter-class>-->
