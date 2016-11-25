@@ -36,10 +36,9 @@
 
 	<!--<mvn:resources mapping="/static/**" location="WEB-INF/jsp"/>-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="suffix" value=".html"/>
+		<property name="suffix" value=".jsp"/>
 		<property name="prefix" value="/WEB-INF/jsp/"/>
 	</bean>
-
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<!-- 基本属性 url、user、password -->
 		<property name="url" value="${jdbc.url}"/>
