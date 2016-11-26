@@ -34,14 +34,14 @@ public class SubjectListContorller {
         int userid;
         try {
             userid = (Integer) session.getAttribute("userid");
-            System.out.println("session1111===="+userid);
+            //System.out.println("session1111===="+userid);
         }catch (Exception e){
             userid = -1;
-            System.out.println(e.toString());
-            System.out.println("Exception===="+userid);
+            //System.out.println(e.toString());
+            //System.out.println("Exception===="+userid);
         }
 
-        System.out.println("session======="+userid);
+        //System.out.println("session======="+userid);
 
         List subList = subjectServiceImpl.selectAllSubject();
         Map<String, Object> map = new HashMap<String, Object>();
@@ -76,7 +76,7 @@ public class SubjectListContorller {
         updatesubList.add(three);
         map.put("sublist", subList);
         map.put("update", updatesubList);
-        System.out.println("useridError====="+userid);
+        //System.out.println("useridError====="+userid);
         map.put("userid",userid);
         return map;
     }
