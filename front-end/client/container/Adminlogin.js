@@ -17,6 +17,7 @@ class adminlogin extends React.Component {
   }
 
   render() {
+    const {error} = this.props;
     return (
       <SignUp error={error} onChange={this.handleSubmit}/>
     );

@@ -8,6 +8,7 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
+import FlatButton from 'material-ui/FlatButton';
 
 //import component
 import Combine from '../components/Combine';
@@ -27,8 +28,8 @@ class Navbar extends Component{
   }
 
   handleLogout() {
-    const { dispatch, userid } = this.props;
-    dispatch(asynLogout(userid));
+    const { dispatch } = this.props;
+    dispatch(asynLogout());
   }
 
   componentDidMount() {
@@ -71,10 +72,10 @@ class Navbar extends Component{
               {isLogin
                 ? null
                 : <div>
-                  <small>用户</small>
-                  <Link to="/userindex">{username}</Link>
+                  <small style={{color: '#FFF'}}>用户</small>&nbsp;
+                  <Link style={{color: '#FFF', fontSize: 24}} to="/userindex">{username}</Link>
                   &nbsp;&nbsp;&nbsp;&nbsp;
-                  <div onClick={this.handleLogout}>登出</div>
+                  <FlatButton style={{color: '#FFF', margin: '9px 0'}} label="登出" onClick={this.handleLogout} />
                 </div>
               }
             </ToolbarGroup>

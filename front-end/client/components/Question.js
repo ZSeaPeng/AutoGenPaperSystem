@@ -80,17 +80,17 @@ class Question extends Component {
           <FlatButton label="收藏试题" secondary={true} onClick={this.handleCollection} style={style3}/>
           <RaisedButton label="取消收藏" secondary={true} onClick={this.handleCollection} style={style4}/>
         </CardActions>
-        <CardText style={{display: 'inline-block'}}>
-          <Toggle
-            toggled={contextList.expanded}
-            onToggle={this.handleToggle}
-            labelPosition="right"
-            label="查看解析"
-          />
-        </CardText>
-        <CardMedia expandable={true}>
-          <img src={`http://${contextList.aurl}`} />
-        </CardMedia>
+        {/*<CardText style={{display: 'inline-block'}}>
+                  <Toggle
+                    toggled={contextList.expanded}
+                    onToggle={this.handleToggle}
+                    labelPosition="right"
+                    label="查看解析"
+                  />
+                </CardText>
+                <CardMedia expandable={true}>
+                  <img src={`http://${contextList.aurl}`} />
+                </CardMedia>*/}
       </Card>
     )
   }

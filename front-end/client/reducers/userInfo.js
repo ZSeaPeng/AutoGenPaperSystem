@@ -1,10 +1,10 @@
 import { RECEIVE_USERINFO } from '../actions/actionCreators';
 
 function userInfo(state={
-  userName: "",
-  passWord: "",
+  username: "",
+  password: "",
   userCreate: [],
-  userCollection: []
+  userCollection: ''
 }, action) {
   switch(action.type) {
     case RECEIVE_USERINFO:

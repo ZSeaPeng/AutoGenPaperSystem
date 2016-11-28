@@ -31,7 +31,8 @@ function grades(state = {
     case LOGOUT:
       return {
         ...state,
-        userid: -1
+        userid: -1,
+        error: ""
       };
     default:
       return state;
