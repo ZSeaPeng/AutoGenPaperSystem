@@ -69,26 +69,6 @@ public class Questions {
         this.uploadTime = uploadTime;
     }
 
-    //
-    //public Questions(Integer questionsId, String content, String quesPic_URL, Integer subjectId, Integer knowledgeId1, Integer knowledgeId2, Integer knowledgeId3, Integer knowledgeId4, Integer typeId, Integer difficultyId, Integer charactId, Boolean isdelete, String answer, String answerPic_URL, Timestamp updateTime, Timestamp uploadTime, Types types) {
-    //    this.questionsId = questionsId;
-    //    this.content = content;
-    //    this.quesPic_URL = quesPic_URL;
-    //    this.subjectId = subjectId;
-    //    this.knowledgeId1 = knowledgeId1;
-    //    this.knowledgeId2 = knowledgeId2;
-    //    this.knowledgeId3 = knowledgeId3;
-    //    this.knowledgeId4 = knowledgeId4;
-    //    this.typeId = typeId;
-    //    this.difficultyId = difficultyId;
-    //    this.charactId = charactId;
-    //    this.isdelete = isdelete;
-    //    Answer = answer;
-    //    this.answerPic_URL = answerPic_URL;
-    //    this.updateTime = updateTime;
-    //    this.uploadTime = uploadTime;
-    //    //this.types = types;
-    //}
 
 
     public Types getTypes() {

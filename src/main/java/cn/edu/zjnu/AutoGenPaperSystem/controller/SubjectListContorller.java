@@ -4,8 +4,9 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.UpdateInfoJson;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,16 +29,19 @@ public class SubjectListContorller {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public Map getSubjectList(ModelMap model, HttpServletRequest httpServletRequest) {
+    public Map getSubjectList(HttpServletRequest httpServletRequest) {
        HttpSession session = httpServletRequest.getSession();
         int userid;
         try {
             userid = (Integer) session.getAttribute("userid");
+            //System.out.println("session1111===="+userid);
         }catch (Exception e){
             userid = -1;
+            //System.out.println(e.toString());
+            //System.out.println("Exception===="+userid);
         }
 
-        System.out.println("session======="+userid);
+        //System.out.println("session======="+userid);
 
         List subList = subjectServiceImpl.selectAllSubject();
         Map<String, Object> map = new HashMap<String, Object>();
@@ -72,7 +76,7 @@ public class SubjectListContorller {
         updatesubList.add(three);
         map.put("sublist", subList);
         map.put("update", updatesubList);
-        System.out.println("useridError====="+userid);
+        //System.out.println("useridError====="+userid);
         map.put("userid",userid);
         return map;
     }

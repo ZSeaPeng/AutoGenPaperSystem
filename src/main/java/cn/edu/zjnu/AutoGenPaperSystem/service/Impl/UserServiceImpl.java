@@ -39,18 +39,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectByPrimaryKey(Integer userId) {
-        return null;
+        return userMapper.selectByPrimaryKey(userId);
     }
 
     @Override
     public int updateByPrimaryKeySelective(User record) {
         record.setUserpassword(String.valueOf(new Md5Hash(record.getUserpassword(), record.getUserpassword())));
-        List addChange = record.getAdd();
-        String subjectCan = userMapper.selectSubjectCanByUserId(record.getUserId());
-        for (Object add : addChange) {
-            subjectCan = subjectCan + "," + String.valueOf(add);
+        if (record.getAdd().size() != 0) {
+            List addChange = record.getAdd();
+            String subjectCan = userMapper.selectSubjectCanByUserId(record.getUserId());
+            for (Object add : addChange) {
+                subjectCan = subjectCan + "," + String.valueOf(add);
+            }
+            record.setSubjectcan(subjectCan);
         }
-        record.setSubjectcan(subjectCan);
         return userMapper.updateByPrimaryKeySelective(record);
     }
 
@@ -234,10 +236,6 @@ public class UserServiceImpl implements UserService {
                 break;
             }
 
-        }
-
-        for (Object object : lastList) {
-            System.out.println("object-------" + object);
         }
         lastMap.put("questions", lastList);
 

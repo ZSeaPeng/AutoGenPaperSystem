@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by zseapeng on 2016/10/14.
+ * Created by skyADMIN on 16/7/4.
  */
 @Component
 public class CORSFilter implements Filter {
@@ -29,4 +29,5 @@ public class CORSFilter implements Filter {
     public void init(FilterConfig filterConfig) {}
 
     public void destroy() {}
+
 }
