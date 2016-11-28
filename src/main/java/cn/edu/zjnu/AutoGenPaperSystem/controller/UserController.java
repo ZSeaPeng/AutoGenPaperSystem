@@ -19,11 +19,9 @@ public class UserController {
     @Resource
     private UserService userServiceImpl;
 
-    //private User user;
 
     @RequestMapping(value = "/show", method = RequestMethod.GET)
     public User showInfo(@ModelAttribute("userid") Integer userid) {
-        // System.out.println("userid----->"+userid);
         User user = userServiceImpl.selectByPrimaryKey(userid);
         String CollUrl = "/api/userid" + userid + "/collection";
         user.setUsercollection(CollUrl);

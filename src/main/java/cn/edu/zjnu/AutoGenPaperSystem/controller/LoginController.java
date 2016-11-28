@@ -36,6 +36,7 @@ public class LoginController {
             return "{\"error\":"+"\"password\"}";
         }
         model.put("userid",Integer.valueOf(userTemp.getUserId()));
+        model.addAttribute("user",userTemp);
         model.addAttribute("userid",Integer.valueOf(userTemp.getUserId()));
 
 

@@ -23,29 +23,24 @@ public class AdminLoginController {
     @Resource
     private AdminService adminServiceImpl;
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
 
     @ResponseBody
-    public Object Login(HttpSession session,ModelMap model, String username,
+    public Object Login(HttpSession session, ModelMap model, String username,
                         String password) {
         Admin admin = adminServiceImpl.selectByadminName(username);
         if (admin == null) {
-            return "{\"error\":"+"\"username\"}";
+
+            return "{\"error\":" + "\"username\"}";
         }
         if (!admin.getAdminpassword().equals(password)) {
-            return "{\"error\":"+"\"password\"}";
+            return "{\"error\":" + "\"password\"}";
         }
-
         //model.put("adminpassword", password);
-        session.setAttribute("adminpassword",password);
-        System.out.println(admin.toString());
-        return "{\"username\":"+"\""+admin.getAdminname()+"\"}";
+        session.setAttribute("adminpassword", password);
+
+        return "{\"username\":" + "\"" + admin.getAdminname() + "\"}";
 
     }
 
-    //@RequestMapping(value = "/logout",method = RequestMethod.GET)
-    //public String Logout(@ModelAttribute("adminpassword") String password, SessionStatus sessionStatus){
-    //    sessionStatus.setComplete();
-    //    return "{\"info\":\"logout\"}";
-    //}
 }

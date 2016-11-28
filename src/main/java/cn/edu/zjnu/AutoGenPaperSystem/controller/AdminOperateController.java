@@ -24,6 +24,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/api/admin")
 @SessionAttributes("adminpassword")
+@ResponseBody
 public class AdminOperateController {
     @Resource
     private UserService userServiceImpl;
@@ -35,16 +36,13 @@ public class AdminOperateController {
     private AdminService adminServiceImpl;
 
     @RequestMapping(value = "/userlist", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List getAllUsers(@ModelAttribute("adminpassword") String password) {
+    public List getAllUsers(@ModelAttribute("adminpassword") String password) {
+        System.out.println("Sessionpassword---" + password);
         return userServiceImpl.selestAllUsers();
     }
 
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    User addUser(@RequestBody User user, @ModelAttribute("adminpassword") String password) {
+    public User addUser(@RequestBody User user, @ModelAttribute("adminpassword") String password) {
         user.setUserpassword(String.valueOf(new Md5Hash(user.getUserpassword(), user.getUserpassword())));
         if (userServiceImpl.insertSelective(user) == 0) {
             return null;
@@ -54,9 +52,7 @@ public class AdminOperateController {
 
 
     @RequestMapping(value = "/change", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    User addSubjectCan(@RequestBody User user, @ModelAttribute("adminpassword") String password) {
+    public User addSubjectCan(@RequestBody User user, @ModelAttribute("adminpassword") String password) {
         if (userServiceImpl.updateByPrimaryKeySelective(user) == 0) {
             return null;
         }
@@ -66,9 +62,7 @@ public class AdminOperateController {
 
 
     @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    String removeSubjectCan(int userid, String subid, int k, @ModelAttribute("adminpassword") String password) {
+    public String removeSubjectCan(int userid, String subid, int k, @ModelAttribute("adminpassword") String password) {
 
         if (userServiceImpl.UpdateSubjectCanByUserId(subid, userid) == 0) {
             return null;
@@ -78,22 +72,14 @@ public class AdminOperateController {
         return response;
     }
 
-    //@RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
-    //public int deleteUser(int userid) {
-    //    return userServiceImpl.deleteByPrimaryKey(userid);
-    //}
 
     @RequestMapping(value = "/courselist", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    List getCourseList(@ModelAttribute("adminpassword") String password) {
+    public List getCourseList(@ModelAttribute("adminpassword") String password) {
         return subjectServiceImpl.selectAllSubjectOnAdmin();
     }
 
     @RequestMapping(value = "/deletecourse", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    List deleteCourse(Integer subid, @ModelAttribute("adminpassword") String password) {
+    public List deleteCourse(Integer subid, @ModelAttribute("adminpassword") String password) {
         if (subjectServiceImpl.updateIsDeleteBySubId(subid) == 0) {
             return null;
         }
@@ -101,9 +87,7 @@ public class AdminOperateController {
     }
 
     @RequestMapping(value = "/addcourse", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    Map addSubject(String course, @ModelAttribute("adminpassword") String password) {
+    public Map addSubject(String course, @ModelAttribute("adminpassword") String password) {
         Subject subject = new Subject();
         subject.setSubjectName(course);
         subject.setGradeId(1);
@@ -123,17 +107,13 @@ public class AdminOperateController {
 
 
     @RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    int deleteUser(Integer userid, @ModelAttribute("adminpassword") String password) {
+    public int deleteUser(Integer userid, @ModelAttribute("adminpassword") String password) {
 
         return userServiceImpl.updateIsDeleteByUserId(userid);
     }
 
     @RequestMapping(value = "/deletepoint", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    List deletePoint(Integer pointid, @ModelAttribute("adminpassword") String password) {
+    public List deletePoint(Integer pointid, @ModelAttribute("adminpassword") String password) {
 
         if (knowledgeServiceImpl.updateIsDeleteById(pointid) == 0) {
             return null;
@@ -142,9 +122,7 @@ public class AdminOperateController {
     }
 
     @RequestMapping(value = "/addpoint", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    List addPoint(String subName, int id, String point, @ModelAttribute("adminpassword") String password) {
+    public List addPoint(String subName, int id, String point, @ModelAttribute("adminpassword") String password) {
         int subId = subjectServiceImpl.selectBysubName(subName);
         Knowledge knowledge = new Knowledge();
         knowledge.setKnowledgeName(point);
@@ -154,6 +132,14 @@ public class AdminOperateController {
             return null;
         }
         return subjectServiceImpl.selectAllSubjectOnAdmin();
+    }
+
+    @RequestMapping(value = "/questionnumber", method = RequestMethod.POST)
+    public String setQuestionNumber() {
+
+
+        return null;
+
     }
 
 
