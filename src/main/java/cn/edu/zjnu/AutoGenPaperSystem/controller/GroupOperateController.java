@@ -1,11 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
+import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import cn.edu.zjnu.AutoGenPaperSystem.service.ComManagerService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,6 +29,11 @@ public class GroupOperateController {
         return userList;
     }
 
+    @RequestMapping(value = "/adduser", method = RequestMethod.POST)
+    public String addUser(@RequestBody User user) {
+        comManagerServiceImpl.updateUserList(user, userId);
+        return null;
+    }
 
 
 }

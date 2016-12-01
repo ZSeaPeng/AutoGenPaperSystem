@@ -1,7 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.dao;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.ComManager;
-import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 
 import java.util.List;
 
@@ -23,4 +22,6 @@ public interface ComManagerMapper {
     int updateDeleteById(Integer id);
 
     String selectUserListById(Integer id);
+
+
  }

@@ -47,106 +47,170 @@
     delete from User
     where UserId = #{userId,jdbcType=INTEGER}
   </delete>
-	<insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User">
-    insert into User (UserId, UserName, UserPassword,
-      Downloadable, PermissionId, SubjectCan,
-      UserChosen, UserCollection)
-    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR}, 
-      #{downloadable,jdbcType=INTEGER}, #{permissionId,jdbcType=INTEGER}, #{subjectcan,jdbcType=VARCHAR}, 
-      #{userchosen,jdbcType=VARCHAR}, #{usercollection,jdbcType=VARCHAR})
-  </insert>
-	<insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User">
+	<insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" keyProperty="UserId">
+		insert into User (UserId, UserName, UserPassword,
+		Salt, Downloadable, SubjectCan,
+		UserChosen, UserCollection, Roles_ID,
+		School, isDelete, PhoneNum,
+		Email, ComManager_ID)
+		values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{userpassword,jdbcType=VARCHAR},
+		#{salt,jdbcType=VARCHAR}, #{downloadable,jdbcType=INTEGER}, #{subjectcan,jdbcType=VARCHAR},
+		#{userchosen,jdbcType=VARCHAR}, #{usercollection,jdbcType=VARCHAR}, #{rolesId,jdbcType=VARCHAR},
+		#{school,jdbcType=VARCHAR}, #{isdelete,jdbcType=INTEGER}, #{phonenum,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{commanagerId,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" keyProperty="UserId">
 		insert into User
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="userId != null">
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="userid != null" >
 				UserId,
 			</if>
-			<if test="username != null">
+			<if test="username != null" >
 				UserName,
 			</if>
-			<if test="userpassword != null">
+			<if test="userpassword != null" >
 				UserPassword,
 			</if>
-			<if test="downloadable != null">
+			<if test="salt != null" >
+				Salt,
+			</if>
+			<if test="downloadable != null" >
 				Downloadable,
 			</if>
-			<if test="permissionId != null">
-				PermissionId,
-			</if>
-			<if test="subjectcan != null">
+			<if test="subjectcan != null" >
 				SubjectCan,
 			</if>
-			<if test="userchosen != null">
+			<if test="userchosen != null" >
 				UserChosen,
 			</if>
-			<if test="usercollection != null">
+			<if test="usercollection != null" >
 				UserCollection,
 			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="userId != null">
-				#{userId,jdbcType=INTEGER},
+			<if test="rolesId != null" >
+				Roles_ID,
 			</if>
-			<if test="username != null">
+			<if test="school != null" >
+				School,
+			</if>
+			<if test="isdelete != null" >
+				isDelete,
+			</if>
+			<if test="phonenum != null" >
+				PhoneNum,
+			</if>
+			<if test="email != null" >
+				Email,
+			</if>
+			<if test="commanagerId != null" >
+				ComManager_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="userid != null" >
+				#{userid,jdbcType=INTEGER},
+			</if>
+			<if test="username != null" >
 				#{username,jdbcType=VARCHAR},
 			</if>
-			<if test="userpassword != null">
+			<if test="userpassword != null" >
 				#{userpassword,jdbcType=VARCHAR},
 			</if>
-			<if test="downloadable != null">
+			<if test="salt != null" >
+				#{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="downloadable != null" >
 				#{downloadable,jdbcType=INTEGER},
 			</if>
-			<if test="permissionId != null">
-				#{permissionId,jdbcType=INTEGER},
-			</if>
-			<if test="subjectcan != null">
+			<if test="subjectcan != null" >
 				#{subjectcan,jdbcType=VARCHAR},
 			</if>
-			<if test="userchosen != null">
+			<if test="userchosen != null" >
 				#{userchosen,jdbcType=VARCHAR},
 			</if>
-			<if test="usercollection != null">
+			<if test="usercollection != null" >
 				#{usercollection,jdbcType=VARCHAR},
+			</if>
+			<if test="rolesId != null" >
+				#{rolesId,jdbcType=VARCHAR},
+			</if>
+			<if test="school != null" >
+				#{school,jdbcType=VARCHAR},
+			</if>
+			<if test="isdelete != null" >
+				#{isdelete,jdbcType=INTEGER},
+			</if>
+			<if test="phonenum != null" >
+				#{phonenum,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null" >
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="commanagerId != null" >
+				#{commanagerId,jdbcType=INTEGER},
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User">
+	<update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
 		update User
-		<set>
-			<if test="username != null">
+		<set >
+			<if test="username != null" >
 				UserName = #{username,jdbcType=VARCHAR},
 			</if>
-			<if test="userpassword != null">
+			<if test="userpassword != null" >
 				UserPassword = #{userpassword,jdbcType=VARCHAR},
 			</if>
-			<if test="downloadable != null">
+			<if test="salt != null" >
+				Salt = #{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="downloadable != null" >
 				Downloadable = #{downloadable,jdbcType=INTEGER},
 			</if>
-			<if test="permissionId != null">
-				PermissionId = #{permissionId,jdbcType=INTEGER},
-			</if>
-			<if test="subjectcan != null">
+			<if test="subjectcan != null" >
 				SubjectCan = #{subjectcan,jdbcType=VARCHAR},
 			</if>
-			<if test="userchosen != null">
+			<if test="userchosen != null" >
 				UserChosen = #{userchosen,jdbcType=VARCHAR},
 			</if>
-			<if test="usercollection != null">
+			<if test="usercollection != null" >
 				UserCollection = #{usercollection,jdbcType=VARCHAR},
 			</if>
+			<if test="rolesId != null" >
+				Roles_ID = #{rolesId,jdbcType=VARCHAR},
+			</if>
+			<if test="school != null" >
+				School = #{school,jdbcType=VARCHAR},
+			</if>
+			<if test="isdelete != null" >
+				isDelete = #{isdelete,jdbcType=INTEGER},
+			</if>
+			<if test="phonenum != null" >
+				PhoneNum = #{phonenum,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null" >
+				Email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="commanagerId != null" >
+				ComManager_ID = #{commanagerId,jdbcType=INTEGER},
+			</if>
 		</set>
-		where UserId = #{userId,jdbcType=INTEGER}
+		where UserId = #{userid,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User">
+	<update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
     update User
     set UserName = #{username,jdbcType=VARCHAR},
       UserPassword = #{userpassword,jdbcType=VARCHAR},
+      Salt = #{salt,jdbcType=VARCHAR},
       Downloadable = #{downloadable,jdbcType=INTEGER},
-      PermissionId = #{permissionId,jdbcType=INTEGER},
       SubjectCan = #{subjectcan,jdbcType=VARCHAR},
       UserChosen = #{userchosen,jdbcType=VARCHAR},
-      UserCollection = #{usercollection,jdbcType=VARCHAR}
-    where UserId = #{userId,jdbcType=INTEGER}
+      UserCollection = #{usercollection,jdbcType=VARCHAR},
+      Roles_ID = #{rolesId,jdbcType=VARCHAR},
+      School = #{school,jdbcType=VARCHAR},
+      isDelete = #{isdelete,jdbcType=INTEGER},
+      PhoneNum = #{phonenum,jdbcType=VARCHAR},
+      Email = #{email,jdbcType=VARCHAR},
+      ComManager_ID = #{commanagerId,jdbcType=INTEGER}
+    where UserId = #{userid,jdbcType=INTEGER}
   </update>
 	<update id="updateByUserId">
     UPDATE User

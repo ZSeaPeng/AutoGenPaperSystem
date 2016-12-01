@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectByPrimaryKey(Integer userId) {
-        System.out.println("userService---"+userId);
+        //System.out.println("userService---"+userId);
         return userMapper.selectByPrimaryKey(userId);
     }
 

@@ -5,6 +5,7 @@ import cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.ComManager;
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import cn.edu.zjnu.AutoGenPaperSystem.service.ComManagerService;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -44,7 +45,9 @@ public class ComManagerServiceImpl implements ComManagerService {
 
     @Override
     public int updateByPrimaryKeySelective(ComManager record) {
-        return 0;
+
+
+        return comManagerMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
@@ -70,13 +73,25 @@ public class ComManagerServiceImpl implements ComManagerService {
         String[] users = userList.split(",");
         for (String s : users) {
             if (!s.equals("0")) {
-                System.out.println("s---"+s);
+                System.out.println("s---" + s);
                 User user = userMapper.selectByPrimaryKey(Integer.valueOf(s));
-                System.out.println("user---"+user);
+                System.out.println("user---" + user);
                 usersList.add(user);
             }
         }
         return usersList;
+    }
+
+    @Override
+    public int updateUserList(User user, Integer comId) {
+        user.setUserpassword(String.valueOf(new Md5Hash(user.getUserpassword(),user.getUserpassword())));
+        int userId = userMapper.insertSelective(user);
+        String users = comManagerMapper.selectUserListById(comId);
+        users = users + ","+String.valueOf(userId);
+        ComManager comManager = new ComManager();
+        comManager.setCommanagerId(comId);
+        comManager.setUseridlist(users);
+        return comManagerMapper.updateByPrimaryKeySelective(comManager);
     }
 
 }
