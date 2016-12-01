@@ -25,12 +25,11 @@ public interface UserMapper {
 
     int updateIsDeleteByUserId(Integer userid);
 
-
     User selectUserByUserName(String userName);
 
     List<User> selectAllUsers();
 
-    int updateSubjectCanByUserId(int userId,String subId);
+    int updateSubjectCanByUserId(int userId, String subId);
 
     String selectSubjectCanByUserId(int userId);
 

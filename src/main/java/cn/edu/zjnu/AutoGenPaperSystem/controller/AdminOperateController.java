@@ -1,13 +1,7 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
-import cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge;
-import cn.edu.zjnu.AutoGenPaperSystem.model.KnowledgeJson;
-import cn.edu.zjnu.AutoGenPaperSystem.model.Subject;
-import cn.edu.zjnu.AutoGenPaperSystem.model.User;
-import cn.edu.zjnu.AutoGenPaperSystem.service.AdminService;
-import cn.edu.zjnu.AutoGenPaperSystem.service.KnowledgeService;
-import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
-import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
+import cn.edu.zjnu.AutoGenPaperSystem.model.*;
+import cn.edu.zjnu.AutoGenPaperSystem.service.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +28,10 @@ public class AdminOperateController {
     private KnowledgeService knowledgeServiceImpl;
     @Resource
     private AdminService adminServiceImpl;
+    @Resource
+    private TemporaryService temporaryServiceImpl;
+    @Resource
+    private ComManagerService comManagerServiceImpl;
 
     @RequestMapping(value = "/userlist", method = RequestMethod.GET)
     public List getAllUsers(@ModelAttribute("adminpassword") String password) {
@@ -62,9 +60,11 @@ public class AdminOperateController {
 
 
     @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
-    public String removeSubjectCan(int userid, String subid, int k, @ModelAttribute("adminpassword") String password) {
+    public String removeSubjectCan(int userid, String subid, int number, int k, @ModelAttribute("adminpassword") String password) {
 
-        if (userServiceImpl.UpdateSubjectCanByUserId(subid, userid) == 0) {
+        String subNumber = subid + "(" + number + ")";
+
+        if (userServiceImpl.UpdateSubjectCanByUserId(subNumber, userid) == 0) {
             return null;
         }
         String subjectCan = userServiceImpl.selectSubjectCanByUserId(userid);
@@ -134,9 +134,52 @@ public class AdminOperateController {
         return subjectServiceImpl.selectAllSubjectOnAdmin();
     }
 
-    @RequestMapping(value = "/questionnumber", method = RequestMethod.POST)
-    public String setQuestionNumber() {
 
+    @RequestMapping(value = "/addtemporary", method = RequestMethod.POST)
+    public String addTemporary(@RequestBody Temporary temporary, @ModelAttribute("adminpassword") String password) {
+
+        temporaryServiceImpl.insertSelective(temporary);
+        return null;
+    }
+
+    @RequestMapping(value = "/showtemp", method = RequestMethod.GET)
+    public List showTemp(@ModelAttribute("adminpassword") String password) {
+        return temporaryServiceImpl.selectAll();
+    }
+
+    @RequestMapping(value = "/deletetemp", method = RequestMethod.POST)
+    public String deleteTemp(@ModelAttribute("adminpassword") String password, int tempuserid) {
+        temporaryServiceImpl.updateDeleteById(tempuserid);
+        return null;
+    }
+
+
+    @RequestMapping(value = "/showcommanager", method = RequestMethod.GET)
+    public List showComManager() {
+        System.out.println(comManagerServiceImpl.selectAll());
+        return comManagerServiceImpl.selectAll();
+    }
+
+    @RequestMapping(value = "/deletecommanager", method = RequestMethod.POST)
+    public String deleteCom(@ModelAttribute("adminpassword") String password, int tempuserid) {
+        comManagerServiceImpl.updateDeleteById(tempuserid);
+        // TODO: 2016/12/1
+        return null;
+    }
+
+    @RequestMapping(value = "/addcommanager",method = RequestMethod.POST)
+    public String addComManager(@RequestBody ComManager commanager){
+        comManagerServiceImpl.insertSelective(commanager);
+        return null;
+    }
+
+
+
+
+
+    @RequestMapping(value = "/questionnumber", method = RequestMethod.POST)
+    public String setQuestionNumber(@ModelAttribute("adminpassword") String password) {
+//// TODO: 2016/11/30
 
         return null;
 

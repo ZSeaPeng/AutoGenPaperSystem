@@ -3,9 +3,15 @@ package cn.edu.zjnu.AutoGenPaperSystem.model;
 import java.util.Date;
 
 public class Paper {
-    private Integer paperId;
+    private Long paperId;
 
     private String questionIds;
+
+    private Double paperDifficult;
+
+    private Integer paperNum;
+
+    private String paperPointId;
 
     private Integer userId;
 
@@ -13,9 +19,12 @@ public class Paper {
 
     private byte[] paperhex;
 
-    public Paper(Integer paperId, String questionIds, Integer userId, Date generatime, byte[] paperhex) {
+    public Paper(Long paperId, String questionIds, Double paperDifficult, Integer paperNum, String paperPointId, Integer userId, Date generatime, byte[] paperhex) {
         this.paperId = paperId;
         this.questionIds = questionIds;
+        this.paperDifficult = paperDifficult;
+        this.paperNum = paperNum;
+        this.paperPointId = paperPointId;
         this.userId = userId;
         this.generatime = generatime;
         this.paperhex = paperhex;
@@ -25,11 +34,11 @@ public class Paper {
         super();
     }
 
-    public Integer getPaperId() {
+    public Long getPaperId() {
         return paperId;
     }
 
-    public void setPaperId(Integer paperId) {
+    public void setPaperId(Long paperId) {
         this.paperId = paperId;
     }
 
@@ -39,6 +48,30 @@ public class Paper {
 
     public void setQuestionIds(String questionIds) {
         this.questionIds = questionIds == null ? null : questionIds.trim();
+    }
+
+    public Double getPaperDifficult() {
+        return paperDifficult;
+    }
+
+    public void setPaperDifficult(Double paperDifficult) {
+        this.paperDifficult = paperDifficult;
+    }
+
+    public Integer getPaperNum() {
+        return paperNum;
+    }
+
+    public void setPaperNum(Integer paperNum) {
+        this.paperNum = paperNum;
+    }
+
+    public String getPaperPointId() {
+        return paperPointId;
+    }
+
+    public void setPaperPointId(String paperPointId) {
+        this.paperPointId = paperPointId == null ? null : paperPointId.trim();
     }
 
     public Integer getUserId() {

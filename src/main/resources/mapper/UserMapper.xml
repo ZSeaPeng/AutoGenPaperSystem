@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper">
-	<resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.User">
-		<constructor>
-			<idArg column="UserId" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-			<arg column="UserName" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="UserPassword" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="Downloadable" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-			<arg column="PermissionId" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-			<arg column="SubjectCan" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="UserChosen" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="UserCollection" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="isDelete" jdbcType="INTEGER" javaType="Integer"/>
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper" >
+	<resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.User" >
+		<constructor >
+			<idArg column="UserId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="UserName" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="UserPassword" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="Salt" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="Downloadable" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="SubjectCan" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="UserChosen" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="UserCollection" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="Roles_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="School" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="isDelete" jdbcType="INTEGER" javaType="java.lang.Integer" />
+			<arg column="PhoneNum" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="Email" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<arg column="ComManager_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
 		</constructor>
 	</resultMap>
-	<sql id="Base_Column_List">
-    UserId, UserName, UserPassword, Downloadable, PermissionId, SubjectCan, UserChosen,
-    UserCollection,isDelete
+	<sql id="Base_Column_List" >
+    UserId, UserName, UserPassword, Salt, Downloadable, SubjectCan, UserChosen, UserCollection,
+    Roles_ID, School, isDelete, PhoneNum, Email, ComManager_ID
   </sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select

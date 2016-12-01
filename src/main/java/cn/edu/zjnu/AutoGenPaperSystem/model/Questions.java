@@ -37,6 +37,8 @@ public class Questions {
 
     private Types types;
 
+    private String Author;
+
     public Questions() {
         super();
     }
@@ -50,7 +52,7 @@ public class Questions {
         this.answerPic_URL = answerPic_URL;
     }
 
-    public Questions(Integer questionsId, String content, String quesPic_URL, Integer subjectId, Integer knowledgeId1, Integer knowledgeId2, Integer knowledgeId3, Integer knowledgeId4, Integer typeId, Integer difficultyId, Integer charactId, Boolean isdelete, String answer, String answerPic_URL, Timestamp updateTime, Timestamp uploadTime) {
+    public Questions(Integer questionsId, String content, String quesPic_URL, Integer subjectId, Integer knowledgeId1, Integer knowledgeId2, Integer knowledgeId3, Integer knowledgeId4, Integer typeId, Integer difficultyId, Integer charactId, Boolean isdelete, String answer, String answerPic_URL, Timestamp updateTime, Timestamp uploadTime,String author) {
         this.questionsId = questionsId;
         this.content = content;
         this.quesPic_URL = quesPic_URL;
@@ -67,6 +69,7 @@ public class Questions {
         this.answerPic_URL = answerPic_URL;
         this.updateTime = updateTime;
         this.uploadTime = uploadTime;
+        this.Author = author;
     }
 
 
@@ -208,5 +211,13 @@ public class Questions {
 
     public void setIsdelete(Boolean isdelete) {
         this.isdelete = isdelete;
+    }
+
+    public String getAuthor() {
+        return Author;
+    }
+
+    public void setAuthor(String author) {
+        Author = author;
     }
 }

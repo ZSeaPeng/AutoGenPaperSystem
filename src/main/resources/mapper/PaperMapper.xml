@@ -3,23 +3,29 @@
 <mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.PaperMapper" >
   <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" >
     <constructor >
-      <idArg column="Paper_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <idArg column="Paper_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="Question_Ids" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Paper_difficult" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="Paper_Num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Paper_Point_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="User_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="GeneraTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" >
     <constructor >
-      <idArg column="Paper_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <idArg column="Paper_ID" jdbcType="BIGINT" javaType="java.lang.Long" />
       <arg column="Question_Ids" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Paper_difficult" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="Paper_Num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Paper_Point_ID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="User_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="GeneraTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="PaperHex" jdbcType="LONGVARBINARY" javaType="_byte[]" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    Paper_ID, Question_Ids, User_ID, GeneraTime
+    Paper_ID, Question_Ids, Paper_difficult, Paper_Num, Paper_Point_ID, User_ID, GeneraTime
   </sql>
   <sql id="Blob_Column_List" >
     PaperHex

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.ComManagerMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.ComManager" >
+    <constructor >
+      <idArg column="ComManager_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ComManager_Name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ComManager_Psw" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ComManager_Salt" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="SubjectCan" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ComManager_Chosen" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ComManager_Collection" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UserIdList" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="School" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Isdelete" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ComManager_ID, ComManager_Name, ComManager_Psw, ComManager_Salt, SubjectCan, ComManager_Chosen, 
+    ComManager_Collection, UserIdList, School, Isdelete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ComManager
+    where ComManager_ID = #{commanagerId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * FROM ComManager WHERE isdelete = 0
+  </select>
+  <select id="selectUserListById" resultType="java.lang.String">
+    SELECT UserIdList FROM ComManager WHERE ComManager_ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ComManager
+    where ComManager_ID = #{commanagerId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.ComManager" >
+    insert into ComManager (ComManager_ID, ComManager_Name, ComManager_Psw, 
+      ComManager_Salt, SubjectCan, ComManager_Chosen, 
+      ComManager_Collection, UserIdList, School, 
+      Isdelete)
+    values (#{commanagerId,jdbcType=INTEGER}, #{commanagerName,jdbcType=VARCHAR}, #{commanagerPsw,jdbcType=VARCHAR}, 
+      #{commanagerSalt,jdbcType=VARCHAR}, #{subjectcan,jdbcType=VARCHAR}, #{commanagerChosen,jdbcType=VARCHAR}, 
+      #{commanagerCollection,jdbcType=VARCHAR}, #{useridlist,jdbcType=VARCHAR}, #{school,jdbcType=INTEGER}, 
+      #{isdelete,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.ComManager" >
+    insert into ComManager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commanagerId != null" >
+        ComManager_ID,
+      </if>
+      <if test="commanagerName != null" >
+        ComManager_Name,
+      </if>
+      <if test="commanagerPsw != null" >
+        ComManager_Psw,
+      </if>
+      <if test="commanagerSalt != null" >
+        ComManager_Salt,
+      </if>
+      <if test="subjectcan != null" >
+        SubjectCan,
+      </if>
+      <if test="commanagerChosen != null" >
+        ComManager_Chosen,
+      </if>
+      <if test="commanagerCollection != null" >
+        ComManager_Collection,
+      </if>
+      <if test="useridlist != null" >
+        UserIdList,
+      </if>
+      <if test="school != null" >
+        School,
+      </if>
+      <if test="isdelete != null" >
+        Isdelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commanagerId != null" >
+        #{commanagerId,jdbcType=INTEGER},
+      </if>
+      <if test="commanagerName != null" >
+        #{commanagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="commanagerPsw != null" >
+        #{commanagerPsw,jdbcType=VARCHAR},
+      </if>
+      <if test="commanagerSalt != null" >
+        #{commanagerSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectcan != null" >
+        #{subjectcan,jdbcType=VARCHAR},
+      </if>
+      <if test="commanagerChosen != null" >
+        #{commanagerChosen,jdbcType=VARCHAR},
+      </if>
+      <if test="commanagerCollection != null" >
+        #{commanagerCollection,jdbcType=VARCHAR},
+      </if>
+      <if test="useridlist != null" >
+        #{useridlist,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.ComManager" >
+    update ComManager
+    <set >
+      <if test="commanagerName != null" >
+        ComManager_Name = #{commanagerName,jdbcType=VARCHAR},
+      </if>
+      <if test="commanagerPsw != null" >
+        ComManager_Psw = #{commanagerPsw,jdbcType=VARCHAR},
+      </if>
+      <if test="commanagerSalt != null" >
+        ComManager_Salt = #{commanagerSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="subjectcan != null" >
+        SubjectCan = #{subjectcan,jdbcType=VARCHAR},
+      </if>
+      <if test="commanagerChosen != null" >
+        ComManager_Chosen = #{commanagerChosen,jdbcType=VARCHAR},
+      </if>
+      <if test="commanagerCollection != null" >
+        ComManager_Collection = #{commanagerCollection,jdbcType=VARCHAR},
+      </if>
+      <if test="useridlist != null" >
+        UserIdList = #{useridlist,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        School = #{school,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        Isdelete = #{isdelete,jdbcType=BIT},
+      </if>
+    </set>
+    where ComManager_ID = #{commanagerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.ComManager" >
+    update ComManager
+    set ComManager_Name = #{commanagerName,jdbcType=VARCHAR},
+      ComManager_Psw = #{commanagerPsw,jdbcType=VARCHAR},
+      ComManager_Salt = #{commanagerSalt,jdbcType=VARCHAR},
+      SubjectCan = #{subjectcan,jdbcType=VARCHAR},
+      ComManager_Chosen = #{commanagerChosen,jdbcType=VARCHAR},
+      ComManager_Collection = #{commanagerCollection,jdbcType=VARCHAR},
+      UserIdList = #{useridlist,jdbcType=VARCHAR},
+      School = #{school,jdbcType=INTEGER},
+      Isdelete = #{isdelete,jdbcType=BIT}
+    where ComManager_ID = #{commanagerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateDeleteById">
+    UPDATE ComManager set isdelete = 1 WHERE ComManager_ID = #{id}
+  </update>
+</mapper>

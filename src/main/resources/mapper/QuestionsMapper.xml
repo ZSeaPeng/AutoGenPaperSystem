@@ -19,6 +19,7 @@
             <arg column="AnswerPic_URL" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="UpdateTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
             <arg column="UploadTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+            <arg column="Author" jdbcType="VARCHAR" javaType="String"/>
         </constructor>
     </resultMap>
     <resultMap id="QuestionMAp" type="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">

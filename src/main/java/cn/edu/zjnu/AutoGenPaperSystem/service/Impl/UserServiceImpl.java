@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectByPrimaryKey(Integer userId) {
+        System.out.println("userService---"+userId);
         return userMapper.selectByPrimaryKey(userId);
     }
 
@@ -143,6 +144,7 @@ public class UserServiceImpl implements UserService {
     public int UpdateSubjectCanByUserId(String subId, int userId) {
         String subjectCan = userMapper.selectSubjectCanByUserId(userId);
         String[] quesId = subjectCan.split(",");
+        //   return 0;
         String change = "";
         int i = 0;
         Boolean flag = false;
@@ -158,13 +160,21 @@ public class UserServiceImpl implements UserService {
         } else {
             change = change.substring(0, change.length() - 1);
         }
+
         i = userMapper.updateSubjectCanByUserId(userId, change);
         return i;
     }
 
     @Override
     public String selectSubjectCanByUserId(int userId) {
-        return userMapper.selectSubjectCanByUserId(userId);
+// TODO: 2016/11/30
+        /**
+         *
+         */
+        String subCan = userMapper.selectSubjectCanByUserId(userId);
+
+
+        return null;
     }
 
     @Override

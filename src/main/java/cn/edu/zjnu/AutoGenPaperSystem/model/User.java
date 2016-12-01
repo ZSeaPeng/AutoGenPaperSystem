@@ -1,18 +1,17 @@
 package cn.edu.zjnu.AutoGenPaperSystem.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class User {
-    private Integer userId;
+    private Integer userid;
 
     private String username;
 
     private String userpassword;
 
-    private Integer downloadable;
+    private String salt;
 
-    private Integer permissionId;
+    private Integer downloadable;
 
     private String subjectcan;
 
@@ -20,34 +19,47 @@ public class User {
 
     private String usercollection;
 
+    private String rolesId;
+
+    private String school;
+
+    private Integer isdelete;
+
+    private String phonenum;
+
+    private String email;
+
+    private Integer commanagerId;
+
     private List add;
 
-    private Integer isDelete;
-
-    public User(Integer userId, String username, String userpassword, Integer downloadable, Integer permissionId, String subjectcan, String userchosen, String usercollection,  Integer isDelete) {
-        this.userId = userId;
+    public User(Integer userid, String username, String userpassword, String salt, Integer downloadable, String subjectcan, String userchosen, String usercollection, String rolesId, String school, Integer isdelete, String phonenum, String email, Integer commanagerId) {
+        this.userid = userid;
         this.username = username;
         this.userpassword = userpassword;
+        this.salt = salt;
         this.downloadable = downloadable;
-        this.permissionId = permissionId;
         this.subjectcan = subjectcan;
         this.userchosen = userchosen;
         this.usercollection = usercollection;
-        this.isDelete = isDelete;
+        this.rolesId = rolesId;
+        this.school = school;
+        this.isdelete = isdelete;
+        this.phonenum = phonenum;
+        this.email = email;
+        this.commanagerId = commanagerId;
     }
 
     public User() {
         super();
-        this.add = new ArrayList();
-        this.isDelete = 0;
     }
 
     public Integer getUserId() {
-        return userId;
+        return userid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserId(Integer userid) {
+        this.userid = userid;
     }
 
     public String getUsername() {
@@ -66,20 +78,20 @@ public class User {
         this.userpassword = userpassword == null ? null : userpassword.trim();
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
+    }
+
     public Integer getDownloadable() {
         return downloadable;
     }
 
     public void setDownloadable(Integer downloadable) {
         this.downloadable = downloadable;
-    }
-
-    public Integer getPermissionId() {
-        return permissionId;
-    }
-
-    public void setPermissionId(Integer permissionId) {
-        this.permissionId = permissionId;
     }
 
     public String getSubjectcan() {
@@ -106,25 +118,59 @@ public class User {
         this.usercollection = usercollection == null ? null : usercollection.trim();
     }
 
+    public String getRolesId() {
+        return rolesId;
+    }
+
+    public void setRolesId(String rolesId) {
+        this.rolesId = rolesId == null ? null : rolesId.trim();
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school == null ? null : school.trim();
+    }
+
+    public Integer getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(Integer isdelete) {
+        this.isdelete = isdelete;
+    }
+
+    public String getPhonenum() {
+        return phonenum;
+    }
+
+    public void setPhonenum(String phonenum) {
+        this.phonenum = phonenum == null ? null : phonenum.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public Integer getCommanagerId() {
+        return commanagerId;
+    }
+
+    public void setCommanagerId(Integer commanagerId) {
+        this.commanagerId = commanagerId;
+    }
+
     public List getAdd() {
         return add;
     }
 
     public void setAdd(List add) {
         this.add = add;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", userpassword='" + userpassword + '\'' +
-                ", downloadable=" + downloadable +
-                ", permissionId=" + permissionId +
-                ", subjectcan='" + subjectcan + '\'' +
-                ", userchosen='" + userchosen + '\'' +
-                ", usercollection='" + usercollection + '\'' +
-                '}';
     }
 }
