@@ -47,7 +47,7 @@
     delete from User
     where UserId = #{userId,jdbcType=INTEGER}
   </delete>
-	<insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" keyProperty="UserId">
+	<insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" useGeneratedKeys="true" keyProperty="userid">
 		insert into User (UserId, UserName, UserPassword,
 		Salt, Downloadable, SubjectCan,
 		UserChosen, UserCollection, Roles_ID,
@@ -59,7 +59,7 @@
 		#{school,jdbcType=VARCHAR}, #{isdelete,jdbcType=INTEGER}, #{phonenum,jdbcType=VARCHAR},
 		#{email,jdbcType=VARCHAR}, #{commanagerId,jdbcType=INTEGER})
 	</insert>
-	<insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" keyProperty="UserId">
+	<insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.User" useGeneratedKeys="true" keyProperty="userid">
 		insert into User
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="userid != null" >
