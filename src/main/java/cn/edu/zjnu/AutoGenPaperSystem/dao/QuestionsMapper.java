@@ -2,6 +2,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.dao;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
 import cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll;
+import cn.edu.zjnu.AutoGenPaperSystem.util.generation.QuestionBean;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,4 +28,8 @@ public interface QuestionsMapper {
     List<Questions> selectQuestionByTime(int subjectId, String date);
 
     Questions selectQuestionByIdList(Integer questionsId);
+
+    List<Questions> selectQuestionArray(int typeId,int pointId,int subjectId);
+
+    List<Questions> selectQuestionListByTypeAndDif(int typeId,int difId);
 }

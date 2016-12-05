@@ -19,7 +19,7 @@
             <arg column="AnswerPic_URL" jdbcType="VARCHAR" javaType="java.lang.String"/>
             <arg column="UpdateTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
             <arg column="UploadTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
-            <arg column="Author" jdbcType="VARCHAR" javaType="String"/>
+            <arg column="Author" jdbcType="VARCHAR" javaType="java.lang.String"/>
         </constructor>
     </resultMap>
     <resultMap id="QuestionMAp" type="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
@@ -43,7 +43,7 @@
 
     <sql id="Base_Column_List">
     Questions_ID, Content,QuesPic_URL, Subject_ID, Knowledge_ID1, Knowledge_ID2, Knowledge_ID3, Knowledge_ID4,
-    Type_ID, Difficulty_ID, Charact_ID, Isdelete, Answer,AnswerPic_URL,UpdateTime,UploadTime
+    Type_ID, Difficulty_ID, Charact_ID, Isdelete, Answer,AnswerPic_URL,UpdateTime,UploadTime,Author
     </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -97,6 +97,24 @@
         questions.Questions_ID,types.Type_name,questions.QuesPic_URL,questions.AnswerPic_URL
         FROM questions,types
         WHERE questions.Type_ID=types.Type_ID AND questions.Questions_ID=#{questionsId,jdbcType=INTEGER}
+    </select>
+    <select id="selectQuestionArray" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM questions
+        WHERE Type_ID=#{param1}
+        <trim prefix="AND (" suffix=")" prefixOverrides="AND | OR">
+            <if test="param2 != 0">
+                Knowledge_ID1 = #{param2} OR Knowledge_ID2 = #{param2} OR Knowledge_ID3 = #{param2} OR Knowledge_ID4 = #{param2}
+            </if>
+        </trim>
+        AND Subject_ID=#{param3}
+    </select>
+    <select id="selectQuestionListByTypeAndDif" resultMap="BaseResultMap">
+        SCALE
+        *
+        FROM questions
+        WHERE Type_ID=#{param1} AND Difficulty_ID=#{param2}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from questions

@@ -1,10 +1,12 @@
 package cn.edu.zjnu.AutoGenPaperSystem.service.Impl;
 
+import cn.edu.zjnu.AutoGenPaperSystem.dao.DifficultyMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.QuestionsMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.SubjectMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
+import cn.edu.zjnu.AutoGenPaperSystem.util.generation.QuestionBean;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.stuxuhai.jpinyin.PinyinException;
@@ -13,10 +15,7 @@ import com.github.stuxuhai.jpinyin.PinyinHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by zseapeng on 2016/9/22.
@@ -30,7 +29,8 @@ public class QuestionsServiceImpl implements QuestionsService {
     private SubjectMapper subjectMapper;
     @Resource
     private UserMapper userMapper;
-
+    @Resource
+    private DifficultyMapper difficultyMapper;
     public int deleteByPrimaryKey(Integer questionsId) {
         return 0;
     }
@@ -158,7 +158,8 @@ public class QuestionsServiceImpl implements QuestionsService {
                         e.printStackTrace();
                     }
                     updateInfoJsonList.add(updateInfoJson);
-                } else {
+                }
+                else {
                     continue;
                 }
             }
@@ -215,6 +216,85 @@ public class QuestionsServiceImpl implements QuestionsService {
         questionMap.put("userCollection", collectList);
         return questionMap;
     }
+
+    @Override
+    public QuestionBean[] selectQuestionArray(int typeId, String pointIds, int subjectId) {
+        int j=0;
+        String []pointId=pointIds.split(",");
+        Set<Questions> questionsSet=new HashSet<>();
+        QuestionBean []questionBeans=new QuestionBean[100];
+        for (int i=0;i<pointId.length;i++){
+            List<Questions> questions=questionsMapper.selectQuestionArray(typeId, Integer.parseInt(pointId[i]),subjectId);
+            questionsSet.addAll(questions);
+        }
+        for (Questions list:questionsSet){
+            Difficulty difficult=difficultyMapper.selectByPrimaryKey(list.getDifficultyId());
+            Double dif=(difficult.getLowlimit()+difficult.getUplimit())/2.0;
+            QuestionBean questionBean=new QuestionBean();
+            questionBean.setDifficulty(dif);
+            questionBean.setDifficultId(list.getDifficultyId());
+            questionBean.setAnswer(list.getAnswer());
+            questionBean.setContent(list.getContent());
+            questionBean.setId(list.getQuestionsId());
+            questionBean.setCreateTime(list.getUploadTime());
+            questionBean.setTypeId(list.getTypeId());
+            if (list.getKnowledgeId1()!=0&&list.getKnowledgeId2()==0){
+                questionBean.setPointId(list.getKnowledgeId1());
+            }
+            else if (list.getKnowledgeId2()!=0&&list.getKnowledgeId3()==0){
+                questionBean.setPointId(list.getKnowledgeId2());
+            }
+            else if (list.getKnowledgeId3()!=0&&list.getKnowledgeId4()==0){
+                questionBean.setPointId(list.getKnowledgeId3());
+            }
+            else {
+                questionBean.setPointId(list.getKnowledgeId4());
+            }
+            questionBeans[j]=questionBean;
+            j++;
+        }
+        return questionBeans;
+    }
+
+    @Override
+    public List<QuestionBean> selectQuestionListByTypeAndDif(QuestionBean questionBean) {
+        List<Questions> questionss=questionsMapper.selectQuestionListByTypeAndDif(questionBean.getTypeId(),questionBean.getDifficultId());
+        List<QuestionBean> questionBeans=new ArrayList<>();
+        for (Questions list:questionss){
+            QuestionBean questionBean1=new QuestionBean();
+            questionBean1.setDifficulty(questionBean.getDifficulty());
+            questionBean1.setDifficultId(list.getDifficultyId());
+            questionBean1.setAnswer(list.getAnswer());
+            questionBean1.setContent(list.getContent());
+            questionBean1.setId(list.getQuestionsId());
+            questionBean1.setCreateTime(list.getUploadTime());
+            questionBean1.setTypeId(list.getTypeId());
+            if (list.getKnowledgeId1()!=0&&list.getKnowledgeId2()==0){
+                questionBean1.setPointId(list.getKnowledgeId1());
+            }
+            else if (list.getKnowledgeId2()!=0&&list.getKnowledgeId3()==0){
+                questionBean1.setPointId(list.getKnowledgeId2());
+            }
+            else if (list.getKnowledgeId3()!=0&&list.getKnowledgeId4()==0){
+                questionBean1.setPointId(list.getKnowledgeId3());
+            }
+            else {
+                questionBean1.setPointId(list.getKnowledgeId4());
+            }
+            questionBeans.add(questionBean1);
+        }
+        return questionBeans;
+    }
+
+//    @Override
+//    public Map selectQuestionByIdList(Integer questionsId) {
+//        Map<String,Object> questionsMap=new HashMap<String, Object>();
+//        Questions questions=new Questions();
+//        questions= questionsMapper.selectQuestionByIdList(questionsId);
+//        questionsMap.put("id:",questions.getQuestionsId());
+//        questionsMap.put("type:",questions.getTypes().getTypeName());
+//        return questionsMap;
+//    }
 
 
 }

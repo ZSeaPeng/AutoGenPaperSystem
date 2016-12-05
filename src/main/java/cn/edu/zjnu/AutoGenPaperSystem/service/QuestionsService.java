@@ -2,6 +2,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.service;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
 import cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll;
+import cn.edu.zjnu.AutoGenPaperSystem.util.generation.QuestionBean;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -31,4 +32,7 @@ public interface QuestionsService {
     Map selectQuestionByTime(int subjectId, String date,int nowpage,Integer userId);
 
 //    Map selectQuestionByIdList(Integer questionsId);
+    QuestionBean[] selectQuestionArray(int typeId, String pointIds, int subjectId);
+
+    List<QuestionBean> selectQuestionListByTypeAndDif(QuestionBean questionBean);
 }
