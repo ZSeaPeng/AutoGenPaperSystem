@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.mapper.DifficultyMapper" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.DifficultyMapper" >
   <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Difficulty" >
     <constructor >
       <idArg column="Difficulty_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
