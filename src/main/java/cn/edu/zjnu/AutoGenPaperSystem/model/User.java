@@ -33,6 +33,8 @@ public class User {
 
     private List add;
 
+    private int type;
+
     public User(Integer userid, String username, String userpassword, String salt, Integer downloadable, String subjectcan, String userchosen, String usercollection, String rolesId, String school, Integer isdelete, String phonenum, String email, Integer commanagerId) {
         this.userid = userid;
         this.username = username;
@@ -172,5 +174,13 @@ public class User {
 
     public void setAdd(List add) {
         this.add = add;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

@@ -21,6 +21,8 @@ public class ComManager {
 
     private Boolean isdelete;
 
+    private int type;
+
     public ComManager(Integer commanagerId, String commanagerName, String commanagerPsw, String commanagerSalt, String subjectcan, String commanagerChosen, String commanagerCollection, String useridlist, Integer school, Boolean isdelete) {
         this.commanagerId = commanagerId;
         this.commanagerName = commanagerName;
@@ -116,5 +118,13 @@ public class ComManager {
 
     public void setIsdelete(Boolean isdelete) {
         this.isdelete = isdelete;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }
