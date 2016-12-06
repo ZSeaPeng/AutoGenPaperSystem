@@ -16,24 +16,6 @@ public class Difficulty {
         this.describe = describe;
     }
 
-    @Override
-    public String toString() {
-        return "Difficulty{" +
-                "difficultyId=" + difficultyId +
-                ", uplimit=" + uplimit +
-                ", lowlimit=" + lowlimit +
-                ", describe='" + describe + '\'' +
-                '}';
-    }
-
-    public String getDescribe() {
-        return describe;
-    }
-
-    public void setDescribe(String describe) {
-        this.describe = describe;
-    }
-
     public Difficulty() {
         super();
     }
@@ -62,4 +44,11 @@ public class Difficulty {
         this.lowlimit = lowlimit;
     }
 
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe == null ? null : describe.trim();
+    }
 }

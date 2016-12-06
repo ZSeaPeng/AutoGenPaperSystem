@@ -98,4 +98,9 @@ public class ComManagerServiceImpl implements ComManagerService {
         return comManagerMapper.updateByPrimaryKeySelective(comManager);
     }
 
+    @Override
+    public ComManager selectUserByName(String name) {
+        return comManagerMapper.selectUserByName(name);
+    }
+
 }

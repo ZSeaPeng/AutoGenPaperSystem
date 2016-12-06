@@ -35,4 +35,7 @@ public interface QuestionsService {
     QuestionBean[] selectQuestionArray(int typeId, String pointIds, int subjectId);
 
     List<QuestionBean> selectQuestionListByTypeAndDif(QuestionBean questionBean);
+
+
+
 }

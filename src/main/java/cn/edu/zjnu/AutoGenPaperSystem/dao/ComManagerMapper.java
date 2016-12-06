@@ -23,5 +23,5 @@ public interface ComManagerMapper {
 
     String selectUserListById(Integer id);
 
-
+    ComManager selectUserByName(String name);
  }

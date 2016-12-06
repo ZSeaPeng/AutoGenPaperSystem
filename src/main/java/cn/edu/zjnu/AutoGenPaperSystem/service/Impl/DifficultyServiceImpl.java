@@ -43,15 +43,15 @@ public class DifficultyServiceImpl implements DifficultyService {
     }
 
 
-    public List selectAllDifficult(Integer subjectId, int gradeId, String subName, String others, String pointId,String t,String d,String c) {
-        List<DifficultyJson> difficultyJsons=new ArrayList<DifficultyJson>();
-        List<Difficulty> difficulties=difficultyMapper.selectAllDifficult();
-        for (Difficulty list:difficulties){
-            DifficultyJson difficultyJson=new DifficultyJson();
+    public List selectAllDifficult(Integer subjectId, int gradeId, String subName, String others, String pointId, String t, String d, String c) {
+        List<DifficultyJson> difficultyJsons = new ArrayList<DifficultyJson>();
+        List<Difficulty> difficulties = difficultyMapper.selectAllDifficult();
+        for (Difficulty list : difficulties) {
+            DifficultyJson difficultyJson = new DifficultyJson();
             difficultyJson.setId(list.getDifficultyId());
-            difficultyJson.setName(""+list.getUplimit()+"-"+list.getLowlimit()+"("+list.getDescribe()+")");
-            difficultyJson.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+t+"d"+
-                    list.getDifficultyId()+"c"+c);
+            difficultyJson.setName("" + list.getUplimit() + "-" + list.getLowlimit() + "(" + list.getDescribe() + ")");
+            difficultyJson.setUrl("/tiku/" + gradeId + "/" + subName + "/point" + pointId + "/t" + t + "d" +
+                    list.getDifficultyId() + "c" + c);
             difficultyJsons.add(difficultyJson);
         }
         return difficultyJsons;

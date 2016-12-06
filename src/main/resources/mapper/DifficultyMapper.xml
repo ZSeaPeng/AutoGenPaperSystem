@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.DifficultyMapper" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.mapper.DifficultyMapper" >
   <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Difficulty" >
     <constructor >
       <idArg column="Difficulty_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="Uplimit" jdbcType="DOUBLE" javaType="java.lang.Double" />
       <arg column="Lowlimit" jdbcType="DOUBLE" javaType="java.lang.Double" />
-      <arg column="describe" jdbcType="VARCHAR" javaType="java.lang.String"/>
+      <arg column="Describe" jdbcType="VARCHAR" javaType="java.lang.String" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    Difficulty_ID, Uplimit, Lowlimit
+    Difficulty_ID, Uplimit, Lowlimit, Describe
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -18,22 +18,15 @@
     from difficulty
     where Difficulty_ID = #{difficultyId,jdbcType=INTEGER}
   </select>
-
-  <select id="selectAllDifficult" resultMap="BaseResultMap">
-    SELECT
-    *
-    FROM difficulty
-  </select>
-
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from difficulty
     where Difficulty_ID = #{difficultyId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Difficulty" >
-    insert into difficulty (Difficulty_ID, Uplimit, Lowlimit
-      )
-    values (#{difficultyId,jdbcType=INTEGER}, #{uplimit,jdbcType=DOUBLE}, #{lowlimit,jdbcType=DOUBLE}
-      )
+    insert into difficulty (Difficulty_ID, Uplimit, Lowlimit, 
+      Describe)
+    values (#{difficultyId,jdbcType=INTEGER}, #{uplimit,jdbcType=DOUBLE}, #{lowlimit,jdbcType=DOUBLE}, 
+      #{describe,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Difficulty" >
     insert into difficulty
@@ -47,6 +40,9 @@
       <if test="lowlimit != null" >
         Lowlimit,
       </if>
+      <if test="describe != null" >
+        Describe,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="difficultyId != null" >
@@ -57,6 +53,9 @@
       </if>
       <if test="lowlimit != null" >
         #{lowlimit,jdbcType=DOUBLE},
+      </if>
+      <if test="describe != null" >
+        #{describe,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -69,13 +68,22 @@
       <if test="lowlimit != null" >
         Lowlimit = #{lowlimit,jdbcType=DOUBLE},
       </if>
+      <if test="describe != null" >
+        Describe = #{describe,jdbcType=VARCHAR},
+      </if>
     </set>
     where Difficulty_ID = #{difficultyId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Difficulty" >
     update difficulty
     set Uplimit = #{uplimit,jdbcType=DOUBLE},
-      Lowlimit = #{lowlimit,jdbcType=DOUBLE}
+      Lowlimit = #{lowlimit,jdbcType=DOUBLE},
+      Describe = #{describe,jdbcType=VARCHAR}
     where Difficulty_ID = #{difficultyId,jdbcType=INTEGER}
   </update>
+  <select id="selectAllDifficult" resultMap="BaseResultMap">
+    SELECT
+    *
+    FROM difficulty
+  </select>
 </mapper>

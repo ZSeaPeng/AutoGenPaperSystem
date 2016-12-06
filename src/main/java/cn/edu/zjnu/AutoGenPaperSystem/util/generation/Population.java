@@ -37,7 +37,7 @@ public class Population {
                 int subjectId=rule.getSubjecId();
                 String pointId = rule.getPointIds().toString();
                 int typeId=rule.getTypeId();
-                    // 单选题
+                // 单选题
                 if (rule.getQuestionNum()> 0) {
                     generateQuestion(typeId, random, rule.getQuestionNum(), pointId, subjectId,"题目数量不够，组卷失败", paper);
                 }

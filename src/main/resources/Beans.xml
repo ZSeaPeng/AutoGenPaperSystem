@@ -22,7 +22,7 @@
 
 	<context:annotation-config/>
 	<context:property-placeholder location="classpath*:mysql.properties"/>
-	<context:component-scan base-package="cn.edu.zjnu.AutoGenPaperSystem.**"/>
+	<context:component-scan base-package="cn.edu.zjnu.AutoGenPaperSystem.**,cn.edu.zjnu.AutoGenPaperSystem.util.generation"/>
 
 	<mvc:cors>
 		<mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>

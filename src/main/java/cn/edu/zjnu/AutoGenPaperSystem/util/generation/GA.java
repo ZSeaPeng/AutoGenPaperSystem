@@ -3,7 +3,6 @@ package cn.edu.zjnu.AutoGenPaperSystem.util.generation;
 import cn.edu.zjnu.AutoGenPaperSystem.service.Impl.QuestionsServiceImpl;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -90,16 +89,16 @@ public class GA {
                 child.saveQuestion(i, parent2.getQuestion(i));
             } else {
                 // getQuestionArray()用来选择指定类型和知识点的试题数组
-                QuestionBean[] singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")),subjectId);
-                child.saveQuestion(i, singleArray[(int) (Math.random() * singleArray.length)]);
+                List<QuestionBean> singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")),subjectId);
+                child.saveQuestion(i, singleArray.get((int) (Math.random() * singleArray.size())));
             }
         }
         for (int i = endPos; i < parent2.getQuestionSize(); i++) {
             if (!child.containsQuestion(parent2.getQuestion(i))) {
                 child.saveQuestion(i, parent2.getQuestion(i));
             } else {
-                QuestionBean[] singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")),subjectId);
-                child.saveQuestion(i, singleArray[(int) (Math.random() * singleArray.length)]);
+                List<QuestionBean> singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")),subjectId);
+                child.saveQuestion(i, singleArray.get((int) (Math.random() * singleArray.size())));
             }
         }
 

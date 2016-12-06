@@ -27,5 +27,7 @@ public interface ComManagerService {
 
     List selectUserListById(Integer id);
 
-    int updateUserList(User user,Integer comId);
+    int updateUserList(User user, Integer comId);
+
+    ComManager selectUserByName(String name);
 }
