@@ -49,7 +49,7 @@ public class DifficultyServiceImpl implements DifficultyService {
         for (Difficulty list : difficulties) {
             DifficultyJson difficultyJson = new DifficultyJson();
             difficultyJson.setId(list.getDifficultyId());
-            difficultyJson.setName("" + list.getUplimit() + "-" + list.getLowlimit() + "(" + list.getDescribe() + ")");
+            difficultyJson.setName("" + list.getUplimit() + "-" + list.getLowlimit() + "(" + list.getDescribes() + ")");
             difficultyJson.setUrl("/tiku/" + gradeId + "/" + subName + "/point" + pointId + "/t" + t + "d" +
                     list.getDifficultyId() + "c" + c);
             difficultyJsons.add(difficultyJson);
