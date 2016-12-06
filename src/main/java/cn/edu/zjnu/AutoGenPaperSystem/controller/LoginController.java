@@ -28,10 +28,10 @@ public class LoginController {
 
 
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public @ResponseBody Object Login(String username, String password, ModelMap model, HttpSession session,Integer usertype){
+    public @ResponseBody Object Login(String username, String password, ModelMap model, HttpSession session,Integer type){
         String tempPassword= String.valueOf(new Md5Hash(password,password));
 
-        if (usertype == 1){
+        if (type == 2){
             ComManager comManager = comManagerServiceImpl.selectUserByName(username);
             if (comManager == null){
                 return "{\"error\":"+"\"username\"}";
@@ -46,7 +46,7 @@ public class LoginController {
         }
 
 
-        if (usertype == 0){
+        if (type == 1){
             User userTemp = userServiceImpl.selectUserByUserName(username);
             if (userTemp == null){
                 return "{\"error\":"+"\"username\"}";
