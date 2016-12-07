@@ -37,5 +37,13 @@ public class UserController {
         return userServiceImpl.selectByPrimaryKey(userid);
     }
 
+    @RequestMapping(value = "/changeinfo",method = RequestMethod.POST)
+    public User changeInfo(@RequestBody User user,@ModelAttribute("userid") Integer userid){
+        user.setAdd(new ArrayList());
+        user.setUserpassword(null);
+        userServiceImpl.updateByPrimaryKeySelective(user);
+        return userServiceImpl.selectByPrimaryKey(userid);
+    }
+
 
 }
