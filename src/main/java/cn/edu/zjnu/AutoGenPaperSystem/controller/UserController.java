@@ -41,6 +41,7 @@ public class UserController {
     public User changeInfo(@RequestBody User user,@ModelAttribute("userid") Integer userid){
         user.setAdd(new ArrayList());
         user.setUserpassword(null);
+        user.setUserId(userid);
         userServiceImpl.updateByPrimaryKeySelective(user);
         return userServiceImpl.selectByPrimaryKey(userid);
     }
