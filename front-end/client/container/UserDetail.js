@@ -4,6 +4,7 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
 
 import ChosenChip from '../components/ChosenChip';
 import UnChosenChip from '../components/UnChosenChip';
@@ -16,7 +17,7 @@ const styles = {
     flexWrap: 'wrap'
   },
   card: {
-    maxWidth: "30%",
+    width: "30%",
     margin: 10,
     display: 'inline-block'
   }
@@ -28,7 +29,10 @@ class UserDetail extends Component {
     this.state = {
       expanded: false,
       username: '',
-      password: ''
+      password: '',
+      open: false,
+      sub: [],
+      count: [],
     };
     this.usernameChange = this.usernameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
@@ -36,10 +40,11 @@ class UserDetail extends Component {
     this.handleExpand = this.handleExpand.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleExpand() {
-    this.setState({expanded: !this.state.expanded})
+    this.setState({open: !this.state.open})
   }
 
   usernameChange(e) {
@@ -52,50 +57,64 @@ class UserDetail extends Component {
 
   handleDelete() {
     const { user, dispatch, i } = this.props;
-    dispatch(asynDeleteUser({userId: user.userId, k: i}))
+    dispatch(asynDeleteUser({userId: user.userId, username: user.username, k: i}));
   }
+
+  handleClose() {
+    this.state.count = [];
+    this.state.sub=[];
+    this.setState({open: false});
+  };
 
   handleChange(detail, type) {
     const { dispatch, user, i } = this.props;
+    let { sub, count } = this.state;
     if (type === 'delete') {
-      console.log({...detail, k: i});
       dispatch(asynRemoveSubject({...detail, k: i}))
     } else if (type === 'add') {
-      if(user.add.indexOf(detail) == -1) {
-        dispatch(addSubPre({subid:detail, i: i}))
-      } else {
-      const k = user.add.indexOf(detail);
-      dispatch(removeSubPre({i: i, k: k}))
+      if(sub.indexOf(detail.id) < 0) {
+        sub.push(detail.id);
       }
+      count[detail.id]=detail.count;
     }
   }
 
   handleSubmit() {
     const { user, i, dispatch, userList } = this.props;
-    let username = this.state.username;
-    let password = this.state.password;
-    let reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
+    const username = this.state.username;
+    const password = this.state.password;
+    const reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
     let count = 0;
+    for(let i = 0; i < this.state.count.length; i++) {
+      if(this.state.count[i] === undefined ) {
+        this.state.count = [...this.state.count.slice(0, i),...this.state.count.slice(i + 1)];
+        i--;
+      }
+    }
     if(username === "" && password === "") {
-      dispatch(asynChange({user: user, k: i}))
+      dispatch(asynChange({user: {...user, add: this.state.sub, count: this.state.count}, k: i}))
     } else if (username === "" && password != "") {
       if(!reg.test(password) || password.length < 8) {
-        alert('密码强度太低，请至少八位，并包含字母数字')
+        alert('密码强度太低，请至少八位，并包含字母数字');
+        return ;
       } else {
-        dispatch(asynChange({user: {...user, userpassword: password}, k: i}))
+        dispatch(asynChange({user: {...user, add: this.state.sub, count: this.state.count, userpassword: password}, k: i}))
       }
     } else if (username != "" && password === "") {
       for (let i = 0; i < userList.old.length; i++) {
         if (username === userList.old[i].username) {
           count++;
           alert('用户名重复');
+          return ;
         }
       }
       if( count === 0) {
-        dispatch(asynChange({user: {...user, username: username}, k: i}));
-        this.setState({expanded: !this.state.expanded});
+        dispatch(asynChange({user: {...user, add: this.state.sub, count: this.state.count, username: username}, k: i}));
       }
     }
+    this.state.count = [];
+    this.state.sub=[];
+    this.setState({open: false});
   }
 
   render() {
@@ -125,20 +144,28 @@ class UserDetail extends Component {
     }
 
     return (
-      <Card style={styles.card} expanded={this.state.expanded}>
-        <CardHeader
-          avatar=""
-          title={user.username}
-        />
-        <div style={styles.wrapper}>
-          {subject.map((sub, i) =>
-            <ChosenChip key={i} i={i} sub={sub} user={user} onChange={this.handleChange}/>)}
-        </div>
-        <CardActions>
-          <FlatButton label="删除此用户"  secondary={true} onClick={this.handleDelete}/>
-          <FlatButton label="修改用户资料" primary={true} onTouchTap={this.handleExpand}/>
-        </CardActions>
-        <CardText expandable={true}>
+      <div style={styles.card}>
+        <Card expanded={this.state.expanded}>
+          <CardHeader
+            avatar=""
+            title={user.username}
+          />
+          <div style={styles.wrapper}>
+            {subject.map((sub, i) =>
+              <ChosenChip key={i} i={i} sub={sub} user={user} onChange={this.handleChange}/>)}
+          </div>
+          <CardActions>
+            <FlatButton label="删除此用户"  secondary={true} onClick={this.handleDelete}/>
+            <FlatButton label="修改用户资料" primary={true} onTouchTap={this.handleExpand}/>
+          </CardActions>
+        </Card>
+        <Dialog
+          title="修改用户资料"
+          actions={[<RaisedButton label="确认修改" fullWidth={true} secondary={true} onClick={this.handleSubmit}/>]}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}>
           <TextField
             hintText={user.username}
             floatingLabelText="用户名"
@@ -146,7 +173,7 @@ class UserDetail extends Component {
             onChange={ this.usernameChange }
           /><br />
           <TextField
-            hintText={user.userpassword}
+            hintText="........"
             floatingLabelText="密码"
             floatingLabelFixed={true}
             onChange={ this.passwordChange }
@@ -156,9 +183,9 @@ class UserDetail extends Component {
             {nosub.map((sub, i) =>
               <UnChosenChip key={i} i={i} sub={sub} user={user} onChange={this.handleChange}/>)}
           </div>
-          <RaisedButton label="确认修改" fullWidth={true} secondary={true} onClick={this.handleSubmit}/>
-        </CardText>
-      </Card>
+          {/*<RaisedButton label="确认修改" fullWidth={true} secondary={true} onClick={this.handleSubmit}/>*/}
+        </Dialog>
+      </div>
     )
   }
 }

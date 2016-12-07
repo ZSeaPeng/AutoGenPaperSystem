@@ -15,8 +15,4 @@ class Grade extends Component{
   }
 }
 
-Grade.propTypes = {
-  grades: PropTypes.array.isRequired
-};
-
 export default Grade;

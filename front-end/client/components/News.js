@@ -22,10 +22,10 @@ class News extends Component {
     return (
       <div style={style.div}>
         { news.map((nee, i) =>
-          <Card style = {style.Card}>
+          <Card style = {style.Card} key={i}>
             <CardText>
               {nee.map((neee, i) =>
-                <Link to={neee.url}>{neee.sub} </Link>)} 有更新
+                <Link to={neee.url} key={i}>{neee.sub} </Link>)} 有更新
                 <br/>
                 <small style={{color: '#B3B3B3'}}>{ nee[0].date }</small>
             </CardText>

@@ -1,19 +1,25 @@
 import React from 'react';
 
-import Chip from 'material-ui/Chip';
+import TextField from 'material-ui/TextField';
 
 export default class NewUserChip extends React.Component {
   constructor(props) {
     super(props);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
+    this.state={
+      count: 0
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   getInfo() {
     return this.props.sub.subid;
   }
 
-  handleTouchTap() {
-    this.props.onChange({subid: this.getInfo()}, 'add');
+  handleChange(e) {
+    this.state.count = e.target.value;
+    const id = this.getInfo();
+    const count = this.state.count;
+    this.props.onChange({id, count}, 'add')
   }
 
   render() {
@@ -38,11 +44,12 @@ export default class NewUserChip extends React.Component {
     }
 
     return (
-      <Chip
-        style={chip}
-        onTouchTap = {this.handleTouchTap}>
-        {sub.context}
-      </Chip>
+      <TextField
+        onChange={this.handleChange}
+        floatingLabelText={sub.context}
+        floatingLabelStyle = {{color: "#000000"}}
+        floatingLabelFocusStyle={{color: "#00BCD4"}}
+      />
     );
   }
 }
