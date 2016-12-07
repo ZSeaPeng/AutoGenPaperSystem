@@ -45,7 +45,7 @@ public class PaperController {
         userServiceImpl.updateByPrimaryKeySelective(user);
         String chosenList = "0";
         for (int p : paperlist) {
-            chosenList = chosenList +","+String.valueOf(p);
+            chosenList = chosenList + "," + String.valueOf(p);
         }
         //System.out.println(chosenList);
         Paper paper = new Paper();

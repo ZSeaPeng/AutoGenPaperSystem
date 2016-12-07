@@ -17,9 +17,13 @@ public class Paper {
 
     private Date generatime;
 
+    private String paperName;
+
     private byte[] paperhex;
 
-    public Paper(Long paperId, String questionIds, Double paperDifficult, Integer paperNum, String paperPointId, Integer userId, Date generatime, byte[] paperhex) {
+    private int isDelete;
+
+    public Paper(Long paperId, String questionIds, Double paperDifficult, Integer paperNum, String paperPointId, Integer userId, Date generatime, String paperName, byte[] paperhex, int isDelete) {
         this.paperId = paperId;
         this.questionIds = questionIds;
         this.paperDifficult = paperDifficult;
@@ -27,7 +31,9 @@ public class Paper {
         this.paperPointId = paperPointId;
         this.userId = userId;
         this.generatime = generatime;
+        this.paperName = paperName;
         this.paperhex = paperhex;
+        this.isDelete = isDelete;
     }
 
     public Paper() {
@@ -96,5 +102,21 @@ public class Paper {
 
     public void setPaperhex(byte[] paperhex) {
         this.paperhex = paperhex;
+    }
+
+    public String getPaperName() {
+        return paperName;
+    }
+
+    public void setPaperName(String paperName) {
+        this.paperName = paperName;
+    }
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
     }
 }
