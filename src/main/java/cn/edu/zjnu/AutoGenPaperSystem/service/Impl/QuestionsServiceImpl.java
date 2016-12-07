@@ -31,6 +31,7 @@ public class QuestionsServiceImpl implements QuestionsService {
     private UserMapper userMapper;
     @Resource
     private DifficultyMapper difficultyMapper;
+
     public int deleteByPrimaryKey(Integer questionsId) {
         return 0;
     }
@@ -220,13 +221,14 @@ public class QuestionsServiceImpl implements QuestionsService {
     @Override
     public QuestionBean[] selectQuestionArray(int typeId, String pointIds, int subjectId) {
         int j=0;
-        String []pointId=pointIds.split(",");
+        String []pointId=pointIds.split(", ");
         Set<Questions> questionsSet=new HashSet<>();
-        QuestionBean []questionBeans=new QuestionBean[100];
+
         for (int i=0;i<pointId.length;i++){
             List<Questions> questions=questionsMapper.selectQuestionArray(typeId, Integer.parseInt(pointId[i]),subjectId);
             questionsSet.addAll(questions);
         }
+        QuestionBean []questionBeans=new QuestionBean[questionsSet.size()];
         for (Questions list:questionsSet){
             Difficulty difficult=difficultyMapper.selectByPrimaryKey(list.getDifficultyId());
             Double dif=(difficult.getLowlimit()+difficult.getUplimit())/2.0;
@@ -255,6 +257,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         }
         return questionBeans;
     }
+
 
     @Override
     public List<QuestionBean> selectQuestionListByTypeAndDif(QuestionBean questionBean) {

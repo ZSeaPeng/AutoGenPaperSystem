@@ -23,7 +23,7 @@ public class GA {
     private static final int tournamentSize = 5;
 
     // 进化种群
-    public static Population evolvePopulation(Population pop, RuleBean rule) {
+    public static Population evolvePopulation(Population pop, RuleBean rule,QuestionsService questionsServiceImpl) {
         Population newPopulation = new Population(pop.getLength());
         int elitismOffset;
         // 精英主义
@@ -51,7 +51,7 @@ public class GA {
         Paper tmpPaper;
         for (int i = elitismOffset; i < newPopulation.getLength(); i++) {
             tmpPaper = newPopulation.getPaper(i);
-            mutate(tmpPaper);
+            mutate(tmpPaper,questionsServiceImpl);
             // 计算知识点覆盖率与适应度
             tmpPaper.setKpCoverage(rule);
             tmpPaper.setAdaptationDegree(rule, Global.KP_WEIGHT, Global.DIFFCULTY_WEIGHt);
@@ -89,16 +89,16 @@ public class GA {
                 child.saveQuestion(i, parent2.getQuestion(i));
             } else {
                 // getQuestionArray()用来选择指定类型和知识点的试题数组
-                List<QuestionBean> singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")),subjectId);
-                child.saveQuestion(i, singleArray.get((int) (Math.random() * singleArray.size())));
+                QuestionBean[] singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")),subjectId);
+                child.saveQuestion(i, singleArray[(int) (Math.random() * singleArray.length)]);
             }
         }
         for (int i = endPos; i < parent2.getQuestionSize(); i++) {
             if (!child.containsQuestion(parent2.getQuestion(i))) {
                 child.saveQuestion(i, parent2.getQuestion(i));
             } else {
-                List<QuestionBean> singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")),subjectId);
-                child.saveQuestion(i, singleArray.get((int) (Math.random() * singleArray.size())));
+                QuestionBean[] singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")),subjectId);
+                child.saveQuestion(i, singleArray[(int) (Math.random() * singleArray.length)]);
             }
         }
 
@@ -112,9 +112,8 @@ public class GA {
      *
      * @param paper
      */
-    public static void mutate(Paper paper) {
+    public static void mutate(Paper paper,QuestionsService questionsService) {
         QuestionBean tmpQuestion;
-        QuestionsService questionsService=new QuestionsServiceImpl();
         List<QuestionBean> list;
         int index;
         for (int i = 0; i < paper.getQuestionSize(); i++) {

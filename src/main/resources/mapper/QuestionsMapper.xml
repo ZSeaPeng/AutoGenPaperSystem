@@ -111,7 +111,7 @@
         AND Subject_ID=#{param3}
     </select>
     <select id="selectQuestionListByTypeAndDif" resultMap="BaseResultMap">
-        SCALE
+        SELECT
         *
         FROM questions
         WHERE Type_ID=#{param1} AND Difficulty_ID=#{param2}

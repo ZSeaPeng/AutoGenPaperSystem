@@ -2,6 +2,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.util.generation;
 
 import cn.edu.zjnu.AutoGenPaperSystem.service.Impl.QuestionsServiceImpl;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.Random;
@@ -9,14 +10,20 @@ import java.util.Random;
 /**
  * Created by sgt on 2016/11/29.
  */
+@Component
 public class Population {
     /**
      * 试卷集合
      */
     private Paper[] papers;
 
+    @Resource
+    private QuestionsService questionsServiceImpl;
 
-    private QuestionsService questionsService=new QuestionsServiceImpl();
+    public Population() {
+    }
+
+
     /**
      * 初始种群
      *
@@ -24,7 +31,9 @@ public class Population {
      * @param initFlag       初始化标志 true-初始化
      * @param rule           规则bean
      */
-    public Population(int populationSize, boolean initFlag, RuleBean rule) {
+    public Population(int populationSize, boolean initFlag, RuleBean rule,QuestionsService questionsServiceImpl1) {
+
+        questionsServiceImpl=questionsServiceImpl1;
         papers = new Paper[populationSize];
         if (initFlag) {
             Paper paper;
@@ -63,8 +72,9 @@ public class Population {
 
     private void generateQuestion(int typeId, Random random, int qustionNum, String pointId,int subjectId,
                                   String errorMsg, Paper paper) {
-        QuestionBean[] singleArray = questionsService.selectQuestionArray(typeId, pointId.substring(1, pointId.indexOf("]")),subjectId);
+        QuestionBean[] singleArray = questionsServiceImpl.selectQuestionArray(typeId, pointId.substring(1, pointId.indexOf("]")),subjectId);
         if (singleArray.length < qustionNum) {
+            System.out.println(errorMsg);
             return;
         }
         QuestionBean tmpQuestion;
