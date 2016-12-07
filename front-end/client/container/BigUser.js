@@ -8,35 +8,36 @@ import {Card, CardText} from 'material-ui/Card';
 import Snackbar from 'material-ui/Snackbar';
 import Dialog from 'material-ui/Dialog';
 
-//add component
-import UserDetail from './UserDetail';
-import NewUserChip from '../components/NewUserChip'
+import SubUser from './SubUser';
 
-//add action
-import { getUserList, asynCreateUser, clear } from '../actions/actionCreators';
+import { getSubUser, asynCreateSubUser } from '../actions/actionCreators'
 
-class ControlUser extends Component {
+class BigUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: false,
       username: '',
       password: '',
+      phone: '',
+      email: '',
+      phone: '',
+      school: '',
       open: false,
-      sub: [],
-      count: [],
     };
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
     this.handleAddUser = this.handleAddUser.bind(this);
     this.usernameChange = this.usernameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
+    this.emailChange = this.emailChange.bind(this);
+    this.schoolChange = this.schoolChange.bind(this);
+    this.phoneChange = this.phoneChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
 
   handleAddUser() {
-    this.setState({open: !this.state.open})
+    this.setState({open: true})
   }
 
   usernameChange(e) {
@@ -47,9 +48,19 @@ class ControlUser extends Component {
     this.state.password = e.target.value
   }
 
+  schoolChange(e) {
+    this.state.school = e.target.value
+  }
+
+  phoneChange(e) {
+    this.state.phone = e.target.value
+  }
+
+  emailChange(e) {
+    this.state.email = e.target.value
+  }
+
   handleClose() {
-    this.state.count = [];
-    this.state.sub=[];
     this.setState({open: false});
   };
 
@@ -58,71 +69,46 @@ class ControlUser extends Component {
     dispatch(clear());
   };
 
-  handleChange(detail, type) {
-    const { count, sub } = this.state;
-    // let count = 0, k = 0;
-    if(type === 'add') {
-      if(sub.indexOf(detail.id) < 0) {
-        sub.push(detail.id);
-      }
-      count[detail.id]=detail.count;
-    }
-  }
-
   handleSubmit() {
-    let { username, password, sub, count } = this.state;
-    const { userList, dispatch } = this.props;
-    let counts = 0;
-    let subject = '0,' + sub.toString();
-    const reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
-    for(let i = 0; i < count.length; i++) {
-      if(count[i] === undefined ) {
-        count = [...count.slice(0, i),...count.slice(i + 1)];
-        i--;
-      }
-    }
-    count = '0,' + count.toString();
+    const { username, password, phone, email, school } = this.state;
+    const { subUser, dispatch } = this.props;
+    let count = 0;
+    let reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
     if( username === '' || password === '') {
-      counts++;
+      count++;
       alert('用户名或密码不能为空');
-      return ;
     }
     if(!reg.test(password) || password.length < 8) {
-      counts++;
-      alert('密码强度太低，请至少八位，并包含字母数字');
-      return ;
+      count++;
+      alert('密码强度太低，请至少八位，并包含字母数字')
     }
-    for (let i = 0; i < userList.old.length; i++) {
-      if (username === userList.old[i].username) {
-        counts++;
+    for (let i = 0; i < subUser.length; i++) {
+      if (username === subUser[i].username) {
+        count++;
         alert('用户名重复');
-        return ;
       }
     }
-    if(counts === 0) {
-      dispatch(asynCreateUser({username: username, userpassword: password, subjectcan: subject, count: count}));
+    if(count === 0) {
+      dispatch(asynCreateSubUser({username, password, school, phone, email}));
+      this.setState({type: !this.state.type})
     }
-    this.state.count = [];
-    this.state.sub=[];
-    this.setState({open: false});
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(getUserList());
+    dispatch(getSubUser());
   }
 
   render() {
-    const { userList, sublist } = this.props;
-    const isEmpty = sublist.length === 0;
-    const isDelete = userList.delete !== "";
+    const { subUser } = this.props;
+    const isDelete = subUser.delete !== "";
     let styles = {
       div: {
         display: '-webkit-flex', /* Safari */
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'flex-start'
-      }
+      },
     };
 
     return (
@@ -133,8 +119,8 @@ class ControlUser extends Component {
               添加用户
             </CardText>
           </Card>
-          { userList.old.map((user, i) =>
-            <UserDetail { ...this.props } user = {user} key={i} i={i}/>)
+          { subUser.user.map((user, i) =>
+            <SubUser { ...this.props } user = {user} key={i} i={i}/>)
           }
         </div>
         <Dialog
@@ -145,27 +131,29 @@ class ControlUser extends Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}>
           <TextField
-            floatingLabelText="用户名"
+            floatingLabelText="用户名(请输入真实姓名)"
             onChange={ this.usernameChange }
           /><br />
           <TextField
             floatingLabelText="密码"
             onChange={ this.passwordChange }
           /><br />
-          <div>点击以添加</div>
-          {!isEmpty
-            ? <div style={styles.wrapper}>
-              {
-                sublist[0].contextList.map((context, i) =>
-                  <NewUserChip key={i} i={i} sub={context} user={userList.new} onChange={this.handleChange}/>)
-              }
-            </div>
-            : <div></div>
-          }
+          <TextField
+            floatingLabelText="学校名称"
+            onChange={ this.schoolChange }
+          /><br />
+          <TextField
+            floatingLabelText="邮箱"
+            onChange={ this.emailChange }
+          /><br />
+          <TextField
+            floatingLabelText="手机"
+            onChange={ this.phoneChange }
+          /><br />
         </Dialog>
         <Snackbar
           open={isDelete}
-          message={`用户(${userList.delete})已删除`}
+          message={`用户(${subUser.delete})已删除`}
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
@@ -174,6 +162,7 @@ class ControlUser extends Component {
   }
 }
 
-const mapStateToProps = ({ userList, grades }) => ({ userList, sublist: grades.sublist });
+const mapStateToProps = ({ subUser }) => ({ subUser });
 
-export default connect(mapStateToProps)(ControlUser);
+export default connect(mapStateToProps)(BigUser);
+// export default BigUser;

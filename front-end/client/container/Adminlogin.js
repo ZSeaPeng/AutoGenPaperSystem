@@ -11,7 +11,7 @@ class adminlogin extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(username, password) {
+  handleSubmit(username, password, type) {
     const { dispatch } = this.props;
     dispatch(adminLogin(username, password))
   }

@@ -5,12 +5,50 @@ import style from '../style/QuestionCard.css';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import {List, ListItem} from 'material-ui/List';
+import Dialog from 'material-ui/Dialog';
 
 import { asynRecUserInfo } from '../actions/actionCreators';
 
 class UserIndex extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      open: false,
+      passone: '',
+      passtwo: '',
+      text: '密码'
+    }
+    this.handleChangePass = this.handleChangePass.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.passoneChange = this.passtwoChange.bind(this);
+    this.passtwoChange = this.passtwoChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleClose() {
+    this.setState({open: false})
+  }
+
+  passoneChange(e) {
+    this.state.passone = e.target.value;
+  }
+
+  passtwoChange(e) {
+    this.state.passtwo = e.target.value;
+    if(this.state.passtwo !== this.state.passone) {
+      this.setState({text: '密码(密码不一致)'})
+    } else {
+      this.setState({text: '密码'})
+    }
+  }
+
+  handleChangePass() {
+    this.setState({open: true});
+  }
+
+  handleSubmit() {
+    const password = this.state.passone;
+    this.setState({open: false})
   }
 
   componentDidMount() {
@@ -38,7 +76,7 @@ class UserIndex extends React.Component {
             inputStyle={{color: '#000'}}
             type="password"
           />
-          <FlatButton label="修改密码" secondary={true} />
+          <FlatButton label="修改密码" secondary={true} onClick={this.handleChangePass}/>
         </div>
         <List>
           <ListItem
@@ -61,6 +99,24 @@ class UserIndex extends React.Component {
             </Link>
           </ListItem>
         </List>
+        <Dialog
+          title="修改密码"
+          actions={[<RaisedButton label="确认修改密码" secondary={true} onClick={this.handleSubmit}/>]}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}>
+          <TextField
+            floatingLabelText="密码"
+            type="password"
+            onChange={ this.passoneChange }
+          /><br />
+          <TextField
+            floatingLabelText={this.state.text}
+            password="password"
+            onChange={ this.passtwoChange }
+          /><br />
+        </Dialog>
       </div>
     )
   }

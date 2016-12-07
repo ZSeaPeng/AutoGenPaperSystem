@@ -35,6 +35,10 @@ export const PAPERDDOWN = 'PAPERDDOWN';
 export const PAPERDELETE = 'PAPERDELETE';
 export const PAPERUUP = 'PAPERUUP';
 export const RECEIVE_USERINFO = 'RECEIVE_USERINFO';
+export const CLEAR = 'CLEAR';
+export const SUBUSER = 'GETSUBUSER';
+export const CREATESUBUSER = 'CREATESUBUSER';
+export const DELETESUBUSER = 'DELETESUBUSER';
 
 /**
  * 真正与reducer沟通的函数
@@ -156,6 +160,11 @@ export const deleteUser = details => ({
   details
 });
 
+export const deleteSubUser = details => ({
+  type: DELETESUBUSER,
+  details
+});
+
 //管理员添加新用户
 export const createUser = details => ({
   type: CREATEUSER,
@@ -227,6 +236,20 @@ export const logout = details => ({
   details
 });
 
+export const clear = details => ({
+  type: CLEAR
+});
+
+export const subUser = details => ({
+  type: SUBUSER,
+  details
+})
+
+export const createSubUser = details => ({
+  type: CREATESUBUSER,
+  details
+})
+
 /*
 * 异步动作
 * redux 本身没有异步处理能力, 这里用了中间件thunk
@@ -273,15 +296,31 @@ export const getUserList = () => dispatch => {
     .then( response =>
       {
         if(response.status !== 200) {
-          // history.push('/adminlogin');
-          // return;
-          console.log(response.status)
+          history.push('/adminlogin');
+          return;
       }
       response.json()
     .then( json =>
       dispatch(userList(json))
     )})
 };
+
+export const getSubUser = () => dispatch => {
+  return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/subuser', {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then( response =>
+      {
+        if(response.status !== 200) {
+          history.push('/adminlogin');
+          return;
+      }
+      response.json()
+    .then( json =>
+      dispatch(subUser(json))
+    )})
+}
 
 export const getCourseList = () => dispatch => {
   return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/courselist', {
@@ -429,7 +468,23 @@ export const asynDeleteUser = (details) => dispatch => {
   })
     .then(response => response.json())
     .then(json =>
-      dispatch(deleteUser({json, k: details.k}))
+      dispatch(deleteUser({...details}))
+    )
+};
+
+export const asynDeleteSubUser = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/deleteuser`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: 'userid=' + details.userId,
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(deleteSubUser({...details}))
     )
 };
 
@@ -449,6 +504,24 @@ export const asynCreateUser = (details) => dispatch => {
     .then(response => response.json())
     .then(json =>
       dispatch(createUser(json))
+    )
+};
+
+export const asynCreateSubUser = (details) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/adduser`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({
+      ...details
+    }),
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(createSubUser(json))
     )
 };
 
@@ -561,7 +634,7 @@ export const finalAction = (array) => dispatch => {
 };
 
 export const asynRecUserInfo = () => dispatch => {
-  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/paper/makepaper`, {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/user/show`, {
     method: 'GET',
     credentials: 'include'
   })
@@ -572,14 +645,14 @@ export const asynRecUserInfo = () => dispatch => {
 };
 
 //对应login()
-export const asynLogin = (username, password) => dispatch => {
+export const asynLogin = (username, password, type) => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/login`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json, text/plain, */*',
       "Content-Type": "application/x-www-form-urlencoded"
     },
-    body: 'username=' + username + '&password=' + password,
+    body: 'username=' + username + '&password=' + password + '&type=' + type,
     credentials: 'include'
   })
     .then(response => response.json())

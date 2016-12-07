@@ -7,6 +7,7 @@ import selects from './selects'
 import userList from './userList'
 import courseList from './courseList';
 import testPaper from './testPaper';
+import subUser from './subUser';
 
 const rootReducer = combineReducers({
   grades,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   userList,
   courseList,
   testPaper,
+  subUser,
   routing: routerReducer
 });
 

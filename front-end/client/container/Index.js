@@ -18,9 +18,9 @@ class Index extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(username, password) {
+  handleSubmit(username, password, type) {
     const { dispatch } = this.props;
-    dispatch(asynLogin(username, password))
+    dispatch(asynLogin(username, password, type))
   }
 
   render() {

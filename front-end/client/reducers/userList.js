@@ -7,14 +7,16 @@ import {
   DELETEUSER,
   ADDNEWSUBPRE,
   REMOVENEWSUBPRE,
-  CREATEUSER
+  CREATEUSER,
+  CLEAR
 } from '../actions/actionCreators';
 
 function userList(state={old: [], new: {
-  username: '',
-  password: '',
-  subjects: []
-}}, action) {
+    username: '',
+    password: '',
+    subjects: []
+  },
+  delete: ''}, action) {
   switch (action.type) {
     case USERLIST:
       return {
@@ -82,7 +84,8 @@ function userList(state={old: [], new: {
         old: [
           ...state.old.slice(0, action.details.k),
           ...state.old.slice(action.details.k + 1)
-        ]
+        ],
+        delete: action.details.username
       };
     case ADDNEWSUBPRE:
      return {
@@ -116,8 +119,14 @@ function userList(state={old: [], new: {
           username: '',
           password: '',
           subjects: []
-        }
+        },
+        delete: ''
       };
+    case CLEAR:
+      return {
+        ...state,
+        delete: ''
+      }
     default:
       return state;
   }

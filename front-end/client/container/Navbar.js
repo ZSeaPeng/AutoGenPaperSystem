@@ -87,11 +87,6 @@ class Navbar extends Component{
   }
 }
 
-Navbar.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  grades: PropTypes.array.isRequired
-};
-
 const mapStateToProps = state => {
   const { grades } = state;
   const { sublist, userid, username } = grades;
