@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
             }
             record.setSubjectcan(subjectCan);
         }
+        record.setDownloadable(null);
         return userMapper.updateByPrimaryKeySelective(record);
     }
 
