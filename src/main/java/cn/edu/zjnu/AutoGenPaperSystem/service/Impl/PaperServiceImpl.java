@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by zseapeng on 2016/11/25.
@@ -20,5 +21,16 @@ public class PaperServiceImpl implements PaperService {
     public int insertSelective(Paper record) {
         record.setGeneratime(new Date());
         return paperMapper.insertSelective(record);
+    }
+
+    @Override
+    public Paper selectByPrimaryKey(Integer paperId) {
+        return paperMapper.selectByPrimaryKey(paperId);
+    }
+
+    @Override
+    public List<Paper> selectByUserId(int userid) {
+
+        return paperMapper.selectByUserId(userid);
     }
 }

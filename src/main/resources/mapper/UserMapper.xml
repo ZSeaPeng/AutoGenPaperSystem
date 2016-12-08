@@ -42,6 +42,9 @@
 	<select id="selectUserChosenByUSerId" resultType="java.lang.String">
 	  SELECT UserChosen FROM User WHERE userId = #{userId}
 	</select>
+	<select id="selectColleltionByUserId" resultType="java.lang.String">
+		SELECT UserCollection FROM User Where userId = #{userId}
+	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from User

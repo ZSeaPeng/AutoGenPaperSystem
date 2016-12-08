@@ -35,6 +35,8 @@ public class User {
 
     private int type;
 
+    private List historyPaper;
+
     public User(Integer userid, String username, String userpassword, String salt, Integer downloadable, String subjectcan, String userchosen, String usercollection, String rolesId, String school, Integer isdelete, String phonenum, String email, Integer commanagerId) {
         this.userid = userid;
         this.username = username;
@@ -182,5 +184,13 @@ public class User {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public List getHistoryPaper() {
+        return historyPaper;
+    }
+
+    public void setHistoryPaper(List historyPaper) {
+        this.historyPaper = historyPaper;
     }
 }

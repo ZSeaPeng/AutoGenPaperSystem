@@ -34,4 +34,6 @@ public interface UserMapper {
     String selectSubjectCanByUserId(int userId);
 
     String selectUserChosenByUSerId(int userId);
+
+    String selectColleltionByUserId (int userId);
 }
