@@ -20,7 +20,7 @@ public class Population {
     @Resource
     private QuestionsService questionsServiceImpl;
 
-    public Population() {
+    public Population(int i, boolean b, RuleBean ruleBean) {
     }
 
 

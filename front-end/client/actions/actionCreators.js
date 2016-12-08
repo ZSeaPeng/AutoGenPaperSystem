@@ -1,4 +1,6 @@
 import { history } from '../store';
+import { browserHistory } from 'react-router';
+
 /**
  * 本项用于定义用户的各种动作
  * */
@@ -739,4 +741,38 @@ export const asynLogout = () => dispatch => {
       dispatch(logout(json));
       history.push('/')
     })
+};
+
+export const submitModel = (wordtype, subid) => dispatch => {
+    return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/combine/manual',
+      {
+        method:'post',
+        headers:{
+          // 'Accept': 'application/json',
+          // "Content-type":"application:/x-www-form-urlencoded:charset=UTF-8"
+          'Accept': 'application/json, text/plain, */*',
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `subid=${subid}&wordtype=${wordtype}`
+      })
+        .then(response => response.json())
+        .then(json =>
+            browserHistory.push(json.url))
+
+};
+
+export const submitWordInfo = (wordInfo) => dispatch => {
+  console.log(wordInfo);
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/combine/auto`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({
+      ...wordInfo
+    })
+  })
+    .then(browserHistory.push("/testpaper"))
+
 };

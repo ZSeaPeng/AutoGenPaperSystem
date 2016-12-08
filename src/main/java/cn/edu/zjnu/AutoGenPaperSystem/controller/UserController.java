@@ -29,10 +29,21 @@ public class UserController {
     }
 
     @RequestMapping(value = "/change", method = RequestMethod.POST)
-    public User changePassword(String password, @ModelAttribute("userid") Integer userid) {
+    public String changePassword(String password, @ModelAttribute("userid") Integer userid) {
         User user = userServiceImpl.selectByPrimaryKey(userid);
         user.setUserpassword(password);
         user.setAdd(new ArrayList());
+        if (userServiceImpl.updateByPrimaryKeySelective(user) != 0) {
+            return "{\"success\":\"ture\"}";
+        }
+        return "{\"success\":\"false\"}";
+    }
+
+    @RequestMapping(value = "/changeinfo", method = RequestMethod.POST)
+    public User changeInfo(@RequestBody User user, @ModelAttribute("userid") Integer userid) {
+        user.setAdd(new ArrayList());
+        user.setUserpassword(null);
+        user.setUserId(userid);
         userServiceImpl.updateByPrimaryKeySelective(user);
         return userServiceImpl.selectByPrimaryKey(userid);
     }

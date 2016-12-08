@@ -90,6 +90,12 @@ public class Paper {
             result.addAll(rule.getPointIds());
             Set<String> another = questionList.stream().map(questionBean -> String.valueOf(questionBean.getPointId())).collect(Collectors.toSet());
             // 交集操作
+//            Set<String> anotherTemp = new HashSet<>();
+//            for (QuestionBean questionBean:questionList){
+//                if (questionBean!=null){
+//                    anotherTemp.add(String.valueOf(questionBean.getPointId()));
+//                }
+//            }
             result.retainAll(another);
             kPCoverage = result.size() / rule.getPointIds().size();
         }

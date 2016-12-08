@@ -45,7 +45,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updateByPrimaryKeySelective(User record) {
-        record.setUserpassword(String.valueOf(new Md5Hash(record.getUserpassword(), record.getUserpassword())));
+        if (record.getUserpassword() != null) {
+            record.setUserpassword(String.valueOf(new Md5Hash(record.getUserpassword(), record.getUserpassword())));
+        }
+
+
         if (record.getAdd().size() != 0) {
             List addChange = record.getAdd();
             String subjectCan = userMapper.selectSubjectCanByUserId(record.getUserId());
@@ -54,6 +58,7 @@ public class UserServiceImpl implements UserService {
             }
             record.setSubjectcan(subjectCan);
         }
+        record.setDownloadable(null);
         return userMapper.updateByPrimaryKeySelective(record);
     }
 
@@ -252,5 +257,6 @@ public class UserServiceImpl implements UserService {
         return lastMap;
     }
 }
+
 
 
