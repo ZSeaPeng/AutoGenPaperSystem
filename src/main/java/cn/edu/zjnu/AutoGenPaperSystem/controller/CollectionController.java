@@ -12,7 +12,7 @@ import java.util.List;
  * Created by zseapeng on 2016/12/7.
  */
 @Controller
-@RequestMapping("/api/collection")
+@RequestMapping("/api/collections")
 @SessionAttributes("userid")
 @ResponseBody
 public class CollectionController {
@@ -20,8 +20,8 @@ public class CollectionController {
     private UserService userServiceImpl;
 
 
-    @RequestMapping(value = "/questions",method = RequestMethod.GET)
-    public List<QuestionsJson> getCollection(@ModelAttribute("userid") int userid){
+    @RequestMapping(value = "/question",method = RequestMethod.GET)
+    public List<QuestionsJson> getCollection(@ModelAttribute("userid") int userid,@RequestParam int page){
         return userServiceImpl.selectColleltionByUserId(userid);
     }
 
