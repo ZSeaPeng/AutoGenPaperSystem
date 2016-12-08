@@ -43,4 +43,6 @@ public interface UserService  {
     Map selectUserChosenByUSerId(int userId, String type, String subName);
 
     List<QuestionsJson>  selectColleltionByUserId (int userId);
+
+    User selectShow(int userId);
 }

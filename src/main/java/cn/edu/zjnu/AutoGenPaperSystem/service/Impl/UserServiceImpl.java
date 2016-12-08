@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectByPrimaryKey(Integer userId) {
-        //System.out.println("userService---"+userId);
-        return userMapper.selectByPrimaryKey(userId);
+
+       return userMapper.selectByPrimaryKey(userId);
     }
 
     @Override
@@ -274,6 +274,14 @@ public class UserServiceImpl implements UserService {
             }
         }
         return collectionList;
+    }
+
+    @Override
+    public User selectShow(int userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        int collectionnum = user.getUsercollection().split(",").length - 1;
+        user.setUsercollection(String.valueOf(collectionnum));
+        return user;
     }
 }
 

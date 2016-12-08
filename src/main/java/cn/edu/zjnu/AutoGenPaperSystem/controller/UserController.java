@@ -22,9 +22,7 @@ public class UserController {
 
     @RequestMapping(value = "/show", method = RequestMethod.GET)
     public User showInfo(@ModelAttribute("userid") Integer userid) {
-        User user = userServiceImpl.selectByPrimaryKey(userid);
-        String CollUrl = "/api/userid" + userid + "/collection";
-        user.setUsercollection(CollUrl);
+        User user = userServiceImpl.selectShow(userid);
         return user;
     }
 
