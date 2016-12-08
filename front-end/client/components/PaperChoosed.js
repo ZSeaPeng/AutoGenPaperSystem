@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 
 //UI
@@ -12,14 +12,15 @@ import Avatar from 'material-ui/Avatar';
 
 import { finalAction } from '../actions/actionCreators'
 
-class PaperChoosed extends Component{
+class PaperChoosed extends React.Component{
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit() {
-    const { dispatch, radios, others } = this.props;
+    const { dispatch } = this.props;
+    const { radios, others } = this.props;
     let array = [];
     for (let i = 0; i < radios.questions.length; i++) {
       array.push(radios.questions[i].id);
@@ -29,6 +30,7 @@ class PaperChoosed extends Component{
         array.push(others[i].questions[j].id);
       }
     }
+    this.props.onChange();
     dispatch(finalAction(array));
   }
 

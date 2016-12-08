@@ -1,10 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.service.Impl;
 
+import cn.edu.zjnu.AutoGenPaperSystem.dao.PaperMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.QuestionsMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper;
-import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
-import cn.edu.zjnu.AutoGenPaperSystem.model.QuestionsJson;
-import cn.edu.zjnu.AutoGenPaperSystem.model.User;
+import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
@@ -21,6 +20,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Resource
     private QuestionsMapper questionsMapper;
+    @Resource
+    private PaperMapper paperMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer userId) {
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectByPrimaryKey(Integer userId) {
-        //System.out.println("userService---"+userId);
+
         return userMapper.selectByPrimaryKey(userId);
     }
 
@@ -58,6 +59,7 @@ public class UserServiceImpl implements UserService {
             }
             record.setSubjectcan(subjectCan);
         }
+        record.setDownloadable(null);
         return userMapper.updateByPrimaryKeySelective(record);
     }
 
@@ -254,6 +256,49 @@ public class UserServiceImpl implements UserService {
         lastMap.put("questions", lastList);
 
         return lastMap;
+    }
+
+    @Override
+    public List<QuestionsJson> selectColleltionByUserId(int userId) {
+        String collectionTemp = userMapper.selectColleltionByUserId(userId);
+        String[] quesId = collectionTemp.split(",");
+        List<QuestionsJson> collectionList = new ArrayList();
+        collectionList.clear();
+        for (String s : quesId) {
+            if (!s.equals("0")) {
+                Questions questions = questionsMapper.selectByPrimaryKey(Integer.valueOf(s));
+                QuestionsJson questionsJson = new QuestionsJson();
+                questionsJson.setId(questions.getQuestionsId());
+                questionsJson.setAurl(questions.getAnswerPic_URL());
+                questionsJson.setQurl(questions.getQuesPic_URL());
+                collectionList.add(questionsJson);
+            }
+        }
+        return collectionList;
+    }
+
+    @Override
+    public User selectShow(int userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        int collectionnum = user.getUsercollection().split(",").length - 1;
+        user.setUsercollection(String.valueOf(collectionnum));
+        List<Paper> paperList = paperMapper.selectByUserId(userId);
+        if (paperList.size() != 0) {
+            List<PaperJson> paperJsonList = new ArrayList<>();
+            paperJsonList.clear();
+            for (Paper p : paperList) {
+                PaperJson paperJson = new PaperJson();
+                paperJson.setHistoryPaperUrl("/testpaper?paper=" + p.getPaperId());
+                paperJson.setPaperName(p.getPaperName());
+                paperJson.setPaperId(p.getPaperId());
+                paperJson.setPaperDate(p.getGeneratime());
+                paperJsonList.add(paperJson);
+
+            }
+
+            user.setHistoryPaper(paperJsonList);
+        }
+        return user;
     }
 }
 

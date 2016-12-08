@@ -10,7 +10,7 @@ import Choosed from '../components/Choosed';
 
 //add actions
 import {
-  getQuestion,
+  getCollection,
   asynAdd,
   asynRemove,
   toggle,
@@ -72,9 +72,9 @@ class Collections extends Component {
     const path = pathname.replace(/\/question/i, '');
     const query = window.location.search;
     if (query === "") {
-      dispatch(getQuestion(path));
+      dispatch(getCollection(path));
     } else {
-      dispatch(getQuestion(path, query));
+      dispatch(getCollection(path, query));
     }
   }
 
@@ -87,9 +87,9 @@ class Collections extends Component {
     const newPath = lew.replace(/\/question/i, '');
     const newQuery = this.props.location.search;
     if (newPath === oldPath && newQuery !== oldQuery) {
-      dispatch(getQuestion(newPath, newQuery))
+      dispatch(getCollection(newPath, newQuery))
     } else if (newPath !== oldPath ) {
-      dispatch(getQuestion(newPath));
+      dispatch(getCollection(newPath));
     }
   }
 
@@ -111,7 +111,7 @@ class Collections extends Component {
           <div>
             { context.map((contextList, i) => <Question {...this.props} onChange={this.handleChange} contextList={contextList} key={i} i={i}/>)}
           </div>
-          <Page {...this.props} pageNum = {pageNum} pages = {pages} />
+{/*          <Page {...this.props} pageNum = {pageNum} pages = {pages} />*/}
         </div>
         <div className={styles.Side} style={{ right: 0,width: '270px'}}>
           <Choosed userChosen = {userChosen} onChange={this.handleChange}/>

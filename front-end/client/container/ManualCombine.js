@@ -30,10 +30,6 @@ const styles = {
 
 class ManualCombine extends Component {
 
-  // state = {
-  //   value: 0,
-  //   model: "model1",
-  // };
   constructor (props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);

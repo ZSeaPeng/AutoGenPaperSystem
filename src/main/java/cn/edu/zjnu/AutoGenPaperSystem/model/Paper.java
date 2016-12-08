@@ -1,5 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.model;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class Paper {
@@ -23,7 +24,7 @@ public class Paper {
 
     private int isDelete;
 
-    public Paper(Long paperId, String questionIds, Double paperDifficult, Integer paperNum, String paperPointId, Integer userId, Date generatime, String paperName, byte[] paperhex, int isDelete) {
+    public Paper(Long paperId, String questionIds, Double paperDifficult, Integer paperNum, String paperPointId, Integer userId, Date generatime, String paperName, int isDelete) {
         this.paperId = paperId;
         this.questionIds = questionIds;
         this.paperDifficult = paperDifficult;
@@ -32,7 +33,6 @@ public class Paper {
         this.userId = userId;
         this.generatime = generatime;
         this.paperName = paperName;
-        this.paperhex = paperhex;
         this.isDelete = isDelete;
     }
 
@@ -118,5 +118,21 @@ public class Paper {
 
     public void setIsDelete(int isDelete) {
         this.isDelete = isDelete;
+    }
+
+    @Override
+    public String toString() {
+        return "Paper{" +
+                "paperId=" + paperId +
+                ", questionIds='" + questionIds + '\'' +
+                ", paperDifficult=" + paperDifficult +
+                ", paperNum=" + paperNum +
+                ", paperPointId='" + paperPointId + '\'' +
+                ", userId=" + userId +
+                ", generatime=" + generatime +
+                ", paperName='" + paperName + '\'' +
+                ", paperhex=" + Arrays.toString(paperhex) +
+                ", isDelete=" + isDelete +
+                '}';
     }
 }

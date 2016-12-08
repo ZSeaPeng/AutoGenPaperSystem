@@ -17,7 +17,8 @@ import Paper from './container/Paper';
 import Admin from './container/Admin';
 import UserIndex from './container/UserIndex';
 import Adminlogin from './container/Adminlogin';
-import BigUser from './container/BigUser'
+import BigUser from './container/BigUser';
+import Collections from './container/Collections';
 
 import store, { history } from './store';
 
@@ -28,6 +29,7 @@ const router = (
     <Router history={ history }>
       <Route path="/" component={Navbar}>
         <IndexRoute component={Index}/>
+        <Route path="/collections(/*)" component={Collections} />
         <Route path="/biguser" component={BigUser}/>
         <Route path="/adminlogin" component={Adminlogin}/>
         <Route path="/updateinfo/*" component={Update} />
