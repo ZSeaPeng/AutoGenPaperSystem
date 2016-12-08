@@ -8,6 +8,7 @@ import userList from './userList'
 import courseList from './courseList';
 import testPaper from './testPaper';
 import subUser from './subUser';
+import userInfo from './userInfo';
 
 const rootReducer = combineReducers({
   grades,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   courseList,
   testPaper,
   subUser,
+  userInfo,
   routing: routerReducer
 });
 

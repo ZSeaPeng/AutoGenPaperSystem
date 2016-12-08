@@ -39,6 +39,7 @@ export const CLEAR = 'CLEAR';
 export const SUBUSER = 'GETSUBUSER';
 export const CREATESUBUSER = 'CREATESUBUSER';
 export const DELETESUBUSER = 'DELETESUBUSER';
+export const CHANGEUSERINFO = 'CHANGEUSERINFO';
 
 /**
  * 真正与reducer沟通的函数
@@ -247,6 +248,11 @@ export const subUser = details => ({
 
 export const createSubUser = details => ({
   type: CREATESUBUSER,
+  details
+})
+
+export const changeUserInfo = details => ({
+  type: CHANGEUSERINFO,
   details
 })
 
@@ -633,6 +639,41 @@ export const finalAction = (array) => dispatch => {
     )
 };
 
+//user change password himself
+export const asynUserChange = (password) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/user/change`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({password}),
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(json =>
+      console.log(json)
+    )
+}
+
+//user change info himself
+export const asynUserChangeInfo = (email: '', phone: '') => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/user/changeinfo`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({email, phone}),
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(changeUserInfo(json))
+    )
+}
+
+//get userinfo of himself
 export const asynRecUserInfo = () => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/user/show`, {
     method: 'GET',
