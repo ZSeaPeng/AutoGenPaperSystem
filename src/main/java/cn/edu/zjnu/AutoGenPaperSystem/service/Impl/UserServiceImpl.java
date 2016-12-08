@@ -1,10 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.service.Impl;
 
+import cn.edu.zjnu.AutoGenPaperSystem.dao.PaperMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.QuestionsMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper;
-import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
-import cn.edu.zjnu.AutoGenPaperSystem.model.QuestionsJson;
-import cn.edu.zjnu.AutoGenPaperSystem.model.User;
+import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
@@ -21,6 +20,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Resource
     private QuestionsMapper questionsMapper;
+    @Resource
+    private PaperMapper paperMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer userId) {
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User selectByPrimaryKey(Integer userId) {
 
-       return userMapper.selectByPrimaryKey(userId);
+        return userMapper.selectByPrimaryKey(userId);
     }
 
     @Override
@@ -263,8 +264,8 @@ public class UserServiceImpl implements UserService {
         String[] quesId = collectionTemp.split(",");
         List<QuestionsJson> collectionList = new ArrayList();
         collectionList.clear();
-        for (String s:quesId){
-            if (!s.equals("0")){
+        for (String s : quesId) {
+            if (!s.equals("0")) {
                 Questions questions = questionsMapper.selectByPrimaryKey(Integer.valueOf(s));
                 QuestionsJson questionsJson = new QuestionsJson();
                 questionsJson.setId(questions.getQuestionsId());
@@ -281,6 +282,21 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectByPrimaryKey(userId);
         int collectionnum = user.getUsercollection().split(",").length - 1;
         user.setUsercollection(String.valueOf(collectionnum));
+        List<Paper> paperList = paperMapper.selectByUserId(userId);
+        System.out.print("paperList.size()---"+paperList.size());
+        if (paperList.size() != 0) {
+            List<PaperJson> paperJsonList = new ArrayList<>();
+            paperJsonList.clear();
+            for (Paper p : paperList) {
+                PaperJson paperJson = new PaperJson();
+                paperJson.setHistoryPaperUrl("/testpaper?paper=" + p.getPaperId());
+                paperJson.setPaperName(p.getPaperName());
+                paperJson.setPaperId(p.getPaperId());
+                paperJsonList.add(paperJson);
+            }
+
+            user.setHistoryPaper(paperJsonList);
+        }
         return user;
     }
 }
