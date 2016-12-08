@@ -1,32 +1,63 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { history } from '../store';
+
 import style from '../style/QuestionCard.css';
 import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
 import {List, ListItem} from 'material-ui/List';
 import Dialog from 'material-ui/Dialog';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import Avatar from 'material-ui/Avatar';
+import Chip from 'material-ui/Chip';
 
-import { asynRecUserInfo } from '../actions/actionCreators';
+import { asynRecUserInfo, asynUserChange, asynChangeInfo } from '../actions/actionCreators';
 
 class UserIndex extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
+      open1: false,
+      open2: false,
       passone: '',
       passtwo: '',
-      text: '密码'
+      email: '',
+      phone: ''
     }
     this.handleChangePass = this.handleChangePass.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.passoneChange = this.passtwoChange.bind(this);
+    this.passoneChange = this.passoneChange.bind(this);
     this.passtwoChange = this.passtwoChange.bind(this);
+    this.emailChange = this.emailChange.bind(this);
+    this.phoneChange = this.phoneChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit2 = this.handleSubmit2.bind(this);
+    this.handleChangemail = this.handleChangemail.bind(this);
+    this.handleChangephone = this.handleChangephone.bind(this);
+    this.seecoll = this.seecoll.bind(this);
   }
 
   handleClose() {
-    this.setState({open: false})
+    this.setState({open: false, open1: false, open2: false})
+  }
+
+  phoneChange(e) {
+    this.state.email = e.target.value;
+  }
+
+  emailChange(e) {
+    this.state.phone = e.target.value;
+  }
+
+  handleChangePass() {
+    this.setState({open: true});
+  }
+
+  handleChangemail() {
+    this.setState({open1: true});
   }
 
   passoneChange(e) {
@@ -35,20 +66,38 @@ class UserIndex extends React.Component {
 
   passtwoChange(e) {
     this.state.passtwo = e.target.value;
-    if(this.state.passtwo !== this.state.passone) {
-      this.setState({text: '密码(密码不一致)'})
-    } else {
-      this.setState({text: '密码'})
-    }
   }
 
-  handleChangePass() {
-    this.setState({open: true});
+  handleChangephone() {
+    this.setState({open2: true});
   }
 
   handleSubmit() {
+    const { dispatch } = this.props;
     const password = this.state.passone;
-    this.setState({open: false})
+    const password2 = this.state.passtwo;
+    const reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
+    if(password !== password2) {
+      alert('密码不一致请重新输入!');
+      return ;
+    }
+    if( reg.test(password) && password.length >= 8) {
+      dispatch(asynUserChange(password));
+    } else {
+      alert('密码强度太低，请至少八位，并包含字母数字')
+    }
+  }
+
+  handleSubmit2() {
+    const { dispatch } = this.props;
+    const phone = this.state.phone;
+    const email = this.state.email;
+    dispatch(asynChangeInfo(phone, email))
+    this.setState({open: false, open1: false, open2: false, phone: '', email: ''})
+  }
+
+  seecoll() {
+    history.push('/collections')
   }
 
   componentDidMount() {
@@ -57,48 +106,73 @@ class UserIndex extends React.Component {
   }
 
   render() {
-    const { userInfo } = this.props;
+    const { userInfo, grades } = this.props;
+    const { sublist } = grades;
+    let count = [], sub = [], pre = [];
+    let array = userInfo.subjectcan.split(',');
+    for ( let i = 1; i < array.length; i++ ) {
+      pre = array[i].split('(');
+      sub.push(pre[0]);
+      count.push(pre[1].split(')')[0]);
+    }
+    let type = "普通用户";
+    if (userInfo.type === 0) {
+      type = "集团用户"
+    } else {
+      type = "普通用户"
+    }
     return (
       <div className={style.userinfo}>
-        <TextField
-          disabled={true}
-          floatingLabelText="姓名"
-          defaultValue="WuHan"
-          floatingLabelStyle={{color: '#000'}}
-          inputStyle={{color: '#000'}}
-        />
-        <div>
-          <TextField
-            disabled={true}
-            floatingLabelText="密码"
-            defaultValue="1234qwer"
-            floatingLabelStyle={{color: '#000'}}
-            inputStyle={{color: '#000'}}
-            type="password"
+        <Card>
+          <CardHeader
+            style={{paddingBottom: 0}}
+            avatar=""
+            title={userInfo.username}
+            subtitle={`${type},${userInfo.school}`}
           />
-          <FlatButton label="修改密码" secondary={true} onClick={this.handleChangePass}/>
-        </div>
-        <List>
-          <ListItem
-            primaryText="已创建试卷"
-            initiallyOpen={false}
-            primaryTogglesNestedList={true}
-            nestedItems=
-              {userInfo.userCreate.map((paper, i) =>
-                <ListItem>
-                  <Link to={`${paper.url}`}>
-                    {paper.name}&nbsp;&nbsp;&nbsp;&nbsp;{paper.time}
-                  </Link>
-                </ListItem>)}
-          />
-          <ListItem
-            initiallyOpen={false}
-            primaryTogglesNestedList={true}>
-            <Link to='/collections'>
-              已收藏试题
-            </Link>
-          </ListItem>
-        </List>
+          <CardText>
+            <div style={{display: 'flex', flexWrap: 'wrap'}}>
+              {sub.map((subject, i) => <Chip style={{margin: 4}} key={i}>
+                <Avatar size={32}>
+                  {count[i]}
+                </Avatar>
+                {subject}
+              </Chip>) }
+            </div>
+            <div style={{display: 'flex', flexWrap: 'wrap'}}>
+              <div>
+                密码: ********
+                <FlatButton label="修改密码" secondary={true} onClick={this.handleChangePass}/>
+              </div>
+              <div>
+                邮箱: {userInfo.email}
+                <FlatButton label="修改邮箱" secondary={true} onClick={this.handleChangemail}/>
+              </div>
+              <div>
+                手机: {userInfo.phoneNum}
+                <FlatButton label="修改手机" secondary={true} onClick={this.handleChangephone}/>
+              </div>
+            </div>
+            <div>
+              已收藏试题: {userInfo.usercollection}
+              <FlatButton label="点击查看" primary={true} onClick={this.seecoll}/>
+            </div>
+            <List>
+            <ListItem
+                primaryText="已创建试卷"
+                initiallyOpen={true}
+                primaryTogglesNestedList={true}
+                nestedItems=
+                  {userInfo.historyPaper.map((paper, i) =>
+                    <ListItem key={i}>
+                      <Link to={`${paper.historyPaperUrl}`}>
+                        {paper.paperName}---------------------
+                      </Link>
+                    </ListItem>)}
+              />
+            </List>
+          </CardText>
+        </Card>
         <Dialog
           title="修改密码"
           actions={[<RaisedButton label="确认修改密码" secondary={true} onClick={this.handleSubmit}/>]}
@@ -112,10 +186,35 @@ class UserIndex extends React.Component {
             onChange={ this.passoneChange }
           /><br />
           <TextField
-            floatingLabelText={this.state.text}
-            password="password"
+            floatingLabelText="确认密码"
+            type="password"
             onChange={ this.passtwoChange }
           /><br />
+        </Dialog>
+        <Dialog
+          title="修改邮箱"
+          actions={[<RaisedButton label="确认修改邮箱" secondary={true} onClick={this.handleSubmit2}/>]}
+          modal={false}
+          open={this.state.open1}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}>
+          <TextField
+            floatingLabelText="邮箱"
+            onChange={ this.emailChange }
+          />
+        </Dialog>
+        <Dialog
+          title="修改手机"
+          actions={[<RaisedButton label="确认修改手机" secondary={true} onClick={this.handleSubmit2}/>]}
+          modal={false}
+          open={this.state.open2}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}>
+          <TextField
+            floatingLabelText="手机"
+            type="password"
+            onChange={ this.phoneChange }
+          />
         </Dialog>
       </div>
     )

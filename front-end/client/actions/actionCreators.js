@@ -41,6 +41,7 @@ export const CLEAR = 'CLEAR';
 export const SUBUSER = 'GETSUBUSER';
 export const CREATESUBUSER = 'CREATESUBUSER';
 export const DELETESUBUSER = 'DELETESUBUSER';
+export const CHANGEUSERINFO = 'CHANGEUSERINFO';
 
 /**
  * 真正与reducer沟通的函数
@@ -252,6 +253,11 @@ export const createSubUser = details => ({
   details
 })
 
+export const changeUserInfo = details => ({
+  type: CHANGEUSERINFO,
+  details
+})
+
 /*
 * 异步动作
 * redux 本身没有异步处理能力, 这里用了中间件thunk
@@ -286,6 +292,23 @@ export const getQuestion = (url, query="?page=1") => dispatch => {
     .then( response => response.json())
     .then( json =>
       dispatch(recevieQuestion(json))
+    )
+};
+
+export const getCollection = (url, query="?page=1") => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then( response => response.json())
+    .then( json => {
+      let userCollection = []
+      for(let i = 0; i < json.length; i++) {
+        userCollection.push(json[i].id)
+      }
+      json = {context: [ ...json], userChosen: [], userCollection}
+      dispatch(recevieQuestion(json))
+      }
     )
 };
 
@@ -609,7 +632,7 @@ export const getTestPaper = () => dispatch => {
 };
 
 export const getOldTestPaper = (query="?paper=1") => dispatch => {
-    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/paper${query}`, {
+    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/testpaper${query}`, {
     method: 'GET',
     credentials: 'include'
   })
@@ -635,6 +658,45 @@ export const finalAction = (array) => dispatch => {
     )
 };
 
+//user change password himself
+export const asynUserChange = (password) => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/user/change`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({password}),
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(json => {
+        if(json.success === 'true') {
+          dispatch(logout(json));
+          history.push('/');
+        }
+      }
+    )
+}
+
+//user change info himself
+export const asynChangeInfo = (email: '', phone: '') => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/user/changeinfo`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({email, phone}),
+    credentials: 'include'
+  })
+    .then(response => response.json())
+    .then(json =>
+      dispatch(changeUserInfo(json))
+    )
+}
+
+//get userinfo of himself
 export const asynRecUserInfo = () => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/user/show`, {
     method: 'GET',
@@ -721,7 +783,6 @@ export const submitModel = (wordtype, subid) => dispatch => {
 };
 
 export const submitWordInfo = (wordInfo) => dispatch => {
-  console.log(wordInfo);
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/combine/auto`, {
     method: 'POST',
     headers: {

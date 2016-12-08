@@ -183,7 +183,6 @@ class UserDetail extends Component {
             {nosub.map((sub, i) =>
               <UnChosenChip key={i} i={i} sub={sub} user={user} onChange={this.handleChange}/>)}
           </div>
-          {/*<RaisedButton label="确认修改" fullWidth={true} secondary={true} onClick={this.handleSubmit}/>*/}
         </Dialog>
       </div>
     )
