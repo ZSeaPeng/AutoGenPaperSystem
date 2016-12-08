@@ -78,11 +78,9 @@ class AutoCombine extends Component {
   };
   onModelChanged = (newModel) => {
     this.setState({model: newModel});
-    console.log(newModel);
   };
   onDiffChanged = (newDiff) => {
     this.setState({diff: newDiff});
-    console.log(newDiff);
   };
   onQuestionChanged = (qId, num) => {
     if (num == 0) {
@@ -90,7 +88,6 @@ class AutoCombine extends Component {
     } else {
       this.state.questions[qId] = num;
     }
-    console.log(this.state.questions);
   };
   onPointChanged = (isChecked, pointId) => {
     if (isChecked) {
@@ -98,7 +95,6 @@ class AutoCombine extends Component {
     } else {
       delete this.state.points[pointId];
     }
-    console.log(this.state.points);
   }
 
   handleSubmit() {

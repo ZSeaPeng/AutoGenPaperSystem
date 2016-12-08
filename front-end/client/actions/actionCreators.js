@@ -783,7 +783,6 @@ export const submitModel = (wordtype, subid) => dispatch => {
 };
 
 export const submitWordInfo = (wordInfo) => dispatch => {
-  console.log(wordInfo);
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/combine/auto`, {
     method: 'POST',
     headers: {
