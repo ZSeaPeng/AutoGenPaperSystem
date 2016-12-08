@@ -7,4 +7,6 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.Paper;
  */
 public interface PaperService {
     int insertSelective(Paper record);
+
+    Paper selectByPrimaryKey(Integer paperId);
 }

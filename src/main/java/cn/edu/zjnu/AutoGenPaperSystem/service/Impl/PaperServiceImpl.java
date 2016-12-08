@@ -21,4 +21,9 @@ public class PaperServiceImpl implements PaperService {
         record.setGeneratime(new Date());
         return paperMapper.insertSelective(record);
     }
+
+    @Override
+    public Paper selectByPrimaryKey(Integer paperId) {
+        return paperMapper.selectByPrimaryKey(paperId);
+    }
 }

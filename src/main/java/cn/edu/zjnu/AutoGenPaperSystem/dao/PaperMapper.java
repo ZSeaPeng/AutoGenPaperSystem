@@ -18,4 +18,6 @@ public interface PaperMapper {
     int updateByPrimaryKeyWithBLOBs(Paper record);
 
     int updateByPrimaryKey(Paper record);
+
+   // pap
 }

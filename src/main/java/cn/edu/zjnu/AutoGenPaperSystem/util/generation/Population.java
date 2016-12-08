@@ -1,6 +1,5 @@
 package cn.edu.zjnu.AutoGenPaperSystem.util.generation;
 
-import cn.edu.zjnu.AutoGenPaperSystem.service.Impl.QuestionsServiceImpl;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +22,8 @@ public class Population {
     public Population(int i, boolean b, RuleBean ruleBean) {
     }
 
+    public Population() {
+    }
 
     /**
      * 初始种群
