@@ -1,13 +1,12 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
-import cn.edu.zjnu.AutoGenPaperSystem.model.QuestionsJson;
 import cn.edu.zjnu.AutoGenPaperSystem.service.PaperService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zseapeng on 2016/12/8.
@@ -23,7 +22,7 @@ public class TestPaperController {
     private PaperService paperServiceImpl;
 
     @RequestMapping(value = "/testpaper", method = RequestMethod.GET)
-    public List<QuestionsJson> getQuestion(@RequestParam int paper) {
+    public Map getQuestion(@RequestParam int paper) {
 
 
         return paperServiceImpl.getListQuestions(paper);

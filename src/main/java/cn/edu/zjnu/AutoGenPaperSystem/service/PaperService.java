@@ -1,9 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.service;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.Paper;
-import cn.edu.zjnu.AutoGenPaperSystem.model.QuestionsJson;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zseapeng on 2016/11/25.
@@ -15,5 +15,5 @@ public interface PaperService {
 
     List<Paper> selectByUserId(int userid);
 
-    List<QuestionsJson> getListQuestions(int paperId);
+    Map getListQuestions(int paperId);
 }
