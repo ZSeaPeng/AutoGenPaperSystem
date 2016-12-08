@@ -1,5 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.service;
 
+import cn.edu.zjnu.AutoGenPaperSystem.model.QuestionsJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 
 import java.util.List;
@@ -40,4 +41,6 @@ public interface UserService  {
     User selectUserByUserName(String userName);
 
     Map selectUserChosenByUSerId(int userId, String type, String subName);
+
+    List<QuestionsJson>  selectColleltionByUserId (int userId);
 }

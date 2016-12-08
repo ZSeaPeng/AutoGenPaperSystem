@@ -34,7 +34,7 @@ public class UserController {
         user.setUserpassword(password);
         user.setAdd(new ArrayList());
         if (userServiceImpl.updateByPrimaryKeySelective(user) != 0) {
-            return "{\"success\":\"ture\"}";
+            return "{\"success\":\"true\"}";
         }
         return "{\"success\":\"false\"}";
     }
@@ -47,6 +47,5 @@ public class UserController {
         userServiceImpl.updateByPrimaryKeySelective(user);
         return userServiceImpl.selectByPrimaryKey(userid);
     }
-
 
 }

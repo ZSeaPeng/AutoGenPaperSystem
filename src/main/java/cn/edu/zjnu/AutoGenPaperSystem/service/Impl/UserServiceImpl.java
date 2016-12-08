@@ -256,6 +256,25 @@ public class UserServiceImpl implements UserService {
 
         return lastMap;
     }
+
+    @Override
+    public List<QuestionsJson> selectColleltionByUserId(int userId) {
+        String collectionTemp = userMapper.selectColleltionByUserId(userId);
+        String[] quesId = collectionTemp.split(",");
+        List<QuestionsJson> collectionList = new ArrayList();
+        collectionList.clear();
+        for (String s:quesId){
+            if (!s.equals("0")){
+                Questions questions = questionsMapper.selectByPrimaryKey(Integer.valueOf(s));
+                QuestionsJson questionsJson = new QuestionsJson();
+                questionsJson.setId(questions.getQuestionsId());
+                questionsJson.setAurl(questions.getAnswerPic_URL());
+                questionsJson.setQurl(questions.getQuesPic_URL());
+                collectionList.add(questionsJson);
+            }
+        }
+        return collectionList;
+    }
 }
 
 
