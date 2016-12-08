@@ -283,7 +283,6 @@ public class UserServiceImpl implements UserService {
         int collectionnum = user.getUsercollection().split(",").length - 1;
         user.setUsercollection(String.valueOf(collectionnum));
         List<Paper> paperList = paperMapper.selectByUserId(userId);
-        System.out.print("paperList.size()---"+paperList.size());
         if (paperList.size() != 0) {
             List<PaperJson> paperJsonList = new ArrayList<>();
             paperJsonList.clear();
@@ -292,7 +291,9 @@ public class UserServiceImpl implements UserService {
                 paperJson.setHistoryPaperUrl("/testpaper?paper=" + p.getPaperId());
                 paperJson.setPaperName(p.getPaperName());
                 paperJson.setPaperId(p.getPaperId());
+                paperJson.setPaperDate(p.getGeneratime());
                 paperJsonList.add(paperJson);
+
             }
 
             user.setHistoryPaper(paperJsonList);

@@ -33,7 +33,6 @@ public class Paper {
         this.userId = userId;
         this.generatime = generatime;
         this.paperName = paperName;
-       // this.paperhex = paperhex;
         this.isDelete = isDelete;
     }
 

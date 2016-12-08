@@ -45,7 +45,7 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     public Questions selectByPrimaryKey(Integer questionsId) {
-        return null;
+        return questionsMapper.selectByPrimaryKey(questionsId);
     }
 
     public int updateByPrimaryKeySelective(Questions record) {
