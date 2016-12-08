@@ -295,6 +295,23 @@ export const getQuestion = (url, query="?page=1") => dispatch => {
     )
 };
 
+export const getCollection = (url, query="?page=1") => dispatch => {
+  return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api${url}/question${query}`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then( response => response.json())
+    .then( json => {
+      let userCollection = []
+      for(let i = 0; i < json.length; i++) {
+        userCollection.push(json[i].id)
+      }
+      json = {context: [ ...json], userChosen: [], userCollection}
+      dispatch(recevieQuestion(json))
+      }
+    )
+};
+
 //对应userList()
 export const getUserList = () => dispatch => {
   return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/admin/userlist', {
@@ -615,7 +632,7 @@ export const getTestPaper = () => dispatch => {
 };
 
 export const getOldTestPaper = (query="?paper=1") => dispatch => {
-    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/paper${query}`, {
+    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/testpaper${query}`, {
     method: 'GET',
     credentials: 'include'
   })
@@ -653,13 +670,17 @@ export const asynUserChange = (password) => dispatch => {
     credentials: 'include'
   })
     .then(response => response.json())
-    .then(json =>
-      console.log(json)
+    .then(json => {
+        if(json.success === 'true') {
+          dispatch(logout(json));
+          history.push('/');
+        }
+      }
     )
 }
 
 //user change info himself
-export const asynUserChangeInfo = (email: '', phone: '') => dispatch => {
+export const asynChangeInfo = (email: '', phone: '') => dispatch => {
   return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/user/changeinfo`, {
     method: 'POST',
     headers: {

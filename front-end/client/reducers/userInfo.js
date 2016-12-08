@@ -8,7 +8,8 @@ function userInfo(state={
   phoneNum: '',
   type: 1,
   school: '',
-  downloadable: 0
+  downloadable: 0,
+  historyPaper: []
 }, action) {
   switch(action.type) {
     case RECEIVE_USERINFO:
@@ -20,7 +21,8 @@ function userInfo(state={
         phoneNum: action.details.phonenum,
         type: action.details.commanagerId,
         school: action.details.school,
-        downloadable: action.details.downloadable
+        downloadable: action.details.downloadable,
+        historyPaper: [...action.details.historyPaper]
       };
     case CHANGEUSERINFO:
       return {
@@ -31,7 +33,8 @@ function userInfo(state={
         phoneNum: action.details.phonenum,
         type: action.details.commanagerId,
         school: action.details.school,
-        downloadable: action.details.downloadable
+        downloadable: action.details.downloadable,
+        historyPaper: [...action.details.historyPaper]
       }
     default:
       return state;
