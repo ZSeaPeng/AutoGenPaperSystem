@@ -10,6 +10,15 @@
 			<arg column="isDelete" jdbcType="INTEGER" javaType="Integer"/>
 		</constructor>
 	</resultMap>
+	<resultMap id="KnowledgeLists" type="cn.edu.zjnu.AutoGenPaperSystem.model.KnowledgeList">
+        <constructor>
+            <arg column="a.Knowledge_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="b.Knowledge_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="c.Knowledge_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="d.Knowledge_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="Subject_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        </constructor>
+	</resultMap>
 	<sql id="Base_Column_List">
     Knowledge_ID, Knowledge_name, Subject_ID, Superior_ID,isDelete,
   </sql>
@@ -38,6 +47,12 @@
     FROM knowledge
     WHERE Superior_ID = #{knowId1} and isDelete = 0
   </select>
+
+	<select id="selectKnowledgeList" resultMap="KnowledgeLists" parameterType="java.lang.String">
+		SELECT a.Knowledge_ID,b.Knowledge_ID,c.Knowledge_ID,d.Knowledge_ID,a.Subject_ID
+		FROM knowledge a,knowledge b,knowledge c,knowledge d
+		WHERE a.Knowledge_name=#{name} AND b.Knowledge_ID=a.Superior_ID AND c.Knowledge_ID=b.Superior_ID AND d.Knowledge_ID=c.Superior_ID
+	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from knowledge
