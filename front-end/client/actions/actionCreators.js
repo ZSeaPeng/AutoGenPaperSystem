@@ -632,7 +632,7 @@ export const getTestPaper = () => dispatch => {
 };
 
 export const getOldTestPaper = (query="?paper=1") => dispatch => {
-    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/testpaper${query}`, {
+    return fetch(`http://104.236.165.244:8111/AutoGenPaperSystem/api/history/testpaper${query}`, {
     method: 'GET',
     credentials: 'include'
   })

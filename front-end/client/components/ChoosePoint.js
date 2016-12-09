@@ -26,9 +26,21 @@ class ChoosePoint extends Component {
   constructor (props) {
     super(props);
     this.handleCheck = this.handleCheck.bind(this);
+    this.state = {
+      isChecked : false,
+      value : props.value
+    };
   };
-  handleCheck(e){
+  componentWillReceiveProps(nextProps) {
+    if (this.props.value != this.state.value) {
+      this.setState({value: this.props.value,
+                     isChecked: false
+                   });
+    }
+  }
 
+  handleCheck(e){
+    this.setState({isChecked: !this.state.isChecked});
     var isChecked = e.target.checked;
     var pointId = e.target.name;
     this.props.callback(isChecked, pointId);
@@ -38,7 +50,7 @@ class ChoosePoint extends Component {
     this.props.callback(isChecked, pointId);
   }
   render() {
-    const { point, pointValue, pId } = this.props;
+    const { point, pointValue, pId, value } = this.props;
     var style = {};
     if (parseInt(pointValue) === parseInt(pId)) {
       style = { display: 'block' }
@@ -47,10 +59,11 @@ class ChoosePoint extends Component {
     }
     var isEmpty = point.sublist === 0;
     return (
-      <div style={style}>
+      <div >
         {isEmpty ?
-          <div>
+          <div style={style}>
             <Checkbox
+              checked={this.state.isChecked}
               name={point.id}
               label={point.name}
               style={styles.checkbox}
@@ -58,15 +71,24 @@ class ChoosePoint extends Component {
             />
           </div>
           :
-          <div>
+          <div style={style}>
             <Checkbox
+              checked={this.state.isChecked}
               name={point.id}
               label={point.name}
               style={styles.checkbox}
               onCheck={this.handleCheck}
             />
-            {point.pointList.map((point, i) =>
-              <ChoosePoint point={point} key={i} pId={100} callback={this.onPointChanged}/>)}
+            {point.pointList.map((subpoint, i) =>
+              <ChoosePoint
+                pointValue={pId}
+                point={subpoint}
+                key={i}
+                pId={pId}
+                callback={this.onPointChanged}
+                value={value}
+                />
+              )}
           </div>
         }
 

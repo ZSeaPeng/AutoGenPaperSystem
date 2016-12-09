@@ -121,6 +121,8 @@ class UserIndex extends React.Component {
     } else {
       type = "普通用户"
     }
+    const isNormal = userInfo.type === 0;
+    console.log(isNormal)
     return (
       <div className={style.userinfo}>
         <Card>
@@ -153,10 +155,13 @@ class UserIndex extends React.Component {
                 <FlatButton label="修改手机" secondary={true} onClick={this.handleChangephone}/>
               </div>
             </div>
-            <div>
-              已收藏试题: {userInfo.usercollection}
-              <FlatButton label="点击查看" primary={true} onClick={this.seecoll}/>
-            </div>
+            {isNormal
+              ? null
+              : <div>
+                已收藏试题: {userInfo.usercollection}
+                <FlatButton label="点击查看" primary={true} onClick={this.seecoll}/>
+              </div>
+            }
             <List>
             <ListItem
                 primaryText="已创建试卷"
@@ -166,7 +171,7 @@ class UserIndex extends React.Component {
                   {userInfo.historyPaper.map((paper, i) =>
                     <ListItem key={i}>
                       <Link to={`${paper.historyPaperUrl}`}>
-                        {paper.paperName}---------------------
+                        {paper.paperName}---------------------{paper.paperDate}
                       </Link>
                     </ListItem>)}
               />

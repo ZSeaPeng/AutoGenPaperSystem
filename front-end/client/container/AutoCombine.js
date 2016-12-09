@@ -56,9 +56,11 @@ class AutoCombine extends Component {
       model: "1",
       diff: "3",
       questions: {},
-      points: {}
+      points: {},
+      courseChanged: false
     };
   };
+
   handleChange = (event, index, pointValue) => {
       this.setState({pointValue});
   };
@@ -73,7 +75,7 @@ class AutoCombine extends Component {
     dispatch(getSelect(path));
     this.setState({value: newValue,
                    questions: {},
-                   points: {},
+                   points: {}
                  });
   };
   onModelChanged = (newModel) => {
@@ -159,6 +161,7 @@ class AutoCombine extends Component {
                 point={point}
                 pointValue={this.state.pointValue}
                 callback={this.onPointChanged}
+                value={this.state.value}
                 />
             )
            }

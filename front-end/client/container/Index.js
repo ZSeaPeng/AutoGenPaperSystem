@@ -9,6 +9,11 @@ let Slider = require('react-slick');
 import News from '../components/News';
 import SignUp from '../components/SignUp';
 
+import imgSrc1 from '../img/banner.jpg';
+import imgSrc2 from '../img/banner12.jpg';
+import imgSrc3 from '../img/banner8.jpg';
+import imgSrc4 from '../img/banner7.jpg';
+
 //add actions
 import { asynLogin } from '../actions/actionCreators'
 
@@ -52,10 +57,10 @@ class Index extends Component {
           : <div>
             <div style={style}>
             <Slider  {...settings}>
-              <div><img src='http://placekitten.com/g/400/200' /></div>
-              <div><img src='http://placekitten.com/g/400/200' /></div>
-              <div><img src='http://placekitten.com/g/400/200' /></div>
-              <div><img src='http://placekitten.com/g/400/200' /></div>
+              <div><img src={imgSrc1} style={{width: '100%', height: '100%'}} /></div>
+              <div><img src={imgSrc2} style={{width: '100%', height: '100%'}} /></div>
+              <div><img src={imgSrc3} style={{width: '100%', height: '100%'}} /></div>
+              <div><img src={imgSrc4} style={{width: '100%', height: '100%'}} /></div>
             </Slider>
             </div>
             <News news={ update }/>
