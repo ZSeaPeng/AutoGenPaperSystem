@@ -6,7 +6,6 @@ function grades(state = {
     userid: -1,
     error: "",
     username: ""
-    // img: []
 }, action) {
   switch (action.type) {
     case RECEIVE_INITIAL_STATE:
@@ -15,7 +14,6 @@ function grades(state = {
         update: [ ...action.posts.update ],
         userid: action.posts.userid,
         error: ""
-        // img: [ ...action.posts.img ]
       };
     case LOGIN:
       return {
