@@ -145,4 +145,6 @@ public class GA {
         }
         return pop.getFitness();
     }
+
+
 }

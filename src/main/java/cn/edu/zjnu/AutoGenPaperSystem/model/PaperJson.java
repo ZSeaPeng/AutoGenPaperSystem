@@ -1,5 +1,7 @@
 package cn.edu.zjnu.AutoGenPaperSystem.model;
 
+import java.util.Date;
+
 /**
  * Created by zseapeng on 2016/12/8.
  */
@@ -7,6 +9,7 @@ public class PaperJson {
     private String historyPaperUrl;
     private String paperName;
     private long paperId;
+    private Date paperDate;
 
     public PaperJson() {
     }
@@ -44,5 +47,13 @@ public class PaperJson {
 
     public void setPaperId(long paperId) {
         this.paperId = paperId;
+    }
+
+    public Date getPaperDate() {
+        return paperDate;
+    }
+
+    public void setPaperDate(Date paperDate) {
+        this.paperDate = paperDate;
     }
 }

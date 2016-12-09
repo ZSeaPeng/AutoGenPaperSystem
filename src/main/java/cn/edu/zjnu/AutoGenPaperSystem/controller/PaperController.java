@@ -37,7 +37,7 @@ public class PaperController {
         return userServiceImpl.selectUserChosenByUSerId(userid, type, subName);
     }
 
-    @RequestMapping(value = "/paperlist", method = RequestMethod.POST)
+    @RequestMapping(value = "/makepaper", method = RequestMethod.POST)
     public void getPaperList(@RequestBody Integer[] paperlist, @ModelAttribute("userid") Integer userid) {
         User user = userServiceImpl.selectByPrimaryKey(userid);
         user.setUserchosen("0");

@@ -34,11 +34,9 @@
 	<sql id="Blob_Column_List">
     PaperHex
   </sql>
-	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+	<select id="selectByPrimaryKey" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" parameterType="java.lang.Integer">
 		select
-		<include refid="Base_Column_List"/>
-		,
-		<include refid="Blob_Column_List"/>
+		*
 		from Paper
 		where PaperID = #{paperId,jdbcType=INTEGER} and isDelete = 0
 	</select>
