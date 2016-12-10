@@ -140,7 +140,7 @@
                 Content,
             </if>
             <if test="quesPic_URL != null">
-                QusePic_URL,
+                QuesPic_URL,
             </if>
             <if test="subjectId != null">
                 Subject_ID,

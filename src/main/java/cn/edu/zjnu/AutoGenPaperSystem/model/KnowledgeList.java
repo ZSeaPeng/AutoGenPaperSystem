@@ -14,6 +14,9 @@ public class KnowledgeList {
 
     private Integer subjectId;
 
+    public KnowledgeList() {
+    }
+
     public KnowledgeList(Integer knowledgeId1, Integer knowledgeId2, Integer knowledgeId3, Integer knowledgeId4, Integer subjectId) {
         this.knowledgeId1 = knowledgeId1;
         this.knowledgeId2 = knowledgeId2;
@@ -60,5 +63,16 @@ public class KnowledgeList {
 
     public void setKnowledgeId4(Integer knowledgeId4) {
         this.knowledgeId4 = knowledgeId4;
+    }
+
+    @Override
+    public String toString() {
+        return "KnowledgeList{" +
+                "knowledgeId1=" + knowledgeId1 +
+                ", knowledgeId2=" + knowledgeId2 +
+                ", knowledgeId3=" + knowledgeId3 +
+                ", knowledgeId4=" + knowledgeId4 +
+                ", subjectId=" + subjectId +
+                '}';
     }
 }

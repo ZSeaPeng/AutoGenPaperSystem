@@ -41,7 +41,7 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     public int insertSelective(Questions record) {
-        return 0;
+        return questionsMapper.insertSelective(record);
     }
 
     public Questions selectByPrimaryKey(Integer questionsId) {

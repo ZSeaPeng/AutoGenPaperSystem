@@ -3,6 +3,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.service.Impl;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.KnowledgeMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge;
 import cn.edu.zjnu.AutoGenPaperSystem.model.KnowledgeJson;
+import cn.edu.zjnu.AutoGenPaperSystem.model.KnowledgeList;
 import cn.edu.zjnu.AutoGenPaperSystem.service.KnowledgeService;
 import org.springframework.stereotype.Service;
 
@@ -109,6 +110,11 @@ public class KnowledgeServiceImpl implements KnowledgeService {
     @Override
     public Map<String, Integer> selectKnowledgeById(Integer id) {
         return knowledgeMapper.selectKnowledgeById(id);
+    }
+
+    @Override
+    public List<KnowledgeList> selectKnowledgeList(String name) {
+        return knowledgeMapper.selectKnowledgeList(name);
     }
 
 

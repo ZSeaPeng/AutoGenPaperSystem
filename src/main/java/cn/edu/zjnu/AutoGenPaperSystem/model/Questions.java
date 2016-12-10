@@ -220,4 +220,28 @@ public class Questions {
     public void setAuthor(String author) {
         Author = author;
     }
+
+    @Override
+    public String toString() {
+        return "Questions{" +
+                "questionsId=" + questionsId +
+                ", content='" + content + '\'' +
+                ", quesPic_URL='" + quesPic_URL + '\'' +
+                ", subjectId=" + subjectId +
+                ", knowledgeId1=" + knowledgeId1 +
+                ", knowledgeId2=" + knowledgeId2 +
+                ", knowledgeId3=" + knowledgeId3 +
+                ", knowledgeId4=" + knowledgeId4 +
+                ", typeId=" + typeId +
+                ", difficultyId=" + difficultyId +
+                ", charactId=" + charactId +
+                ", isdelete=" + isdelete +
+                ", Answer='" + Answer + '\'' +
+                ", answerPic_URL='" + answerPic_URL + '\'' +
+                ", updateTime=" + updateTime +
+                ", uploadTime=" + uploadTime +
+                ", types=" + types +
+                ", Author='" + Author + '\'' +
+                '}';
+    }
 }

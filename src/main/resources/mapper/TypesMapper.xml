@@ -24,8 +24,8 @@
     FROM types
     WHERE Subject_ID=#{subjectId}
   </select>
-	<select id="selectIdByName" resultType="java.lang.Integer">
-      SELECT Type_ID FROM types WHERE Type_name = #{name}
+	<select id="selectIdByName" resultType="java.util.Map">
+      SELECT Type_ID FROM types WHERE Type_name = #{name} and Subject_ID = #{subid}
     </select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

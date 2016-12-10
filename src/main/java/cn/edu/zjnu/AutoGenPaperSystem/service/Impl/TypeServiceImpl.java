@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zseapeng on 2016/9/22.
@@ -28,7 +30,7 @@ public class TypeServiceImpl implements TypeService {
     }
 
     public int insertSelective(Types record) {
-        return 0;
+        return typesMapper.insertSelective(record);
     }
 
     public Types selectByPrimaryKey(Integer typeId) {
@@ -59,8 +61,17 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public int selectIdByName(String name) {
-        return typesMapper.selectIdByName(name);
+    public Integer selectIdByName(String name,Integer subid) {
+        Map map = new HashMap();
+        map.put("name",name);
+        map.put("subid",subid);
+        map.clear();
+        Object i = typesMapper.selectIdByName(map);
+
+        if (i==null){
+            i=-1;
+        }
+        return (Integer) i;
     }
 
 
