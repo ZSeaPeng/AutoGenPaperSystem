@@ -1,6 +1,7 @@
 package cn.edu.zjnu.AutoGenPaperSystem.dao;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge;
+import cn.edu.zjnu.AutoGenPaperSystem.model.KnowledgeList;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public interface KnowledgeMapper {
     List<Knowledge> selectFirstKnowledgeBySubjectId(Integer subjectId);
 
     List<Knowledge> selectSecondKnowledgeByKnowId1(Integer knowId1);
+
+    KnowledgeList selectKnowledgeList(String name);
 }
