@@ -20,5 +20,7 @@ public interface TypesMapper {
 
     List<Types> selectTypesBySubjectId(Integer subjectId);
 
+    int selectIdByName(String name);
+
 
 }

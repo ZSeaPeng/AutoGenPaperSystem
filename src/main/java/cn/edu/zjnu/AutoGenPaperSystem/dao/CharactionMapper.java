@@ -19,4 +19,6 @@ public interface CharactionMapper {
     int updateByPrimaryKey(Charaction record);
 
     List<Charaction> selectAllCharat();
+
+    int selectIdByName(String name);
 }

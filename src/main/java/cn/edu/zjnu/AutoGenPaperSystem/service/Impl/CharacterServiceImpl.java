@@ -43,6 +43,11 @@ public class CharacterServiceImpl implements CharacterService {
         return 0;
     }
 
+    @Override
+    public int selectIdByName(String name) {
+        return charactionMapper.selectIdByName(name);
+    }
+
     public List selectAllCharat(Integer subjectId,int gradeId,String subName,String others,String pointId,String t,String d,String c) {
         List<CharactionJson> charactionJsonList=new ArrayList<CharactionJson>();
         List<Charaction> charactionList=charactionMapper.selectAllCharat();

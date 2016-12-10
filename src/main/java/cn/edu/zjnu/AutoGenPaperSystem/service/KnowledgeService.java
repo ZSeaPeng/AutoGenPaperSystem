@@ -29,4 +29,8 @@ public interface KnowledgeService {
     List selectFirstKnowledgeBySubjectId(Integer subjectId,int grade_id,String others,String subName, String pointId,String t,String d,String c);
 
     int updateIsDeleteById(Integer knowledgeId);
+
+    Map<String,Integer> selectKnowledgeByName(String name);
+
+    Map<String,Integer> selectKnowledgeById(Integer id);
 }

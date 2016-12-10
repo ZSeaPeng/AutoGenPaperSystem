@@ -3,7 +3,6 @@ package cn.edu.zjnu.AutoGenPaperSystem.util;
 import org.apache.commons.io.IOUtils;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.xmlbeans.XmlOptions;
 import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.contenttype.ContentType;
 import org.docx4j.openpackaging.io.SaveToZipFile;
@@ -64,7 +63,7 @@ public class MergeDOCX {
 
     private static long chunk = 0;
     private static final String CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    public void mergedocx(List<String> path, String resultPath) throws Exception {
+    public void mergemdocx (List<String> path, String resultPath) throws Exception {
 //        InputStream s1=new FileInputStream("d:/test/试题模板.docx");
 //        InputStream s2=new FileInputStream("d:\\test\\试题模板改测.docx");
         List<byte[]> byteList=new ArrayList<>();

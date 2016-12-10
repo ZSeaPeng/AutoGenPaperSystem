@@ -101,6 +101,16 @@ public class KnowledgeServiceImpl implements KnowledgeService {
         return knowledgeMapper.updateIsDeleteById(knowledgeId);
     }
 
+    @Override
+    public Map<String, Integer> selectKnowledgeByName(String name) {
+        return knowledgeMapper.selectKnowledgeByName(name);
+    }
+
+    @Override
+    public Map<String, Integer> selectKnowledgeById(Integer id) {
+        return knowledgeMapper.selectKnowledgeById(id);
+    }
+
 
     private List getKnowledgeJson(int knowledgeId, int grade_id, String others, String subName, String t, String d, String c, int level, String pointId) {
         List<Knowledge> knowledgeList = knowledgeMapper.selectSecondKnowledgeByKnowId1(knowledgeId);

@@ -58,5 +58,10 @@ public class TypeServiceImpl implements TypeService {
         return typesJsonList;
     }
 
+    @Override
+    public int selectIdByName(String name) {
+        return typesMapper.selectIdByName(name);
+    }
+
 
 }

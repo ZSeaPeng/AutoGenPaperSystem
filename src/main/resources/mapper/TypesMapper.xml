@@ -24,8 +24,11 @@
     FROM types
     WHERE Subject_ID=#{subjectId}
   </select>
+	<select id="selectIdByName" resultType="java.lang.Integer">
+      SELECT Type_ID FROM types WHERE Type_name = #{name}
+    </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from types
     where Type_ID = #{typeId,jdbcType=INTEGER}
   </delete>
