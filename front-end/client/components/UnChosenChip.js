@@ -29,18 +29,18 @@ export default class UnChosenChip extends React.Component {
 
   render() {
     const { sub, user } = this.props;
-    let chip;
+    // let chip;
 
-    if(user.add.indexOf(sub.subid) === -1) {
-      chip = {
-        margin: 4
-      }
-    } else {
-      chip = {
-        margin: 4,
-        backgroundColor: '#00BCD4'
-      }
-    }
+    // if(user.add.indexOf(sub.subid) === -1) {
+    //   chip = {
+    //     margin: 4
+    //   }
+    // } else {
+    //   chip = {
+    //     margin: 4,
+    //     backgroundColor: '#00BCD4'
+    //   }
+    // }
 
     return (
       <TextField
