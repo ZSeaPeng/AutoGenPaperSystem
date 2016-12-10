@@ -23,6 +23,8 @@ a:hover {
 }
 
 .sideStyle {
+  height: 70%;
+  overflow: auto;
   width: 100%;
   position: fixed;
   top: 56px;
