@@ -267,7 +267,14 @@ export const getInitialState = () => dispatch => {
   return fetch('http://104.236.165.244:8111/AutoGenPaperSystem/api/subjectlist')
     .then( response => response.json())
     .then( json =>
+    {
+      if (sessionStorage.getItem('userid') !== null) {
+        json = { ...json, userid: sessionStorage.getItem('userid'), username: sessionStorage.getItem('username') };
+      } else {
+        json = { ...json, username: '' };
+      }
       dispatch(recevieInitialState(json))
+    }
     )
 };
 
@@ -724,6 +731,8 @@ export const asynLogin = (username, password, type) => dispatch => {
         if('error' in json) {
           dispatch(loginError(json))
         } else {
+          window.sessionStorage.setItem('userid', json.userId)
+          window.sessionStorage.setItem('username', json.username)
           dispatch(login(json))
         }
       }
@@ -745,7 +754,9 @@ export const adminLogin = (username, password) => dispatch => {
         if('error' in json) {
           dispatch(loginError(json))
         } else {
-          dispatch(login(json));
+          window.sessionStorage.setItem('userid', 0)
+          window.sessionStorage.setItem('username', json.username)
+          dispatch(login({username: json.username, userId: 0}));
           history.push('/admin')
         }
       }
@@ -759,6 +770,7 @@ export const asynLogout = () => dispatch => {
   })
     .then(response => response.json())
     .then(json => {
+      window.sessionStorage.clear();
       dispatch(logout(json));
       history.push('/')
     })

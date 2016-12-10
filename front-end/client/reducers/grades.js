@@ -13,7 +13,8 @@ function grades(state = {
         sublist: [ ...action.posts.sublist ],
         update: [ ...action.posts.update ],
         userid: action.posts.userid,
-        error: ""
+        error: "",
+        username: action.posts.username
       };
     case LOGIN:
       return {

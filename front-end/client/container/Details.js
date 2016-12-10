@@ -120,10 +120,12 @@ class Details extends Component {
 
     return (
       <div className="main">
-        <div className={styles.sideStyle}>
+        <div className={styles.sideStyle} >
           <List>
             <Subheader style={{width: '100%'}}>全部知识点</Subheader>
+            <div>
             { Points.map((point, i) => <Point point={point} key={i} i={i}/>)}
+            </div>
           </List>
         </div>
         <div style={style.divStyle}>
