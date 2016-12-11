@@ -105,11 +105,18 @@ class AutoCombine extends Component {
     const subject = this.props.sublist[0].contextList[this.state.value].subid;
     const diff = this.state.diff;
     const questions = this.state.questions;
+    const questionId = [];
+    const questionNum = [];
+    for ( var id in questions ) {
+      questionId.push(id);
+      questionNum.push(questions[id]);
+    }
     const points = this.state.points;
     const wordInfo = {wordtype : wordtype,
                       subject : subject,
                       diff : diff,
-                      questions : questions,
+                      questionId : questionId,
+                      questionNum : questionNum,
                       points : points,
                      }
     dispatch(submitWordInfo(wordInfo));
