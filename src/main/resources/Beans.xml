@@ -19,17 +19,22 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<mybatis:scan base-package="cn.edu.zjnu.AutoGenPaperSystem.dao"/>
-
+	<!--<mvn:resources mapping="/upload/question/**" location="/resources/"/>-->
 	<context:annotation-config/>
 	<context:property-placeholder location="classpath*:mysql.properties"/>
-	<context:component-scan base-package="cn.edu.zjnu.AutoGenPaperSystem.**,cn.edu.zjnu.AutoGenPaperSystem.util.generation"/>
+	<context:component-scan
+			base-package="cn.edu.zjnu.AutoGenPaperSystem.**,cn.edu.zjnu.AutoGenPaperSystem.util.generation"/>
 
 	<mvc:cors>
-		<mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
+		<mvc:mapping path="/**" allowed-origins="*" allow-credentials="true" max-age="1800"
+					 allowed-methods="GET,POST,OPTIONS"/>
 	</mvc:cors>
 
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
+
+
+	<!--<mvn:resources mapping="/upload/**" location="/upload/"/>-->
 
 	<mvn:annotation-driven/>
 
@@ -43,7 +48,6 @@
 	</bean>
 
 
-	<!--<mvn:resources mapping="/static/**" location="WEB-INF/jsp"/>-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="suffix" value=".jsp"/>
 		<property name="prefix" value="/WEB-INF/jsp/"/>
@@ -100,18 +104,18 @@
 
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
 	<!--<bean class="cn.edu.zjnu.AutoGenPaperSystem.util.CorsConfigurerAdapter"></bean>-->
 
 	<!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"-->
-		  <!--depends-on="lifecycleBeanPostProcessor">-->
-		<!--<property name="proxyTargetClass" value="true" />-->
+	<!--depends-on="lifecycleBeanPostProcessor">-->
+	<!--<property name="proxyTargetClass" value="true" />-->
 	<!--</bean>-->
 
 	<!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
-		<!--<property name="securityManager" ref="securityManager"/>-->
+	<!--<property name="securityManager" ref="securityManager"/>-->
 	<!--</bean>-->
 
 </beans>
