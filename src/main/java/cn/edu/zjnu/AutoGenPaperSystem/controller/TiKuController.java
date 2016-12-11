@@ -242,9 +242,9 @@ public class TiKuController {
         //----------
 
 
-        searchAll.setTypes_id(0);
-        searchAll.setDiff_id(0);
-        searchAll.setChar_id(0);
+//         searchAll.setTypes_id(0);
+//         searchAll.setDiff_id(0);
+//         searchAll.setChar_id(0);
 
         //========
         HttpSession session = servletRequest.getSession();
