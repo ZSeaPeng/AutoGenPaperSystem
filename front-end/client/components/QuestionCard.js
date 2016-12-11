@@ -52,7 +52,11 @@ export default class QuestionCard extends React.Component {
 
     return (
       <div className={style.Card} onMouseOver={this.handleMouseEnter} onMouseOut={this.handleMouseLeave}>
-        <div>{i + 1}.<img src={`http://${radio.qurl}`} /></div>
+        <div>{i + 1}.
+          <div style={{width: '820px'}}>
+            <img style={{width: '95%', height: '95%'}} src={`http://${radio.qurl}`} />
+          </div>
+        </div>
         <div style={buttonArea}>
           <FlatButton label="删除此题" secondary={true} onClick={this.handleDelete}/>
           {first
