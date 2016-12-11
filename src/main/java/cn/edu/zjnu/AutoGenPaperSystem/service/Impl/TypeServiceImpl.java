@@ -66,7 +66,12 @@ public class TypeServiceImpl implements TypeService {
         map.put("name",name);
         map.put("subid",subid);
         map.clear();
-        return typesMapper.selectIdByName(map);
+        Object i = typesMapper.selectIdByName(map);
+
+        if (i==null){
+            i=-1;
+        }
+        return (Integer) i;
     }
 
 

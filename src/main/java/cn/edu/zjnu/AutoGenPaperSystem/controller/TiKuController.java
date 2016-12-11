@@ -81,7 +81,6 @@ public class TiKuController {
         if (c == null) {
             c = "0";
         }
-       // System.out.println("session.getAttribute(\"userid\")==========="+session.getAttribute("userid"));
         Map<String, List> allMap = new HashMap<String, List>();
         setParam(subjectName, grade_id, point_id);
         List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
@@ -240,6 +239,14 @@ public class TiKuController {
         setParam(subjectName, grade_id, point_id);
         searchAll.setSub_id(this.sub_id);
         searchAll.setKnow_id(Integer.valueOf(this.point_id));
+        //----------
+
+
+        searchAll.setTypes_id(0);
+        searchAll.setDiff_id(0);
+        searchAll.setChar_id(0);
+
+        //========
         HttpSession session = servletRequest.getSession();
         int userid;
         try {

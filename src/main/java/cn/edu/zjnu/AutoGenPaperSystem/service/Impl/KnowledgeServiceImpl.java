@@ -114,6 +114,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 
     @Override
     public List<KnowledgeList> selectKnowledgeList(String name) {
+        System.out.println("service--->"+name);
         return knowledgeMapper.selectKnowledgeList(name);
     }
 

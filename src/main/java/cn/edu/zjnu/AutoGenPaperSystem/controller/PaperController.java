@@ -53,6 +53,21 @@ public class PaperController {
         paper.setQuestionIds(chosenList);
 
         paperServiceImpl.insertSelective(paper);
+
+
+
+    }
+
+    @RequestMapping(value = "/auto", method = RequestMethod.POST)
+    public void getAutoInfo(@RequestBody Map map) {
+        System.out.println("--");
+        System.out.println(map.get("wordtype").toString());
+
+        System.out.println(map.get("subject"));
+        System.out.println(map.get("diff"));
+        System.out.println(map.get("questions"));
+        //System.out.println(map.get("questions"));
+        System.out.println(map.get("points"));
     }
 }
 
