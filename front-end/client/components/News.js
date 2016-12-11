@@ -6,10 +6,12 @@ import {Card, CardText} from 'material-ui/Card';
 
 class News extends Component {
   render() {
-    let { news } = this.props;
+    const { news } = this.props;
+    let updates = [];
     for (let i = 0; i < news.length; i++) {
-      news[i] === [];
-      news = [ ...news.slice(0, i), ...news.slice(i + 1) ]
+      if(news[i].length !== 0) {
+        updates.push(news[i])
+      }
     }
     const style = {
       Card: {
@@ -25,7 +27,7 @@ class News extends Component {
     };
     return (
       <div style={style.div}>
-        { news.map((nee, i) =>
+        { updates.map((nee, i) =>
           <Card style = {style.Card} key={i}>
             <CardText>
               {nee.map((neee, i) =>
