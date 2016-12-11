@@ -241,10 +241,10 @@ public class TiKuController {
         searchAll.setKnow_id(Integer.valueOf(this.point_id));
         //----------
 
-        //
-        //searchAll.setTypes_id(0);
-        //searchAll.setDiff_id(0);
-        //searchAll.setChar_id(0);
+
+//         searchAll.setTypes_id(0);
+//         searchAll.setDiff_id(0);
+//         searchAll.setChar_id(0);
 
         //========
         HttpSession session = servletRequest.getSession();
