@@ -667,7 +667,7 @@ export const finalAction = (array) => dispatch => {
   })
     .then(response => response.json())
     .then(json =>
-      dispatch(getPaper(json));
+      dispatch(getPaper(json))
     )
 };
 
