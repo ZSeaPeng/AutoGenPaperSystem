@@ -241,6 +241,8 @@ public class QuestionsServiceImpl implements QuestionsService {
             questionBean.setDifficulty(dif);
             questionBean.setDifficultId(list.getDifficultyId());
             questionBean.setAnswer(list.getAnswer());
+            questionBean.setAnswerUrl(list.getAnswerPic_URL());
+            questionBean.setQesUrl(list.getQuesPic_URL());
             questionBean.setContent(list.getContent());
             questionBean.setId(list.getQuestionsId());
             questionBean.setCreateTime(list.getUploadTime());
