@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.GradeMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Grade" >
+    <constructor >
+      <idArg column="Grade_ID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Grade_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Grade_ID, Grade_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from grade
+    where Grade_ID = #{gradeId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectAllGrade" resultMap="BaseResultMap">
+    SELECT * FROM grade
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from grade
+    where Grade_ID = #{gradeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Grade" >
+    insert into grade (Grade_ID, Grade_name)
+    values (#{gradeId,jdbcType=INTEGER}, #{gradeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Grade" >
+    insert into grade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gradeId != null" >
+        Grade_ID,
+      </if>
+      <if test="gradeName != null" >
+        Grade_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeName != null" >
+        #{gradeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Grade" >
+    update grade
+    <set >
+      <if test="gradeName != null" >
+        Grade_name = #{gradeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Grade_ID = #{gradeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Grade" >
+    update grade
+    set Grade_name = #{gradeName,jdbcType=VARCHAR}
+    where Grade_ID = #{gradeId,jdbcType=INTEGER}
+  </update>
+</mapper>
