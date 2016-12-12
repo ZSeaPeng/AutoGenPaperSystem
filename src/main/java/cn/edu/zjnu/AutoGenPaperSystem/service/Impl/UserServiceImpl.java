@@ -46,7 +46,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updateByPrimaryKeySelective(User record) {
-        if (record.getUserpassword() != null) {
+        System.out.println("record.getUserpassword()--->"+record.getUserpassword());
+        if (record.getUserpassword()!=null) {
             record.setUserpassword(String.valueOf(new Md5Hash(record.getUserpassword(), record.getUserpassword())));
         }
 
@@ -254,6 +255,8 @@ public class UserServiceImpl implements UserService {
 
         }
         lastMap.put("questions", lastList);
+        lastMap.put("qurl","");
+        lastMap.put("aurl","");
 
         return lastMap;
     }

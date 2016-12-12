@@ -1,12 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.util.generation;
 
 import cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper;
-import cn.edu.zjnu.AutoGenPaperSystem.service.Impl.QuestionsServiceImpl;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by sgt on 2016/12/7.
@@ -31,7 +28,7 @@ public class StartPaper {
     public Paper getPaper(){
         if (ruleBean != null) {
             // 初始化种群
-            System.out.printf(userMapper.selectByPrimaryKey(20).getUsername());
+//            System.out.printf(userMapper.selectByPrimaryKey(20).getUsername());
             Population population = new Population(20, true, ruleBean,questionsServiceImpl);
             System.out.println("初次适应度  " + population.getFitness().getAdaptationDegree());
             while (count < runCount && population.getFitness().getAdaptationDegree() < expand) {

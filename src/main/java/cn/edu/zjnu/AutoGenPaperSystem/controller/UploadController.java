@@ -23,7 +23,7 @@ public class UploadController {
                            @RequestParam(value = "qImg",required = false) MultipartFile qImg,
                            @RequestParam(value = "aImg",required = false) MultipartFile aImg,
                            HttpServletRequest request) throws IOException {
-        String localhost = "http://localhost:8110/AutoGenPaperSystem/api/upload/file/";
+        String localhost = "http://localhost:8111/AutoGenPaperSystem/api/upload/file/";
         File filePath = new File(request.getServletContext().getRealPath("/upload/file"));
         //System.out.println("filePath----"+filePath);
         if (!filePath.exists()){
