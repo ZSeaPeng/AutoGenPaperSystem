@@ -61,7 +61,7 @@ export const recevieInitialState = json => ({
 
 //选题界面的各种选项
 export const recevieSelect = json => ({
-  type: RECEIVE_SELECT,
+  type: RECEIVE_SELECT,  =[[=ijhyvg  ]]
   posts: json
 });
 
