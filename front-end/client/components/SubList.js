@@ -25,6 +25,10 @@ class SubList extends Component{
 
   handleShow() {
     const { point } = this.props;
+    if(point.level >= 3) {
+      alert('已无法添加更多子节点');
+      return;
+    }
     this.props.onChange({id: point.id, type: 'show'})
   }
 

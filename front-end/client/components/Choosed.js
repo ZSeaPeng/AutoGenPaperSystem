@@ -53,6 +53,7 @@ class Choosed extends Component{
             <Subheader style={{paddingLeft: "10px"}} inset={true}>已选题目</Subheader>
                 {newTypes.map((newType, i) =>
                   <ListItem
+                    key={i}
                     disabled={true}
                     leftAvatar={
                       <Avatar

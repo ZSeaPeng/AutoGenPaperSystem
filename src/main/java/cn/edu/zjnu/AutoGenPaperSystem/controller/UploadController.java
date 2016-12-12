@@ -31,6 +31,7 @@ public class UploadController {
         }
         FileCopyUtils.copy(file.getBytes(),new File(filePath+"/"+file.getOriginalFilename()));
         String fileUrl = localhost+file.getOriginalFilename();
+        System.out.println("url-->"+fileUrl);
         return null;
     }
 }

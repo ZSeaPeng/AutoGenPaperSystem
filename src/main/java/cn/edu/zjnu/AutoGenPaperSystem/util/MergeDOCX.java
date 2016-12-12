@@ -3,7 +3,6 @@ package cn.edu.zjnu.AutoGenPaperSystem.util;
 import org.apache.commons.io.IOUtils;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.xmlbeans.XmlOptions;
 import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.contenttype.ContentType;
 import org.docx4j.openpackaging.io.SaveToZipFile;

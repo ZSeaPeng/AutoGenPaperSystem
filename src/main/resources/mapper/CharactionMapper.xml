@@ -22,8 +22,11 @@
     *
     FROM charaction
   </select>
+	<select id="selectIdByName" resultType="java.lang.Integer">
+      SELECT Charact_ID FROM charaction WHERE Charact_name = #{name}
+    </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from charaction
     where Charact_ID = #{charactId,jdbcType=INTEGER}
   </delete>

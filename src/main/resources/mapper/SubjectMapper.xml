@@ -86,7 +86,10 @@
       Grade_ID = #{gradeId,jdbcType=INTEGER}
     where Subject_ID = #{subjectId,jdbcType=INTEGER}
   </update>
-  <update id="updateIsDeleteBySubId">
-    UPDATE subject set isDelete = 1 WHERE Subject_ID = #{subjectId,jdbcType=INTEGER}
+  <update id="updateIsDeleteBySubId" parameterType="java.lang.Integer">
+    UPDATE subject set isDelete = 1 WHERE Subject_ID = #{subId}
+  </update>
+  <update id="updateIsDeleteBySubName">
+    UPDATE subject set isDelete = 1 WHERE Subject_name = #{subName}
   </update>
 </mapper>
