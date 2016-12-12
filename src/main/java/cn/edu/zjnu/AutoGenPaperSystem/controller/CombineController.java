@@ -33,9 +33,17 @@ public class CombineController {
 
     @RequestMapping(value = "/auto",method = RequestMethod.POST)
     public void Auto(@RequestBody Map map){
-        System.out.println(map.get("points").getClass().getName());
+
         String diff = (String) map.get("diff");
-        System.out.println("diff---"+diff);
+        String wordtype = (String) map.get("wordtype");
+        String subject = (String) map.get("subject");
+
+        Map questionsMap = (Map) map.get("questions");
+       // for (Object key:questionsMap.)
+        for (Object qu:questionsMap.values()){
+            System.out.println("qu---->"+qu);
+        }
+
         Map pointsMap = (Map) map.get("points");
         for (Object point:pointsMap.values()){
             System.out.println("point---"+point);

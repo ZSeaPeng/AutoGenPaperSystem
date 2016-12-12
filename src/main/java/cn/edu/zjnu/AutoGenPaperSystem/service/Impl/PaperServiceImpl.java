@@ -23,6 +23,9 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public int insertSelective(Paper record) {
+        if (record.getPaperName()==null){
+            record.setPaperName("test");
+        }
         record.setGeneratime(new Date());
         return paperMapper.insertSelective(record);
     }

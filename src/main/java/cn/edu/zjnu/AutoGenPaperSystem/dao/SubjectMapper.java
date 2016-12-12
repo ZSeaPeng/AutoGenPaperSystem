@@ -24,6 +24,8 @@ public interface SubjectMapper {
 
     int updateIsDeleteBySubId(Integer subId);
 
+    int updateIsDeleteBySubName(String subName);
+
     int updateByPrimaryKey(Subject record);
 
     List<Subject> selectAllSubject();

@@ -34,7 +34,14 @@ public class Paper {
      * 个体包含的试题集合
      */
     private List<QuestionBean> questionList = new ArrayList<QuestionBean>();
-
+    /**
+     * 包含的试题路径集合
+     */
+    private List<String> questionPath = new ArrayList<String>();
+    /**
+     * 包含的答案路径集合
+     */
+    private List<String> answerPath = new ArrayList<String>();
     public Paper(int size) {
         for (int i = 0; i < size; i++) {
             questionList.add(null);
@@ -197,5 +204,19 @@ public class Paper {
 
     public void setDifficulty(double difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public List<String> getQuestionPath() {
+        for (QuestionBean list:questionList){
+            questionPath.add(list.getContent());
+        }
+        return questionPath;
+    }
+
+    public List<String> getAnswerPath() {
+        for (QuestionBean list:questionList){
+            questionPath.add(list.getAnswer());
+        }
+        return answerPath;
     }
 }

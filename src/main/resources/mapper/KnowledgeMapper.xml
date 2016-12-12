@@ -47,6 +47,13 @@
     FROM knowledge
     WHERE Superior_ID = #{knowId1} and isDelete = 0
   </select>
+	<select id="selectKnowledgeByName" resultType="java.util.HashMap">
+		SELECT Superior_ID,Knowledge_ID FROM knowledge WHERE Knowledge_name = #{name}
+	</select>
+	<select id="selectKnowledgeById" resultType="java.util.Map">
+		SELECT Superior_ID,Knowledge_ID FROM knowledge WHERE Knowledge_ID = #{id}
+	</select>
+
 
 	<select id="selectKnowledgeList" resultMap="KnowledgeLists" parameterType="java.lang.String">
 		SELECT a.Knowledge_ID,b.Knowledge_ID,c.Knowledge_ID,d.Knowledge_ID,a.Subject_ID

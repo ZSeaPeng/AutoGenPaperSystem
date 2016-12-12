@@ -67,7 +67,9 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public int updateIsDeleteBySubId(Integer subId) {
-        return subjectMapper.updateIsDeleteBySubId(subId);
+        System.out.println("subId-->"+subId);
+        System.out.println(subjectMapper.updateIsDeleteBySubId(subId));
+        return 1;
     }
 
     public List selectAllSubject() {
@@ -122,5 +124,10 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public int selectBysubName(String subName) {
         return subjectMapper.selectBysubName(subName);
+    }
+
+    @Override
+    public int updateIsDeleteBySubName(String subName) {
+        return subjectMapper.updateIsDeleteBySubName(subName);
     }
 }

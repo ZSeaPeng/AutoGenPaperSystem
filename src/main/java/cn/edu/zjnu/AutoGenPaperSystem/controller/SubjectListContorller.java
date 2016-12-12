@@ -3,13 +3,14 @@ package cn.edu.zjnu.AutoGenPaperSystem.controller;
 import cn.edu.zjnu.AutoGenPaperSystem.model.UpdateInfoJson;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
+import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -19,25 +20,27 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/api/subjectlist")
 @ResponseBody
-//@SessionAttributes("userid")
+@SessionAttributes("userid")
 public class SubjectListContorller {
 
     @Resource
     private SubjectService subjectServiceImpl;
     @Resource
     private QuestionsService questionsServiceImpl;
+    @Resource
+    private UserService userServiceImpl;
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public Map getSubjectList(HttpServletRequest httpServletRequest) {
-       HttpSession session = httpServletRequest.getSession();
+    public Map getSubjectList(HttpSession session) {
+        //HttpSession session = httpServletRequest.getSession();
         int userid;
         try {
             userid = (Integer) session.getAttribute("userid");
             //System.out.println("session1111===="+userid);
-        }catch (Exception e){
+        } catch (Exception e) {
             userid = -1;
-            //System.out.println(e.toString());
+            System.out.println(e.toString());
             //System.out.println("Exception===="+userid);
         }
 
@@ -77,7 +80,13 @@ public class SubjectListContorller {
         map.put("sublist", subList);
         map.put("update", updatesubList);
         //System.out.println("useridError====="+userid);
-        map.put("userid",userid);
+        System.out.println("subUserId--->"+userid);
+        map.put("userid", userid);
+        String name = "null";
+        if (userid != -1) {
+           name = userServiceImpl.selectByPrimaryKey(userid).getUsername();
+        }
+        map.put("username", name);
         return map;
     }
 

@@ -55,7 +55,8 @@ class Paper extends Component {
       })
       document.documentElement.style.overflow='hidden';
     } else {
-
+      this.setState({style: { display: 'none' },open: 'true'});
+      document.documentElement.style.overflow='auto';
     }
   }
 

@@ -79,8 +79,8 @@ public class AdminOperateController {
     }
 
     @RequestMapping(value = "/deletecourse", method = RequestMethod.POST)
-    public List deleteCourse(Integer subid, @ModelAttribute("adminpassword") String password) {
-        if (subjectServiceImpl.updateIsDeleteBySubId(subid) == 0) {
+    public List deleteCourse(String subName, @ModelAttribute("adminpassword") String password) {
+        if (subjectServiceImpl.updateIsDeleteBySubName(subName) == 0) {
             return null;
         }
         return subjectServiceImpl.selectAllSubjectOnAdmin();

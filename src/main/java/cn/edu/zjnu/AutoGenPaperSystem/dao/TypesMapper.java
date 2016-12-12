@@ -4,6 +4,8 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.Types;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface TypesMapper {
     int deleteByPrimaryKey(Integer typeId);
@@ -19,6 +21,8 @@ public interface TypesMapper {
     int updateByPrimaryKey(Types record);
 
     List<Types> selectTypesBySubjectId(Integer subjectId);
+
+    Integer selectIdByName(Map map);
 
 
 }

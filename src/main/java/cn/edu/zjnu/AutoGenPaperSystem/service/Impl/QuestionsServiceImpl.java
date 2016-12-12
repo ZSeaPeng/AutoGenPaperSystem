@@ -41,7 +41,7 @@ public class QuestionsServiceImpl implements QuestionsService {
     }
 
     public int insertSelective(Questions record) {
-        return 0;
+        return questionsMapper.insertSelective(record);
     }
 
     public Questions selectByPrimaryKey(Integer questionsId) {
@@ -109,7 +109,7 @@ public class QuestionsServiceImpl implements QuestionsService {
     @Override
     public List selectUploadTime() {
         List<Questions> questionses = questionsMapper.selectUploadTime();
-        Subject subject;
+        Subject subject = null;
         List<UpdateInfoJson> updateInfoJsonList = new ArrayList<UpdateInfoJson>();
         int i = 0, p = 0;
         int year = 0, month = 0, date = 0;
@@ -127,8 +127,10 @@ public class QuestionsServiceImpl implements QuestionsService {
                     j++;
                     p = j;
                     subject = subjectMapper.selectByPrimaryKey(list.getSubjectId());
-                    updateInfoJson.setSub(subject.getSubjectName());
-                    updateInfoJson.setDate(list.getUploadTime().toString());
+                    if (subject !=null){
+                        updateInfoJson.setSub(subject.getSubjectName());
+                        updateInfoJson.setDate(list.getUploadTime().toString());
+                    }
                     try {
                         int y = year + 1900, m = month + 1;
                         updateInfoJson.setUrl("/updateinfo/" + y + "" + m + "" + list.getUploadTime().getDate() + "/" + PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId());
@@ -150,15 +152,18 @@ public class QuestionsServiceImpl implements QuestionsService {
                     s[p] = list.getSubjectId();
                     p++;
                     subject = subjectMapper.selectByPrimaryKey(list.getSubjectId());
-                    updateInfoJson.setSub(subject.getSubjectName());
-                    updateInfoJson.setDate(list.getUploadTime().toString());
-                    try {
-                        int y = year + 1900, m = month + 1;
-                        updateInfoJson.setUrl("/updateinfo/" + y + "" + m + "" + list.getUploadTime().getDate() + "/" + PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId());
-                    } catch (PinyinException e) {
-                        e.printStackTrace();
-                    }
-                    updateInfoJsonList.add(updateInfoJson);
+                   if (subject!=null){
+                       updateInfoJson.setSub(subject.getSubjectName());
+                       updateInfoJson.setDate(list.getUploadTime().toString());
+                       try {
+                           int y = year + 1900, m = month + 1;
+                           updateInfoJson.setUrl("/updateinfo/" + y + "" + m + "" + list.getUploadTime().getDate() + "/" + PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId());
+                       } catch (PinyinException e) {
+                           e.printStackTrace();
+                       }
+                       updateInfoJsonList.add(updateInfoJson);
+                   }
+
                 }
                 else {
                     continue;
@@ -236,6 +241,8 @@ public class QuestionsServiceImpl implements QuestionsService {
             questionBean.setDifficulty(dif);
             questionBean.setDifficultId(list.getDifficultyId());
             questionBean.setAnswer(list.getAnswer());
+            questionBean.setAnswerUrl(list.getAnswerPic_URL());
+            questionBean.setQesUrl(list.getQuesPic_URL());
             questionBean.setContent(list.getContent());
             questionBean.setId(list.getQuestionsId());
             questionBean.setCreateTime(list.getUploadTime());

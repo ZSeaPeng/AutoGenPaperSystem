@@ -29,4 +29,6 @@ public interface SubjectService {
     List<Subject> selectByGradeId(int id);
 
     int selectBysubName(String subName);
+
+    int updateIsDeleteBySubName(String subName);
 }

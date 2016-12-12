@@ -31,7 +31,6 @@ class PaperChoosed extends React.Component{
       }
     }
     this.props.onChange(array);
-    // dispatch(finalAction(array));
   }
 
   render() {

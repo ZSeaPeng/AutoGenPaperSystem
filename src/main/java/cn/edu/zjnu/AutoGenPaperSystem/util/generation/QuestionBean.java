@@ -12,7 +12,7 @@ public class QuestionBean {
      */
     private long id;
     /**
-     * 题目类型 1-单选  2-填空 3-主观
+     * 题目类型
      */
     private int typeId;
     /**
@@ -32,9 +32,17 @@ public class QuestionBean {
      */
     private String content;
     /**
+     * 题干图片
+     */
+    private String qesUrl;
+    /**
      * 答案
      */
     private String answer;
+    /**
+     * 答案图片
+     */
+    private String answerUrl;
 //    /**
 //     * 出题人id
 //     */
@@ -106,6 +114,22 @@ public class QuestionBean {
 //    public void setUserId(long userId) {
 //        this.userId = userId;
 //    }
+
+    public String getQesUrl() {
+        return qesUrl;
+    }
+
+    public void setQesUrl(String qesUrl) {
+        this.qesUrl = qesUrl;
+    }
+
+    public String getAnswerUrl() {
+        return answerUrl;
+    }
+
+    public void setAnswerUrl(String answerUrl) {
+        this.answerUrl = answerUrl;
+    }
 
     public Timestamp getCreateTime() {
         return createTime;
