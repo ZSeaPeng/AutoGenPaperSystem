@@ -64,19 +64,16 @@ public class MergeDOCX {
 
     private static long chunk = 0;
     private static final String CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    public void mergedocx(List<String> path, String resultPath) throws Exception {
-//        InputStream s1=new FileInputStream("d:/test/试题模板.docx");
-//        InputStream s2=new FileInputStream("d:\\test\\试题模板改测.docx");
+    public static void mergedocx(WordprocessingMLPackage target,List<String> path) throws Exception {
         List<byte[]> byteList=new ArrayList<>();
-        OutputStream os=new FileOutputStream(resultPath);
-        for (int i=1;i<path.size();i++){
+        for (int i=0;i<path.size();i++){
             InputStream src=new FileInputStream(path.get(i));
             byteList.add(IOUtils.toByteArray(src));
         }
-        WordprocessingMLPackage target = WordprocessingMLPackage.load(new FileInputStream(path.get(0)));
+//        WordprocessingMLPackage target = WordprocessingMLPackage.load(new FileInputStream(path.get(0)));
         insertDocx(target.getMainDocumentPart(), byteList);
-        SaveToZipFile saver = new SaveToZipFile(target);
-        saver.save(os);
+//        SaveToZipFile saver = new SaveToZipFile(target);
+//        saver.save(os);
     }
     private static void insertDocx(MainDocumentPart main, List<byte[]> bytes) throws Exception {
         for (byte[] list:bytes){
