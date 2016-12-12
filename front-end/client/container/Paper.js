@@ -4,9 +4,10 @@ import styles from '../style/QuestionCard.css';
 import store, { history } from '../store';
 import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 
 //import action
-import { getOldTestPaper, getTestPaper, paperDown, paperUp, paperDelete, paperUup, paperDdown } from '../actions/actionCreators';
+import { getOldTestPaper, getTestPaper, paperDown, paperUp, paperDelete, paperUup, paperDdown, finalAction } from '../actions/actionCreators';
 
 //component
 import QuestionCard from '../components/QuestionCard';
@@ -19,10 +20,12 @@ class Paper extends Component {
     this.state = {
       style: {
         display: 'none'
-      }
+      },
+      open: true
     }
     this.handleChange = this.handelChange.bind(this);
     this.handleMake = this.handleMake.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount() {
@@ -35,19 +38,29 @@ class Paper extends Component {
     }
   };
 
-  handleMake() {
-    this.setState({style: {
-      backgroundColor: '0, 0, 0, .5',
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'fixed',
-      marginTop: '-56px',
-      backgroundColor: 'hsla(0, 0%, 0%, 0.5)'}
-    })
-    document.documentElement.style.overflow='hidden';
+  handleMake(array) {
+    const { dispatch } = this.props;
+    const { subName, type, questions, qurl, aurl } = this.props.testPaper;
+    dispatch(finalAction(array));
+    if (qurl === "") {
+      this.setState({style: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'fixed',
+        marginTop: '-56px',
+        backgroundColor: 'hsla(0, 0%, 0%, 0.5)'}
+      })
+      document.documentElement.style.overflow='hidden';
+    } else {
+
+    }
+  }
+
+  handleClose() {
+    this.setState({open: false});
   }
 
   handelChange(details, type) {
@@ -70,7 +83,7 @@ class Paper extends Component {
   }
 
   render() {
-    const { subName, Type, questions } = this.props.testPaper;
+    const { subName, type, questions, qurl, aurl } = this.props.testPaper;
     let others = [], radios = {i: 0, questions: []}, length = 0;
     for (let i = 0; i < questions.length; i++) {
       if(questions[i].type === '单选题') {
@@ -95,7 +108,7 @@ class Paper extends Component {
           </table>
           <section className={styles.main}>
             <header>
-              <h2 style={{display: 'inline-block'}}>{subName}{Type}卷</h2><FlatButton label="修改标题" secondary="true"/>
+              <h2 style={{display: 'inline-block'}}>{subName}{type}卷</h2><FlatButton label="修改标题" secondary={true}/>
             </header>
             {radioL
               ? null
@@ -122,6 +135,12 @@ class Paper extends Component {
         <div style={this.state.style}>
           <CircularProgress />
         </div>
+        <Dialog
+          title="点击下载"
+          open={this.state.open}
+          onRequestClose={this.handleClose}>
+          <a download={qurl}>试卷</a>, <a download={aurl}>答案</a>
+        </Dialog>
       </div>
     );
   }

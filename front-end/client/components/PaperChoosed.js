@@ -30,8 +30,8 @@ class PaperChoosed extends React.Component{
         array.push(others[i].questions[j].id);
       }
     }
-    this.props.onChange();
-    dispatch(finalAction(array));
+    this.props.onChange(array);
+    // dispatch(finalAction(array));
   }
 
   render() {

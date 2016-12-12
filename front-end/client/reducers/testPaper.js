@@ -1,9 +1,11 @@
-import { TESTPAPER, PAPERDOWN, PAPERUP, PAPERDELETE, PAPERUUP, PAPERDDOWN } from '../actions/actionCreators'
+import { TESTPAPER, PAPERDOWN, PAPERUP, PAPERDELETE, PAPERUUP, PAPERDDOWN, GETPAPER } from '../actions/actionCreators'
 
 function testPaper(state={
   type: '单元测试',
   subName: '语文',
-  questions:[]}, action) {
+  questions:[],
+  qurl: "",
+  aurl: ""}, action) {
   switch (action.type) {
     case TESTPAPER:
       return {
@@ -79,6 +81,12 @@ function testPaper(state={
           ...state.questions.slice(action.details.index + 2)
         ]
       };
+    case GETPAPER:
+      return {
+        ...state,
+        qurl: action.json.qurl,
+        aurl: action.json.aurl
+      }
     default:
       return state;
   }
