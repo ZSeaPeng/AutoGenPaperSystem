@@ -148,7 +148,8 @@ class Details extends Component {
             </ToolbarGroup>
           </Toolbar>
           <div>
-            { context.map((contextList, i) => <Question {...this.props} onChange={this.handleChange} contextList={contextList} key={i} i={i}/>)}
+            { context.map((contextList, i) =>
+              <Question {...this.props} onChange={this.handleChange} contextList={contextList} key={i} i={i}/>)}
           </div>
           <Page {...this.props} pageNum = {pageNum} pages = {pages} />
         </div>

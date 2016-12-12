@@ -29,9 +29,10 @@ class ChooseQuestion extends Component{
 
   handleChange(event) {
     var num = event.target.value;
-    var qId = event.target.name;
+    var qId = event.target.id;
+    var name = event.target.name;
     if (num >= 0 && num <= 80) {
-      this.props.callback(qId, num);
+      this.props.callback(qId, num, name);
     }
   }
     render() {
@@ -46,8 +47,10 @@ class ChooseQuestion extends Component{
                   (type, i) => (
                     <tr key={i}>
                       <td style={styles.types}>{type.name}</td>
-                      <td><input type="number"
-                            name={type.id}
+                      <td><input
+                            name={type.name}
+                            type="number"
+                            id={type.id}
                             min="0" max="80"
                             step="1"
                             defaultValue="0"

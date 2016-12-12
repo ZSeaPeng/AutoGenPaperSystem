@@ -22,6 +22,9 @@ class ControlUser extends Component {
       type: false,
       username: '',
       password: '',
+      email: '',
+      phone: '',
+      school: '',
       open: false,
       sub: [],
       count: [],
@@ -30,6 +33,9 @@ class ControlUser extends Component {
     this.handleAddUser = this.handleAddUser.bind(this);
     this.usernameChange = this.usernameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
+    this.phoneChange = this.phoneChange.bind(this);
+    this.emailChange = this.emailChange.bind(this);
+    this.schoolChange = this.schoolChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -45,6 +51,18 @@ class ControlUser extends Component {
 
   passwordChange(e) {
     this.state.password = e.target.value
+  }
+
+  phoneChange(e) {
+    this.state.phone = e.target.value
+  }
+
+  emailChange(e) {
+    this.state.email= e.target.value
+  }
+
+  schoolChange(e) {
+    this.state.school = e.target.value
   }
 
   handleClose() {
@@ -70,7 +88,7 @@ class ControlUser extends Component {
   }
 
   handleSubmit() {
-    let { username, password, sub, count } = this.state;
+    let { username, password, email, phone, school, sub, count } = this.state;
     const { userList, dispatch } = this.props;
     let counts = 0;
     let subject = '0,' + sub.toString();
@@ -82,9 +100,9 @@ class ControlUser extends Component {
       }
     }
     count = '0,' + count.toString();
-    if( username === '' || password === '') {
+    if( username === '' || password === '' || email === '' || phone === '' || school === '') {
       counts++;
-      alert('用户名或密码不能为空');
+      alert('带星标项不得为空');
       return ;
     }
     if(!reg.test(password) || password.length < 8) {
@@ -100,7 +118,7 @@ class ControlUser extends Component {
       }
     }
     if(counts === 0) {
-      dispatch(asynCreateUser({username: username, userpassword: password, subjectcan: subject, count: count}));
+      dispatch(asynCreateUser({username, userpassword: password, school, phone, email, subjectcan: subject, count: count}));
     }
     this.state.count = [];
     this.state.sub=[];
@@ -145,13 +163,25 @@ class ControlUser extends Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}>
           <TextField
-            floatingLabelText="用户名"
+            floatingLabelText="用户名*"
             onChange={ this.usernameChange }
-          /><br />
+          />
           <TextField
-            floatingLabelText="密码"
+            floatingLabelText="密码*"
             onChange={ this.passwordChange }
-          /><br />
+          />
+          <TextField
+            floatingLabelText="学校*"
+            onChange={ this.schoolChange }
+          />
+          <TextField
+            floatingLabelText="手机*"
+            onChange={ this.phoneChange }
+          />
+          <TextField
+            floatingLabelText="邮箱*"
+            onChange={ this.emailChange }
+          />
           <div>点击以添加</div>
           {!isEmpty
             ? <div style={styles.wrapper}>

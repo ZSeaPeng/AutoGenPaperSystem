@@ -36,6 +36,9 @@ class UserDetail extends Component {
     };
     this.usernameChange = this.usernameChange.bind(this);
     this.passwordChange = this.passwordChange.bind(this);
+    this.phoneChange = this.phoneChange.bind(this);
+    this.emailChange = this.emailChange.bind(this);
+    this.schoolChange = this.schoolChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleExpand = this.handleExpand.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -53,6 +56,18 @@ class UserDetail extends Component {
 
   passwordChange(e) {
     this.state.password = e.target.value
+  }
+
+  phoneChange(e) {
+    this.state.phone = e.target.value
+  }
+
+  emailChange(e) {
+    this.state.email= e.target.value
+  }
+
+  schoolChange(e) {
+    this.state.school = e.target.value
   }
 
   handleDelete() {
@@ -81,10 +96,10 @@ class UserDetail extends Component {
 
   handleSubmit() {
     const { user, i, dispatch, userList } = this.props;
-    const username = this.state.username;
-    const password = this.state.password;
+    let { username, password, email, phone, school } = this.state;
     const reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
     let count = 0;
+    let count1 = 0;
     for(let i = 0; i < this.state.count.length; i++) {
       if(this.state.count[i] === undefined ) {
         this.state.count = [...this.state.count.slice(0, i),...this.state.count.slice(i + 1)];
@@ -92,13 +107,13 @@ class UserDetail extends Component {
       }
     }
     if(username === "" && password === "") {
-      dispatch(asynChange({user: {...user, add: this.state.sub, count: this.state.count}, k: i}))
+      dispatch(asynChange({user: {...user, add: this.state.sub, phone, school, email, count: this.state.count}, k: i}))
     } else if (username === "" && password != "") {
       if(!reg.test(password) || password.length < 8) {
         alert('密码强度太低，请至少八位，并包含字母数字');
         return ;
       } else {
-        dispatch(asynChange({user: {...user, add: this.state.sub, count: this.state.count, userpassword: password}, k: i}))
+        dispatch(asynChange({user: {...user, add: this.state.sub, phone, school, email, count: this.state.count, userpassword: password}, k: i}))
       }
     } else if (username != "" && password === "") {
       for (let i = 0; i < userList.old.length; i++) {
@@ -109,7 +124,22 @@ class UserDetail extends Component {
         }
       }
       if( count === 0) {
-        dispatch(asynChange({user: {...user, add: this.state.sub, count: this.state.count, username: username}, k: i}));
+        dispatch(asynChange({user: {...user, add: this.state.sub, phone, school, email, count: this.state.count, username: username}, k: i}));
+      }
+    } else if (username !== "" && password !== "") {
+      if(!reg.test(password) || password.length < 8) {
+        alert('密码强度太低，请至少八位，并包含字母数字');
+        return ;
+      }
+      for (let i = 0; i < userList.old.length; i++) {
+        if (username === userList.old[i].username) {
+          count++;
+          alert('用户名重复');
+          return ;
+        }
+      }
+      if( count === 0) {
+        dispatch(asynChange({user: {...user, add: this.state.sub, phone, school, email, count: this.state.count, username: username}, k: i}));
       }
     }
     this.state.count = [];
@@ -171,13 +201,25 @@ class UserDetail extends Component {
             floatingLabelText="用户名"
             floatingLabelFixed={true}
             onChange={ this.usernameChange }
-          /><br />
+          />
           <TextField
             hintText="........"
             floatingLabelText="密码"
             floatingLabelFixed={true}
             onChange={ this.passwordChange }
-          /><br />
+          />
+          <TextField
+            floatingLabelText="学校"
+            onChange={ this.schoolChange }
+          />
+          <TextField
+            floatingLabelText="手机"
+            onChange={ this.phoneChange }
+          />
+          <TextField
+            floatingLabelText="邮箱"
+            onChange={ this.emailChange }
+          />
           <div>点击以添加</div>
           <div style={styles.wrapper}>
             {nosub.map((sub, i) =>
