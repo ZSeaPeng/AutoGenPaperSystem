@@ -13,6 +13,8 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 
+import SubUser from './SubUser';
+
 import { asynRecUserInfo, asynUserChange, asynChangeInfo } from '../actions/actionCreators';
 
 class UserIndex extends React.Component {
@@ -122,7 +124,6 @@ class UserIndex extends React.Component {
       type = "普通用户"
     }
     const isNormal = userInfo.type === 0;
-    console.log(isNormal)
     return (
       <div className={style.userinfo}>
         <Card>
@@ -156,7 +157,7 @@ class UserIndex extends React.Component {
               </div>
             </div>
             {isNormal
-              ? null
+              ? <SubUser />
               : <div>
                 已收藏试题: {userInfo.usercollection}
                 <FlatButton label="点击查看" primary={true} onClick={this.seecoll}/>

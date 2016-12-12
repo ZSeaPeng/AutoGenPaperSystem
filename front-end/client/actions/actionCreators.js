@@ -684,7 +684,7 @@ export const asynUserChange = (password) => dispatch => {
         }
       }
     )
-}
+};
 
 //user change info himself
 export const asynChangeInfo = (email: '', phone: '') => dispatch => {
@@ -701,7 +701,7 @@ export const asynChangeInfo = (email: '', phone: '') => dispatch => {
     .then(json =>
       dispatch(changeUserInfo(json))
     )
-}
+};
 
 //get userinfo of himself
 export const asynRecUserInfo = () => dispatch => {

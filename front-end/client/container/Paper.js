@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styles from '../style/QuestionCard.css';
 import store, { history } from '../store';
 import CircularProgress from 'material-ui/CircularProgress';
+import FlatButton from 'material-ui/FlatButton';
 
 //import action
 import { getOldTestPaper, getTestPaper, paperDown, paperUp, paperDelete, paperUup, paperDdown } from '../actions/actionCreators';
@@ -42,9 +43,11 @@ class Paper extends Component {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      position: 'absolute',
+      position: 'fixed',
+      marginTop: '-56px',
       backgroundColor: 'hsla(0, 0%, 0%, 0.5)'}
     })
+    document.documentElement.style.overflow='hidden';
   }
 
   handelChange(details, type) {
@@ -67,11 +70,6 @@ class Paper extends Component {
   }
 
   render() {
-    const { userid } = this.props.grades;
-      if(userid === -1) {
-        alert("请先登录");
-        history.push('/')
-      }
     const { subName, Type, questions } = this.props.testPaper;
     let others = [], radios = {i: 0, questions: []}, length = 0;
     for (let i = 0; i < questions.length; i++) {
@@ -97,7 +95,7 @@ class Paper extends Component {
           </table>
           <section className={styles.main}>
             <header>
-              <h2>{subName}{Type}卷</h2>
+              <h2 style={{display: 'inline-block'}}>{subName}{Type}卷</h2><FlatButton label="修改标题" secondary="true"/>
             </header>
             {radioL
               ? null

@@ -71,7 +71,7 @@ class Question extends Component {
 
     return (
       <Card style={style} expanded={contextList.expanded}>
-        <CardMedia>
+        <CardMedia style={{paddingLeft: '1%'}}>
           <img src={`http://${contextList.qurl}`} />
         </CardMedia>
         <CardActions>
