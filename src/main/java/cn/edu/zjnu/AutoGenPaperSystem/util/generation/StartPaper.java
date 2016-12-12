@@ -2,12 +2,14 @@ package cn.edu.zjnu.AutoGenPaperSystem.util.generation;
 
 import cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
 /**
  * Created by sgt on 2016/12/7.
  */
+@Component
 public class StartPaper {
     @Resource
     private UserMapper userMapper;
@@ -25,6 +27,15 @@ public class StartPaper {
     public StartPaper(RuleBean ruleBean) {
         this.ruleBean = ruleBean;
     }
+
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
+    public void setQuestionsServiceImpl(QuestionsService questionsServiceImpl) {
+        this.questionsServiceImpl = questionsServiceImpl;
+    }
+
     public Paper getPaper(){
         if (ruleBean != null) {
             // 初始化种群

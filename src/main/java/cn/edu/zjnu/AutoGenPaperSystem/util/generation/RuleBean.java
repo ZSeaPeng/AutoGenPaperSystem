@@ -1,5 +1,7 @@
 package cn.edu.zjnu.AutoGenPaperSystem.util.generation;
 
+import org.springframework.stereotype.Component;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 /**
  * Created by sgt on 2016/11/28.
  */
+@Component
 public class RuleBean {
     /**
      * 规则id
