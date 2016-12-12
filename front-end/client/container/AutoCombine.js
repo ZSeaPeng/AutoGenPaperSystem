@@ -56,6 +56,7 @@ class AutoCombine extends Component {
       model: "1",
       diff: "3",
       questions: {},
+      questionsName: {},
       points: {},
       courseChanged: false
     };
@@ -75,6 +76,7 @@ class AutoCombine extends Component {
     dispatch(getSelect(path));
     this.setState({value: newValue,
                    questions: {},
+                   questionsName: {},
                    points: {}
                  });
   };
@@ -84,11 +86,13 @@ class AutoCombine extends Component {
   onDiffChanged = (newDiff) => {
     this.setState({diff: newDiff});
   };
-  onQuestionChanged = (qId, num) => {
+  onQuestionChanged = (qId, num, name) => {
     if (num == 0) {
       delete this.state.questions[qId];
+      delete this.state.questionsName[qId];
     } else {
       this.state.questions[qId] = num;
+      this.state.questionsName[qId] = name;
     }
   };
   onPointChanged = (isChecked, pointId) => {
@@ -105,11 +109,14 @@ class AutoCombine extends Component {
     const subject = this.props.sublist[0].contextList[this.state.value].subid;
     const diff = this.state.diff;
     const questions = this.state.questions;
+    const questionsName = this.state.questionsName;
     const typeId = [];
     const typeNum = [];
+    const typeName = [];
     for ( var id in questions ) {
       typeId.push(id);
       typeNum.push(questions[id]);
+      typeName.push(questionsName[id]);
     }
     const points = this.state.points;
     const wordInfo = {wordtype : wordtype,
@@ -117,6 +124,7 @@ class AutoCombine extends Component {
                       diff : diff,
                       typeId : typeId,
                       typeNum : typeNum,
+                      typeName : typeName,
                       points : points,
                      }
     dispatch(submitWordInfo(wordInfo));
