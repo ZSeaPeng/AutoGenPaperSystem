@@ -42,10 +42,16 @@ export const SUBUSER = 'GETSUBUSER';
 export const CREATESUBUSER = 'CREATESUBUSER';
 export const DELETESUBUSER = 'DELETESUBUSER';
 export const CHANGEUSERINFO = 'CHANGEUSERINFO';
+export const GETPAPER = 'GETPAPER';
 
 /**
  * 真正与reducer沟通的函数
  * */
+
+export const getPaper = json => ({
+  type: GETPAPER,
+  json
+})
 //首页科目列表, 更新数据, 轮播图链接
 export const recevieInitialState = json => ({
   type: RECEIVE_INITIAL_STATE,
@@ -661,7 +667,7 @@ export const finalAction = (array) => dispatch => {
   })
     .then(response => response.json())
     .then(json =>
-      console.log(json)
+      dispatch(getPaper(json));
     )
 };
 
