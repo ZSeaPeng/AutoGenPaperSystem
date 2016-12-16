@@ -1,4 +1,4 @@
-import { TESTPAPER, PAPERDOWN, PAPERUP, PAPERDELETE, PAPERUUP, PAPERDDOWN, GETPAPER } from '../actions/actionCreators'
+import { TESTPAPER, PAPERDOWN, PAPERUP, PAPERDELETE, PAPERUUP, PAPERDDOWN, GETPAPER, POSITIONCHANGE } from '../actions/actionCreators'
 
 function testPaper(state={
   type: '单元测试',
@@ -61,6 +61,22 @@ function testPaper(state={
           ...state.questions.slice(action.details.index + 1)
         ]
       };
+    case POSITIONCHANGE:
+      return {
+        ...state,
+        questions: [
+          ...state.questions.slice(0, action.details.index),
+          {
+            ...state.questions[action.details,index],
+            questions: [
+              ...state.questions[action.details.index].questions.slice(0, action.details.number),
+              state.questions[action.details.index].questions[action.details.i],
+              ...state.questions[action.details.index].questions.slice(action.details.number + 1)
+            ]
+          },
+          ...state.questions.slice(action.details.index + 1)
+        ]
+      }
     case PAPERUUP:
       return {
         ...state,

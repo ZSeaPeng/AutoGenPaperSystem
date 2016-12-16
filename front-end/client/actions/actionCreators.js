@@ -43,6 +43,7 @@ export const CREATESUBUSER = 'CREATESUBUSER';
 export const DELETESUBUSER = 'DELETESUBUSER';
 export const CHANGEUSERINFO = 'CHANGEUSERINFO';
 export const GETPAPER = 'GETPAPER';
+export const POSITIONCHANGE = 'POSITIONCHANGE';
 
 /**
  * 真正与reducer沟通的函数
@@ -61,7 +62,7 @@ export const recevieInitialState = json => ({
 
 //选题界面的各种选项
 export const recevieSelect = json => ({
-  type: RECEIVE_SELECT,  =[[=ijhyvg  ]]
+  type: RECEIVE_SELECT,
   posts: json
 });
 
@@ -262,6 +263,11 @@ export const createSubUser = details => ({
 
 export const changeUserInfo = details => ({
   type: CHANGEUSERINFO,
+  details
+})
+
+export const positionChange = details => ({
+  type: POSITIONCHANGE,
   details
 })
 
