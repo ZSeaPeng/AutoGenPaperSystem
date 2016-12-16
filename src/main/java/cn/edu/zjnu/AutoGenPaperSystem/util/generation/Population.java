@@ -49,7 +49,7 @@ public class Population {
                 int typeId=rule.getTypeId();
                 // 单选题
                 if (rule.getQuestionNum()> 0) {
-                    generateQuestion(typeId, random, rule.getQuestionNum(), pointId, subjectId,"题目数量不够，组卷失败", paper);
+                    generateQuestion(typeId, random, rule.getQuestionNum(), pointId, subjectId,"题目数量不够，组卷失败", paper,questionsServiceImpl);
                 }
 //                    // 填空题
 //                    if (rule.getCompleteNum() > 0) {
@@ -72,7 +72,8 @@ public class Population {
     }
 
     private void generateQuestion(int typeId, Random random, int qustionNum, String pointId,int subjectId,
-                                  String errorMsg, Paper paper) {
+                                  String errorMsg, Paper paper,QuestionsService questionsServiceImpl1) {
+        questionsServiceImpl=questionsServiceImpl1;
         QuestionBean[] singleArray = questionsServiceImpl.selectQuestionArray(typeId, pointId.substring(1, pointId.indexOf("]")),subjectId);
         if (singleArray.length < qustionNum) {
             System.out.println(errorMsg);

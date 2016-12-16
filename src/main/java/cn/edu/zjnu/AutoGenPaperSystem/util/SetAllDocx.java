@@ -1,12 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.util;
 
-import cn.edu.zjnu.AutoGenPaperSystem.util.MergeDOCX;
-import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +14,7 @@ import java.util.Set;
  */
 public class SetAllDocx {
 
-    public void Title(Map paperMap,String temp,String resultPath) throws Exception {
+    public static void Title(Map paperMap,String temp,String resultPath) throws Exception {
         Set set=paperMap.entrySet();
         WordprocessingMLPackage target =WordprocessingMLPackage.load(new FileInputStream(new File(temp)));
         target.getMainDocumentPart().addStyledParagraphOfText("a8", String.valueOf(paperMap.get("Title")));

@@ -4,7 +4,6 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.Types;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface TypesMapper {
@@ -22,7 +21,7 @@ public interface TypesMapper {
 
     List<Types> selectTypesBySubjectId(Integer subjectId);
 
-    Integer selectIdByName(Map map);
+    Integer selectIdByName(String name,Integer subid);
 
 
 }
