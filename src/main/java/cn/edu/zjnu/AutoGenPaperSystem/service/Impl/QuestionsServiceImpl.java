@@ -79,9 +79,13 @@ public class QuestionsServiceImpl implements QuestionsService {
 
             for (String list : strings) {
                 Map<String, Object> questionsMap = new HashMap<String, Object>();
+                System.out.println("list---"+list);
                 Questions questions = new Questions();
                 if (!list.equals("0")) {
                     questions = questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
+
+                    System.out.println("questions----"+questions);
+
                     questionsMap.put("id", questions.getQuestionsId());
                     questionsMap.put("type", questions.getTypes().getTypeName());
 
