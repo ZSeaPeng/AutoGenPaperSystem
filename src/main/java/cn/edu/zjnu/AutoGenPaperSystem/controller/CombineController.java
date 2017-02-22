@@ -1,5 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
+import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
 import cn.edu.zjnu.AutoGenPaperSystem.util.SetAllDocx;
 import cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper;
@@ -28,6 +29,8 @@ import java.util.Map;
 public class CombineController {
     @Resource
     private SubjectService subjectServiceImpl;
+    @Resource
+    private QuestionsService questionsServiceImpl;
 
     @RequestMapping(value = "/manual", method = RequestMethod.POST)
     public String Manual(Integer subid, Integer wordtype, HttpSession session) {
@@ -48,7 +51,6 @@ public class CombineController {
 
         List typeId = (List) map.get("typeId");
         List typeNum = (List) map.get("typeNum");
-
 
         System.out.println("typeid");
         for (Object id : typeId) {
@@ -77,6 +79,7 @@ public class CombineController {
             ruleBean.setTypeId(Integer.valueOf(String.valueOf(typeId.get(i))));
             ruleBean.setQuestionNum(Integer.valueOf(String.valueOf(typeNum.get(i))));
             StartPaper startPaper = new StartPaper(ruleBean);
+            startPaper.setQuestionsServiceImpl(questionsServiceImpl);
             paperList.add(startPaper.getPaper());
         }
 
@@ -84,10 +87,8 @@ public class CombineController {
 
         map1.put("Title","xxxxxx");
         for (int i=0;i<paperList.size();i++){
-
             map1.put("选择题",paperList.get(i).getQuestionPath());
         }
-
         try {
             SetAllDocx.Title(map1,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),request.getServletContext().getRealPath("/upload/temp/ceshi.docx"));
         } catch (Exception e) {
