@@ -43,6 +43,7 @@ export const CREATESUBUSER = 'CREATESUBUSER';
 export const DELETESUBUSER = 'DELETESUBUSER';
 export const CHANGEUSERINFO = 'CHANGEUSERINFO';
 export const GETPAPER = 'GETPAPER';
+export const POSITIONCHANGE = 'POSITIONCHANGE';
 
 /**
  * 真正与reducer沟通的函数
@@ -261,6 +262,11 @@ export const createSubUser = details => ({
 
 export const changeUserInfo = details => ({
   type: CHANGEUSERINFO,
+  details
+})
+
+export const positionChange = details => ({
+  type: POSITIONCHANGE,
   details
 })
 

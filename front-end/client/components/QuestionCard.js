@@ -2,18 +2,25 @@ import React from 'react';
 import style from '../style/QuestionCard.css';
 
 import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+
+import positionChange from '../actions/actionCreators';
 
 export default class QuestionCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      over: false
+      over: false,
+      number: 0
     }
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleDown = this.handleDown.bind(this);
     this.handleUp = this.handleUp.bind(this);
+    this.handleNumberChange = this.handleNumberChange.bind(this);
+    this.handlePositionChange = this.handlePositionChange.bind(this);
   }
 
   handleMouseEnter() {
@@ -37,6 +44,23 @@ export default class QuestionCard extends React.Component {
   handleUp() {
     const { i, index } = this.props;
     this.props.onChange({i, index, title: false, type: ""}, 'up')
+  }
+
+  handleNumberChange(e) {
+    this.state.number = e.target.value;
+  }
+
+  handlePositionChange() {
+    const { dispatch } = this.props;
+    const { i, index } = this.props;
+    const { number } = this.state;
+    if( i > number ) {
+      dispatch(positionChange(index, i, number, title: false))
+      dispatch(paperdelete(index, i + 1, title: false))
+    } else {
+      dispatch(positionChange(index, i, number, title: false))
+      dispatch(paperdelete(index, i, title: false))
+    }
   }
 
   render() {
@@ -67,6 +91,9 @@ export default class QuestionCard extends React.Component {
             ? null
             : <FlatButton label="下移" onClick={this.handleDown}/>
           }
+        </div>
+        <div>
+          移至第<TextField onChange={this.handleNumberChange}/>题 <RaisedButton label="确定" secondary={true} onClick={this.handlePositionChange} />
         </div>
       </div>
     );

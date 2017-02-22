@@ -21,7 +21,7 @@ class Paper extends Component {
       style: {
         display: 'none'
       },
-      open: true
+      open: false
     }
     this.handleChange = this.handelChange.bind(this);
     this.handleMake = this.handleMake.bind(this);

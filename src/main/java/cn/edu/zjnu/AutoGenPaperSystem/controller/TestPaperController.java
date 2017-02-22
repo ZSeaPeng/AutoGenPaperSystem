@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by zseapeng on 2016/12/8.
  */
 @Controller
-@RequestMapping("/api/history")
+@RequestMapping("/api")
 @ResponseBody
 @SessionAttributes("userid")
 public class TestPaperController {
