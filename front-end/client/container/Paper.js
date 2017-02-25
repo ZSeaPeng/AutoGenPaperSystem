@@ -109,7 +109,7 @@ class Paper extends Component {
           </table>
           <section className={styles.main}>
             <header>
-              <h2 style={{display: 'inline-block'}}>{subName}{type}卷</h2><FlatButton label="修改标题" secondary={true}/>
+              <h2 style={{display: 'inline-block'}}>{subName}{type}卷</h2>
             </header>
             {radioL
               ? null
