@@ -87,7 +87,7 @@ class Paper extends Component {
     const { subName, type, questions, qurl, aurl } = this.props.testPaper;
     let others = [], radios = {i: 0, questions: []}, length = 0;
     for (let i = 0; i < questions.length; i++) {
-      if(questions[i].type === '单选题') {
+      if(questions[i].type === '选择题') {
         radios = {...radios, i: i, questions: [...questions[i].questions]};
       } else {
         others = [...others, {...questions[i], i: i}];
@@ -116,8 +116,8 @@ class Paper extends Component {
               : <section className={styles.second}>
                 <h3 className={styles.h3}>第I卷（选择题）</h3>
                 <p style={{margin: 0}}>本试卷第一部分共有{radios.questions.length}道试题。</p>
-                <h4 style={{margin: 0}}>一、单选题（共{radios.questions.length}小题）</h4>
-                {radios.questions.map((radio, i) => <QuestionCard key={i} radio={radio} index={radios.i} i={i} length={radios.questions.length} onChange={this.handleChange}/>)}
+                <h4 style={{margin: 0}}>一、选择题（共{radios.questions.length}小题）</h4>
+                {radios.questions.map((radio, i) => <QuestionCard dispatch = {this.props.dispatch} key={i} radio={radio} index={radios.i} i={i} length={radios.questions.length} onChange={this.handleChange}/>)}
               </section>
             }
             {otherL
@@ -125,7 +125,7 @@ class Paper extends Component {
               : <section className={styles.second}>
               <h3 className={styles.h3}>第II卷（非选择题）</h3>
               <p style={{margin: 0}}>本试卷第一部分共有{length}道试题。</p>
-              {others.map((other,i) => <NotRadio i={i} key={i} other={other} length={others.length} onChange={this.handleChange}/>)}
+              {others.map((other,i) => <NotRadio {...this.props} i={i} key={i} other={other} length={others.length} onChange={this.handleChange}/>)}
             </section>
             }
           </section>

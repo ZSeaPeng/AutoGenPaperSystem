@@ -55,7 +55,7 @@ export default class NotRadio extends React.Component {
             </div>
           </div>
           {other.questions.map((question, i) =>
-            <QuestionCard key={i} radio={question} i={i} index={other.i} length={other.questions.length} onChange={this.handleChange}/>
+            <QuestionCard key={i} radio={question} dispatch = {this.props.dispatch} i={i} index={other.i} length={other.questions.length} onChange={this.handleChange}/>
           )}
         </div>
       }

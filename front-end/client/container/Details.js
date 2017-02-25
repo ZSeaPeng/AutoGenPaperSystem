@@ -151,7 +151,7 @@ class Details extends Component {
             { context.map((contextList, i) =>
               <Question {...this.props} onChange={this.handleChange} contextList={contextList} key={i} i={i}/>)}
           </div>
-          <Page {...this.props} pageNum = {pageNum} pages = {pages} />
+          <Page {...this.props} pageNum = {pageNum} pages = {pages}/>
         </div>
         <div className={styles.Side} style={{ right: 0,width: '270px'}}>
           <Choosed userChosen = {userChosen} onChange={this.handleChange}/>

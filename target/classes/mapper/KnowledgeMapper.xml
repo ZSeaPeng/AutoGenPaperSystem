@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.KnowledgeMapper">
+	<resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge">
+		<constructor>
+			<idArg column="Knowledge_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+			<arg column="Knowledge_name" jdbcType="VARCHAR" javaType="java.lang.String"/>
+			<arg column="Subject_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+			<arg column="Superior_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+			<arg column="isDelete" jdbcType="INTEGER" javaType="Integer"/>
+		</constructor>
+	</resultMap>
+	<resultMap id="KnowledgeLists" type="cn.edu.zjnu.AutoGenPaperSystem.model.KnowledgeList">
+        <constructor>
+            <arg column="a.Knowledge_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="b.Knowledge_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="c.Knowledge_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="d.Knowledge_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="Subject_ID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+        </constructor>
+	</resultMap>
+	<sql id="Base_Column_List">
+    Knowledge_ID, Knowledge_name, Subject_ID, Superior_ID,isDelete,
+  </sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"/>
+		from knowledge
+		where Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectKnowledgeBySubjectId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    *
+    FROM knowledge
+    WHERE Subject_ID=#{subjectId} and isDelete=0
+  </select>
+	<select id="selectFirstKnowledgeBySubjectId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    *
+    FROM knowledge
+    WHERE Subject_ID=#{subjectId} and isDelete = 0 and Superior_ID = 0
+  </select>
+	<select id="selectSecondKnowledgeByKnowId1" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    *
+    FROM knowledge
+    WHERE Superior_ID = #{knowId1} and isDelete = 0
+  </select>
+	<select id="selectKnowledgeByName" resultType="java.util.HashMap">
+		SELECT Superior_ID,Knowledge_ID FROM knowledge WHERE Knowledge_name = #{name}
+	</select>
+	<select id="selectKnowledgeById" resultType="java.util.Map">
+		SELECT Superior_ID,Knowledge_ID FROM knowledge WHERE Knowledge_ID = #{id}
+	</select>
+
+
+	<select id="selectKnowledgeList" resultMap="KnowledgeLists" parameterType="java.lang.String">
+		SELECT a.Knowledge_ID,b.Knowledge_ID,c.Knowledge_ID,d.Knowledge_ID,a.Subject_ID
+		FROM knowledge a,knowledge b,knowledge c,knowledge d
+		WHERE a.Knowledge_name=#{name} AND b.Knowledge_ID=a.Superior_ID AND c.Knowledge_ID=b.Superior_ID AND d.Knowledge_ID=c.Superior_ID
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from knowledge
+    where Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
+  </delete>
+	<insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge">
+    insert into knowledge (Knowledge_ID, Knowledge_name, Subject_ID, 
+      Superior_ID)
+    values (#{knowledgeId,jdbcType=INTEGER}, #{knowledgeName,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER}, 
+      #{superiorId,jdbcType=INTEGER})
+  </insert>
+	<insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge">
+		insert into knowledge
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="knowledgeId != null">
+				Knowledge_ID,
+			</if>
+			<if test="knowledgeName != null">
+				Knowledge_name,
+			</if>
+			<if test="subjectId != null">
+				Subject_ID,
+			</if>
+			<if test="superiorId != null">
+				Superior_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="knowledgeId != null">
+				#{knowledgeId,jdbcType=INTEGER},
+			</if>
+			<if test="knowledgeName != null">
+				#{knowledgeName,jdbcType=VARCHAR},
+			</if>
+			<if test="subjectId != null">
+				#{subjectId,jdbcType=INTEGER},
+			</if>
+			<if test="superiorId != null">
+				#{superiorId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge">
+		update knowledge
+		<set>
+			<if test="knowledgeName != null">
+				Knowledge_name = #{knowledgeName,jdbcType=VARCHAR},
+			</if>
+			<if test="subjectId != null">
+				Subject_ID = #{subjectId,jdbcType=INTEGER},
+			</if>
+			<if test="superiorId != null">
+				Superior_ID = #{superiorId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge">
+    update knowledge
+    set Knowledge_name = #{knowledgeName,jdbcType=VARCHAR},
+      Subject_ID = #{subjectId,jdbcType=INTEGER},
+      Superior_ID = #{superiorId,jdbcType=INTEGER}
+    where Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
+  </update>
+	<update id="updateIsDeleteById">
+		UPDATE knowledge
+		SET isDelete = 1
+		WHERE Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
+	</update>
+</mapper>

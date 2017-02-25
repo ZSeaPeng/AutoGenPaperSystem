@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import positionChange from '../actions/actionCreators';
+import { positionChange, paperdelete } from '../actions/actionCreators';
 
 export default class QuestionCard extends React.Component {
   constructor(props) {
@@ -55,11 +55,11 @@ export default class QuestionCard extends React.Component {
     const { i, index } = this.props;
     const { number } = this.state;
     if( i > number ) {
-      dispatch(positionChange(index, i, number, title: false))
-      dispatch(paperdelete(index, i + 1, title: false))
+      dispatch(positionChange({index, i, number, title: false}))
+      dispatch(paperdelete({index, i: i + 1, title: false}))
     } else {
-      dispatch(positionChange(index, i, number, title: false))
-      dispatch(paperdelete(index, i, title: false))
+      dispatch(positionChange({index, i, number, title: false}))
+      dispatch(paperdelete({index, i, title: false}))
     }
   }
 
@@ -91,10 +91,11 @@ export default class QuestionCard extends React.Component {
             ? null
             : <FlatButton label="下移" onClick={this.handleDown}/>
           }
+          <div>
+            移至第<TextField onChange={this.handleNumberChange}/>题(共{length}题) <FlatButton label="确定" secondary={true} onClick={this.handlePositionChange} />
+          </div>
         </div>
-        <div>
-          移至第<TextField onChange={this.handleNumberChange}/>题 <RaisedButton label="确定" secondary={true} onClick={this.handlePositionChange} />
-        </div>
+
       </div>
     );
   }

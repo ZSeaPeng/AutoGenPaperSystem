@@ -37,7 +37,7 @@ class PaperChoosed extends React.Component{
     const { radios, others } = this.props;
     let newTypes = [];
 
-    newTypes.push({type: '单选题', count: radios.questions.length});
+    newTypes.push({type: '选择题', count: radios.questions.length});
 
     for(let i = 0; i < others.length; i++ ) {
       newTypes.push({type: others[i].type, count: others[i].questions.length});
