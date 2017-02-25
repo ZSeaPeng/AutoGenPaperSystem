@@ -4,6 +4,7 @@ let Nzh = require("nzh");
 let nzhcn = Nzh.cn;
 
 import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
 //component
 import QuestionCard from '../components/QuestionCard';
@@ -11,9 +12,14 @@ import QuestionCard from '../components/QuestionCard';
 export default class NotRadio extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      number: 0
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleDown = this.handleDown.bind(this);
     this.handleUp = this.handleUp.bind(this);
+    this.handleNumberChange = this.handleNumberChange.bind(this);
+    this.handlePositionChange = this.handlePositionChange.bind(this);
   }
 
   handleDown() {
@@ -24,11 +30,6 @@ export default class NotRadio extends React.Component {
   handleUp() {
     const { i, other } = this.props;
     this.props.onChange({index: other.i, title: true}, 'up')
-  }
-
-  handleChange(details, type) {
-    const { other, i } = this.props;
-    this.props.onChange({...details}, type);
   }
 
   render() {

@@ -49,7 +49,6 @@ export default class QuestionCard extends React.Component {
 
   handleNumberChange(e) {
     this.state.number = e.target.value;
-    console.log(this.state.number)
   }
 
   handleRandom() {
