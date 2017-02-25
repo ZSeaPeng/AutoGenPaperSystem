@@ -21,6 +21,7 @@ export default class QuestionCard extends React.Component {
     this.handleUp = this.handleUp.bind(this);
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
+    this.handleRandom = this.handleRandom.bind(this);
   }
 
   handleMouseEnter() {
@@ -48,19 +49,25 @@ export default class QuestionCard extends React.Component {
 
   handleNumberChange(e) {
     this.state.number = e.target.value;
+    console.log(this.state.number)
+  }
+
+  handleRandom() {
+    const {dispatch, i, index} = this.props;
   }
 
   handlePositionChange() {
     const { dispatch } = this.props;
     const { i, index } = this.props;
     const { number } = this.state;
-    if( i > number ) {
+    if( i > number - 1 ) {
       dispatch(positionChange({index, i, number, title: false}))
       dispatch(paperDelete({index, i: i + 1, title: false}))
     } else {
       dispatch(positionChange({index, i, number, title: false}))
       dispatch(paperDelete({index, i, title: false}))
     }
+
   }
 
   render() {
@@ -91,6 +98,7 @@ export default class QuestionCard extends React.Component {
             ? null
             : <FlatButton label="下移" onClick={this.handleDown}/>
           }
+          <FlatButton label = "换题" onClick={this.handleRandom}/>
           <div>
             移至第<TextField onChange={this.handleNumberChange}/>题(共{length}题) <FlatButton label="确定" secondary={true} onClick={this.handlePositionChange} />
           </div>

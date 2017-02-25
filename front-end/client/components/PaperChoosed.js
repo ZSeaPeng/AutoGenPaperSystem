@@ -21,13 +21,14 @@ class PaperChoosed extends React.Component{
   handleSubmit() {
     const { dispatch } = this.props;
     const { radios, others } = this.props;
-    let array = [];
+    let array = [{type: "选择题", id: []}];
     for (let i = 0; i < radios.questions.length; i++) {
-      array.push(radios.questions[i].id);
+      array[0].id.push(radios.questions[i].id);
     }
     for (let i = 0; i < others.length; i++) {
+      array.push({type: others[i].type, id: []})
       for (let j = 0; j < others[i].questions.length; j++) {
-        array.push(others[i].questions[j].id);
+        array[i + 1].id.push(others[i].questions[j].id);
       }
     }
     this.props.onChange(array);

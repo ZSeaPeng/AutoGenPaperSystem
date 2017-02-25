@@ -69,9 +69,9 @@ function testPaper(state={
           {
             ...state.questions[action.details.index],
             questions: [
-              ...state.questions[action.details.index].questions.slice(0, action.details.number),
+              ...state.questions[action.details.index].questions.slice(0, action.details.number ),
               state.questions[action.details.index].questions[action.details.i],
-              ...state.questions[action.details.index].questions.slice(action.details.number + 1)
+              ...state.questions[action.details.index].questions.slice(action.details.number)
             ]
           },
           ...state.questions.slice(action.details.index + 1)
