@@ -75,7 +75,9 @@ public class MergeDOCX {
 //        saver.save(os);
     }
     private static void insertDocx(MainDocumentPart main, List<byte[]> bytes) throws Exception {
+        int i=1;
         for (byte[] list:bytes){
+            main.addParagraphOfText(String.valueOf(i)+".");
             AlternativeFormatInputPart afiPart = new AlternativeFormatInputPart(new PartName("/part" + (chunk++) + ".docx"));
             afiPart.setContentType(new ContentType(CONTENT_TYPE));
             afiPart.setBinaryData(list);
@@ -83,6 +85,7 @@ public class MergeDOCX {
             CTAltChunk chunk = Context.getWmlObjectFactory().createCTAltChunk();
             chunk.setId(altChunkRel.getId());
             main.addObject(chunk);
+            i++;
         }
     }
 

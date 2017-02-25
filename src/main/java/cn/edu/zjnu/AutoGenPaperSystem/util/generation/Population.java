@@ -49,19 +49,8 @@ public class Population {
                 int typeId=rule.getTypeId();
                 // 单选题
                 if (rule.getQuestionNum()> 0) {
-                    generateQuestion(typeId, random, rule.getQuestionNum(), pointId, subjectId,"题目数量不够，组卷失败", paper,questionsServiceImpl);
+                    generateQuestion(typeId, random, rule.getQuestionNum(), pointId, subjectId,"题目数量不够，组卷失败", paper);
                 }
-//                    // 填空题
-//                    if (rule.getCompleteNum() > 0) {
-//                        generateQuestion(2, random, rule.getCompleteNum(), rule.getCompleteScore(), idString,
-//                                "填空题数量不够，组卷失败", paper);
-//                    }
-//                    // 主观题
-//                    if (rule.getSubjectiveNum() > 0) {
-//                        generateQuestion(3, random, rule.getSubjectiveNum(), rule.getSubjectiveScore(), idString,
-//                                "主观题数量不够，组卷失败", paper);
-//                    }
-//                }
                 // 计算试卷知识点覆盖率
                 paper.setKpCoverage(rule);
                 // 计算试卷适应度
@@ -72,8 +61,7 @@ public class Population {
     }
 
     private void generateQuestion(int typeId, Random random, int qustionNum, String pointId,int subjectId,
-                                  String errorMsg, Paper paper,QuestionsService questionsServiceImpl1) {
-        questionsServiceImpl=questionsServiceImpl1;
+                                  String errorMsg, Paper paper) {
         QuestionBean[] singleArray = questionsServiceImpl.selectQuestionArray(typeId, pointId.substring(1, pointId.indexOf("]")),subjectId);
         if (singleArray.length < qustionNum) {
             System.out.println(errorMsg);
