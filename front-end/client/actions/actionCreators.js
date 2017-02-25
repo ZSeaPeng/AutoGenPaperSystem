@@ -44,13 +44,17 @@ export const DELETESUBUSER = 'DELETESUBUSER';
 export const CHANGEUSERINFO = 'CHANGEUSERINFO';
 export const GETPAPER = 'GETPAPER';
 export const POSITIONCHANGE = 'POSITIONCHANGE';
+export const SCORECHANGE = 'SCORECHANGE';
 
 let port = "http://localhost:8111";
 
 /**
  * 真正与reducer沟通的函数
  * */
-
+export const socreChange = details => ({
+  type: SCORECHANGE,
+  details
+})
 export const getPaper = json => ({
   type: GETPAPER,
   json

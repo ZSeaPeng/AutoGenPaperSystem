@@ -5,14 +5,15 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { positionChange, paperDelete } from '../actions/actionCreators';
+import { positionChange, paperDelete, scoreChange } from '../actions/actionCreators';
 
 export default class QuestionCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       over: false,
-      number: 0
+      number: 0,
+      score: 0
     }
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
@@ -22,6 +23,8 @@ export default class QuestionCard extends React.Component {
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
     this.handleRandom = this.handleRandom.bind(this);
+    this.handleScore = this.handleScore.bind(this);
+    this.handleScoreChange = this.handleScoreChange.bind(this);
   }
 
   handleMouseEnter() {
@@ -53,6 +56,16 @@ export default class QuestionCard extends React.Component {
 
   handleRandom() {
     const {dispatch, i, index} = this.props;
+  }
+
+  handleScore(e) {
+    this.state.score = e.target.value
+  }
+
+  handleScoreChange() {
+    const {dispatch, i, index} = this.props;
+    const { score } = this.state;
+    dispatch(scoreChange({index, i, score}))
   }
 
   handlePositionChange() {
@@ -99,7 +112,15 @@ export default class QuestionCard extends React.Component {
           }
           <FlatButton label = "换题" onClick={this.handleRandom}/>
           <div>
-            移至第<TextField onChange={this.handleNumberChange}/>题(共{length}题) <FlatButton label="确定" secondary={true} onClick={this.handlePositionChange} />
+            修改分值
+            <TextField onChange={this.handleScore}/>
+            <FlatButton label="确定" secondary={true} onClick={this.handleScoreChange} />
+          </div>
+          <div>
+            移至第
+            <TextField onChange={this.handleNumberChange}/>
+            题(共{length}题) 
+            <FlatButton label="确定" secondary={true} onClick={this.handlePositionChange} />
           </div>
         </div>
 
