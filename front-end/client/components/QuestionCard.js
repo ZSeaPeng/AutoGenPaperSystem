@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { positionChange, paperdelete } from '../actions/actionCreators';
+import { positionChange, paperDelete } from '../actions/actionCreators';
 
 export default class QuestionCard extends React.Component {
   constructor(props) {
@@ -56,10 +56,10 @@ export default class QuestionCard extends React.Component {
     const { number } = this.state;
     if( i > number ) {
       dispatch(positionChange({index, i, number, title: false}))
-      dispatch(paperdelete({index, i: i + 1, title: false}))
+      dispatch(paperDelete({index, i: i + 1, title: false}))
     } else {
       dispatch(positionChange({index, i, number, title: false}))
-      dispatch(paperdelete({index, i, title: false}))
+      dispatch(paperDelete({index, i, title: false}))
     }
   }
 
