@@ -300,6 +300,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         return questionBeans;
     }
 
+
 //    @Override
 //    public Map selectQuestionByIdList(Integer questionsId) {
 //        Map<String,Object> questionsMap=new HashMap<String, Object>();

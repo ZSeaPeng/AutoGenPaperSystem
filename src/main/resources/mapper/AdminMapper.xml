@@ -6,14 +6,15 @@
       <arg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="adminName" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="adminPassword" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="maxQuantity" jdbcType="INTEGER" javaType="java.lang.Integer"/>
     </constructor>
   </resultMap>
   <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Admin" >
-    insert into admin (id, adminName, adminPassword
-      )
-    values (#{id,jdbcType=INTEGER}, #{adminname,jdbcType=VARCHAR}, #{adminpassword,jdbcType=VARCHAR}
-      )
-  </insert>
+  insert into admin (id, adminName, adminPassword
+  )
+  values (#{id,jdbcType=INTEGER}, #{adminname,jdbcType=VARCHAR}, #{adminpassword,jdbcType=VARCHAR}
+  )
+</insert>
   <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Admin" >
     insert into admin
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -39,7 +40,13 @@
       </if>
     </trim>
   </insert>
-	<select id="selectByadminName" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Admin">
+  <update id="setMaxQuantity">
+    UPDATE admin set maxQuantity= #{maxQuantity}
+  </update>
+  <select id="selectByadminName" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Admin">
       SELECT * FROM admin where adminname = #{adminName}
     </select>
+  <select id="selectMaxQuantity" resultType="java.lang.Integer">
+    select maxQuantity from admin;
+  </select>
 </mapper>

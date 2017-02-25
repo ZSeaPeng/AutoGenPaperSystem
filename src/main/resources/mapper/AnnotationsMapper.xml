@@ -1,0 +1,83 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.mapper.AnnotationsMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Annotations" >
+    <constructor >
+      <idArg column="AnnotateId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="UserId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="QuestionId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="Annotate" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    AnnotateId, UserId, QuestionId, Annotate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from Annotations
+    where AnnotateId = #{annotateid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Annotations
+    where AnnotateId = #{annotateid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Annotations" >
+    insert into Annotations (AnnotateId, UserId, QuestionId, 
+      Annotate)
+    values (#{annotateid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{questionid,jdbcType=INTEGER}, 
+      #{annotate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Annotations" >
+    insert into Annotations
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="annotateid != null" >
+        AnnotateId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="questionid != null" >
+        QuestionId,
+      </if>
+      <if test="annotate != null" >
+        Annotate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="annotateid != null" >
+        #{annotateid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="questionid != null" >
+        #{questionid,jdbcType=INTEGER},
+      </if>
+      <if test="annotate != null" >
+        #{annotate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Annotations" >
+    update Annotations
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="questionid != null" >
+        QuestionId = #{questionid,jdbcType=INTEGER},
+      </if>
+      <if test="annotate != null" >
+        Annotate = #{annotate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AnnotateId = #{annotateid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Annotations" >
+    update Annotations
+    set UserId = #{userid,jdbcType=INTEGER},
+      QuestionId = #{questionid,jdbcType=INTEGER},
+      Annotate = #{annotate,jdbcType=VARCHAR}
+    where AnnotateId = #{annotateid,jdbcType=INTEGER}
+  </update>
+</mapper>

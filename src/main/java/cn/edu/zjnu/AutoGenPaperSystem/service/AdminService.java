@@ -7,4 +7,8 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.Admin;
  */
 public interface AdminService {
     Admin selectByadminName(String adminName);
+
+    int setMaxquantity(Integer maxQuantity);
+
+    int getMaxQuantity();
 }

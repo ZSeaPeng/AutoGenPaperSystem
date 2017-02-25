@@ -20,6 +20,7 @@ public interface QuestionsMapper {
 
     int updateByPrimaryKey(Questions record);
 
+
     List<Questions> selectBySearchAll(SearchAll searchAll);
 
     List<Questions> selectUploadTime();
@@ -28,8 +29,8 @@ public interface QuestionsMapper {
 
     Questions selectQuestionByIdList(Integer questionsId);
 
-    List<Questions> selectQuestionArray(int typeId,int pointId,int subjectId);
+    List<Questions> selectQuestionArray(int typeId, int pointId, int subjectId);
 
-    List<Questions> selectQuestionListByTypeAndDif(int typeId,int difId);
+    List<Questions> selectQuestionListByTypeAndDif(int typeId, int difId);
 
 }

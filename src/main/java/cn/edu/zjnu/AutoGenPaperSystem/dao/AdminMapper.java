@@ -10,4 +10,8 @@ public interface AdminMapper {
     int insertSelective(Admin record);
 
     Admin selectByadminName(String adminName);
+
+    int setMaxQuantity(Integer maxQuantity);
+
+    int selectMaxQuantity();
 }

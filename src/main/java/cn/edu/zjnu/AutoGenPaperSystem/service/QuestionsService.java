@@ -37,5 +37,4 @@ public interface QuestionsService {
     List<QuestionBean> selectQuestionListByTypeAndDif(QuestionBean questionBean);
 
 
-
 }

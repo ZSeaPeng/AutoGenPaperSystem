@@ -167,14 +167,11 @@ public class AdminOperateController {
         return null;
     }
 
-    @RequestMapping(value = "/addcommanager",method = RequestMethod.POST)
-    public String addComManager(@RequestBody ComManager commanager){
+    @RequestMapping(value = "/addcommanager", method = RequestMethod.POST)
+    public String addComManager(@RequestBody ComManager commanager) {
         comManagerServiceImpl.insertSelective(commanager);
         return null;
     }
-
-
-
 
 
     @RequestMapping(value = "/questionnumber", method = RequestMethod.POST)
@@ -183,6 +180,16 @@ public class AdminOperateController {
 
         return null;
 
+    }
+
+    @RequestMapping(value = "/setmaxquantity", method = RequestMethod.POST)
+    public String setMaxQuanity(@ModelAttribute("adminpassword") String password, int maxquantity) {
+        System.out.print("maxquantity--->" + maxquantity);
+
+        if (adminServiceImpl.setMaxquantity(maxquantity) != 1) {
+            return "fail";
+        }
+        return "success";
     }
 
 

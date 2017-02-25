@@ -64,11 +64,11 @@ public class TiKuController {
         int userid;
         try {
             userid = (Integer) session1.getAttribute("userid");
-        }catch (Exception e){
+        } catch (Exception e) {
             userid = -1;
         }
-       //int userid = (Integer)session.getAttribute("userid");
-        System.out.println("userId--------"+userid);
+        //int userid = (Integer)session.getAttribute("userid");
+        System.out.println("userId--------" + userid);
         t = (String) session.getAttribute("t");
         d = (String) session.getAttribute("d");
         c = (String) session.getAttribute("c");
@@ -107,7 +107,7 @@ public class TiKuController {
         int userid;
         try {
             userid = (Integer) httpSession.getAttribute("userid");
-        }catch (Exception e){
+        } catch (Exception e) {
             userid = -1;
         }
         setParam(subjectName, grade_id, point_id);
@@ -158,9 +158,6 @@ public class TiKuController {
         //    }
         //
         //}
-
-
-
 
 
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
@@ -251,7 +248,7 @@ public class TiKuController {
         int userid;
         try {
             userid = (Integer) session.getAttribute("userid");
-        }catch (Exception e){
+        } catch (Exception e) {
             userid = -1;
         }
 
@@ -270,7 +267,7 @@ public class TiKuController {
         int userid;
         try {
             userid = (Integer) session.getAttribute("userid");
-        }catch (Exception e){
+        } catch (Exception e) {
             userid = -1;
         }
 
