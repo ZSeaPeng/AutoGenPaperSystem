@@ -12,8 +12,8 @@ export default class QuestionCard extends React.Component {
     super(props);
     this.state = {
       over: false,
-      number: 0,
-      score: 0
+      number: '',
+      score: '',
     }
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
@@ -51,7 +51,8 @@ export default class QuestionCard extends React.Component {
   }
 
   handleNumberChange(e) {
-    this.state.number = e.target.value;
+    this.setState({number: e.target.value})
+    // this.state.number = e.target.value;
   }
 
   handleRandom() {
@@ -59,13 +60,15 @@ export default class QuestionCard extends React.Component {
   }
 
   handleScore(e) {
-    this.state.score = e.target.value
+    this.setState({score: e.target.value})
+    // this.state.score = e.target.value
   }
 
   handleScoreChange() {
     const {dispatch, i, index} = this.props;
     const { score } = this.state;
     dispatch(scoreChange({index, i, score}))
+    this.state.score = ''
   }
 
   handlePositionChange() {
@@ -79,7 +82,7 @@ export default class QuestionCard extends React.Component {
       dispatch(positionChange({index, i, number, title: false}))
       dispatch(paperDelete({index, i, title: false}))
     }
-
+    this.state.number = ''
   }
 
   render() {
@@ -113,12 +116,12 @@ export default class QuestionCard extends React.Component {
           <FlatButton label = "换题" onClick={this.handleRandom}/>
           <div>
             修改分值
-            <TextField onChange={this.handleScore}/>
+            <TextField value = {this.state.score} onChange={this.handleScore}/>
             <FlatButton label="确定" secondary={true} onClick={this.handleScoreChange} />
           </div>
           <div>
             移至第
-            <TextField onChange={this.handleNumberChange}/>
+            <TextField value = {this.state.number} onChange={this.handleNumberChange}/>
             题(共{length}题) 
             <FlatButton label="确定" secondary={true} onClick={this.handlePositionChange} />
           </div>
