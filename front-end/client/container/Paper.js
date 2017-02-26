@@ -41,9 +41,9 @@ class Paper extends Component {
 
   handleMake(array) {
     const { dispatch } = this.props;
-    const { subName, type, questions, qurl, aurl } = this.props.testPaper;
     dispatch(finalAction(array));
-    if (qurl === "") {
+    const { subName, type, questions, qurl, aurl } = this.props.testPaper;
+    if (qurl !== "") {
       this.setState({style: {
         width: '100%',
         height: '100%',
