@@ -52,7 +52,6 @@ export default class QuestionCard extends React.Component {
 
   handleNumberChange(e) {
     this.setState({number: e.target.value})
-    // this.state.number = e.target.value;
   }
 
   handleRandom() {
@@ -61,7 +60,6 @@ export default class QuestionCard extends React.Component {
 
   handleScore(e) {
     this.setState({score: e.target.value})
-    // this.state.score = e.target.value
   }
 
   handleScoreChange() {

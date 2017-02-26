@@ -43,7 +43,7 @@ class Paper extends Component {
     const { dispatch } = this.props;
     dispatch(finalAction(array));
     const { subName, type, questions, qurl, aurl } = this.props.testPaper;
-    if (qurl !== "") {
+    if (qurl === "") {
       this.setState({style: {
         width: '100%',
         height: '100%',
