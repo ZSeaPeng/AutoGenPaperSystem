@@ -51,6 +51,12 @@ public class CharacterServiceImpl implements CharacterService {
     public List selectAllCharat(Integer subjectId,int gradeId,String subName,String others,String pointId,String t,String d,String c) {
         List<CharactionJson> charactionJsonList=new ArrayList<CharactionJson>();
         List<Charaction> charactionList=charactionMapper.selectAllCharat();
+        CharactionJson charactJson=new CharactionJson();
+        charactJson.setId(0);
+        charactJson.setName("全部");
+        charactJson.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+t+"d"+
+                d+"c"+0);
+        charactionJsonList.add(charactJson);
         for (Charaction list:charactionList){
             CharactionJson charactionJson=new CharactionJson();
             charactionJson.setId(list.getCharactId());
