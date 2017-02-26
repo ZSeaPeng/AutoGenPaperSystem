@@ -87,22 +87,23 @@ class Paper extends Component {
   render() {
     const { subName, type, questions, qurl, aurl } = this.props.testPaper;
     let others = [], radios = {i: 0, questions: []}, length = 0;
-    let rs = 0, nrs = 0;//选择题总分，非选择题总分
+    let rs = 0, nrs = [], nr = 0;//选择题总分，非选择题总分
     for (let i = 0; i < questions.length; i++) {
       if(questions[i].type === '选择题') {
-        // for(let j = 0; j < questions[i].questions.length; j++) {
-        //   rs += questions[i].questions[j].score;
-        // }
+        for(let j = 0; j < questions[i].questions.length; j++) {
+          rs += parseInt(questions[i].questions[j].score);
+        }
         radios = {...radios, i: i, questions: [...questions[i].questions]};
       } else {
-        // for(let j = 0; j < questions[i].questions.length; j++) {
-        //   nrs += questions[i].questions[j].score;
-        // }
+        for(let j = 0; j < questions[i].questions.length; j++) {
+          nrs.push(parseInt(questions[i].questions[j].score));
+          nr += parseInt(questions[i].questions[j].score);
+        }
         others = [...others, {...questions[i], i: i}];
         length += questions[i].questions.length;
       }
     }
-    let ts = rs + nrs; //总分
+    let ts = rs + nr; //总分
     const otherL = length === 0;
     const radioL = radios.questions.length === 0;
     return (
@@ -143,8 +144,8 @@ class Paper extends Component {
                 ? <h3 className={styles.h3}>第I卷（非选择题）</h3>
                 : <h3 className={styles.h3}>第II卷（非选择题）</h3>
               } 
-              <p style={{margin: 0}}>本试卷第一部分共有{length}道试题, {nrs}分。</p>
-              {others.map((other,i) => <NotRadio l = {radioL} {...this.props} i={i} key={i} other={other} length={others.length} onChange={this.handleChange}/>)}
+              <p style={{margin: 0}}>本试卷第一部分共有{length}道试题, {nr}分。</p>
+              {others.map((other,i) => <NotRadio {...this.props} score = {nrs[i]} l = {radioL} {...this.props} i={i} key={i} other={other} length={others.length} onChange={this.handleChange}/>)}
             </section>
             }
           </section>

@@ -32,7 +32,7 @@ export default class NotRadio extends React.Component {
   }
 
   render() {
-    const { other, i, length, l } = this.props;
+    const { other, i, length, l, score } = this.props;
     const first = i === 0;
     const last = i + 1 == length;
     const empty = other.questions.length === 0;
@@ -43,8 +43,8 @@ export default class NotRadio extends React.Component {
         : <div>
           <div className={styles.notRadio}>
             {l
-              ? <h4 className={styles.h4}>{nzhcn.encodeS(i + 1)}、{other.type}(共{other.questions.length}小题)</h4>
-              : <h4 className={styles.h4}>{nzhcn.encodeS(i + 2)}、{other.type}(共{other.questions.length}小题)</h4>
+              ? <h4 className={styles.h4}>{nzhcn.encodeS(i + 1)}、{other.type}(共{other.questions.length}小题, {score}分)</h4>
+              : <h4 className={styles.h4}>{nzhcn.encodeS(i + 2)}、{other.type}(共{other.questions.length}小题, {score}分)</h4>
             } 
             <div>
               {first
@@ -58,7 +58,7 @@ export default class NotRadio extends React.Component {
             </div>
           </div>
           {other.questions.map((question, i) =>
-            <QuestionCard key={i} radio={question} i={i} index={other.i} length={other.questions.length} onChange={this.handleChange}/>
+            <QuestionCard {...this.props} key={i} radio={question} i={i} index={other.i} length={other.questions.length} onChange={this.handleChange}/>
           )}
         </div>
       }

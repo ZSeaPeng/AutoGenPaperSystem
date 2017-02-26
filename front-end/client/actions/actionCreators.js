@@ -51,7 +51,7 @@ let port = "http://localhost:8111";
 /**
  * 真正与reducer沟通的函数
  * */
-export const socreChange = details => ({
+export const scoreChange = details => ({
   type: SCORECHANGE,
   details
 })
