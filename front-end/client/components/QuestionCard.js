@@ -74,7 +74,7 @@ export default class QuestionCard extends React.Component {
     const { i, index } = this.props;
     const { number } = this.state;
     if( i > number - 1 ) {
-      dispatch(positionChange({index, i, number, title: false}))
+      dispatch(positionChange({index, i, number: number - 1, title: false}))
       dispatch(paperDelete({index, i: i + 1, title: false}))
     } else {
       dispatch(positionChange({index, i, number, title: false}))
