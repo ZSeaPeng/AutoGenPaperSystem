@@ -5,14 +5,15 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { positionChange, paperDelete } from '../actions/actionCreators';
+import { positionChange, paperDelete, scoreChange } from '../actions/actionCreators';
 
 export default class QuestionCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       over: false,
-      number: 0
+      number: '',
+      score: '',
     }
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
@@ -22,6 +23,8 @@ export default class QuestionCard extends React.Component {
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
     this.handleRandom = this.handleRandom.bind(this);
+    this.handleScore = this.handleScore.bind(this);
+    this.handleScoreChange = this.handleScoreChange.bind(this);
   }
 
   handleMouseEnter() {
@@ -48,11 +51,22 @@ export default class QuestionCard extends React.Component {
   }
 
   handleNumberChange(e) {
-    this.state.number = e.target.value;
+    this.setState({number: e.target.value})
   }
 
   handleRandom() {
     const {dispatch, i, index} = this.props;
+  }
+
+  handleScore(e) {
+    this.setState({score: e.target.value})
+  }
+
+  handleScoreChange() {
+    const {dispatch, i, index} = this.props;
+    const { score } = this.state;
+    dispatch(scoreChange({index, i, score}))
+    this.state.score = ''
   }
 
   handlePositionChange() {
@@ -60,13 +74,13 @@ export default class QuestionCard extends React.Component {
     const { i, index } = this.props;
     const { number } = this.state;
     if( i > number - 1 ) {
-      dispatch(positionChange({index, i, number, title: false}))
+      dispatch(positionChange({index, i, number: number - 1, title: false}))
       dispatch(paperDelete({index, i: i + 1, title: false}))
     } else {
       dispatch(positionChange({index, i, number, title: false}))
       dispatch(paperDelete({index, i, title: false}))
     }
-
+    this.state.number = ''
   }
 
   render() {
@@ -99,7 +113,15 @@ export default class QuestionCard extends React.Component {
           }
           <FlatButton label = "换题" onClick={this.handleRandom}/>
           <div>
-            移至第<TextField onChange={this.handleNumberChange}/>题(共{length}题) <FlatButton label="确定" secondary={true} onClick={this.handlePositionChange} />
+            修改分值
+            <TextField value = {this.state.score} onChange={this.handleScore}/>
+            <FlatButton label="确定" secondary={true} onClick={this.handleScoreChange} />
+          </div>
+          <div>
+            移至第
+            <TextField value = {this.state.number} onChange={this.handleNumberChange}/>
+            题(共{length}题) 
+            <FlatButton label="确定" secondary={true} onClick={this.handlePositionChange} />
           </div>
         </div>
 

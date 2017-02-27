@@ -48,6 +48,12 @@ public class TypeServiceImpl implements TypeService {
     public List selectTypesBySubjectId(Integer subjectId,int gradeId,String subName,String others,String pointId,String t,String d,String c) {
         List<TypesJson> typesJsonList = new ArrayList<TypesJson>();
         List<Types> typesList = typesMapper.selectTypesBySubjectId(subjectId);
+        TypesJson typejson = new TypesJson();
+        typejson.setId(0);
+        typejson.setName("全部");
+        typejson.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+
+                0+"d"+d+"c"+c);
+        typesJsonList.add(typejson);
         for (Types types:typesList){
             TypesJson json = new TypesJson();
             json.setId(types.getTypeId());

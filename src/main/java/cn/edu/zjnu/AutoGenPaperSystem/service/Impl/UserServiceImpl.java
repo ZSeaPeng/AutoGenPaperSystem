@@ -236,6 +236,7 @@ public class UserServiceImpl implements UserService {
                     questionsJson.setId(q.getQuestionsId());
                     questionsJson.setQurl(q.getQuesPic_URL());
                     questionsJson.setAurl(q.getAnswerPic_URL());
+                    questionsJson.setScore("0");
                     questionsJsonList.add(questionsJson);
                 }
             }

@@ -46,6 +46,12 @@ public class DifficultyServiceImpl implements DifficultyService {
     public List selectAllDifficult(Integer subjectId, int gradeId, String subName, String others, String pointId, String t, String d, String c) {
         List<DifficultyJson> difficultyJsons = new ArrayList<DifficultyJson>();
         List<Difficulty> difficulties = difficultyMapper.selectAllDifficult();
+        DifficultyJson difficultJson = new DifficultyJson();
+        difficultJson.setId(0);
+        difficultJson.setName("全部");
+        difficultJson.setUrl("/tiku/" + gradeId + "/" + subName + "/point" + pointId + "/t" + t + "d" +
+                0 + "c" + c);
+        difficultyJsons.add(difficultJson);
         for (Difficulty list : difficulties) {
             DifficultyJson difficultyJson = new DifficultyJson();
             difficultyJson.setId(list.getDifficultyId());

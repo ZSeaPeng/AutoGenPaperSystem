@@ -1,3 +1,5 @@
 target
 
 src/main/webapp/upload/question
+
+npm-debug.log

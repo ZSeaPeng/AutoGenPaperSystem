@@ -19,8 +19,9 @@ class Paper extends Component {
     super(props);
     this.state = {
       style: {
-        display: 'none'
+        display: 'none' 
       },
+      score: 0,
       open: false
     }
     this.handleChange = this.handelChange.bind(this);
@@ -40,8 +41,8 @@ class Paper extends Component {
 
   handleMake(array) {
     const { dispatch } = this.props;
-    const { subName, type, questions, qurl, aurl } = this.props.testPaper;
     dispatch(finalAction(array));
+    const { subName, type, questions, qurl, aurl } = this.props.testPaper;
     if (qurl === "") {
       this.setState({style: {
         width: '100%',
@@ -86,14 +87,23 @@ class Paper extends Component {
   render() {
     const { subName, type, questions, qurl, aurl } = this.props.testPaper;
     let others = [], radios = {i: 0, questions: []}, length = 0;
+    let rs = 0, nrs = [], nr = 0;//选择题总分，非选择题总分
     for (let i = 0; i < questions.length; i++) {
       if(questions[i].type === '选择题') {
+        for(let j = 0; j < questions[i].questions.length; j++) {
+          rs += parseInt(questions[i].questions[j].score);
+        }
         radios = {...radios, i: i, questions: [...questions[i].questions]};
       } else {
+        for(let j = 0; j < questions[i].questions.length; j++) {
+          nrs.push(parseInt(questions[i].questions[j].score));
+          nr += parseInt(questions[i].questions[j].score);
+        }
         others = [...others, {...questions[i], i: i}];
         length += questions[i].questions.length;
       }
     }
+    let ts = rs + nr; //总分
     const otherL = length === 0;
     const radioL = radios.questions.length === 0;
     return (
@@ -110,22 +120,32 @@ class Paper extends Component {
           <section className={styles.main}>
             <header>
               <h2 style={{display: 'inline-block'}}>{subName}{type}卷</h2>
+              <h3 style={{margin: 0}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总分：{ts}</h3>
             </header>
             {radioL
               ? null
               : <section className={styles.second}>
                 <h3 className={styles.h3}>第I卷（选择题）</h3>
-                <p style={{margin: 0}}>本试卷第一部分共有{radios.questions.length}道试题。</p>
-                <h4 style={{margin: 0}}>一、选择题（共{radios.questions.length}小题）</h4>
-                {radios.questions.map((radio, i) => <QuestionCard dispatch = {this.props.dispatch} key={i} radio={radio} index={radios.i} i={i} length={radios.questions.length} onChange={this.handleChange}/>)}
+                <p style={{margin: 0}}>本试卷第一部分共有{radios.questions.length}道试题, {rs}分。</p>
+                <h4 style={{margin: 0}}>一、选择题（共{radios.questions.length}小题, {rs}分）</h4>
+                {radios.questions.map((radio, i) => 
+                  <QuestionCard 
+                    dispatch = {this.props.dispatch} 
+                    key={i} radio={radio} index={radios.i} i={i} 
+                    length={radios.questions.length} onChange={this.handleChange}
+                  />)
+                }
               </section>
             }
             {otherL
               ? null
               : <section className={styles.second}>
-              <h3 className={styles.h3}>第II卷（非选择题）</h3>
-              <p style={{margin: 0}}>本试卷第一部分共有{length}道试题。</p>
-              {others.map((other,i) => <NotRadio {...this.props} i={i} key={i} other={other} length={others.length} onChange={this.handleChange}/>)}
+              {radioL
+                ? <h3 className={styles.h3}>第I卷（非选择题）</h3>
+                : <h3 className={styles.h3}>第II卷（非选择题）</h3>
+              } 
+              <p style={{margin: 0}}>本试卷第一部分共有{length}道试题, {nr}分。</p>
+              {others.map((other,i) => <NotRadio {...this.props} score = {nrs[i]} l = {radioL} {...this.props} i={i} key={i} other={other} length={others.length} onChange={this.handleChange}/>)}
             </section>
             }
           </section>

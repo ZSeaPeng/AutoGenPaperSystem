@@ -9,18 +9,35 @@ public class QuestionsJson {
     //private String answer;
     private String qurl;
     private String aurl;
+    private String score;
     private boolean expanded;
 
     public QuestionsJson() {
     }
 
-    public QuestionsJson(int id, String context, String answer, String qurl, String aurl, boolean expanded) {
+//    public QuestionsJson(int id, String context, String answer, String qurl, String aurl, boolean expanded) {
+//        this.id = id;
+//        //this.context = context;
+//        //this.answer = answer;
+//        this.qurl = qurl;
+//        this.aurl = aurl;
+//        this.expanded = false;
+//    }
+
+    public QuestionsJson(int id, String qurl, String aurl, String score, boolean expanded) {
         this.id = id;
-        //this.context = context;
-        //this.answer = answer;
         this.qurl = qurl;
         this.aurl = aurl;
-        this.expanded = false;
+        this.score = score;
+        this.expanded = expanded;
+    }
+
+    public String getScore() {
+        return score;
+    }
+
+    public void setScore(String score) {
+        this.score = score;
     }
 
     public int getId() {
