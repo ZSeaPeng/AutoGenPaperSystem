@@ -6,10 +6,11 @@ import ChooseModel from '../components/ChooseModel';
 import ChooseCourse from '../components/ChooseCourse';
 import ChooseQuestion from '../components/ChooseQuestion';
 import ChooseDifficulty from '../components/ChooseDifficulty';
-import ChoosePoint from '../components/ChoosePoint';
+import Checkbox from 'material-ui/Checkbox';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import Chip from 'material-ui/Chip';
 
 import { getSelect, getInitialState, submitWordInfo } from '../actions/actionCreators';
 
@@ -40,6 +41,15 @@ const styles = {
     left: '7%',
     width: '1100px'
   },
+  chip: {
+   backgroundColor: '#64B5F6',
+   float:'left',
+   marginLeft:2,
+   marginTop:2,
+   fontFamily: "Microsoft YaHei",
+   fontWright: "normal",
+   fonColor: "#333"
+  },
   children: {
     position: 'relative',
     marginTop: '10px',
@@ -50,6 +60,7 @@ class AutoCombine extends Component {
   constructor (props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
     this.state = {
       pointValue: 0,
       value: 0,
@@ -57,19 +68,55 @@ class AutoCombine extends Component {
       diff: "3",
       questions: {},
       questionsName: {},
-      points: {},
+      points: [],
       courseChanged: false
     };
+  };
+
+  getPoints = (point, pointValue) => {
+    if (point.pointList.length === 0) {
+      point["type"] = pointValue;
+      this.state.points.push(point);
+    }
+    else {
+      point["type"] = pointValue;
+      this.state.points.push(point);
+      for (var subpoints of point.pointList) {
+        this.getPoints(subpoints, pointValue);
+      }
+    }
+  };
+
+  componentWillReceiveProps(nextProps) {
+    this.state.points=[];
+    var points = nextProps.Points;
+    for(var point of points) {
+      this.getPoints(point, points.indexOf(point));
+    }
+  };
+
+  handleCheck(e, isChecked){
+    var pIndex = e.target.name;
+    this.state.points[pIndex].select = !this.state.points[pIndex].select;
+    this.setState({pointValue : this.state.pointValue});
+
+  };
+
+  handleRequestDelete = (i) => {
+    this.state.points[i].select = !this.state.points[i].select;
+    this.setState({pointValue : this.state.pointValue});
   };
 
   handleChange = (event, index, pointValue) => {
       this.setState({pointValue});
   };
+
   componentDidMount() {
     const { dispatch } = this.props;
     let path = "/tiku/1/yuwen1/point0";
     dispatch(getSelect(path));
-  }
+  };
+
   onCourseChanged = (newValue) => {
     const { dispatch } = this.props;
     let path = this.props.sublist[0].contextList[newValue].url;
@@ -77,8 +124,9 @@ class AutoCombine extends Component {
     this.setState({value: newValue,
                    questions: {},
                    questionsName: {},
-                   points: {}
+                   points: []
                  });
+   console.log(this.state.points);
   };
   onModelChanged = (newModel) => {
     this.setState({model: newModel});
@@ -95,13 +143,13 @@ class AutoCombine extends Component {
       this.state.questionsName[qId] = name;
     }
   };
-  onPointChanged = (isChecked, pointId) => {
-    if (isChecked) {
-      this.state.points[pointId] = pointId;
-    } else {
-      delete this.state.points[pointId];
-    }
-  }
+  // onPointChanged = (isChecked, pointId) => {
+  //   if (isChecked) {
+  //     this.state.points[pointId] = pointId;
+  //   } else {
+  //     delete this.state.points[pointId];
+  //   }
+  // }
 
   handleSubmit() {
     const { dispatch } = this.props;
@@ -119,13 +167,22 @@ class AutoCombine extends Component {
       typeName.push(questionsName[id]);
     }
     const points = this.state.points;
+    var pointsList = [];
+    for ( var point of points) {
+      if (point.select === true) {
+        var id = point.id;
+        pointsList.push(id);
+      }
+    }
+    console.log("pointList");
+    console.log(pointsList);
     const wordInfo = {wordtype : wordtype,
                       subject : subject,
                       diff : diff,
                       typeId : typeId,
                       typeNum : typeNum,
                       typeName : typeName,
-                      points : points,
+                      points : pointsList,
                      }
     dispatch(submitWordInfo(wordInfo));
   };
@@ -154,39 +211,72 @@ class AutoCombine extends Component {
 		      <ChooseDifficulty callback={this.onDiffChanged}/>
         </div>
         <br/><hr/>
-        <div>
+        <div style={{height:550}}>
           <h3 style={styles.title}>选择知识点</h3>
-          <SelectField
-            value={this.state.pointValue}
-            onChange={this.handleChange}
-            maxHeight={200}
-          >
-          {
-            Points.map((point, i) =>
-              <MenuItem value={i} key={i} primaryText={point.name} />
-            )
-          }
-          </SelectField>
+          <div style={{backgroundColor:'#B0E0E6',padding:5,height:520,width:300,float:'left',borderRadius: 10}}>
+            <SelectField
+              value={this.state.pointValue}
+              onChange={this.handleChange}
+              maxHeight={200}
+            >
+            {
+              Points.map((point, i) =>
+                <MenuItem value={i} key={i} primaryText={point.name} />
+              )
+            }
+            </SelectField>
 
-          {Points.length === 0 ? console.log("empty points") :
-            Points.map((point, i) =>
-              <ChoosePoint
-                key={i}
-                pId={i}
-                point={point}
-                pointValue={this.state.pointValue}
-                callback={this.onPointChanged}
-                value={this.state.value}
-                />
-            )
-           }
+            {this.state.points.length === 0 ? console.log("empty points") :
+              this.state.points.map((point, i) =>
+              <div>
+                {this.state.pointValue === point.type ?
+                  <div style = {{ display: 'block' }}>
+                    <Checkbox
+                      key={i}
+                      checked={point.select}
+                      name={i}
+                      label={point.name}
+                      style={styles.title}
+                      onCheck={this.handleCheck}
+                    />
+                  </div> :
+                  <div style = {{ display: 'none' }}>
+                    <Checkbox
+                      key={i}
+                      checked={point.select}
+                      name={i}
+                      label={point.name}
+                      style={styles.title}
+                      onCheck={this.handleCheck}
+                    />
+                  </div>
+                }
+              </div>
+              )
+             }
+          </div>
+          <div style={{backgroundColor:"#B0E0E6",height:520,width:770,float:'left',marginLeft:10,padding:5,borderRadius: 10}}>
+             <p style={styles.title}>已选择知识点</p>
+             {
+               this.state.points.map((point, i) =>
+                 <div style = {point.select ? {display: 'block'} : { display: 'none' }}>
+                   <Chip
+                     key={i}
+                     onRequestDelete={() => this.handleRequestDelete(i)}
+                     style={styles.chip}
+                   >
+                     {point.name}
+                   </Chip>
+                </div>
+             )
+             }
+          </div>
         </div>
 		    <br/>
-        { isEmpty? <div></div> :
-          <div style={styles.children}>
-            <button style={styles.confirmButton} onClick={this.handleSubmit}>选择试题</button>
-          </div>
-        }
+        <div style={{ position:"relative",top:10}}>
+          {/* <button style={styles.confirmButton} onClick={this.handleSubmit}>生成试卷</button> */}
+          <RaisedButton label="生成试卷" secondary={true} style={styles.confirmButton} onClick={this.handleSubmit} />
+        </div>
         <p style={{padding:20}}></p>
 		  </div>
 		)

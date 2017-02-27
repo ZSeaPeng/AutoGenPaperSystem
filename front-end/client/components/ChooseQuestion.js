@@ -14,9 +14,11 @@ const styles = {
   },
   types: {
     backgroundColor: "#2196F3",
-    fontSize: 23,
+    fontSize: 20,
     width: 155,
     color: "white",
+    borderRadius: 2,
+    padding: 5,
   }
 };
 
