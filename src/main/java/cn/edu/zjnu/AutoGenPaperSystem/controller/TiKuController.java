@@ -119,15 +119,15 @@ public class TiKuController {
         if (matcher.find()) {
             session.setAttribute("d", matcher.group(2));
             session.setAttribute("c", matcher.group(3));
-            if (!matcher.group(1).equals("0")) {
+            if (!matcher.group(1).equals("")) {
                 session.setAttribute("t", matcher.group(1));
                 t = matcher.group(1);
             }
-            if (!matcher.group(2).equals("0")) {
+            if (!matcher.group(2).equals("")) {
                 session.setAttribute("d", matcher.group(2));
                 d = matcher.group(2);
             }
-            if (!matcher.group(3).equals("0")) {
+            if (!matcher.group(3).equals("")) {
                 session.setAttribute("c", matcher.group(3));
                 c = matcher.group(3);
             }
