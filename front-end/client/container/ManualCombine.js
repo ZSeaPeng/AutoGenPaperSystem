@@ -66,16 +66,8 @@ class ManualCombine extends Component {
         </div>
 		    <br/>
         <div>
-          { isEmpty? <div></div> :
-            // <RaisedButton
-            //   label="选择试题"
-            //   secondary={true}
-            //   href={sublist[0].contextList[this.state.value].url}
-            //   style={styles.confirmButton}
-            // />
-            <button style={styles.confirmButton} onClick={this.handleSubmit}>选择试题</button>
-          }
-          {console.log(this.state.model)}
+            {/* <button style={styles.confirmButton} onClick={this.handleSubmit}>选择试题</button> */}
+            <RaisedButton label="选择试题" secondary={true} style={styles.confirmButton} onClick={this.handleSubmit} />
         </div>
         <p style={{padding:20}}></p>
 		  </div>

@@ -21,18 +21,20 @@ const styles = {
   children1: {
     width: 180,
 		height: 180,
-		backgroundColor: 'rgba(133, 132, 135, 0.48)',
+		backgroundColor: '#B0E0E6',
 		backgroundImage: 'url('+imgSrc1+')',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
+    borderRadius: 5
   },
   children2: {
     width: 180,
 		height: 180,
-		backgroundColor: 'rgba(133, 132, 135, 0.48)',
+		backgroundColor: '#B0E0E6',
 		backgroundImage: 'url('+imgSrc2+')',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
+    borderRadius: 5,
   },
   radio: {
     position: 'relative',
