@@ -5,6 +5,7 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import cn.edu.zjnu.AutoGenPaperSystem.service.ComManagerService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,9 +76,12 @@ public class LoginController {
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public
     @ResponseBody
-    String Logout(SessionStatus sessionStatus) {
+    String Logout(HttpSession session,SessionStatus sessionStatus) {
         //System.out.println("-----------");
         sessionStatus.setComplete();
+        session.removeAttribute("t");
+        session.removeAttribute("d");
+        session.removeAttribute("c");
         return "{\"info\":\"logout\"}";
     }
 
