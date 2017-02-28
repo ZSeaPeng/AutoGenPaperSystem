@@ -53,6 +53,9 @@ public class TypeServiceImpl implements TypeService {
         typejson.setName("全部");
         typejson.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+
                 0+"d"+d+"c"+c);
+        if (t.equals("0")){
+            typejson.setSelect(true);
+        }
         typesJsonList.add(typejson);
         for (Types types:typesList){
             TypesJson json = new TypesJson();
@@ -60,6 +63,9 @@ public class TypeServiceImpl implements TypeService {
             json.setName(types.getTypeName());
             json.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+
                     types.getTypeId()+"d"+d+"c"+c);
+            if (types.getTypeId().toString().equals(t)){
+                json.setSelect(true);
+            }
             typesJsonList.add(json);
         }
 

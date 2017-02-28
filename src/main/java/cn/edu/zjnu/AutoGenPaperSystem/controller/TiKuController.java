@@ -161,60 +161,59 @@ public class TiKuController {
 
 
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
-//---------------------------------------------
-        Iterator<TypesJson> iteratorTy = typesList.iterator();
-        String regTy = "t(\\d+)";
-        Pattern patternTy = Pattern.compile(regTy);
-        while (iteratorTy.hasNext()) {
-            TypesJson typesJson = iteratorTy.next();
-            Matcher matcherTy = patternTy.matcher(typesJson.getUrl());
-            matcherTy.find();
-            if (matcherTy.find()) {
-                if (matcherTy.group(1).equals(t)) {
-                    typesJson.setSelect(true);
-                    break;
-                }
-            }
-
-        }
+        //---------------------------------------------
+//        Iterator<TypesJson> iteratorTy = typesList.iterator();
+//        String regTy = "t(\\d+)";
+//        Pattern patternTy = Pattern.compile(regTy);
+//        while (iteratorTy.hasNext()) {
+//            TypesJson typesJson = iteratorTy.next();
+//            Matcher matcherTy = patternTy.matcher(typesJson.getUrl());
+//            matcherTy.find();
+//            if (matcherTy.find()) {
+//                if (matcherTy.group(1).equals(t)) {
+//                    typesJson.setSelect(true);
+//                    break;
+//                }
+//            }
+//        }
 
 
         //--------------------------------------------------------
         List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         //---------------------------------------------
-        Iterator<DifficultyJson> iteratorDi = difficultiesList.iterator();
-        String regDi = "d(\\d+)";
-        Pattern patternDi = Pattern.compile(regDi);
-        while (iteratorDi.hasNext()) {
-            DifficultyJson difficultyJson = iteratorDi.next();
-            Matcher matcherDi = patternDi.matcher(difficultyJson.getUrl());
-            if (matcherDi.find()) {
-                if (matcherDi.group(1).equals(d)) {
-                    difficultyJson.setSelect(true);
-                    break;
-                }
-            }
-
-        }
+//        Iterator<DifficultyJson> iteratorDi = difficultiesList.iterator();
+//        String regDi = "d(\\d+)";
+//        Pattern patternDi = Pattern.compile(regDi);
+//        while (iteratorDi.hasNext()) {
+//            DifficultyJson difficultyJson = iteratorDi.next();
+//            Matcher matcherDi = patternDi.matcher(difficultyJson.getUrl());
+//            if (matcherDi.find()) {
+//                if (matcherDi.group(1).equals(d)) {
+//                    difficultyJson.setSelect(true);
+//                    break;
+//                }
+//            }
+//
+//        }
 
 
         //--------------------------------------------------------
         List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         //---------------------------------------------
-        Iterator<CharactionJson> iteratorchar = charactionsList.iterator();
-        String regchar = "c(\\d+)";
-        Pattern patternchar = Pattern.compile(regchar);
-        while (iteratorchar.hasNext()) {
-            CharactionJson charactionJson = iteratorchar.next();
-            Matcher matcherchar = patternchar.matcher(charactionJson.getUrl());
-            if (matcherchar.find()) {
-                if (matcherchar.group(1).equals(c)) {
-                    charactionJson.setSelect(true);
-                    break;
-                }
-            }
-
-        }
+//        Iterator<CharactionJson> iteratorchar = charactionsList.iterator();
+//        String regchar = "c(\\d+)";
+//        Pattern patternchar = Pattern.compile(regchar);
+//        while (iteratorchar.hasNext()) {
+//            CharactionJson charactionJson = iteratorchar.next();
+//            Matcher matcherchar = patternchar.matcher(charactionJson.getUrl());
+//            if (matcherchar.find()) {
+//                if (matcherchar.group(1).equals(c)) {
+//                    charactionJson.setSelect(true);
+//                    break;
+//                }
+//            }
+//
+//        }
 
 
         //--------------------------------------------------------

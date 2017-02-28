@@ -56,6 +56,9 @@ public class CharacterServiceImpl implements CharacterService {
         charactJson.setName("全部");
         charactJson.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+t+"d"+
                 d+"c"+0);
+        if (c.equals("0")){
+            charactJson.setSelect(true);
+        }
         charactionJsonList.add(charactJson);
         for (Charaction list:charactionList){
             CharactionJson charactionJson=new CharactionJson();
@@ -63,6 +66,9 @@ public class CharacterServiceImpl implements CharacterService {
             charactionJson.setName(list.getCharactName());
             charactionJson.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+t+"d"+
                     d+"c"+list.getCharactId());
+            if (list.getCharactId().toString().equals(c)){
+                charactionJson.setSelect(true);        //显示当前选择的项
+            }
             charactionJsonList.add(charactionJson);
         }
         return charactionJsonList;
