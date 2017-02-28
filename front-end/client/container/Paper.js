@@ -43,12 +43,11 @@ class Paper extends Component {
     const { dispatch } = this.props;
     const { subName, type } = this.props.testPaper;
     let info = {
-      userid: parseInt(sessionStorage.getItem('userid')),
+      userid: sessionStorage.getItem('userid'),
       subName,
       type,
       question: array
     }
-    console.log(info)
     dispatch(finalAction(info));
     const {qurl, aurl } = this.props.testPaper;
     if (qurl === "") {
