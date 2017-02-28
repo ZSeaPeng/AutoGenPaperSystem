@@ -674,7 +674,8 @@ export const finalAction = (array) => dispatch => {
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=utf-8'
     },
-    body: JSON.stringify([...array]),
+    // body: JSON.stringify([1, 2, 3]),
+    body: JSON.stringify({...array}),
     credentials: 'include'
   })
     .then(response => response.json())
