@@ -1,12 +1,18 @@
-import { TESTPAPER, PAPERDOWN, PAPERUP, PAPERDELETE, PAPERUUP, PAPERDDOWN, GETPAPER, POSITIONCHANGE, SCORECHANGE } from '../actions/actionCreators'
+import { TESTPAPER, PAPERDOWN, PAPERUP, PAPERDELETE, PAPERUUP, PAPERDDOWN, GETPAPER, POSITIONCHANGE, SCORECHANGE, CHANGEPAPERNAME } from '../actions/actionCreators'
 
 function testPaper(state={
   type: '单元测试',
   subName: '语文',
+  paperName: '',
   questions:[],
   qurl: "",
   aurl: ""}, action) {
   switch (action.type) {
+    case CHANGEPAPERNAME:
+      return {
+        ...state,
+        paperName: action.paperName
+      }
     case TESTPAPER:
       return {
         ...state,
@@ -110,14 +116,7 @@ function testPaper(state={
         ...state.questions.slice(0, action.details.index),
           {
             ...state.questions[action.details.index],
-            questions: [
-              ...state.questions[action.details.index].questions.slice(0, action.details.i ),
-              {
-                ...state.questions[action.details.index].questions[action.details.i],
-                score: action.details.score
-              },
-              ...state.questions[action.details.index].questions.slice(action.details.i + 1)
-            ]
+            score: action.details.score
           },        
         ...state.questions.slice(action.details.index + 1)
         ]

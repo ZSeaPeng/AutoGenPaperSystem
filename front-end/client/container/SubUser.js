@@ -35,21 +35,13 @@ class SubUser extends Component {
       open: false,
     };
     this.handleExpand = this.handleExpand.bind(this);
-    // this.handleDelete = this.handleDelete.bind(this);
-    // this.handleClose = this.handleClose.bind(this);
   }
 
   handleExpand() {
     this.setState({open: !this.state.open})
   }
 
-  // handleDelete() {
-  //   const { user, dispatch, i } = this.props;
-  //   dispatch(asynDeleteSubUser({userId: user.userId, username: user.username, k: i}));
-  // }
-
   render() {
-    // const { user } = this.props;
     let { open } = this.state;
     let style = {};
 

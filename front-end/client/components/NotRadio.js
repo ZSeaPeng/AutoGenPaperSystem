@@ -4,16 +4,24 @@ let Nzh = require("nzh");
 let nzhcn = Nzh.cn;
 
 import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
 
 //component
 import QuestionCard from '../components/QuestionCard';
 
+import scoreChange from '../actions/actionCreators';
+
 export default class NotRadio extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      score: ''
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleDown = this.handleDown.bind(this);
     this.handleUp = this.handleUp.bind(this);
+    this.handleScore = this.handleScore.bind(this);
+    this.handleScoreChange = this.handleScoreChange.bind(this);
   }
 
   handleDown() {
@@ -26,9 +34,20 @@ export default class NotRadio extends React.Component {
     this.props.onChange({index: other.i, title: true}, 'up')
   }
 
+  handleScore(e) {
+    this.setState({score: e.target.value})
+  }
+
   handleChange(details, type) {
     const { other, i } = this.props;
     this.props.onChange({...details}, type);
+  }
+
+  handleScoreChange() {
+    const {dispatch, other} = this.props;
+    const { score } = this.state;
+    dispatch(scoreChange({index: other.i, score}))
+    this.state.score = ''
   }
 
   render() {
@@ -56,7 +75,13 @@ export default class NotRadio extends React.Component {
                 : <FlatButton label="下移" onClick={this.handleDown}/>
               }
             </div>
+
           </div>
+            <div>
+              修改分值
+              <TextField value = {this.state.score} onChange={this.handleScore}/>
+              <FlatButton label="确定" secondary={true} onClick={this.handleScoreChange} />
+            </div>
           {other.questions.map((question, i) =>
             <QuestionCard {...this.props} key={i} radio={question} i={i} index={other.i} length={other.questions.length} onChange={this.handleChange}/>
           )}

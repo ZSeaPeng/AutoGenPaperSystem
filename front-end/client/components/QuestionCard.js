@@ -5,7 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { positionChange, paperDelete, scoreChange } from '../actions/actionCreators';
+import { positionChange, paperDelete } from '../actions/actionCreators';
 
 export default class QuestionCard extends React.Component {
   constructor(props) {
@@ -23,8 +23,6 @@ export default class QuestionCard extends React.Component {
     this.handleNumberChange = this.handleNumberChange.bind(this);
     this.handlePositionChange = this.handlePositionChange.bind(this);
     this.handleRandom = this.handleRandom.bind(this);
-    this.handleScore = this.handleScore.bind(this);
-    this.handleScoreChange = this.handleScoreChange.bind(this);
   }
 
   handleMouseEnter() {
@@ -56,17 +54,6 @@ export default class QuestionCard extends React.Component {
 
   handleRandom() {
     const {dispatch, i, index} = this.props;
-  }
-
-  handleScore(e) {
-    this.setState({score: e.target.value})
-  }
-
-  handleScoreChange() {
-    const {dispatch, i, index} = this.props;
-    const { score } = this.state;
-    dispatch(scoreChange({index, i, score}))
-    this.state.score = ''
   }
 
   handlePositionChange() {

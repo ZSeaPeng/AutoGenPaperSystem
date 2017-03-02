@@ -5,9 +5,11 @@ import store, { history } from '../store';
 import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 //import action
-import { getOldTestPaper, getTestPaper, paperDown, paperUp, paperDelete, paperUup, paperDdown, finalAction } from '../actions/actionCreators';
+import { getOldTestPaper, getTestPaper, paperDown, paperUp, paperDelete, paperUup, paperDdown, finalAction, scoreChange, changePaperName } from '../actions/actionCreators';
 
 //component
 import QuestionCard from '../components/QuestionCard';
@@ -22,11 +24,41 @@ class Paper extends Component {
         display: 'none' 
       },
       score: 0,
-      open: false
+      open: false,
+      open1: false,
+      score1: '',
+      paperName: ''
     }
-    this.handleChange = this.handelChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleMake = this.handleMake.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleScore = this.handleScore.bind(this);
+    this.handleScoreChange = this.handleScoreChange.bind(this);
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.paperNameChange = this.paperNameChange.bind(this);
+  }
+
+  handleChangeName() {
+    this.setState({open1: !this.state.open1})
+  }
+
+  handleClose() {
+    this.setState({open1: !this.state.open1})
+  }
+
+  paperNameChange(e) {
+    this.setState({paperName: e.target.value})
+  }
+
+  handleSubmit() {
+    const { dispatch } = this.props;
+    const { paperName } = this.state;
+    // console.log(paperName);
+    dispatch(changePaperName(paperName))
+    this.setState({paperName: '', open1: false})
+
   }
 
   componentDidMount() {
@@ -41,11 +73,12 @@ class Paper extends Component {
 
   handleMake(array) {
     const { dispatch } = this.props;
-    const { subName, type } = this.props.testPaper;
+    let { paperName } = this.props.testPaper;
+    if(paperName === '')  { paperName = '单元测试卷' }
+    // console.log(paperName);
     let info = {
       userid: sessionStorage.getItem('userid'),
-      subName,
-      type,
+      title: paperName,
       question: array
     }
     dispatch(finalAction(info));
@@ -72,7 +105,7 @@ class Paper extends Component {
     this.setState({open: false});
   }
 
-  handelChange(details, type) {
+  handleChange(details, type) {
     const { dispatch } = this.props;
     if(type === 'up') {
       if(!details.title) {
@@ -91,28 +124,37 @@ class Paper extends Component {
     }
   }
 
+  handleScore(e) {
+    this.setState({score1: e.target.value})
+  }
+
+  handleScoreChange() {
+    const {dispatch } = this.props;
+    const { score1 } = this.state;
+    dispatch(scoreChange({index: 0, score: score1}))
+    this.state.score1 = ''
+  }
+
   render() {
-    const { subName, type, questions, qurl, aurl } = this.props.testPaper;
+    const { subName, type, questions, qurl, aurl, paperName } = this.props.testPaper;
     let others = [], radios = {i: 0, questions: []}, length = 0;
-    let rs = 0, nrs = [], nr = 0;//选择题总分，非选择题总分
+    let s = 0, rs = 0, ls = [];
     for (let i = 0; i < questions.length; i++) {
       if(questions[i].type === '选择题') {
-        for(let j = 0; j < questions[i].questions.length; j++) {
-          rs += parseInt(questions[i].questions[j].score);
-        }
+        s += questions[i].score;
+        rs = s
         radios = {...radios, i: i, questions: [...questions[i].questions]};
       } else {
-        for(let j = 0; j < questions[i].questions.length; j++) {
-          nrs.push(parseInt(questions[i].questions[j].score));
-          nr += parseInt(questions[i].questions[j].score);
-        }
+        s += questions[i].score
+        ls.push(s);
         others = [...others, {...questions[i], i: i}];
         length += questions[i].questions.length;
       }
     }
-    let ts = rs + nr; //总分
+    let lss = s - rs
     const otherL = length === 0;
     const radioL = radios.questions.length === 0;
+    const hasName = paperName === ''
     return (
       <div>
         <div className={styles.div}>
@@ -126,8 +168,12 @@ class Paper extends Component {
           </table>
           <section className={styles.main}>
             <header>
-              <h2 style={{display: 'inline-block'}}>{subName}{type}卷</h2>
-              <h3 style={{margin: 0}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总分：{ts}</h3>
+              {paperName
+                ? <h2 style={{display: 'inline-block'}}>{paperName}</h2>
+                : <h2 style={{display: 'inline-block'}}>{subName}{type}卷</h2>
+              }
+              <FlatButton label = "修改标题" onClick = {this.handleChangeName} />
+              <h3 style={{margin: 0}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总分：{s}</h3>
             </header>
             {radioL
               ? null
@@ -135,6 +181,11 @@ class Paper extends Component {
                 <h3 className={styles.h3}>第I卷（选择题）</h3>
                 <p style={{margin: 0}}>本试卷第一部分共有{radios.questions.length}道试题, {rs}分。</p>
                 <h4 style={{margin: 0}}>一、选择题（共{radios.questions.length}小题, {rs}分）</h4>
+                 <div>
+                  修改分值
+                  <TextField value = {this.state.score1} onChange={this.handleScore}/>
+                  <FlatButton label="确定" secondary={true} onClick={this.handleScoreChange} />
+                </div>
                 {radios.questions.map((radio, i) => 
                   <QuestionCard 
                     dispatch = {this.props.dispatch} 
@@ -151,8 +202,8 @@ class Paper extends Component {
                 ? <h3 className={styles.h3}>第I卷（非选择题）</h3>
                 : <h3 className={styles.h3}>第II卷（非选择题）</h3>
               } 
-              <p style={{margin: 0}}>本试卷第一部分共有{length}道试题, {nr}分。</p>
-              {others.map((other,i) => <NotRadio {...this.props} score = {nrs[i]} l = {radioL} {...this.props} i={i} key={i} other={other} length={others.length} onChange={this.handleChange}/>)}
+              <p style={{margin: 0}}>本试卷第一部分共有{length}道试题, {lss}分。</p>
+              {others.map((other,i) => <NotRadio {...this.props} score = {ls[i]} l = {radioL} {...this.props} i={i} key={i} other={other} length={others.length} onChange={this.handleChange}/>)}
             </section>
             }
           </section>
@@ -163,6 +214,17 @@ class Paper extends Component {
         <div style={this.state.style}>
           <CircularProgress />
         </div>
+        <Dialog
+          title="修改标题"
+          actions={[<RaisedButton label="确认" secondary={true} onClick={this.handleSubmit}/>]}
+          modal={false}
+          open={this.state.open1}
+          onRequestClose={this.handleClose}>
+          <TextField
+            value = {this.state.paperName}
+            onChange={ this.paperNameChange }
+          />
+        </Dialog>
         <Dialog
           title="点击下载"
           open={this.state.open}
