@@ -52,23 +52,28 @@ public class CombineController {
         List typeId = (List) map.get("typeId");
         List typeNum = (List) map.get("typeNum");
 
-        System.out.println("typeid");
+        List typeName = (List)map.get("typeName");
+
+
+        System.out.println("typeid  :  ");
         for (Object id : typeId) {
             System.out.print(id + " ");
         }
-        System.out.println("typeNum");
+        System.out.println();
+        System.out.println("typeNum:   ");
         for (Object num : typeNum) {
             System.out.print(num + " ");
         }
         System.out.println();
-
-        Map pointsMap = (Map) map.get("points");
-        List<String> pointsList = new ArrayList<>();
-        pointsList.clear();
-        for (Object point : pointsMap.values()) {
-            pointsList.add(String.valueOf(point));
-            //System.out.println("point---" + point);
+        System.out.println("typeName:   ");
+        for (Object name :typeName){
+            System.out.print(name+" ");
         }
+        System.out.println();
+
+        List<String> pointsList = new ArrayList<>();
+        pointsList = (List<String>) map.get("points");
+
 
         List<Paper> paperList = new ArrayList<>();
         for (int i=0; i < typeId.size(); i++) {
@@ -83,6 +88,7 @@ public class CombineController {
             paperList.add(startPaper.getPaper());
         }
 
+
         Map<String,Object> map1 = new HashMap<String,Object>();
 
         map1.put("Title","xxxxxx");
@@ -93,6 +99,10 @@ public class CombineController {
             SetAllDocx.Title(map1,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),request.getServletContext().getRealPath("/upload/temp/ceshi.docx"));
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        for (Paper paper :paperList){
+            System.out.println("paper:  "+paper);
         }
 
 

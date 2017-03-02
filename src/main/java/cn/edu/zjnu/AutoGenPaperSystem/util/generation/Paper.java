@@ -219,4 +219,18 @@ public class Paper {
         }
         return answerPath;
     }
+
+    @Override
+    public String toString() {
+        return "Paper{" +
+                "id=" + id +
+                ", adaptationDegree=" + adaptationDegree +
+                ", kPCoverage=" + kPCoverage +
+                ", totalDifficult=" + totalDifficult +
+                ", difficulty=" + difficulty +
+                ", questionList=" + questionList +
+                ", questionPath=" + questionPath +
+                ", answerPath=" + answerPath +
+                '}';
+    }
 }

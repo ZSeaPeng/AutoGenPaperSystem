@@ -1,9 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
-import cn.edu.zjnu.AutoGenPaperSystem.model.CharactionJson;
-import cn.edu.zjnu.AutoGenPaperSystem.model.DifficultyJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll;
-import cn.edu.zjnu.AutoGenPaperSystem.model.TypesJson;
 import cn.edu.zjnu.AutoGenPaperSystem.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +9,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -84,7 +80,7 @@ public class TiKuController {
         Map<String, List> allMap = new HashMap<String, List>();
         setParam(subjectName, grade_id, point_id);
         List knowLedgeList = knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(this.sub_id,
-                this.grade_id, this.others, this.sub_name, this.point_id, t, d, c);
+                this.grade_id, this.others, this .sub_name, this.point_id, t, d, c);
         List typesList = typeServiceImpl.selectTypesBySubjectId(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List difficultiesList = difficultyServiceImpl.selectAllDifficult(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
         List charactionsList = characterServiceImpl.selectAllCharat(sub_id, grade_id, sub_name, others, this.point_id, t, d, c);
