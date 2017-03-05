@@ -229,18 +229,16 @@ public class UserServiceImpl implements UserService {
             List<QuestionsJson> questionsJsonList = new ArrayList<QuestionsJson>();
             questionsJsonList.clear();
             for (Questions q : questionsList) {
-
-                // System.out.println(q.getTypes().getTypeName());
                 if (q.getTypes().getTypeName().equals(typeName)) {
                     QuestionsJson questionsJson = new QuestionsJson();
                     questionsJson.setId(q.getQuestionsId());
                     questionsJson.setQurl(q.getQuesPic_URL());
                     questionsJson.setAurl(q.getAnswerPic_URL());
-                    questionsJson.setScore("0");
                     questionsJsonList.add(questionsJson);
                 }
             }
             map.put("questions", questionsJsonList);
+            map.put("score","0");
             lastList.add(map);
         }
 

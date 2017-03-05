@@ -89,6 +89,7 @@ public class PaperServiceImpl implements PaperService {
                 }
             }
             map.put("questions", questionsJsonList);
+            map.put("score","0");
             lastList.add(map);
         }
             //改变顺序
