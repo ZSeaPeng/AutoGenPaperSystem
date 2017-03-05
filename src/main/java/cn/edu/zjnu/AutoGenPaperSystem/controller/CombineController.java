@@ -2,7 +2,6 @@ package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
-import cn.edu.zjnu.AutoGenPaperSystem.util.SetAllDocx;
 import cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper;
 import cn.edu.zjnu.AutoGenPaperSystem.util.generation.RuleBean;
 import cn.edu.zjnu.AutoGenPaperSystem.util.generation.StartPaper;
@@ -16,7 +15,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +41,7 @@ public class CombineController {
     }
 
     @RequestMapping(value = "/auto", method = RequestMethod.POST)
-    public void Auto(@RequestBody Map map, HttpServletRequest request) {
+    public List Auto(@RequestBody Map map, HttpServletRequest request) {
 
         String diff = (String) map.get("diff");
         String wordtype = (String) map.get("wordtype");
@@ -52,7 +50,7 @@ public class CombineController {
         List typeId = (List) map.get("typeId");
         List typeNum = (List) map.get("typeNum");
 
-        List typeName = (List)map.get("typeName");
+        List typeName = (List) map.get("typeName");
 
 
         System.out.println("typeid  :  ");
@@ -66,17 +64,20 @@ public class CombineController {
         }
         System.out.println();
         System.out.println("typeName:   ");
-        for (Object name :typeName){
-            System.out.print(name+" ");
+        for (Object name : typeName) {
+            System.out.print(name + " ");
         }
         System.out.println();
 
         List<String> pointsList = new ArrayList<>();
         pointsList = (List<String>) map.get("points");
-
+        System.out.println("points  ");
+        for (String s : pointsList) {
+            System.out.print(s + "  ");
+        }
 
         List<Paper> paperList = new ArrayList<>();
-        for (int i=0; i < typeId.size(); i++) {
+        for (int i = 0; i < typeId.size(); i++) {
             RuleBean ruleBean = new RuleBean();
             ruleBean.setDifficulty(Double.parseDouble(diff));
             ruleBean.setPointIds(pointsList);
@@ -89,22 +90,23 @@ public class CombineController {
         }
 
 
-        Map<String,Object> map1 = new HashMap<String,Object>();
+        //Map<String,Object> map1 = new HashMap<String,Object>();
+        //
+        //map1.put("Title","xxxxxx");
+        //for (int i=0;i<paperList.size();i++){
+        //    map1.put("选择题",paperList.get(i).getQuestionPath());
+        //}
+        //try {
+        //    SetAllDocx.Title(map1,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),request.getServletContext().getRealPath("/upload/temp/ceshi.docx"));
+        //} catch (Exception e) {
+        //    e.printStackTrace();
+        //}
 
-        map1.put("Title","xxxxxx");
-        for (int i=0;i<paperList.size();i++){
-            map1.put("选择题",paperList.get(i).getQuestionPath());
+        for (Paper paper : paperList) {
+            System.out.println("paper:  " + paper.getQuestionList());
         }
-        try {
-            SetAllDocx.Title(map1,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),request.getServletContext().getRealPath("/upload/temp/ceshi.docx"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        for (Paper paper :paperList){
-            System.out.println("paper:  "+paper);
-        }
-
-
+        return paperList;
     }
+
 }

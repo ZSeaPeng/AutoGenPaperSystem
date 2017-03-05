@@ -15,7 +15,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/api/paper")
 @ResponseBody
-//@SessionAttributes("userid")
+@SessionAttributes("userid")
 public class PaperController {
 
 
@@ -35,9 +35,13 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/makepaper", method = RequestMethod.POST)
-    public String getTest(@RequestBody String string){
-        System.out.print("RequestBody String string--->"+string);
-        return "success---->"+string;
+    public String getTest(@RequestBody Map map){
+        String title = (String) map.get("title");
+
+
+
+
+        return "success---->";
     }
     //public Map getPaperList(@RequestBody PaperObject[] paperObjects, @ModelAttribute("userid") Integer userid,
     //                        HttpServletRequest request) {
