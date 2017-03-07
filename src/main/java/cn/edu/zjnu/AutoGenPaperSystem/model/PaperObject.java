@@ -7,10 +7,10 @@ import java.util.Arrays;
  */
 public class PaperObject {
     private String type;
-    private int[] id;
-    private int[] score;
+    private Integer[] id;
+    private int score;
 
-    public PaperObject(String type, int[] id, int[] score) {
+    public PaperObject(String type, Integer[] id, int score) {
         this.type = type;
         this.id = id;
         this.score = score;
@@ -24,19 +24,19 @@ public class PaperObject {
         this.type = type;
     }
 
-    public int[] getId() {
+    public Integer[] getId() {
         return id;
     }
 
-    public void setId(int[] id) {
+    public void setId(Integer[] id) {
         this.id = id;
     }
 
-    public int[] getScore() {
+    public int getScore() {
         return score;
     }
 
-    public void setScore(int[] score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
@@ -45,7 +45,7 @@ public class PaperObject {
         return "PaperObject{" +
                 "type='" + type + '\'' +
                 ", id=" + Arrays.toString(id) +
-                ", score=" + Arrays.toString(score) +
+                ", score=" + score +
                 '}';
     }
 }

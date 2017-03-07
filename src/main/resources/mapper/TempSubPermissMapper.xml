@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.TempSubPermissMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.TempSubPermiss" >
+    <constructor >
+      <idArg column="TempSubPerId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="TemporaryId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SubjectId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AllowPaper" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="DoPaper" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsDelete" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TempSubPerId, TemporaryId, SubjectId, AllowPaper, DoPaper, IsDelete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from TempSubPermiss
+    where TempSubPerId = #{tempsubperid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from TempSubPermiss
+    where TempSubPerId = #{tempsubperid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.TempSubPermiss" >
+    insert into TempSubPermiss (TempSubPerId, TemporaryId, SubjectId, 
+      AllowPaper, DoPaper, IsDelete
+      )
+    values (#{tempsubperid,jdbcType=INTEGER}, #{temporaryid,jdbcType=INTEGER}, #{subjectid,jdbcType=INTEGER}, 
+      #{allowpaper,jdbcType=INTEGER}, #{dopaper,jdbcType=INTEGER}, #{isdelete,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.TempSubPermiss" >
+    insert into TempSubPermiss
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tempsubperid != null" >
+        TempSubPerId,
+      </if>
+      <if test="temporaryid != null" >
+        TemporaryId,
+      </if>
+      <if test="subjectid != null" >
+        SubjectId,
+      </if>
+      <if test="allowpaper != null" >
+        AllowPaper,
+      </if>
+      <if test="dopaper != null" >
+        DoPaper,
+      </if>
+      <if test="isdelete != null" >
+        IsDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tempsubperid != null" >
+        #{tempsubperid,jdbcType=INTEGER},
+      </if>
+      <if test="temporaryid != null" >
+        #{temporaryid,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null" >
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="allowpaper != null" >
+        #{allowpaper,jdbcType=INTEGER},
+      </if>
+      <if test="dopaper != null" >
+        #{dopaper,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.TempSubPermiss" >
+    update TempSubPermiss
+    <set >
+      <if test="temporaryid != null" >
+        TemporaryId = #{temporaryid,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null" >
+        SubjectId = #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="allowpaper != null" >
+        AllowPaper = #{allowpaper,jdbcType=INTEGER},
+      </if>
+      <if test="dopaper != null" >
+        DoPaper = #{dopaper,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        IsDelete = #{isdelete,jdbcType=BIT},
+      </if>
+    </set>
+    where TempSubPerId = #{tempsubperid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.TempSubPermiss" >
+    update TempSubPermiss
+    set TemporaryId = #{temporaryid,jdbcType=INTEGER},
+      SubjectId = #{subjectid,jdbcType=INTEGER},
+      AllowPaper = #{allowpaper,jdbcType=INTEGER},
+      DoPaper = #{dopaper,jdbcType=INTEGER},
+      IsDelete = #{isdelete,jdbcType=BIT}
+    where TempSubPerId = #{tempsubperid,jdbcType=INTEGER}
+  </update>
+</mapper>

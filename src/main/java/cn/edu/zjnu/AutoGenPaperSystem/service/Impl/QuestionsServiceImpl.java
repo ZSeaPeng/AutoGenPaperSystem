@@ -83,13 +83,8 @@ public class QuestionsServiceImpl implements QuestionsService {
                 Questions questions = new Questions();
                 if (!list.equals("0")) {
                     questions = questionsMapper.selectQuestionByIdList(Integer.parseInt(list));
-
-                    System.out.println("questions----"+questions);
-
                     questionsMap.put("id", questions.getQuestionsId());
                     questionsMap.put("type", questions.getTypes().getTypeName());
-
-                    // System.out.println("questionsesMap------"+questionsesMap);
                     chosenList.add(questionsMap);
                 }
             }

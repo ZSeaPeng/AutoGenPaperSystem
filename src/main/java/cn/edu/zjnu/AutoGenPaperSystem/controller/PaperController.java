@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,14 +37,28 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/makepaper", method = RequestMethod.POST)
-    public String getTest(@RequestBody Map map){
+    public String getTest(@RequestBody Map map, @ModelAttribute("userid") Integer userid,
+                                                   HttpServletRequest request) {
         String title = (String) map.get("title");
 
+        List<Map> questionList = (List<Map>) map.get("question");
+
+        for (Map tempMap : questionList) {
+            System.out.println("type:  " + tempMap.get("type"));
+            System.out.println("id:  " + tempMap.get("id"));
+            System.out.println("score:  " + tempMap.get("score"));
+        }
+
+            //String dfileName = new String(fileName.getBytes("gb2312"), "iso8859-1");
+            //HttpHeaders headers = new HttpHeaders();
+            //headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            //headers.setContentDispositionFormData("attachment", dfileName);
+            //return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
+            return null;
+
+        }
 
 
-
-        return "success---->";
-    }
     //public Map getPaperList(@RequestBody PaperObject[] paperObjects, @ModelAttribute("userid") Integer userid,
     //                        HttpServletRequest request) {
     //    System.out.println("--------");
