@@ -9,7 +9,7 @@ import TextField from 'material-ui/TextField';
 //component
 import QuestionCard from '../components/QuestionCard';
 
-import scoreChange from '../actions/actionCreators';
+import { scoreChange } from '../actions/actionCreators';
 
 export default class NotRadio extends React.Component {
   constructor(props) {

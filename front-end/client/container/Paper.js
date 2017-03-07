@@ -36,7 +36,7 @@ class Paper extends Component {
     this.handleScoreChange = this.handleScoreChange.bind(this);
     this.handleChangeName = this.handleChangeName.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    this.handleClose1 = this.handleClose1.bind(this);
     this.paperNameChange = this.paperNameChange.bind(this);
   }
 
@@ -44,7 +44,7 @@ class Paper extends Component {
     this.setState({open1: !this.state.open1})
   }
 
-  handleClose() {
+  handleClose1() {
     this.setState({open1: !this.state.open1})
   }
 
@@ -55,7 +55,6 @@ class Paper extends Component {
   handleSubmit() {
     const { dispatch } = this.props;
     const { paperName } = this.state;
-    // console.log(paperName);
     dispatch(changePaperName(paperName))
     this.setState({paperName: '', open1: false})
 
@@ -75,7 +74,6 @@ class Paper extends Component {
     const { dispatch } = this.props;
     let { paperName } = this.props.testPaper;
     if(paperName === '')  { paperName = '单元测试卷' }
-    // console.log(paperName);
     let info = {
       userid: sessionStorage.getItem('userid'),
       title: paperName,
@@ -141,12 +139,12 @@ class Paper extends Component {
     let s = 0, rs = 0, ls = [];
     for (let i = 0; i < questions.length; i++) {
       if(questions[i].type === '选择题') {
-        s += questions[i].score;
-        rs = s
+        s += parseInt(questions[i].score);
+        rs = s;
         radios = {...radios, i: i, questions: [...questions[i].questions]};
       } else {
-        s += questions[i].score
-        ls.push(s);
+        s += parseInt(questions[i].score);
+        ls.push(parseInt(questions[i].score));
         others = [...others, {...questions[i], i: i}];
         length += questions[i].questions.length;
       }
@@ -173,7 +171,11 @@ class Paper extends Component {
                 : <h2 style={{display: 'inline-block'}}>{subName}{type}卷</h2>
               }
               <FlatButton label = "修改标题" onClick = {this.handleChangeName} />
-              <h3 style={{margin: 0}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总分：{s}</h3>
+              <h3 style={{margin: 0}}>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                总分：{s}
+              </h3>
             </header>
             {radioL
               ? null
@@ -219,7 +221,7 @@ class Paper extends Component {
           actions={[<RaisedButton label="确认" secondary={true} onClick={this.handleSubmit}/>]}
           modal={false}
           open={this.state.open1}
-          onRequestClose={this.handleClose}>
+          onRequestClose={this.handleClose1}>
           <TextField
             value = {this.state.paperName}
             onChange={ this.paperNameChange }

@@ -100,11 +100,6 @@ export default class QuestionCard extends React.Component {
           }
           <FlatButton label = "换题" onClick={this.handleRandom}/>
           <div>
-            修改分值
-            <TextField value = {this.state.score} onChange={this.handleScore}/>
-            <FlatButton label="确定" secondary={true} onClick={this.handleScoreChange} />
-          </div>
-          <div>
             移至第
             <TextField value = {this.state.number} onChange={this.handleNumberChange}/>
             题(共{length}题) 

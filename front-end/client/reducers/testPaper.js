@@ -113,12 +113,12 @@ function testPaper(state={
       return {
         ...state,
         questions: [
-        ...state.questions.slice(0, action.details.index),
+          ...state.questions.slice(0, action.details.index),
           {
             ...state.questions[action.details.index],
             score: action.details.score
           },        
-        ...state.questions.slice(action.details.index + 1)
+          ...state.questions.slice(action.details.index + 1)
         ]
       }
     default:
