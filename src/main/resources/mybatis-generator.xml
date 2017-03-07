@@ -59,14 +59,19 @@
                 <!--type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象-->
                 <!--type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口-->
         <!--&lt;!&ndash;&ndash;&gt;&ndash;&gt;-->
-		<!--<javaClientGenerator type="XMLMAPPER" targetPackage="cn.edu.zjnu.AutoGenPaperSystem.dao" targetProject="src/main/java">-->
-		<!--<property name="enableSubPackages" value="true"/>-->
-	<!--</javaClientGenerator>-->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="cn.edu.zjnu.AutoGenPaperSystem.dao" targetProject="src/main/java">
+		<property name="enableSubPackages" value="true"/>
+	</javaClientGenerator>
 
 		<!-- 要对那些数据表进行生成操作，必须要有一个. -->
 		<!--用百分号表示生成所有表,可以直接省去一个一个写 <table tableName="%" /> -->
 
-		<table tableName="difficulty" domainObjectName="Difficulty"
+		<table tableName="UserSubPermiss" domainObjectName="UserSubPermiss"
+			   enableCountByExample="false" enableUpdateByExample="false"
+			   enableDeleteByExample="false" enableSelectByExample="false"
+			   selectByExampleQueryId="false">
+		</table>
+		<table tableName="TempSubPermiss" domainObjectName="TempSubPermiss"
 			   enableCountByExample="false" enableUpdateByExample="false"
 			   enableDeleteByExample="false" enableSelectByExample="false"
 			   selectByExampleQueryId="false">

@@ -1,19 +1,15 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
-import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
 import cn.edu.zjnu.AutoGenPaperSystem.service.PaperService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
-import cn.edu.zjnu.AutoGenPaperSystem.util.SetAllDocx;
-import com.github.stuxuhai.jpinyin.PinyinFormat;
-import com.github.stuxuhai.jpinyin.PinyinHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.crypto.Data;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zseapeng on 2016/11/18.
@@ -41,49 +37,25 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/makepaper", method = RequestMethod.POST)
-    public Map getTest(@RequestBody Map map, @ModelAttribute("userid") Integer userid,
+    public String getTest(@RequestBody Map map, @ModelAttribute("userid") Integer userid,
                                                    HttpServletRequest request) {
-        Calendar now=Calendar.getInstance();
-        String date=""+now.get(Calendar.YEAR)+"-"+(now.get(Calendar.MONTH)+1)+"-"+now.get(Calendar.DAY_OF_MONTH);
         String title = (String) map.get("title");
-        List<Map> list = (List<Map>) map.get("question");
-        Map<String,Object> questionMap=new LinkedHashMap<>();
-        Map<String,Object> answerMap=new LinkedHashMap<>();
-        questionMap.put("Title",title);
-        answerMap.put("Title",title+"答案");
-        for (int i=0;i<list.size();i++) {
-            List questionList=new ArrayList();
-            List answerList=new ArrayList();
-            List<Integer> idList= (List<Integer>) list.get(i).get("id");
-            for (Integer id:idList){
-                Questions questions=questionsServiceImpl.selectByPrimaryKey(id);
-                questionList.add(questions.getContent());
-                answerList.add(questions.getAnswer());
-            }
-            questionMap.put(list.get(i).get("type")+"(共"+questionList.size()+"题，共"+list.get(i).get("score")+"分)",questionList );
-            answerMap.put(list.get(i).get("type")+"(共"+questionList.size()+"题，共"+list.get(i).get("score")+"分)",answerList );
-//            System.out.println("type:  " + tempMap.get("type"));
-//            System.out.println("id:  " + tempMap.get("id"));
-//            System.out.println("score:  " + tempMap.get("score"));
+
+        List<Map> questionList = (List<Map>) map.get("question");
+
+        for (Map tempMap : questionList) {
+            System.out.println("type:  " + tempMap.get("type"));
+            System.out.println("id:  " + tempMap.get("id"));
+            System.out.println("score:  " + tempMap.get("score"));
         }
-        try {
-            String qurl = request.getServletContext().getRealPath("/upload/temp/" + date+title +"试卷"+ ".docx");
-            SetAllDocx.Title(questionMap,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),qurl);
-            String aurl = request.getServletContext().getRealPath("/upload/temp/" +date+ title +"答案"+ ".docx");
-            SetAllDocx.Title(answerMap,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),aurl);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Map paperMap = new HashMap();
-        paperMap.put("qurl","localhost:8111/AutoGenPaperSystem/upload/temp/"+date+title +"试卷"+".docx");
-        paperMap.put("aurl","localhost:8111/AutoGenPaperSystem/upload/temp/"+ date+ title +"答案"+".docx");
 
             //String dfileName = new String(fileName.getBytes("gb2312"), "iso8859-1");
             //HttpHeaders headers = new HttpHeaders();
             //headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
             //headers.setContentDispositionFormData("attachment", dfileName);
             //return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
-        return paperMap;
+            return null;
+
         }
 
 
