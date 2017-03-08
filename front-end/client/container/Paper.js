@@ -75,7 +75,7 @@ class Paper extends Component {
 
   handleMake(array) {
     const { dispatch } = this.props;
-    let { paperName, subid, questions } = this.props.testPaper;
+    let { paperName, subid, questions, subName } = this.props.testPaper;
     let l = 0;
     for(let i = 0; i < questions.length; i++) {
       l += questions[i].questions.length;
@@ -86,7 +86,8 @@ class Paper extends Component {
       title: paperName,
       question: array,
       subid,
-      length: l
+      length: l,
+      subName
     }
     dispatch(finalAction(info));
     const {qurl, aurl } = this.props.testPaper;
