@@ -126,8 +126,7 @@ class Paper extends Component {
   }
 
   handleScore(e) {
-    this.setState({score1: e.target.value})
-    // this.state.score1 = e.target.value
+    this.state.score1 = e.target.value
   }
 
   handleScoreChange() {
@@ -153,7 +152,7 @@ class Paper extends Component {
         length += questions[i].questions.length;
       }
     }
-    let lss = s - rs
+    let lss = s - rs;
     const otherL = length === 0;
     const radioL = radios.questions.length === 0;
     const hasName = paperName === ''
@@ -181,9 +180,7 @@ class Paper extends Component {
                 <h4 style={{margin: 0}}>一、选择题（共{radios.questions.length}小题, {rs}分）</h4>
                  <div>
                   修改分值
-                  <TextField 
-                    value = {this.state.score1} 
-                    onChange={this.handleScore}/>
+                  <TextField onChange={this.handleScore}/>
                   <FlatButton label="确定" secondary={true} onClick={this.handleScoreChange} />
                 </div>
                 {radios.questions.map((radio, i) => 
