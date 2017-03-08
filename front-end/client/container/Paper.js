@@ -9,7 +9,10 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 //import action
-import { getOldTestPaper, getTestPaper, paperDown, paperUp, paperDelete, paperUup, paperDdown, finalAction, scoreChange, changePaperName } from '../actions/actionCreators';
+import { 
+  getOldTestPaper, getTestPaper, paperDown, paperUp, 
+  paperDelete, paperUup, paperDdown, finalAction, scoreChange, changePaperName 
+} from '../actions/actionCreators';
 
 //component
 import QuestionCard from '../components/QuestionCard';
@@ -49,7 +52,7 @@ class Paper extends Component {
   }
 
   paperNameChange(e) {
-    this.setState({paperName: e.target.value})
+    this.state.paperName = e.target.value;
   }
 
   handleSubmit() {
@@ -123,7 +126,7 @@ class Paper extends Component {
   }
 
   handleScore(e) {
-    this.setState({score1: e.target.value})
+    this.state.score1 = e.target.value
   }
 
   handleScoreChange() {
@@ -149,28 +152,20 @@ class Paper extends Component {
         length += questions[i].questions.length;
       }
     }
-    let lss = s - rs
+    let lss = s - rs;
     const otherL = length === 0;
     const radioL = radios.questions.length === 0;
     const hasName = paperName === ''
     return (
       <div>
         <div className={styles.div}>
-          <table className={styles.table}>
-            <tr>
-              <td className={styles.td1}>学校:___________&nbsp;&nbsp;班级：___________&nbsp;&nbsp;姓名：___________&nbsp;&nbsp;考号：___________</td>
-            </tr>
-            <tr>
-              <td className={styles.td2}>密&nbsp;&nbsp;&nbsp;封&nbsp;&nbsp;&nbsp;线&nbsp;&nbsp;&nbsp;内&nbsp;&nbsp;&nbsp;不&nbsp;&nbsp;&nbsp;要&nbsp;&nbsp;&nbsp;答&nbsp;&nbsp;&nbsp;题</td>
-            </tr>
-          </table>
           <section className={styles.main}>
             <header>
               {paperName
                 ? <h2 style={{display: 'inline-block'}}>{paperName}</h2>
                 : <h2 style={{display: 'inline-block'}}>{subName}{type}卷</h2>
               }
-              <FlatButton label = "修改标题" onClick = {this.handleChangeName} />
+              <FlatButton label = "修改标题" secondary={true} onClick = {this.handleChangeName} />
               <h3 style={{margin: 0}}>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -185,7 +180,7 @@ class Paper extends Component {
                 <h4 style={{margin: 0}}>一、选择题（共{radios.questions.length}小题, {rs}分）</h4>
                  <div>
                   修改分值
-                  <TextField value = {this.state.score1} onChange={this.handleScore}/>
+                  <TextField onChange={this.handleScore}/>
                   <FlatButton label="确定" secondary={true} onClick={this.handleScoreChange} />
                 </div>
                 {radios.questions.map((radio, i) => 
@@ -223,7 +218,6 @@ class Paper extends Component {
           open={this.state.open1}
           onRequestClose={this.handleClose1}>
           <TextField
-            value = {this.state.paperName}
             onChange={ this.paperNameChange }
           />
         </Dialog>

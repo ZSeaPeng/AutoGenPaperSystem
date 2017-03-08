@@ -75,11 +75,12 @@ export default class NotRadio extends React.Component {
                 : <FlatButton label="下移" onClick={this.handleDown}/>
               }
             </div>
-
           </div>
             <div>
               修改分值
-              <TextField value = {this.state.score} onChange={this.handleScore}/>
+              <TextField 
+                value = {this.state.score} 
+                onChange={this.handleScore}/>
               <FlatButton label="确定" secondary={true} onClick={this.handleScoreChange} />
             </div>
           {other.questions.map((question, i) =>
