@@ -3,6 +3,7 @@ import { TESTPAPER, PAPERDOWN, PAPERUP, PAPERDELETE, PAPERUUP, PAPERDDOWN, GETPA
 function testPaper(state={
   type: '单元测试',
   subName: '语文',
+  subid: 0,
   paperName: '',
   questions:[],
   qurl: "",

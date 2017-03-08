@@ -75,12 +75,18 @@ class Paper extends Component {
 
   handleMake(array) {
     const { dispatch } = this.props;
-    let { paperName } = this.props.testPaper;
+    let { paperName, subid, questions } = this.props.testPaper;
+    let l = 0;
+    for(let i = 0; i < questions.length; i++) {
+      l += questions[i].questions.length;
+    }
     if(paperName === '')  { paperName = '单元测试卷' }
     let info = {
       userid: sessionStorage.getItem('userid'),
       title: paperName,
-      question: array
+      question: array,
+      subid,
+      length: l
     }
     dispatch(finalAction(info));
     const {qurl, aurl } = this.props.testPaper;
