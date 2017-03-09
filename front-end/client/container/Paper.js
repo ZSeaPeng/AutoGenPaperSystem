@@ -90,22 +90,25 @@ class Paper extends Component {
       subName
     }
     dispatch(finalAction(info));
-    const {qurl, aurl } = this.props.testPaper;
-    if (qurl === "") {
-      this.setState({style: {
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'fixed',
-        marginTop: '-56px',
-        backgroundColor: 'hsla(0, 0%, 0%, 0.5)'}
-      })
-      document.documentElement.style.overflow='hidden';
-    } else {
-      this.setState({style: { display: 'none' },open: 'true'});
-      document.documentElement.style.overflow='auto';
+    this.setState({style: {
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'fixed',
+      marginTop: '-56px',
+      backgroundColor: 'hsla(0, 0%, 0%, 0.5)'}
+    })
+    document.documentElement.style.overflow='hidden';
+    const funcx = () => {
+      const {qurl, aurl } = this.props.testPaper;
+      if (qurl === "") {
+        funcx()
+      } else {
+        this.setState({style: { display: 'none' },open: 'true'});
+        document.documentElement.style.overflow='auto';
+      }
     }
   }
 
