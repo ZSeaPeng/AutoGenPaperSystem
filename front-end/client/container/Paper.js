@@ -74,17 +74,6 @@ class Paper extends Component {
   };
 
   handleMake(array) {
-    this.setState({style: {
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'fixed',
-      marginTop: '-56px',
-      backgroundColor: 'hsla(0, 0%, 0%, 0.5)'}
-    })
-    document.documentElement.style.overflow='hidden';
     const { dispatch } = this.props;
     let { paperName, subid, questions, subName } = this.props.testPaper;
     let l = 0;
@@ -101,8 +90,23 @@ class Paper extends Component {
       subName
     }
     dispatch(finalAction(info));
-    this.setState({style: { display: 'none' },open: 'true'});
-    document.documentElement.style.overflow='auto';
+    this.setState({style: {
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      position: 'fixed',
+      marginTop: '-56px',
+      backgroundColor: 'hsla(0, 0%, 0%, 0.5)'}
+    })
+    document.documentElement.style.overflow='hidden';
+    var that = this
+    setTimeout(function(){
+      that.setState({style: { display: 'none' },open: 'true'});
+      document.documentElement.style.overflow='auto';
+    },1000)
+    
   }
 
   handleClose() {
@@ -229,7 +233,7 @@ class Paper extends Component {
           title="点击下载"
           open={this.state.open}
           onRequestClose={this.handleClose}>
-          <a download={qurl}>试卷</a>, <a download={aurl}>答案</a>
+          <a herf={qurl}>试卷</a>, <a herf={aurl}>答案</a>
         </Dialog>
       </div>
     );
