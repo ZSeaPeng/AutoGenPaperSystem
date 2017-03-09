@@ -1,14 +1,13 @@
 package cn.edu.zjnu.AutoGenPaperSystem.service.Impl;
 
-import cn.edu.zjnu.AutoGenPaperSystem.dao.PaperMapper;
-import cn.edu.zjnu.AutoGenPaperSystem.dao.QuestionsMapper;
-import cn.edu.zjnu.AutoGenPaperSystem.dao.UserMapper;
+import cn.edu.zjnu.AutoGenPaperSystem.dao.*;
 import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.swing.text.html.HTMLDocument;
 import java.util.*;
 
 /**
@@ -22,6 +21,10 @@ public class UserServiceImpl implements UserService {
     private QuestionsMapper questionsMapper;
     @Resource
     private PaperMapper paperMapper;
+    @Resource
+    private UserSubPermissMapper userSubPermissMapper;
+    @Resource
+    private SubjectMapper subjectMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer userId) {
@@ -50,7 +53,6 @@ public class UserServiceImpl implements UserService {
         if (record.getUserpassword()!=null) {
             record.setUserpassword(String.valueOf(new Md5Hash(record.getUserpassword(), record.getUserpassword())));
         }
-
 
         if (record.getAdd().size() != 0) {
             List addChange = record.getAdd();
@@ -148,28 +150,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int UpdateSubjectCanByUserId(String subId, int userId) {
-        String subjectCan = userMapper.selectSubjectCanByUserId(userId);
-        String[] quesId = subjectCan.split(",");
-        //   return 0;
-        String change = "";
-        int i = 0;
-        Boolean flag = false;
-        for (String list : quesId) {
-            if (list.equals(subId)) {
-                flag = true;
-                continue;
-            }
-            change = change + list + ",";
-        }
-        if (flag == false) {
-            change = change + subId;
-        } else {
-            change = change.substring(0, change.length() - 1);
-        }
+    public int updateBySubIdAndUserId(String subId, int userId) {
+//        String subjectCan = userMapper.selectSubjectCanByUserId(userId);
+//        String[] quesId = subjectCan.split(",");
+//        //   return 0;
+//        String change = "";
+//        int i = 0;
+//        Boolean flag = false;
+//        for (String list : quesId) {
+//            if (list.equals(subId)) {
+//                flag = true;
+//                continue;
+//            }
+//            change = change + list + ",";
+//        }
+//        if (flag == false) {
+//            change = change + subId;
+//        } else {
+//            change = change.substring(0, change.length() - 1);
+//        }
+//        i = userMapper.updateSubjectCanByUserId(userId, change);
 
-        i = userMapper.updateSubjectCanByUserId(userId, change);
-        return i;
+        return userSubPermissMapper.updateBySubIdAndUserId(Integer.valueOf(subId),userId);
     }
 
     @Override
@@ -205,23 +207,36 @@ public class UserServiceImpl implements UserService {
         Map lastMap = new HashMap();
         List<Map> lastList = new ArrayList<Map>();
         lastMap.put("Type", type);
-        lastMap.put("subName", subName);
         String chosenTemp = userMapper.selectUserChosenByUSerId(userId);
         String[] questionIds = chosenTemp.split(",");
         Set<String> typeSet = new HashSet();
+        Set<Integer> subjectidSet=new HashSet<>();
         List<Questions> questionsList = new ArrayList<Questions>();
         for (String qid : questionIds) {
             if (!qid.equals("0")) {
                 Questions questions = questionsMapper.selectQuestionByIdList(Integer.valueOf(qid));
+                subjectidSet.add(questions.getSubjectId());
                 questionsList.add(questions);
+                typeSet.add(questions.getTypes().getTypeName());
             }
         }
-        for (String s : questionIds) {
-            if (!s.equals("0")) {
-                Questions q = questionsMapper.selectQuestionByIdList(Integer.valueOf(s));
-                typeSet.add(q.getTypes().getTypeName());
+        if (subjectidSet.size()==1){
+            for (Integer id:subjectidSet){
+                System.out.println(id);
+                subName=subjectMapper.selectByPrimaryKey(id).getSubjectName();
             }
+
         }
+        else if (subjectidSet.size()>1){
+            lastMap.put("Error","有不同学科的题目混合在里面！");
+        }
+        lastMap.put("subName", subName);
+//        for (String s : questionIds) {
+//            if (!s.equals("0")) {
+//                Questions q = questionsMapper.selectQuestionByIdList(Integer.valueOf(s));
+//                typeSet.add(q.getTypes().getTypeName());
+//            }
+//        }
         for (String typeName : typeSet) {
             Map map = new HashMap();
             map.clear();

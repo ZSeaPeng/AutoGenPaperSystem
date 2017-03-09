@@ -35,7 +35,6 @@ public class AdminOperateController {
 
     @RequestMapping(value = "/userlist", method = RequestMethod.GET)
     public List getAllUsers(@ModelAttribute("adminpassword") String password) {
-        System.out.println("Sessionpassword---" + password);
         return userServiceImpl.selestAllUsers();
     }
 
@@ -62,13 +61,16 @@ public class AdminOperateController {
     @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
     public String removeSubjectCan(int userid, String subid, int number, int k, @ModelAttribute("adminpassword") String password) {
 
-        String subNumber = subid + "(" + number + ")";
+//        String subNumber = subid + "(" + number + ")";
+//
+//        if (userServiceImpl.UpdateSubjectCanByUserId(subNumber, userid) == 0) {
+//            return null;
+//        }
+//        String subjectCan = userServiceImpl.selectSubjectCanByUserId(userid);
 
-        if (userServiceImpl.UpdateSubjectCanByUserId(subNumber, userid) == 0) {
-            return null;
-        }
-        String subjectCan = userServiceImpl.selectSubjectCanByUserId(userid);
-        String response = "{\"k\":" + k + ",\"subjectcan\":" + "\"" + subjectCan + "\"" + "}";
+//        String response = "{\"k\":" + k + ",\"subjectcan\":" + "\"" + subjectCan + "\"" + "}";
+        String response="";
+        response=response+userServiceImpl.updateBySubIdAndUserId(subid,userid);
         return response;
     }
 

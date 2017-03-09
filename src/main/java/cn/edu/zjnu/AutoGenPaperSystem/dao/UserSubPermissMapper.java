@@ -1,7 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.dao;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.UserSubPermiss;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserSubPermissMapper {
     int deleteByPrimaryKey(Integer subpermissid);
 
@@ -14,4 +16,6 @@ public interface UserSubPermissMapper {
     int updateByPrimaryKeySelective(UserSubPermiss record);
 
     int updateByPrimaryKey(UserSubPermiss record);
+
+    int updateBySubIdAndUserId(Integer subid,Integer userId);
 }

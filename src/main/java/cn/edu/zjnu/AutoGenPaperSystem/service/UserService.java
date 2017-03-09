@@ -32,7 +32,7 @@ public interface UserService  {
 
     List<User> selestAllUsers();
 
-    int UpdateSubjectCanByUserId(String subId,int userId);
+    int updateBySubIdAndUserId(String subId,int userId);
 
     String selectSubjectCanByUserId(int userId);
 

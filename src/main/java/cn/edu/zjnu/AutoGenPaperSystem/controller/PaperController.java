@@ -38,7 +38,13 @@ public class PaperController {
     public Map getInfo(@ModelAttribute("userid") Integer userid) {
         String type = "";
         String subName = "";
-        return userServiceImpl.selectUserChosenByUSerId(userid, type, subName);
+        Map infoMap=new HashMap();
+        infoMap=userServiceImpl.selectUserChosenByUSerId(userid, type, subName);
+        if (infoMap.containsKey("Error")){
+            infoMap.clear();
+            infoMap.put("Error","有不同学科的题目混合在里面!");
+        }
+        return infoMap;
     }
 
     @RequestMapping(value = "/makepaper", method = RequestMethod.POST)

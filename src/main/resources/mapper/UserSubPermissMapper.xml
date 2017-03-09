@@ -105,4 +105,9 @@
       IsDelete = #{isdelete,jdbcType=BIT}
     where SubPermissId = #{subpermissid,jdbcType=INTEGER}
   </update>
+  <update id="updateBySubIdAndUserId">
+    UPDATE UserSubPermiss
+    SET IsDelete=1
+    WHERE UserId=#{param2} AND SubjectId=#{param1}
+  </update>
 </mapper>
