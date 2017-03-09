@@ -110,6 +110,7 @@ class Paper extends Component {
         document.documentElement.style.overflow='auto';
       }
     }
+    funcx()
   }
 
   handleClose() {
