@@ -7,7 +7,6 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Link } from 'react-router';
 
 //import action
 import { 
@@ -111,7 +110,7 @@ class Paper extends Component {
       setTimeout(function(){
         that.setState({style: { display: 'none' },open: 'true'});
         document.documentElement.style.overflow='auto';
-      },1000)
+      },3000)
     }
   }
 
@@ -240,9 +239,9 @@ class Paper extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}>
           <div>
-            <Link href={qurl} download>试卷</Link>
+            <a href={`http://${qurl}`} download>试卷</a>
             <br/>
-            <Link href={aurl} download>答案</Link>
+            <a href={aurl} download>答案</a>
           </div>
         </Dialog>
       </div>
