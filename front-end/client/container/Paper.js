@@ -233,7 +233,7 @@ class Paper extends Component {
           title="点击下载"
           open={this.state.open}
           onRequestClose={this.handleClose}>
-          <a herf={qurl}>试卷</a>, <a herf={aurl}>答案</a>
+          <a href={qurl}>试卷</a>, <a href={aurl}>答案</a>
         </Dialog>
       </div>
     );
