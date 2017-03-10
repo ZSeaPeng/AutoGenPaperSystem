@@ -47,21 +47,24 @@ class ChooseQuestion extends Component{
               {
                 types.map(
                   (type, i) => (
-                    <tr key={i}>
-                      <td style={styles.types}>{type.name}</td>
-                      <td><input
-                            name={type.name}
-                            type="number"
-                            id={type.id}
-                            min="0" max="80"
-                            step="1"
-                            defaultValue="0"
-                            onChange={this.handleChange}
-                            />
-                      </td>
-                      <td><span>题</span></td>
-                    </tr>
-
+                    <div>
+                      {type.id === 0 ? <tr></tr> :
+                        <tr key={i}>
+                          <td style={styles.types}>{type.name}</td>
+                          <td><input
+                                name={type.name}
+                                type="number"
+                                id={type.id}
+                                min="0" max="80"
+                                step="1"
+                                defaultValue="0"
+                                onChange={this.handleChange}
+                                />
+                          </td>
+                          <td><span>题</span></td>
+                        </tr>
+                      }
+                    </div>
                   )
                 )
               }
