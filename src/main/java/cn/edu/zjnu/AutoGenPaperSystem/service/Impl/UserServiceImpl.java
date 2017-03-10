@@ -300,7 +300,7 @@ public class UserServiceImpl implements UserService {
         int collectionnum = user.getUsercollection().split(",").length - 1;
         user.setUsercollection(String.valueOf(collectionnum));
         List<Paper> paperList = paperMapper.selectByUserId(userId);
-        if (paperList.size() != 0) {
+        //if (paperList.size() != 0) {
             List<PaperJson> paperJsonList = new ArrayList<>();
             paperJsonList.clear();
             for (Paper p : paperList) {
@@ -312,9 +312,8 @@ public class UserServiceImpl implements UserService {
                 paperJsonList.add(paperJson);
 
             }
-
             user.setHistoryPaper(paperJsonList);
-        }
+       // }
         return user;
     }
 }
