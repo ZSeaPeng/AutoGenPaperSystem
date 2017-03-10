@@ -7,6 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router';
 
 //import action
 import { 
@@ -239,9 +240,9 @@ class Paper extends Component {
           open={this.state.open}
           onRequestClose={this.handleClose}>
           <div>
-            <a href={qurl}>试卷</a>
+            <Link href={qurl} download>试卷</Link>
             <br/>
-            <a href={aurl}>答案</a>
+            <Link href={aurl} download>答案</Link>
           </div>
         </Dialog>
       </div>
