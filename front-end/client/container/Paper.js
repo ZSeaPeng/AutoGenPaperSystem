@@ -74,39 +74,44 @@ class Paper extends Component {
   };
 
   handleMake(array) {
-    const { dispatch } = this.props;
-    let { paperName, subid, questions, subName } = this.props.testPaper;
-    let l = 0;
-    for(let i = 0; i < questions.length; i++) {
-      l += questions[i].questions.length;
-    }
-    if(paperName === '')  { paperName = '单元测试卷' }
-    let info = {
-      userid: sessionStorage.getItem('userid'),
-      title: paperName,
-      question: array,
-      subid,
-      length: l,
-      subName
-    }
-    dispatch(finalAction(info));
-    this.setState({style: {
-      width: '100%',
-      height: '100%',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      position: 'fixed',
-      marginTop: '-56px',
-      backgroundColor: 'hsla(0, 0%, 0%, 0.5)'}
-    })
-    document.documentElement.style.overflow='hidden';
-    var that = this
-    setTimeout(function(){
-      that.setState({style: { display: 'none' },open: 'true'});
+    const {qurl, aurl} = this.props.testPaper;
+    if(qurl !== '' && aurl !== '') {
+      that.setState({open: 'true'});
       document.documentElement.style.overflow='auto';
-    },1000)
-    
+    } else {
+      const { dispatch } = this.props;
+      let { paperName, subid, questions, subName } = this.props.testPaper;
+      let l = 0;
+      for(let i = 0; i < questions.length; i++) {
+        l += questions[i].questions.length;
+      }
+      if(paperName === '')  { paperName = '单元测试卷' }
+      let info = {
+        userid: sessionStorage.getItem('userid'),
+        title: paperName,
+        question: array,
+        subid,
+        length: l,
+        subName
+      }
+      dispatch(finalAction(info));
+      this.setState({style: {
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'fixed',
+        marginTop: '-56px',
+        backgroundColor: 'hsla(0, 0%, 0%, 0.5)'}
+      })
+      document.documentElement.style.overflow='hidden';
+      var that = this
+      setTimeout(function(){
+        that.setState({style: { display: 'none' },open: 'true'});
+        document.documentElement.style.overflow='auto';
+      },1000)
+    }
   }
 
   handleClose() {
@@ -233,7 +238,11 @@ class Paper extends Component {
           title="点击下载"
           open={this.state.open}
           onRequestClose={this.handleClose}>
-          <a href={qurl}>试卷</a>, <a href={aurl}>答案</a>
+          <div>
+            <a href={qurl}>试卷</a>
+            <br/>
+            <a href={aurl}>答案</a>
+          </div>
         </Dialog>
       </div>
     );
