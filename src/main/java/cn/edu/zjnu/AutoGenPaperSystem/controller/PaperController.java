@@ -50,7 +50,7 @@ public class PaperController {
     @RequestMapping(value = "/makepaper", method = RequestMethod.POST)
     public Map getTest(@RequestBody Map map, @ModelAttribute("userid") Integer userid,
                                                    HttpServletRequest request) {
-
+        String subName= (String) map.get("subName");
         User user = userServiceImpl.selectByPrimaryKey(userid);
         String subjectCan=user.getSubjectcan();
 
@@ -60,7 +60,7 @@ public class PaperController {
         List<Map> list = (List<Map>) map.get("question");
         Map<String,Object> questionMap=new LinkedHashMap<>();
         Map<String,Object> answerMap=new LinkedHashMap<>();
-        questionMap.put("Title",title);
+        questionMap.put("Title",subName+title);
         answerMap.put("Title",title+"答案");
         for (int i=0;i<list.size();i++) {
             List questionList=new ArrayList();
@@ -78,23 +78,24 @@ public class PaperController {
 //            System.out.println("score:  " + tempMap.get("score"));
         }
         try {
-            String qurl = request.getServletContext().getRealPath("/upload/temp/" + date+title +"试卷"+ ".docx");
+            String qurl = request.getServletContext().getRealPath("/upload/temp/" + date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+ ".docx");
             SetAllDocx.Title(questionMap,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),qurl);
-            String aurl = request.getServletContext().getRealPath("/upload/temp/" +date+ title +"答案"+ ".docx");
+            String aurl = request.getServletContext().getRealPath("/upload/temp/a_" +date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+ ".docx");
             SetAllDocx.Title(answerMap,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),aurl);
+            Map paperMap = new HashMap();
+            paperMap.put("qurl","localhost:8111/AutoGenPaperSystem/upload/temp/"+date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+".docx");
+            paperMap.put("aurl","localhost:8111/AutoGenPaperSystem/upload/temp/a_"+ date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+".docx");
+            return paperMap;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Map paperMap = new HashMap();
-        paperMap.put("qurl","localhost:8111/AutoGenPaperSystem/upload/temp/"+date+title +"试卷"+".docx");
-        paperMap.put("aurl","localhost:8111/AutoGenPaperSystem/upload/temp/"+ date+ title +"答案"+".docx");
 
             //String dfileName = new String(fileName.getBytes("gb2312"), "iso8859-1");
             //HttpHeaders headers = new HttpHeaders();
             //headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
             //headers.setContentDispositionFormData("attachment", dfileName);
             //return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
-        return paperMap;
+        return null;
         }
 
 
