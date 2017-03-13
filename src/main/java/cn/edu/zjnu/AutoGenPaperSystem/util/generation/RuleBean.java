@@ -2,7 +2,6 @@ package cn.edu.zjnu.AutoGenPaperSystem.util.generation;
 
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class RuleBean {
     /**
      * 试卷包含的知识点id
      */
-    private List<String> pointIds;
+    private List<Integer> pointIds;
     /**
      * 学科id
      */
@@ -44,7 +43,7 @@ public class RuleBean {
     public RuleBean() {
     }
 
-    public RuleBean(long id, double difficulty, int questionNum, List<String> pointIds, int subjecId, int typeId, Timestamp createTime) {
+    public RuleBean(long id, double difficulty, int questionNum, List<Integer> pointIds, int subjecId, int typeId, Timestamp createTime) {
         this.id = id;
         this.difficulty = difficulty;
         this.questionNum = questionNum;
@@ -94,11 +93,11 @@ public class RuleBean {
         this.questionNum = questionNum;
     }
 
-    public List<String> getPointIds() {
+    public List<Integer> getPointIds() {
         return pointIds;
     }
 
-    public void setPointIds(List<String> pointIds) {
+    public void setPointIds(List<Integer> pointIds) {
         this.pointIds = pointIds;
     }
 

@@ -93,7 +93,7 @@ public class Paper {
      */
     public void setKpCoverage(RuleBean rule) {
         if (kPCoverage == 0) {
-            Set<String> result = new HashSet<String>();
+            Set<Integer> result = new HashSet<Integer>();
             result.addAll(rule.getPointIds());
             Set<String> another = questionList.stream().map(questionBean -> String.valueOf(questionBean.getPointId())).collect(Collectors.toSet());
             // 交集操作

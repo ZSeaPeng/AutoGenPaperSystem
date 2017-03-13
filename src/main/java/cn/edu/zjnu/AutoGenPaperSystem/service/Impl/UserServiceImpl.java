@@ -7,7 +7,6 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.swing.text.html.HTMLDocument;
 import java.util.*;
 
 /**
@@ -151,25 +150,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updateBySubIdAndUserId(String subId, int userId) {
-//        String subjectCan = userMapper.selectSubjectCanByUserId(userId);
-//        String[] quesId = subjectCan.split(",");
-//        //   return 0;
-//        String change = "";
-//        int i = 0;
-//        Boolean flag = false;
-//        for (String list : quesId) {
-//            if (list.equals(subId)) {
-//                flag = true;
-//                continue;
-//            }
-//            change = change + list + ",";
-//        }
-//        if (flag == false) {
-//            change = change + subId;
-//        } else {
-//            change = change.substring(0, change.length() - 1);
-//        }
-//        i = userMapper.updateSubjectCanByUserId(userId, change);
+        //String subjectCan = userMapper.selectSubjectCanByUserId(userId);
+        //String[] quesId = subjectCan.split(",");
+        ////   return 0;
+        //String change = "";
+        //int i = 0;
+        //Boolean flag = false;
+        //for (String list : quesId) {
+        //    if (list.equals(subId)) {
+        //        flag = true;
+        //        continue;
+        //    }
+        //    change = change + list + ",";
+        //}
+        //if (flag == false) {
+        //    change = change + subId;
+        //} else {
+        //    change = change.substring(0, change.length() - 1);
+        //}
+        //i = userMapper.updateSubjectCanByUserId(userId, change);
 
         return userSubPermissMapper.updateBySubIdAndUserId(Integer.valueOf(subId),userId);
     }
@@ -315,6 +314,11 @@ public class UserServiceImpl implements UserService {
             user.setHistoryPaper(paperJsonList);
        // }
         return user;
+    }
+
+    @Override
+    public int deleteUserChonce(int userId) {
+        return userMapper.updateByUserId("0",userId);
     }
 }
 

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.crypto.Data;
 import java.util.*;
 
 /**
@@ -54,8 +53,10 @@ public class PaperController {
         User user = userServiceImpl.selectByPrimaryKey(userid);
         String subjectCan=user.getSubjectcan();
 
+        userServiceImpl.deleteUserChonce(userid);
+
         Calendar now=Calendar.getInstance();
-        String date=""+now.get(Calendar.YEAR)+"-"+(now.get(Calendar.MONTH)+1)+"-"+now.get(Calendar.DAY_OF_MONTH);
+        String date=""+now.get(Calendar.YEAR)+(now.get(Calendar.MONTH)+1)+now.get(Calendar.DAY_OF_MONTH);
         String title = (String) map.get("title");
         List<Map> list = (List<Map>) map.get("question");
         Map<String,Object> questionMap=new LinkedHashMap<>();
@@ -73,14 +74,11 @@ public class PaperController {
             }
             questionMap.put(list.get(i).get("type")+"(共"+questionList.size()+"题，共"+list.get(i).get("score")+"分)",questionList );
             answerMap.put(list.get(i).get("type")+"(共"+questionList.size()+"题，共"+list.get(i).get("score")+"分)",answerList );
-//            System.out.println("type:  " + tempMap.get("type"));
-//            System.out.println("id:  " + tempMap.get("id"));
-//            System.out.println("score:  " + tempMap.get("score"));
         }
         try {
             String qurl = request.getServletContext().getRealPath("/upload/temp/" + date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+ ".docx");
             SetAllDocx.Title(questionMap,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),qurl);
-            String aurl = request.getServletContext().getRealPath("/upload/temp/a_" +date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+ ".docx");
+            String aurl = request.getServletContext().getRealPath("/upload/temp/a_"+ date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+ ".docx");
             SetAllDocx.Title(answerMap,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),aurl);
             Map paperMap = new HashMap();
             paperMap.put("qurl","localhost:8111/AutoGenPaperSystem/upload/temp/"+date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+".docx");

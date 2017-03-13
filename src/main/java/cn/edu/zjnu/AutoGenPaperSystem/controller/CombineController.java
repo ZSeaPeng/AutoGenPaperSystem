@@ -69,10 +69,10 @@ public class CombineController {
         }
         System.out.println();
 
-        List<String> pointsList = new ArrayList<>();
-        pointsList = (List<String>) map.get("points");
+        List<Integer> pointsList = new ArrayList<>();
+        pointsList = (List<Integer>) map.get("points");
         System.out.println("points  ");
-        for (String s : pointsList) {
+        for (Integer s : pointsList) {
             System.out.print(s + "  ");
         }
 

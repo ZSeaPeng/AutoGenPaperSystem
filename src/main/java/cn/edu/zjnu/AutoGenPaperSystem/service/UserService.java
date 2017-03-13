@@ -45,4 +45,6 @@ public interface UserService  {
     List<QuestionsJson>  selectColleltionByUserId (int userId);
 
     User selectShow(int userId);
+
+    int deleteUserChonce(int userId);
 }

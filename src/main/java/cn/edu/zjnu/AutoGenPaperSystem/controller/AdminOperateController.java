@@ -59,7 +59,7 @@ public class AdminOperateController {
 
 
     @RequestMapping(value = "/removesubjectcan", method = RequestMethod.POST)
-    public String removeSubjectCan(int userid, String subid, int number, int k, @ModelAttribute("adminpassword") String password) {
+    public String removeSubjectCan(int userid, String subid, String i, int k, @ModelAttribute("adminpassword") String password) {
 
 //        String subNumber = subid + "(" + number + ")";
 //
@@ -70,6 +70,7 @@ public class AdminOperateController {
 
 //        String response = "{\"k\":" + k + ",\"subjectcan\":" + "\"" + subjectCan + "\"" + "}";
         String response="";
+        System.out.println("userid: "+userid+"  subid: "+subid);
         response=response+userServiceImpl.updateBySubIdAndUserId(subid,userid);
         return response;
     }
