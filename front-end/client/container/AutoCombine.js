@@ -171,7 +171,7 @@ class AutoCombine extends Component {
     for ( var point of points) {
       if (point.select === true) {
         var id = point.id;
-        pointsList.push(id);
+        pointsList.push("" + id);
       }
     }
     console.log("pointList");

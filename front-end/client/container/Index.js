@@ -9,10 +9,10 @@ let Slider = require('react-slick');
 import News from '../components/News';
 import SignUp from '../components/SignUp';
 
-import imgSrc1 from '../img/banner.jpg';
-import imgSrc2 from '../img/banner12.jpg';
-import imgSrc3 from '../img/banner8.jpg';
-import imgSrc4 from '../img/banner7.jpg';
+import imgSrc1 from '../img/banner1.jpg';
+import imgSrc2 from '../img/banner2.jpg';
+import imgSrc3 from '../img/banner3.jpg';
+import imgSrc4 from '../img/banner4.jpg';
 
 //add actions
 import { asynLogin } from '../actions/actionCreators'
@@ -37,24 +37,26 @@ class Index extends Component {
       autoplay: true
     };
     const style = {
-      width: '720px',
-      height: '320px',
+      width: '100%',
+      height: '626px',
       position: 'absolute',
-      top: 100,
-      left: 90
+      top: 150,
+      // left: 90
     };
     const { update, userid, error } = this.props;
     const isEmpty = update.length === 0;
     const isNull = userid === -1;
     return (
       <div>
+      {/*
         {isNull
           ? <SignUp error={error} onChange={this.handleSubmit}/>
           : <div></div>
         }
         {isEmpty
-          ? <div></div>
-          : <div>
+                   ? <div></div>
+                   :*/} 
+          <div>
             <div style={style}>
             <Slider  {...settings}>
               <div><img src={imgSrc1} style={{width: '100%', height: '100%'}} /></div>
@@ -65,7 +67,7 @@ class Index extends Component {
             </div>
             <News news={ update }/>
           </div>
-        }
+        {/*}*/}
       </div>
     );
   }
