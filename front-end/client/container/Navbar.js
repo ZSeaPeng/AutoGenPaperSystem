@@ -46,7 +46,7 @@ class Navbar extends Component{
           <Toolbar style={{backgroundColor: "#1565C0"}}>
             <ToolbarGroup>
               <Link to="/">
-                <img src={zhituku} style={{height: '56px'}} />
+                首页
               </Link>
               {isEmpty
                 ? <div></div>

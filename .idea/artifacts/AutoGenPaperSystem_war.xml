@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="AutoGenPaperSystem:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="AutoGenPaperSystem.war">
+      <element id="artifact" artifact-name="AutoGenPaperSystem:war exploded" />
+    </root>
+  </artifact>
+</component>
