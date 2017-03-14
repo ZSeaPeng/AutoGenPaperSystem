@@ -40,7 +40,7 @@ class Index extends Component {
       width: '100%',
       height: '626px',
       position: 'absolute',
-      top: 100,
+      top: 150,
       // left: 90
     };
     const { update, userid, error } = this.props;

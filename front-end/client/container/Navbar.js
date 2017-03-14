@@ -15,7 +15,7 @@ import Combine from '../components/Combine';
 import Grade from '../components/Grade';
 
 //pic
-import zhituku from '../img/zhitiku.png';
+import zhituku from '../img/head.png';
 import phone from '../img/phone.png'
 
 //import action
@@ -43,9 +43,25 @@ class Navbar extends Component{
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div>
-          <Toolbar style={{backgroundColor: "#1565C0"}}>
+          <Toolbar style={{backgroundColor: "#1565C0", height: "64px"}}>
             <ToolbarGroup>
-              <Link to="/">
+              <div><img src={zhituku} style={{width: '1000px', paddingLeft: "22%"}} /></div>
+            </ToolbarGroup>
+            <ToolbarGroup>
+              {isLogin
+                ? null
+                : <div>
+                  <small style={{color: '#FFF'}}>用户</small>&nbsp;
+                  <Link style={{color: '#FFF', fontSize: 24}} to="/userindex">{username}</Link>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <FlatButton style={{color: '#FFF', margin: '9px 0'}} label="登出" onClick={this.handleLogout} />
+                </div>
+              }
+            </ToolbarGroup>
+          </Toolbar>
+          <Toolbar style={{backgroundColor: "#1565C0", height: "64px", boxShadow: "rgb(162, 187, 210) 0px 6px 10px"}}>
+            <ToolbarGroup>
+              <Link to="/" style={{color: '#FFFFFF'}}>
                 首页
               </Link>
               {isEmpty
