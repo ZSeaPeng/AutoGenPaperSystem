@@ -47,7 +47,7 @@ export const POSITIONCHANGE = 'POSITIONCHANGE';
 export const SCORECHANGE = 'SCORECHANGE';
 export const CHANGEPAPERNAME = 'CHANGEPAPERNAME'
 
-let port = "http://localhost:8111";
+let port = "http://121.196.206.205:8111";
 
 /**
  * 真正与reducer沟通的函数
@@ -830,6 +830,6 @@ export const submitWordInfo = (wordInfo) => dispatch => {
       ...wordInfo
     })
   })
-    .then(browserHistory.push("/testpaper"))
+    .then(browserHistory.push("/autotestpaper"))
 
 };

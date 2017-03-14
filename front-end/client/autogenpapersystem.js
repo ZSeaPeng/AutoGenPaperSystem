@@ -14,6 +14,7 @@ import AutoCombine from './container/AutoCombine';
 import Index from './container/Index';
 import Update from './container/Update';
 import Paper from './container/Paper';
+import APaper from './container/APaper'
 import Admin from './container/Admin';
 import UserIndex from './container/UserIndex';
 import Adminlogin from './container/Adminlogin';
@@ -34,6 +35,7 @@ const router = (
         <Route path="/adminlogin" component={Adminlogin}/>
         <Route path="/updateinfo/*" component={Update} />
         <Route path="/testpaper" component={Paper} />
+        <Route path="/autotestpaper" component={APaper} />
         <Route path="/admin" component={Admin} />
         <Route path="/userindex" component={UserIndex} />
         <Route path="/:sub/*" component={Details} />
