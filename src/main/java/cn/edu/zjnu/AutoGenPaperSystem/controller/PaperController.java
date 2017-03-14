@@ -5,6 +5,7 @@ import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import cn.edu.zjnu.AutoGenPaperSystem.service.PaperService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
+import cn.edu.zjnu.AutoGenPaperSystem.util.RandomStr;
 import cn.edu.zjnu.AutoGenPaperSystem.util.SetAllDocx;
 import com.github.stuxuhai.jpinyin.PinyinFormat;
 import com.github.stuxuhai.jpinyin.PinyinHelper;
@@ -54,7 +55,7 @@ public class PaperController {
         String subjectCan=user.getSubjectcan();
 
         userServiceImpl.deleteUserChonce(userid);
-
+        String randomStr = RandomStr.getRandomString(6);
         Calendar now=Calendar.getInstance();
         String date=""+now.get(Calendar.YEAR)+(now.get(Calendar.MONTH)+1)+now.get(Calendar.DAY_OF_MONTH);
         String title = (String) map.get("title");
@@ -72,17 +73,18 @@ public class PaperController {
                 questionList.add(questions.getContent());
                 answerList.add(questions.getAnswer());
             }
+
             questionMap.put(list.get(i).get("type")+"(共"+questionList.size()+"题，共"+list.get(i).get("score")+"分)",questionList );
             answerMap.put(list.get(i).get("type")+"(共"+questionList.size()+"题，共"+list.get(i).get("score")+"分)",answerList );
         }
         try {
-            String qurl = request.getServletContext().getRealPath("/upload/temp/" + date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+ ".docx");
+            String qurl = request.getServletContext().getRealPath("/upload/temp/" + date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+ ".docx");
             SetAllDocx.Title(questionMap,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),qurl);
-            String aurl = request.getServletContext().getRealPath("/upload/temp/a_"+ date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+ ".docx");
+            String aurl = request.getServletContext().getRealPath("/upload/temp/a_"+ date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+ ".docx");
             SetAllDocx.Title(answerMap,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),aurl);
             Map paperMap = new HashMap();
-            paperMap.put("qurl","localhost:8111/AutoGenPaperSystem/upload/temp/"+date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+".docx");
-            paperMap.put("aurl","localhost:8111/AutoGenPaperSystem/upload/temp/a_"+ date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+".docx");
+            paperMap.put("qurl","localhost:8111/AutoGenPaperSystem/upload/temp/"+date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+".docx");
+            paperMap.put("aurl","localhost:8111/AutoGenPaperSystem/upload/temp/a_"+ date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+".docx");
             return paperMap;
         } catch (Exception e) {
             e.printStackTrace();
