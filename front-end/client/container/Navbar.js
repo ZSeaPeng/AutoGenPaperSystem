@@ -60,8 +60,8 @@ class Navbar extends Component{
             </ToolbarGroup>
           </Toolbar>
           <Toolbar style={{backgroundColor: "#1565C0", height: "64px", boxShadow: "rgb(162, 187, 210) 0px 6px 10px"}}>
-            <ToolbarGroup>
-              <Link to="/" style={{color: '#FFFFFF'}}>
+            <ToolbarGroup style={{left: '25%'}}>
+              <Link to="/index" style={{color: '#FFFFFF', padding: "20px 40px"}}>
                 首页
               </Link>
               {isEmpty
@@ -83,6 +83,12 @@ class Navbar extends Component{
                 menuItems ={ <Combine/> }
               />
               }
+              <Link to="/index" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+                产品介绍
+              </Link>
+              <Link to="/index" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+                教研团队
+              </Link>
             </ToolbarGroup>
             <ToolbarGroup>
               {isLogin

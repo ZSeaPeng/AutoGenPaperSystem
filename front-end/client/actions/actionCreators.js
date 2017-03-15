@@ -759,6 +759,7 @@ export const asynLogin = (username, password, type) => dispatch => {
           window.sessionStorage.setItem('userid', json.userId)
           window.sessionStorage.setItem('username', json.username)
           dispatch(login(json))
+          history.push('/index')
         }
       }
     )

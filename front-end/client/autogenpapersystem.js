@@ -20,6 +20,7 @@ import UserIndex from './container/UserIndex';
 import Adminlogin from './container/Adminlogin';
 import BigUser from './container/BigUser';
 import Collections from './container/Collections';
+import Userlogin from './container/Userlogin';
 
 import store, { history } from './store';
 
@@ -28,7 +29,8 @@ injectTapEventPlugin();
 const router = (
   <Provider store={ store }>
     <Router history={ history }>
-      <Route path="/" component={Navbar}>
+      <Route path='/' component={Userlogin} />
+      <Route path="/index" component={Navbar}>
         <IndexRoute component={Index}/>
         <Route path="/collections(/*)" component={Collections} />
         <Route path="/biguser" component={BigUser}/>
