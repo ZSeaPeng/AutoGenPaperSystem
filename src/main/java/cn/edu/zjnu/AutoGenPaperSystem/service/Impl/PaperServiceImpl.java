@@ -2,10 +2,15 @@ package cn.edu.zjnu.AutoGenPaperSystem.service.Impl;
 
 import cn.edu.zjnu.AutoGenPaperSystem.dao.PaperMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.QuestionsMapper;
+import cn.edu.zjnu.AutoGenPaperSystem.dao.SubjectMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.Paper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
 import cn.edu.zjnu.AutoGenPaperSystem.model.QuestionsJson;
 import cn.edu.zjnu.AutoGenPaperSystem.service.PaperService;
+import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
+import cn.edu.zjnu.AutoGenPaperSystem.util.generation.QuestionBean;
+import cn.edu.zjnu.AutoGenPaperSystem.util.generation.RuleBean;
+import cn.edu.zjnu.AutoGenPaperSystem.util.generation.StartPaper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,6 +25,10 @@ public class PaperServiceImpl implements PaperService {
     private PaperMapper paperMapper;
     @Resource
     private QuestionsMapper questionsMapper;
+    @Resource
+    private QuestionsService questionsServiceImpl;
+    @Resource
+    private SubjectMapper subjectMapper;
 
     @Override
     public int insertSelective(Paper record) {
@@ -79,7 +88,6 @@ public class PaperServiceImpl implements PaperService {
             questionsJsonList.clear();
             for (Questions q : questionsList) {
 
-                // System.out.println(q.getTypes().getTypeName());
                 if (q.getTypes().getTypeName().equals(typeName)) {
                     QuestionsJson questionsJson = new QuestionsJson();
                     questionsJson.setId(q.getQuestionsId());
@@ -101,10 +109,70 @@ public class PaperServiceImpl implements PaperService {
                     lastList.add(lastList.size(), mapTemp);
                     break;
                 }
-
             }
             lastMap.put("questions", lastList);
 
             return lastMap;
+    }
+
+    @Override
+    public Map getCombineQuestions(Map map) {
+        String diff = (String) map.get("diff");
+        String subject = (String) map.get("subject");
+
+        List typeId = (List) map.get("typeId");
+        List typeNum = (List) map.get("typeNum");
+        List<String> typeNames = (List) map.get("typeName");
+
+        List<Integer> pointsList =(List<Integer>) map.get("points");
+//        List<cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper> paperList = new ArrayList<>();
+
+        String subName=subjectMapper.selectByPrimaryKey(Integer.valueOf(subject)).getSubjectName();
+        String type = "默认类型";
+        Map lastMap = new HashMap();
+        List<Map> lastList = new ArrayList<Map>();
+        lastMap.put("Type", type);
+        lastMap.put("subName", subName);
+        for (int i = 0; i < typeId.size(); i++) {
+            Map tmap = new HashMap();
+            tmap.clear();
+            tmap.put("type", typeNames.get(i));
+            List<QuestionsJson> questionsJsonList = new ArrayList<QuestionsJson>();
+            questionsJsonList.clear();
+
+            RuleBean ruleBean = new RuleBean();
+            ruleBean.setDifficulty(Double.parseDouble(diff));
+            ruleBean.setPointIds(pointsList);
+            ruleBean.setSubjecId(Integer.parseInt(subject));
+            ruleBean.setTypeId(Integer.valueOf(String.valueOf(typeId.get(i))));
+            ruleBean.setQuestionNum(Integer.valueOf(String.valueOf(typeNum.get(i))));
+            StartPaper startPaper = new StartPaper(ruleBean);
+            startPaper.setQuestionsServiceImpl(questionsServiceImpl);
+//            paperList.add(startPaper.getPaper());
+            for (QuestionBean questionBean:startPaper.getPaper().getQuestionList()){
+                QuestionsJson questionsJson = new QuestionsJson();
+                questionsJson.setId((int) questionBean.getId());
+                System.out.println(questionBean.getId());
+                questionsJson.setQurl(questionBean.getQesUrl());
+                questionsJson.setAurl(questionBean.getAnswerUrl());
+                questionsJsonList.add(questionsJson);
+            }
+            tmap.put("questions", questionsJsonList);
+            tmap.put("score","0");
+            lastList.add(tmap);
+        }
+        //改变顺序
+        Iterator iterator = lastList.iterator();
+        while (iterator.hasNext()) {
+            Map mapTemp = (Map) iterator.next();
+            if (mapTemp.get("type").equals("单选题")) {
+                iterator.remove();
+                lastList.add(lastList.size(), mapTemp);
+                break;
+            }
+        }
+        lastMap.put("questions", lastList);
+
+        return lastMap;
     }
 }

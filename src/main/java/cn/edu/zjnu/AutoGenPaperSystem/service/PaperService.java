@@ -17,5 +17,6 @@ public interface PaperService {
 
     Map getListQuestions(int paperId);
 
+    Map getCombineQuestions(Map map);
 
 }
