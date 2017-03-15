@@ -8,6 +8,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by zseapeng on 2016/11/22.
@@ -28,9 +29,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/change", method = RequestMethod.POST)
-    public String changePassword(String password, @ModelAttribute("userid") Integer userid, SessionStatus sessionStatus) {
+    public String changePassword(@RequestBody Map password, @ModelAttribute("userid") Integer userid, SessionStatus sessionStatus) {
         User user = userServiceImpl.selectByPrimaryKey(userid);
-        user.setUserpassword(password);
+        user.setUserpassword(String.valueOf(password.get("password")));
         user.setAdd(new ArrayList());
         if (userServiceImpl.updateByPrimaryKeySelective(user) != 0) {
             sessionStatus.setComplete();
