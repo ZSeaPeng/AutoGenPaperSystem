@@ -21,6 +21,8 @@ import Adminlogin from './container/Adminlogin';
 import BigUser from './container/BigUser';
 import Collections from './container/Collections';
 import Userlogin from './container/Userlogin';
+import ProductIntro from './container/ProductIntro';
+import TeachingTeam from './container/TeachingTeam';
 
 import store, { history } from './store';
 
@@ -43,6 +45,8 @@ const router = (
         <Route path="/:sub/*" component={Details} />
         <Route path="/manualcombine" component={ManualCombine}/>
         <Route path="/autocombine" component={AutoCombine}/>
+        <Route path="/product" component={ProductIntro}/>
+        <Route path="/teachingTeam" component={TeachingTeam}/>
       </Route>
     </Router>
   </Provider>

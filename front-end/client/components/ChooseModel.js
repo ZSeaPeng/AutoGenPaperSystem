@@ -16,12 +16,12 @@ const styles = {
     float: 'left',
   	width: 180,
   	height: 190,
-  	marginLeft: '3%',
+  	marginLeft: 50,
   },
   children1: {
     width: 180,
 		height: 180,
-		backgroundColor: '#B0E0E6',
+		backgroundColor: '#63B8FF',
 		backgroundImage: 'url('+imgSrc1+')',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
@@ -30,7 +30,7 @@ const styles = {
   children2: {
     width: 180,
 		height: 180,
-		backgroundColor: '#B0E0E6',
+		backgroundColor: '#63B8FF',
 		backgroundImage: 'url('+imgSrc2+')',
 		backgroundRepeat: 'no-repeat',
 		backgroundPosition: 'center',
@@ -67,7 +67,6 @@ class ChooseModel extends Component{
       this.handleChange = this.handleChange.bind(this);
     }
 
-
     handleChange(event) {
       this.setState({value: event.target.value});
       this.props.callback(event.target.value);
@@ -81,7 +80,7 @@ class ChooseModel extends Component{
           	      <p style={styles.p1}>A4/B5竖版</p>
           	      <h2 style={styles.p2}>随堂测验</h2>
           		</div>
-          		<input type="radio" name="model" value="1" onChange={this.handleChange} style={styles.radio}/>
+          		<input type="radio" name="model" value="1" onChange={this.handleChange} style={styles.radio} defaultChecked="checked"/>
           	</label>
             <label style={styles.parents}>
           		<div style={styles.children1}>

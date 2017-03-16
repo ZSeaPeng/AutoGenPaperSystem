@@ -75,18 +75,26 @@ class Navbar extends Component{
                 }
                 />
               }
-              {isEmpty
+              {/* {isEmpty
                 ? <div></div>
                 : <MenuItem
                 style = {{lineHeight: '56px', color: '#FFFFFF'}}
                 primaryText = '组卷'
                 menuItems ={ <Combine/> }
               />
-              }
-              <Link to="/index" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+              } */}
+              <Link to="/manualcombine" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+                手动组卷
+              </Link>
+
+              <Link to="/autocombine" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+                自动组卷
+              </Link>
+
+              <Link to="/product" style={{color: '#FFFFFF', padding: "20px 40px"}}>
                 产品介绍
               </Link>
-              <Link to="/index" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+              <Link to="/TeachingTeam" style={{color: '#FFFFFF', padding: "20px 40px"}}>
                 教研团队
               </Link>
             </ToolbarGroup>
