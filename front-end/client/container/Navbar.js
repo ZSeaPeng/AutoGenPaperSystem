@@ -45,7 +45,7 @@ class Navbar extends Component{
         <div>
           <Toolbar style={{backgroundColor: "#1565C0", height: "64px"}}>
             <ToolbarGroup>
-              <div><img src={zhituku} style={{width: '1000px', paddingLeft: "22%"}} /></div>
+              <div><img src={zhituku} style={{width: '1000px', marginLeft: "18%"}} /></div>
             </ToolbarGroup>
             {/* <ToolbarGroup>
               {isLogin
@@ -97,17 +97,6 @@ class Navbar extends Component{
               <Link to="/TeachingTeam" style={{color: '#FFFFFF', padding: "20px 40px"}}>
                 教研团队
               </Link>
-            </ToolbarGroup>
-            <ToolbarGroup>
-              {isLogin
-                ? null
-                : <div>
-                  <small style={{color: '#FFF'}}>用户</small>&nbsp;
-                  <Link style={{color: '#FFF', fontSize: 24}} to="/userindex">{username}</Link>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <FlatButton style={{color: '#FFF', margin: '9px 0'}} label="登出" onClick={this.handleLogout} />
-                </div>
-              }
             </ToolbarGroup>
           </Toolbar>
           { this.props.children }
