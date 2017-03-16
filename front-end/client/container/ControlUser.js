@@ -118,7 +118,7 @@ class ControlUser extends Component {
       }
     }
     if(counts === 0) {
-      dispatch(asynCreateUser({username, userpassword: password, school, phonenum: phone, email, subjectcan: subject, count: count}));
+      dispatch(asynCreateUser({username, userpassword: password, school, phone, email, subjectcan: subject, count: count}));
     }
     this.state.count = [];
     this.state.sub=[];

@@ -19,9 +19,9 @@ const styles = {
     color: "#333"
   },
   parent: {
-    position: 'absolute',
-    left: '7%',
-    width: '1100px'
+    width:1200,
+    margin:'auto',
+    padding:'auto'
   },
   children: {
     margin: 'auto'
@@ -52,6 +52,7 @@ class ManualCombine extends Component {
     const { sublist } = this.props;
     const isEmpty = sublist.length === 0;
 		return (
+      <div style={{padding:'auto', margin:'auto'}}>
       <div style={styles.parent}>
   			<h2 style={styles.title}>手动组卷</h2><br/>
   			<hr/>
@@ -71,6 +72,7 @@ class ManualCombine extends Component {
         </div>
         <p style={{padding:20}}></p>
 		  </div>
+      </div>
 		)
 	}
 };

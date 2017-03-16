@@ -37,9 +37,9 @@ const styles = {
     color: "#333"
   },
   parent: {
-    position: 'absolute',
-    left: '7%',
-    width: '1100px'
+    width:1200,
+    margin:'auto',
+    padding:'auto'
   },
   chip: {
    backgroundColor: '#64B5F6',
@@ -190,95 +190,97 @@ class AutoCombine extends Component {
     const { Points, Types, sublist } = this.props;
     const isEmpty = sublist.length === 0;
 		return (
-	    <div style={styles.parent}>
-  			<h2 style={styles.title}>智能组卷</h2><br/>
-  			<hr/>
-        <div style={styles.children}>
-          { isEmpty? console.log("empty") :
-            <ChooseCourse courses={ sublist[0].contextList } callback={this.onCourseChanged}/>
-          }
-        </div>
-		    <br/><hr/>
-        <div style={{height:300,margin:'auto'}}>
-		      <ChooseModel callback={this.onModelChanged}/>
-        </div>
-		    <br/><hr/>
-        <div style={styles.children}>
-		      <ChooseQuestion types={Types} callback={this.onQuestionChanged}/>
-        </div>
-		    <br/><hr/>
-        <div style={styles.children}>
-		      <ChooseDifficulty callback={this.onDiffChanged}/>
-        </div>
-        <br/><hr/>
-        <div style={{height:550}}>
-          <h3 style={styles.title}>选择知识点</h3>
-          <div style={{backgroundColor:'#B0E0E6',padding:5,height:520,width:300,float:'left',borderRadius: 10}}>
-            <SelectField
-              value={this.state.pointValue}
-              onChange={this.handleChange}
-              maxHeight={200}
-            >
-            {
-              Points.map((point, i) =>
-                <MenuItem value={i} key={i} primaryText={point.name} />
-              )
+      <div style={{padding:'auto', margin:'auto'}}>
+  	    <div style={styles.parent}>
+    			<h2 style={styles.title}>智能组卷</h2><br/>
+    			<hr/>
+          <div style={styles.children}>
+            { isEmpty? console.log("empty") :
+              <ChooseCourse courses={ sublist[0].contextList } callback={this.onCourseChanged}/>
             }
-            </SelectField>
+          </div>
+  		    <br/><hr/>
+          <div style={{height:300,margin:'auto'}}>
+  		      <ChooseModel callback={this.onModelChanged}/>
+          </div>
+  		    <br/><hr/>
+          <div style={styles.children}>
+  		      <ChooseQuestion types={Types} callback={this.onQuestionChanged}/>
+          </div>
+  		    <br/><hr/>
+          <div style={styles.children}>
+  		      <ChooseDifficulty callback={this.onDiffChanged}/>
+          </div>
+          <br/><hr/>
+          <div style={{height:550}}>
+            <h3 style={styles.title}>选择知识点</h3>
+            <div style={{backgroundColor:'#63B8FF',padding:5,height:520,width:300,float:'left',borderRadius: 10}}>
+              <SelectField
+                value={this.state.pointValue}
+                onChange={this.handleChange}
+                maxHeight={200}
+              >
+              {
+                Points.map((point, i) =>
+                  <MenuItem value={i} key={i} primaryText={point.name} />
+                )
+              }
+              </SelectField>
 
-            {this.state.points.length === 0 ? console.log("empty points") :
-              this.state.points.map((point, i) =>
-              <div>
-                {this.state.pointValue === point.type ?
-                  <div style = {{ display: 'block' }}>
-                    <Checkbox
-                      key={i}
-                      checked={point.select}
-                      name={i}
-                      label={point.name}
-                      style={styles.title}
-                      onCheck={this.handleCheck}
-                    />
-                  </div> :
-                  <div style = {{ display: 'none' }}>
-                    <Checkbox
-                      key={i}
-                      checked={point.select}
-                      name={i}
-                      label={point.name}
-                      style={styles.title}
-                      onCheck={this.handleCheck}
-                    />
-                  </div>
-                }
-              </div>
-              )
-             }
-          </div>
-          <div style={{backgroundColor:"#B0E0E6",height:520,width:770,float:'left',marginLeft:10,padding:5,borderRadius: 10}}>
-             <p style={styles.title}>已选择知识点</p>
-             {
-               this.state.points.map((point, i) =>
-                 <div style = {point.select ? {display: 'block'} : { display: 'none' }}>
-                   <Chip
-                     key={i}
-                     onRequestDelete={() => this.handleRequestDelete(i)}
-                     style={styles.chip}
-                   >
-                     {point.name}
-                   </Chip>
+              {this.state.points.length === 0 ? console.log("empty points") :
+                this.state.points.map((point, i) =>
+                <div>
+                  {this.state.pointValue === point.type ?
+                    <div style = {{ display: 'block' }}>
+                      <Checkbox
+                        key={i}
+                        checked={point.select}
+                        name={i}
+                        label={point.name}
+                        style={styles.title}
+                        onCheck={this.handleCheck}
+                      />
+                    </div> :
+                    <div style = {{ display: 'none' }}>
+                      <Checkbox
+                        key={i}
+                        checked={point.select}
+                        name={i}
+                        label={point.name}
+                        style={styles.title}
+                        onCheck={this.handleCheck}
+                      />
+                    </div>
+                  }
                 </div>
-             )
-             }
+                )
+               }
+            </div>
+            <div style={{backgroundColor:"#E8E8E8",height:520,width:870,float:'left',marginLeft:10,padding:5,borderRadius: 10}}>
+               <p style={styles.title}>已选择知识点</p>
+               {
+                 this.state.points.map((point, i) =>
+                   <div style = {point.select ? {display: 'block'} : { display: 'none' }}>
+                     <Chip
+                       key={i}
+                       onRequestDelete={() => this.handleRequestDelete(i)}
+                       style={styles.chip}
+                     >
+                       {point.name}
+                     </Chip>
+                  </div>
+               )
+               }
+            </div>
           </div>
-        </div>
-		    <br/>
-        <div style={{ position:"relative",top:10}}>
-          {/* <button style={styles.confirmButton} onClick={this.handleSubmit}>生成试卷</button> */}
-          <RaisedButton label="生成试卷" secondary={true} style={styles.confirmButton} onClick={this.handleSubmit} />
-        </div>
-        <p style={{padding:20}}></p>
-		  </div>
+  		    <br/>
+          <div style={{ position:"relative",top:10}}>
+            {/* <button style={styles.confirmButton} onClick={this.handleSubmit}>生成试卷</button> */}
+            <RaisedButton label="生成试卷" secondary={true} style={styles.confirmButton} onClick={this.handleSubmit} />
+          </div>
+          <p style={{padding:20}}></p>
+  		  </div>
+      </div>
 		)
 	}
 };

@@ -15,6 +15,11 @@ public class Population {
      * 试卷集合
      */
     private Paper[] papers;
+    /**
+     * 错误信息
+     */
+    private String errorMsg;
+    private Boolean errorFlag=false;
 
     @Resource
     private QuestionsService questionsServiceImpl;
@@ -49,7 +54,10 @@ public class Population {
                 int typeId=rule.getTypeId();
                 // 单选题
                 if (rule.getQuestionNum()> 0) {
-                    generateQuestion(typeId, random, rule.getQuestionNum(), pointId, subjectId,"题目数量不够，组卷失败", paper);
+                    generateQuestion(typeId, random, rule.getQuestionNum(), pointId, subjectId, paper);
+                }
+                if (errorFlag){
+                    return;
                 }
                 // 计算试卷知识点覆盖率
                 paper.setKpCoverage(rule);
@@ -61,9 +69,11 @@ public class Population {
     }
 
     private void generateQuestion(int typeId, Random random, int qustionNum, String pointId,int subjectId,
-                                  String errorMsg, Paper paper) {
+                                   Paper paper) {
         QuestionBean[] singleArray = questionsServiceImpl.selectQuestionArray(typeId, pointId.substring(1, pointId.indexOf("]")),subjectId);
         if (singleArray.length < qustionNum) {
+            errorFlag=true;
+            errorMsg="题目数量不够，组卷失败";
             System.out.println(errorMsg);
             return;
         }
@@ -126,5 +136,21 @@ public class Population {
      */
     public int getLength() {
         return papers.length;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    public Boolean getErrorFlag() {
+        return errorFlag;
+    }
+
+    public void setErrorFlag(Boolean errorFlag) {
+        this.errorFlag = errorFlag;
     }
 }
