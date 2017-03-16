@@ -26,22 +26,6 @@ export default class TeachingTeam extends Component {
       <div style={styles.container}>
         <div style={styles.container1}>
           <h2 style={styles.title}>教研团队</h2>
-
-        </div>
-
-        <div style={styles.container1}>
-          <h2 style={styles.title}>需求分析</h2>
-          <p style={styles.title}></p>
-        </div>
-
-        <div style={styles.container1}>
-          <h2 style={styles.title}>需求分析</h2>
-          <p style={styles.title}></p>
-        </div>
-
-        <div style={styles.container1}>
-          <h2 style={styles.title}>需求分析</h2>
-          <p style={styles.title}></p>
         </div>
       </div>
 		);

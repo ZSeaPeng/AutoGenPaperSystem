@@ -47,7 +47,7 @@ class Navbar extends Component{
             <ToolbarGroup>
               <div><img src={zhituku} style={{width: '1000px', paddingLeft: "22%"}} /></div>
             </ToolbarGroup>
-            <ToolbarGroup>
+            {/* <ToolbarGroup>
               {isLogin
                 ? null
                 : <div>
@@ -57,7 +57,7 @@ class Navbar extends Component{
                   <FlatButton style={{color: '#FFF', margin: '9px 0'}} label="登出" onClick={this.handleLogout} />
                 </div>
               }
-            </ToolbarGroup>
+            </ToolbarGroup> */}
           </Toolbar>
           <Toolbar style={{backgroundColor: "#1565C0", height: "64px", boxShadow: "rgb(162, 187, 210) 0px 6px 10px"}}>
             <ToolbarGroup style={{left: '25%'}}>
