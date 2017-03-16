@@ -831,6 +831,8 @@ export const submitWordInfo = (wordInfo) => dispatch => {
       ...wordInfo
     })
   })
+    .then(response => response.json())
+    .then(dispatch(testPaper(json)))
     .then(browserHistory.push("/autotestpaper"))
 
 };
