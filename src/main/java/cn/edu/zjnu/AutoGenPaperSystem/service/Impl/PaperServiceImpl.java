@@ -148,15 +148,23 @@ public class PaperServiceImpl implements PaperService {
             ruleBean.setQuestionNum(Integer.valueOf(String.valueOf(typeNum.get(i))));
             StartPaper startPaper = new StartPaper(ruleBean);
             startPaper.setQuestionsServiceImpl(questionsServiceImpl);
+//            System.out.println("startPaper.getErrorFlag()"+startPaper.getErrorFlag());
 //            paperList.add(startPaper.getPaper());
-            for (QuestionBean questionBean:startPaper.getPaper().getQuestionList()){
-                QuestionsJson questionsJson = new QuestionsJson();
-                questionsJson.setId((int) questionBean.getId());
-                System.out.println(questionBean.getId());
-                questionsJson.setQurl(questionBean.getQesUrl());
-                questionsJson.setAurl(questionBean.getAnswerUrl());
-                questionsJsonList.add(questionsJson);
+            cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper paperBean=new cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper();
+            paperBean=startPaper.getPaper();
+            if (startPaper.getErrorFlag()){
+                tmap.put("error",startPaper.getErrorMsg());
             }
+            else {
+                for (QuestionBean questionBean:paperBean.getQuestionList()){
+                    QuestionsJson questionsJson = new QuestionsJson();
+                    questionsJson.setId((int) questionBean.getId());
+                    questionsJson.setQurl(questionBean.getQesUrl());
+                    questionsJson.setAurl(questionBean.getAnswerUrl());
+                    questionsJsonList.add(questionsJson);
+                }
+            }
+
             tmap.put("questions", questionsJsonList);
             tmap.put("score","0");
             lastList.add(tmap);

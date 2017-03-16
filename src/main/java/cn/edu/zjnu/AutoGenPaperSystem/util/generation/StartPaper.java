@@ -23,6 +23,11 @@ public class StartPaper {
     double expand = 0.98;
     // 可自己初始化组卷规则rule
     RuleBean ruleBean=new RuleBean();
+    /**
+     * 错误信息
+     */
+    private String errorMsg;
+    private Boolean errorFlag=false;
 
     public StartPaper(RuleBean ruleBean) {
         this.ruleBean = ruleBean;
@@ -41,12 +46,19 @@ public class StartPaper {
             // 初始化种群
 //            System.out.printf(userMapper.selectByPrimaryKey(20).getUsername());
             Population population = new Population(20, true, ruleBean,questionsServiceImpl);
-            System.out.println("初次适应度  " + population.getFitness().getAdaptationDegree());
-            while (count < runCount && population.getFitness().getAdaptationDegree() < expand) {
-                count++;
-                population = GA.evolvePopulation(population, ruleBean,questionsServiceImpl);
+            System.out.println("population.getErrorFlag()"+population.getErrorFlag());
+            if (population.getErrorFlag()){
+                errorFlag=true;
+                errorMsg=population.getErrorMsg();
             }
-            resultPaper = population.getFitness();
+            else {
+                System.out.println("初次适应度  " + population.getFitness().getAdaptationDegree());
+                while (count < runCount && population.getFitness().getAdaptationDegree() < expand) {
+                    count++;
+                    population = GA.evolvePopulation(population, ruleBean,questionsServiceImpl);
+                }
+                resultPaper = population.getFitness();
+            }
         }
         return resultPaper;
     }
@@ -89,5 +101,21 @@ public class StartPaper {
 
     public void setRuleBean(RuleBean ruleBean) {
         this.ruleBean = ruleBean;
+    }
+
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    public void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    public Boolean getErrorFlag() {
+        return errorFlag;
+    }
+
+    public void setErrorFlag(Boolean errorFlag) {
+        this.errorFlag = errorFlag;
     }
 }
