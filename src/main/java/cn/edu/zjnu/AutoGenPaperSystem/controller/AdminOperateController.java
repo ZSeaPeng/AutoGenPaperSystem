@@ -1,5 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
+import cn.edu.zjnu.AutoGenPaperSystem.dao.UserSubPermissMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -32,6 +33,8 @@ public class AdminOperateController {
     private TemporaryService temporaryServiceImpl;
     @Resource
     private ComManagerService comManagerServiceImpl;
+    @Resource
+    private UserSubPermissMapper userSubPermissMapper;
 
     @RequestMapping(value = "/userlist", method = RequestMethod.GET)
     public List getAllUsers(@ModelAttribute("adminpassword") String password) {
@@ -41,10 +44,20 @@ public class AdminOperateController {
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
     public User addUser(@RequestBody User user, @ModelAttribute("adminpassword") String password) {
         user.setUserpassword(String.valueOf(new Md5Hash(user.getUserpassword(), user.getUserpassword())));
+        String []count=user.getCount().split(",");
+        String []subjectid=user.getSubjectcan().split(",");
         if (userServiceImpl.insertSelective(user) == 0) {
             return null;
         }
-        return userServiceImpl.selectUserByUserName(user.getUsername());
+        User newuser=userServiceImpl.selectUserByUserName(user.getUsername());
+        for (int i=1;i<count.length;i++){
+            UserSubPermiss userSubPermiss=new UserSubPermiss();
+            userSubPermiss.setUserid(newuser.getUserId());
+            userSubPermiss.setSubjectid(Integer.valueOf(subjectid[i]));
+            userSubPermiss.setAllowpaper(Integer.valueOf(count[i]));
+            userSubPermissMapper.insertSelective(userSubPermiss);
+        }
+        return newuser;
     }
 
 

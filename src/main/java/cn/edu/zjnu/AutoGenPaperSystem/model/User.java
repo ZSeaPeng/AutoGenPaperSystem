@@ -29,6 +29,8 @@ public class User {
 
     private String email;
 
+    private String count;
+
     private Integer commanagerId;
 
     private List add;
@@ -192,5 +194,13 @@ public class User {
 
     public void setHistoryPaper(List historyPaper) {
         this.historyPaper = historyPaper;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 }
