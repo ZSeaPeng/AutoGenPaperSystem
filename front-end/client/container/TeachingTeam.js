@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import style from '!style!css!../style/slick.min.css';
-
+import imgSrc1 from '../img/teachingTeam.png';
 
 const styles = {
   title: {
@@ -24,9 +24,7 @@ export default class TeachingTeam extends Component {
 	render() {
 		return (
       <div style={styles.container}>
-        <div style={styles.container1}>
-          <h2 style={styles.title}>教研团队</h2>
-        </div>
+            <img src={imgSrc1} style={{width: '100%'}}/>
       </div>
 		);
 	}
