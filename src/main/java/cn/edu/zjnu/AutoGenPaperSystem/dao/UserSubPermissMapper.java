@@ -18,4 +18,6 @@ public interface UserSubPermissMapper {
     int updateByPrimaryKey(UserSubPermiss record);
 
     int updateBySubIdAndUserId(Integer subid,Integer userId);
+
+    UserSubPermiss selelctByUseridSubid(Integer userId,Integer subid);
 }

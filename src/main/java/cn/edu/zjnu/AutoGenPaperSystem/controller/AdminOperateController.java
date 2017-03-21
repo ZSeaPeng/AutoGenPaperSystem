@@ -34,7 +34,7 @@ public class AdminOperateController {
     @Resource
     private ComManagerService comManagerServiceImpl;
     @Resource
-    private UserSubPermissMapper userSubPermissMapper;
+    private UserSubPermissService userSubPermissServiceImpl;
 
     @RequestMapping(value = "/userlist", method = RequestMethod.GET)
     public List getAllUsers(@ModelAttribute("adminpassword") String password) {
@@ -55,7 +55,7 @@ public class AdminOperateController {
             userSubPermiss.setUserid(newuser.getUserId());
             userSubPermiss.setSubjectid(Integer.valueOf(subjectid[i]));
             userSubPermiss.setAllowpaper(Integer.valueOf(count[i]));
-            userSubPermissMapper.insertSelective(userSubPermiss);
+            userSubPermissServiceImpl.insertSelective(userSubPermiss);
         }
         return newuser;
     }

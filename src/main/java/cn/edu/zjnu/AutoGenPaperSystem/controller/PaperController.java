@@ -1,10 +1,13 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
+import cn.edu.zjnu.AutoGenPaperSystem.dao.UserSubPermissMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
+import cn.edu.zjnu.AutoGenPaperSystem.model.UserSubPermiss;
 import cn.edu.zjnu.AutoGenPaperSystem.service.PaperService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
+import cn.edu.zjnu.AutoGenPaperSystem.service.UserSubPermissService;
 import cn.edu.zjnu.AutoGenPaperSystem.util.RandomStr;
 import cn.edu.zjnu.AutoGenPaperSystem.util.SetAllDocx;
 import com.github.stuxuhai.jpinyin.PinyinFormat;
@@ -32,7 +35,10 @@ public class PaperController {
     private QuestionsService questionsServiceImpl;
     @Resource
     private PaperService paperServiceImpl;
+    @Resource
+    private UserSubPermissService userSubPermissServiceImpl;
 
+    private SetAllDocx setAllDocx;
 
     @RequestMapping(value = "/getinfo", method = RequestMethod.GET)
     public Map getInfo(@ModelAttribute("userid") Integer userid) {
@@ -50,9 +56,21 @@ public class PaperController {
     @RequestMapping(value = "/makepaper", method = RequestMethod.POST)
     public Map getTest(@RequestBody Map map, @ModelAttribute("userid") Integer userid,
                                                    HttpServletRequest request) {
+        setAllDocx=new SetAllDocx();
+        Map paperMap = new HashMap();
         String subName= (String) map.get("subName");
-        User user = userServiceImpl.selectByPrimaryKey(userid);
-        String subjectCan=user.getSubjectcan();
+        UserSubPermiss userSubPermiss=userSubPermissServiceImpl.selelctByUseridSubid(userid, (Integer) map.get("subid"));
+        int dopaper=userSubPermiss.getDopaper();
+        int allowpaper=userSubPermiss.getAllowpaper();
+        if (dopaper==allowpaper){
+            paperMap.put("Error","允许下载的试卷数量已满！！");
+            return paperMap;
+        }
+        else if (dopaper<allowpaper){
+            dopaper++;
+            userSubPermiss.setDopaper(dopaper);
+            userSubPermissServiceImpl.updateByPrimaryKeySelective(userSubPermiss);
+        }
 
         userServiceImpl.deleteUserChonce(userid);
         String randomStr = RandomStr.getRandomString(6);
@@ -64,6 +82,8 @@ public class PaperController {
         Map<String,Object> answerMap=new LinkedHashMap<>();
         questionMap.put("Title",subName+title);
         answerMap.put("Title",title+"答案");
+        questionMap.put("xm",request.getServletContext().getRealPath("/upload/template/A3Horizontalxingming.docx"));
+        questionMap.put("attent",request.getServletContext().getRealPath("/upload/template/A3HorizontalAttention.docx"));
         for (int i=0;i<list.size();i++) {
             List questionList=new ArrayList();
             List answerList=new ArrayList();
@@ -79,10 +99,9 @@ public class PaperController {
         }
         try {
             String qurl = request.getServletContext().getRealPath("/upload/temp/" + date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+ ".docx");
-            SetAllDocx.Title(questionMap,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),qurl);
+            setAllDocx.Title(questionMap,request.getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"),qurl);
             String aurl = request.getServletContext().getRealPath("/upload/temp/a_"+ date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+ ".docx");
-            SetAllDocx.Title(answerMap,request.getServletContext().getRealPath("/upload/template/templateA4Vertical.docx"),aurl);
-            Map paperMap = new HashMap();
+            setAllDocx.Title(answerMap,request.getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"),aurl);
             paperMap.put("qurl","localhost:8111/AutoGenPaperSystem/upload/temp/"+date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+".docx");
             paperMap.put("aurl","localhost:8111/AutoGenPaperSystem/upload/temp/a_"+ date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+".docx");
             return paperMap;
@@ -95,7 +114,7 @@ public class PaperController {
             //headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
             //headers.setContentDispositionFormData("attachment", dfileName);
             //return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
-        return null;
+        return paperMap;
         }
 
 

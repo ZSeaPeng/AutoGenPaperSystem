@@ -197,6 +197,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map selectUserChosenByUSerId(int userId, String type, String subName) {
+        int subid = 0;
         if (type.equals("")) {
             type = "默认类型";
         }
@@ -222,6 +223,7 @@ public class UserServiceImpl implements UserService {
         if (subjectidSet.size()==1){
             for (Integer id:subjectidSet){
                 System.out.println(id);
+                subid=id;
                 subName=subjectMapper.selectByPrimaryKey(id).getSubjectName();
             }
 
@@ -230,6 +232,7 @@ public class UserServiceImpl implements UserService {
             lastMap.put("Error","有不同学科的题目混合在里面！");
         }
         lastMap.put("subName", subName);
+        lastMap.put("subid",subid);
 //        for (String s : questionIds) {
 //            if (!s.equals("0")) {
 //                Questions q = questionsMapper.selectQuestionByIdList(Integer.valueOf(s));

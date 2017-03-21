@@ -25,6 +25,7 @@ import java.util.List;
  * Created by sgt on 2016/12/7.
  */
 public class MergeDOCX {
+
     public void merge(List<String> path, String resultPath) throws Exception {
         OutputStream dest=new FileOutputStream(resultPath);
         List<CTBody> srcBodyList=new ArrayList<>();
@@ -48,36 +49,40 @@ public class MergeDOCX {
         String sufix=src[0].xmlText().substring( src[0].xmlText().lastIndexOf("<"));
         String mainPart="";
         for (int i=0;i<src.length;i++){
-            int j=i+1;
+//            int j=i+1;
             String append=src[i].xmlText();
             String tempPart=append.substring(append.indexOf(">")+1,append.lastIndexOf("<"));
-            String addPart=tempPart.substring(0,tempPart.indexOf(">")+1)+
-                    "<w:pPr><w:jc w:val=\"left\"/><w:rPr><w:rFonts w:hint=\"eastAsia\"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/></w:rPr><w:t>"+j+".</w:t></w:r><w:bookmarkStart w:id=\"0\" w:name=\"_GoBack\"/><w:bookmarkEnd w:id=\"0\"/>"
-                    +tempPart.substring(tempPart.indexOf(">")+1,tempPart.lastIndexOf(">")+1);
+//            String addPart=tempPart.substring(0,tempPart.indexOf(">")+1)+
+//                    "<w:pPr><w:jc w:val=\"left\"/><w:rPr><w:rFonts w:hint=\"eastAsia\"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/></w:rPr><w:t>"+j+".</w:t></w:r><w:bookmarkStart w:id=\"0\" w:name=\"_GoBack\"/><w:bookmarkEnd w:id=\"0\"/>"
+//                    +tempPart.substring(tempPart.indexOf(">")+1,tempPart.lastIndexOf(">")+1);
+            String addPart=tempPart.substring(0,tempPart.indexOf(">")+1)+tempPart.substring(tempPart.indexOf(">")+1,tempPart.lastIndexOf(">")+1);
             mainPart=mainPart+addPart;
         }
         CTBody makeBody = CTBody.Factory.parse(prefix+mainPart+sufix);
         src[0].set(makeBody);
     }
 
-
+    private int i=1;
     private static long chunk = 0;
     private static final String CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    public static void mergedocx(WordprocessingMLPackage target,List<String> path) throws Exception {
+    public void mergedocx(WordprocessingMLPackage target,List<String> path,Boolean mark) throws Exception {
         List<byte[]> byteList=new ArrayList<>();
         for (int i=0;i<path.size();i++){
             InputStream src=new FileInputStream(path.get(i));
             byteList.add(IOUtils.toByteArray(src));
         }
 //        WordprocessingMLPackage target = WordprocessingMLPackage.load(new FileInputStream(path.get(0)));
-        insertDocx(target.getMainDocumentPart(), byteList);
+        insertDocx(target.getMainDocumentPart(), byteList,mark);
 //        SaveToZipFile saver = new SaveToZipFile(target);
 //        saver.save(os);
     }
-    private static void insertDocx(MainDocumentPart main, List<byte[]> bytes) throws Exception {
-        int i=1;
+    public void insertDocx(MainDocumentPart main, List<byte[]> bytes,Boolean ismark) throws Exception {
+
         for (byte[] list:bytes){
-            main.addParagraphOfText(String.valueOf(i)+".");
+            if (ismark){
+                main.addParagraphOfText(String.valueOf(i)+".");
+                i++;
+            }
             AlternativeFormatInputPart afiPart = new AlternativeFormatInputPart(new PartName("/part" + (chunk++) + ".docx"));
             afiPart.setContentType(new ContentType(CONTENT_TYPE));
             afiPart.setBinaryData(list);
@@ -85,7 +90,6 @@ public class MergeDOCX {
             CTAltChunk chunk = Context.getWmlObjectFactory().createCTAltChunk();
             chunk.setId(altChunkRel.getId());
             main.addObject(chunk);
-            i++;
         }
     }
 
