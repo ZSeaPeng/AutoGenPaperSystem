@@ -47,11 +47,11 @@ class UserIndex extends React.Component {
   }
 
   phoneChange(e) {
-    this.state.email = e.target.value;
+    this.state.phone = e.target.value;
   }
 
   emailChange(e) {
-    this.state.phone = e.target.value;
+    this.state.email = e.target.value;
   }
 
   handleChangePass() {
