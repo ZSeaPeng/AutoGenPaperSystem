@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import style from '!style!css!../style/slick.min.css';
 import styles from '!style!css!../style/slick-theme.min.css';
 let Slider = require('react-slick');
+import teacher from '../img/teacher.png';
+import school from '../img/school.png';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 //UI
 import News from '../components/News';
@@ -36,6 +39,14 @@ class Index extends Component {
       autoplaySpeed: 3000,
       autoplay: true
     };
+    const styles = {
+      headline: {
+        fontSize: 24,
+        paddingTop: 16,
+        marginBottom: 12,
+        fontWeight: 400,
+      },
+    };
     const style = {
       width: '100%',
       height: '626px',
@@ -48,26 +59,77 @@ class Index extends Component {
     const isNull = userid === -1;
     return (
       <div>
-      {/*
-        {isNull
-          ? <SignUp error={error} onChange={this.handleSubmit}/>
-          : <div></div>
-        }
-        {isEmpty
-                   ? <div></div>
-                   :*/} 
-          <div>
-            <div style={style}>
-            <Slider  {...settings}>
-              <div><img src={imgSrc1} style={{width: '100%', height: '100%'}} /></div>
-              <div><img src={imgSrc2} style={{width: '100%', height: '100%'}} /></div>
-              <div><img src={imgSrc3} style={{width: '100%', height: '100%'}} /></div>
-              <div><img src={imgSrc4} style={{width: '100%', height: '100%'}} /></div>
-            </Slider>
-            </div>
-            <News news={ update }/>
+        <div style={style}>
+          <Slider  {...settings}>
+            <div><img src={imgSrc1} style={{width: '100%', height: '100%'}} /></div>
+            <div><img src={imgSrc2} style={{width: '100%', height: '100%'}} /></div>
+            <div><img src={imgSrc3} style={{width: '100%', height: '100%'}} /></div>
+            <div><img src={imgSrc4} style={{width: '100%', height: '100%'}} /></div>
+          </Slider>
+        </div>
+        <div 
+          style={{
+            position: 'absolute', top: 700, 
+            width: '100%', height: 265, marginBottom: 35,
+          }}
+        >
+          <div style={{display: 'inline-block', width: '45%', margin: '0 20px'}}>
+            <h2>最新职高试卷</h2>
+              <Tabs selectedIndex={2}>
+                <TabList>
+                  <Tab>Foo</Tab>
+                  <Tab>Bar</Tab>
+                  <Tab>Baz</Tab>
+                </TabList>
+                <TabPanel>
+                  <h2>Hello from Foo</h2>
+                </TabPanel>
+                <TabPanel>
+                  <h2>Hello from Bar</h2>
+                </TabPanel>
+                <TabPanel>
+                  <h2>Hello from Baz</h2>
+                </TabPanel>
+              </Tabs>
           </div>
-        {/*}*/}
+          <div style={{display: 'inline-block', width: '45%', margin: '0 20px'}}>
+            <h2>他山之石</h2>
+            <Tabs selectedIndex={2}>
+              <TabList>
+                <Tab>Foo</Tab>
+                <Tab>Bar</Tab>
+                <Tab>Baz</Tab>
+              </TabList>
+              <TabPanel>
+                <h2>Hello from Foo</h2>
+              </TabPanel>
+              <TabPanel>
+                <h2>Hello from Bar</h2>
+              </TabPanel>
+              <TabPanel>
+                <h2>Hello from Baz</h2>
+              </TabPanel>
+            </Tabs>
+          </div>
+          <div style={{backgroundColor: '#eee'}}>
+            <div style={{margin: '20px auto', width: 1000, height: '100%'}}>
+              <div style={{display: 'inline-block', width: 500}}>
+                <div style={{textAlign: 'center'}}>
+                  <img src={teacher} style={{width:121}} />
+                </div>
+                <p style={{textAlign: 'center'}}>为教师带来</p>
+                <p style={{textAlign: 'center'}}>权威题库&nbsp;&nbsp;快捷选题&nbsp;&nbsp;在线组卷&nbsp;&nbsp;测评报告</p>
+              </div>
+              <div style={{display: 'inline-block', width: 500}}>
+                <div style={{textAlign: 'center'}}>
+                  <img src={school} style={{width:121}} />
+                </div>
+                <p style={{textAlign: 'center'}}>为学校带来</p>
+                <p style={{textAlign: 'center'}} >优质试题&nbsp;&nbsp;智能组卷&nbsp;&nbsp;在线测评&nbsp;&nbsp;可定制</p>
+              </div>
+            </div>
+           </div>
+        </div>
       </div>
     );
   }

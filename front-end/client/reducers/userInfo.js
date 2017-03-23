@@ -3,6 +3,7 @@ import { RECEIVE_USERINFO, CHANGEUSERINFO } from '../actions/actionCreators';
 function userInfo(state={
   username: "",
   subjectcan: '',
+  allowpaper: '',
   usercollection: '',
   email: '',
   phoneNum: '',
@@ -17,6 +18,7 @@ function userInfo(state={
         username: action.details.username,
         subjectcan: action.details.subjectcan,
         usercollection: action.details.usercollection,
+        allowpaper: action.details.allowpaper,
         email: action.details.email,
         phoneNum: action.details.phonenum,
         type: action.details.commanagerId,
@@ -29,6 +31,7 @@ function userInfo(state={
         username: action.details.username,
         subjectcan: action.details.subjectcan,
         usercollection: action.details.usercollection,
+        allowpaper: action.details.allowpaper,
         email: action.details.email,
         phoneNum: action.details.phonenum,
         type: action.details.commanagerId,
