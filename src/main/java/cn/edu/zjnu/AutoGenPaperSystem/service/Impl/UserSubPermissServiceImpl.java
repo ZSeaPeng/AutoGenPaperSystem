@@ -53,6 +53,6 @@ public class UserSubPermissServiceImpl implements UserSubPermissService {
 
     @Override
     public UserSubPermiss selelctByUseridSubid(Integer userId, Integer subid) {
-        return userSubPermissMapper.selelctByUseridSubid(userId,subid);
+        return userSubPermissMapper.selelctByUseridSubid(userId, subid);
     }
 }

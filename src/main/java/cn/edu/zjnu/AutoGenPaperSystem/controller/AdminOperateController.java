@@ -1,6 +1,5 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
-import cn.edu.zjnu.AutoGenPaperSystem.dao.UserSubPermissMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.*;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -44,14 +43,14 @@ public class AdminOperateController {
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
     public User addUser(@RequestBody User user, @ModelAttribute("adminpassword") String password) {
         user.setUserpassword(String.valueOf(new Md5Hash(user.getUserpassword(), user.getUserpassword())));
-        String []count=user.getCount().split(",");
-        String []subjectid=user.getSubjectcan().split(",");
+        String[] count = user.getCount().split(",");
+        String[] subjectid = user.getSubjectcan().split(",");
         if (userServiceImpl.insertSelective(user) == 0) {
             return null;
         }
-        User newuser=userServiceImpl.selectUserByUserName(user.getUsername());
-        for (int i=1;i<count.length;i++){
-            UserSubPermiss userSubPermiss=new UserSubPermiss();
+        User newuser = userServiceImpl.selectUserByUserName(user.getUsername());
+        for (int i = 1; i < count.length; i++) {
+            UserSubPermiss userSubPermiss = new UserSubPermiss();
             userSubPermiss.setUserid(newuser.getUserId());
             userSubPermiss.setSubjectid(Integer.valueOf(subjectid[i]));
             userSubPermiss.setAllowpaper(Integer.valueOf(count[i]));
@@ -82,9 +81,9 @@ public class AdminOperateController {
 //        String subjectCan = userServiceImpl.selectSubjectCanByUserId(userid);
 
 //        String response = "{\"k\":" + k + ",\"subjectcan\":" + "\"" + subjectCan + "\"" + "}";
-        String response="";
-        System.out.println("userid: "+userid+"  subid: "+subid);
-        response=response+userServiceImpl.updateBySubIdAndUserId(subid,userid);
+        String response = "";
+        System.out.println("userid: " + userid + "  subid: " + subid);
+        response = response + userServiceImpl.updateBySubIdAndUserId(subid, userid);
         return response;
     }
 

@@ -3,9 +3,6 @@ package cn.edu.zjnu.AutoGenPaperSystem.controller;
 import cn.edu.zjnu.AutoGenPaperSystem.service.PaperService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.SubjectService;
-import cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper;
-import cn.edu.zjnu.AutoGenPaperSystem.util.generation.RuleBean;
-import cn.edu.zjnu.AutoGenPaperSystem.util.generation.StartPaper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,7 +40,7 @@ public class CombineController {
 
     @RequestMapping(value = "/auto", method = RequestMethod.POST)
     public Map Auto(@RequestBody Map map, HttpServletRequest request) {
-        Map QuesinfoMap=paperServiceImpl.getCombineQuestions(map);
+        Map QuesinfoMap = paperServiceImpl.getCombineQuestions(map);
 
 //        String diff = (String) map.get("diff");
 //        String wordtype = (String) map.get("wordtype");

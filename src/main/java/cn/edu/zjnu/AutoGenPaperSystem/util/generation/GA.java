@@ -23,7 +23,7 @@ public class GA {
     private static final int tournamentSize = 5;
 
     // 进化种群
-    public static Population evolvePopulation(Population pop, RuleBean rule,QuestionsService questionsServiceImpl) {
+    public static Population evolvePopulation(Population pop, RuleBean rule, QuestionsService questionsServiceImpl) {
         Population newPopulation = new Population(pop.getLength());
         int elitismOffset;
         // 精英主义
@@ -51,7 +51,7 @@ public class GA {
         Paper tmpPaper;
         for (int i = elitismOffset; i < newPopulation.getLength(); i++) {
             tmpPaper = newPopulation.getPaper(i);
-            mutate(tmpPaper,questionsServiceImpl);
+            mutate(tmpPaper, questionsServiceImpl);
             // 计算知识点覆盖率与适应度
             tmpPaper.setKpCoverage(rule);
             tmpPaper.setAdaptationDegree(rule, Global.KP_WEIGHT, Global.DIFFCULTY_WEIGHt);
@@ -68,7 +68,7 @@ public class GA {
      */
     public static Paper crossover(Paper parent1, Paper parent2, RuleBean rule) {
         Paper child = new Paper(parent1.getQuestionSize());
-        QuestionsService questionsService=new QuestionsServiceImpl();
+        QuestionsService questionsService = new QuestionsServiceImpl();
         int s1 = (int) (Math.random() * parent1.getQuestionSize());
         int s2 = (int) (Math.random() * parent1.getQuestionSize());
 
@@ -82,14 +82,14 @@ public class GA {
         // 继承parent2中未被child继承的question
         // 防止出现重复的元素
         String pointId = rule.getPointIds().toString();
-        int subjectId=rule.getSubjecId();
+        int subjectId = rule.getSubjecId();
         int type = rule.getTypeId();
         for (int i = 0; i < startPos; i++) {
             if (!child.containsQuestion(parent2.getQuestion(i))) {
                 child.saveQuestion(i, parent2.getQuestion(i));
             } else {
                 // getQuestionArray()用来选择指定类型和知识点的试题数组
-                QuestionBean[] singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")),subjectId);
+                QuestionBean[] singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")), subjectId);
                 child.saveQuestion(i, singleArray[(int) (Math.random() * singleArray.length)]);
             }
         }
@@ -97,7 +97,7 @@ public class GA {
             if (!child.containsQuestion(parent2.getQuestion(i))) {
                 child.saveQuestion(i, parent2.getQuestion(i));
             } else {
-                QuestionBean[] singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")),subjectId);
+                QuestionBean[] singleArray = questionsService.selectQuestionArray(type, pointId.substring(1, pointId.indexOf("]")), subjectId);
                 child.saveQuestion(i, singleArray[(int) (Math.random() * singleArray.length)]);
             }
         }
@@ -106,13 +106,12 @@ public class GA {
     }
 
 
-
     /**
      * 突变算子 每个个体的每个基因都有可能突变
      *
      * @param paper
      */
-    public static void mutate(Paper paper,QuestionsService questionsService) {
+    public static void mutate(Paper paper, QuestionsService questionsService) {
         QuestionBean tmpQuestion;
         List<QuestionBean> list;
         int index;

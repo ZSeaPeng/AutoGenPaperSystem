@@ -36,7 +36,6 @@ public class RuleBean {
     private int typeId;
     /**
      * 规则创建时间
-
      */
     private Timestamp createTime;
 

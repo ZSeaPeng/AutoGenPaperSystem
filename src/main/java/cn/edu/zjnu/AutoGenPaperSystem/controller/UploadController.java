@@ -18,20 +18,20 @@ import java.io.IOException;
 @RequestMapping("/api/upload")
 public class UploadController {
 
-    @RequestMapping(value = "/file",method = RequestMethod.POST)
-    public String saveFile(@RequestParam(value = "file",required = false) MultipartFile file,
-                           @RequestParam(value = "qImg",required = false) MultipartFile qImg,
-                           @RequestParam(value = "aImg",required = false) MultipartFile aImg,
+    @RequestMapping(value = "/file", method = RequestMethod.POST)
+    public String saveFile(@RequestParam(value = "file", required = false) MultipartFile file,
+                           @RequestParam(value = "qImg", required = false) MultipartFile qImg,
+                           @RequestParam(value = "aImg", required = false) MultipartFile aImg,
                            HttpServletRequest request) throws IOException {
         String localhost = "http://localhost:8111/AutoGenPaperSystem/api/upload/file/";
         File filePath = new File(request.getServletContext().getRealPath("/upload/file"));
         //System.out.println("filePath----"+filePath);
-        if (!filePath.exists()){
+        if (!filePath.exists()) {
             filePath.mkdir();
         }
-        FileCopyUtils.copy(file.getBytes(),new File(filePath+"/"+file.getOriginalFilename()));
-        String fileUrl = localhost+file.getOriginalFilename();
-        System.out.println("url-->"+fileUrl);
+        FileCopyUtils.copy(file.getBytes(), new File(filePath + "/" + file.getOriginalFilename()));
+        String fileUrl = localhost + file.getOriginalFilename();
+        System.out.println("url-->" + fileUrl);
         return null;
     }
 }

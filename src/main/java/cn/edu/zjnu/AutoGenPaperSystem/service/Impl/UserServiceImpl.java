@@ -48,8 +48,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updateByPrimaryKeySelective(User record) {
-        System.out.println("record.getUserpassword()--->"+record.getUserpassword());
-        if (record.getUserpassword()!=null) {
+        System.out.println("record.getUserpassword()--->" + record.getUserpassword());
+        if (record.getUserpassword() != null) {
             record.setUserpassword(String.valueOf(new Md5Hash(record.getUserpassword(), record.getUserpassword())));
         }
 
@@ -170,7 +170,7 @@ public class UserServiceImpl implements UserService {
         //}
         //i = userMapper.updateSubjectCanByUserId(userId, change);
 
-        return userSubPermissMapper.updateBySubIdAndUserId(Integer.valueOf(subId),userId);
+        return userSubPermissMapper.updateBySubIdAndUserId(Integer.valueOf(subId), userId);
     }
 
     @Override
@@ -210,7 +210,7 @@ public class UserServiceImpl implements UserService {
         String chosenTemp = userMapper.selectUserChosenByUSerId(userId);
         String[] questionIds = chosenTemp.split(",");
         Set<String> typeSet = new HashSet();
-        Set<Integer> subjectidSet=new HashSet<>();
+        Set<Integer> subjectidSet = new HashSet<>();
         List<Questions> questionsList = new ArrayList<Questions>();
         for (String qid : questionIds) {
             if (!qid.equals("0")) {
@@ -220,19 +220,18 @@ public class UserServiceImpl implements UserService {
                 typeSet.add(questions.getTypes().getTypeName());
             }
         }
-        if (subjectidSet.size()==1){
-            for (Integer id:subjectidSet){
+        if (subjectidSet.size() == 1) {
+            for (Integer id : subjectidSet) {
                 System.out.println(id);
-                subid=id;
-                subName=subjectMapper.selectByPrimaryKey(id).getSubjectName();
+                subid = id;
+                subName = subjectMapper.selectByPrimaryKey(id).getSubjectName();
             }
 
-        }
-        else if (subjectidSet.size()>1){
-            lastMap.put("Error","有不同学科的题目混合在里面！");
+        } else if (subjectidSet.size() > 1) {
+            lastMap.put("Error", "有不同学科的题目混合在里面！");
         }
         lastMap.put("subName", subName);
-        lastMap.put("subid",subid);
+        lastMap.put("subid", subid);
 //        for (String s : questionIds) {
 //            if (!s.equals("0")) {
 //                Questions q = questionsMapper.selectQuestionByIdList(Integer.valueOf(s));
@@ -255,7 +254,7 @@ public class UserServiceImpl implements UserService {
                 }
             }
             map.put("questions", questionsJsonList);
-            map.put("score","0");
+            map.put("score", "0");
             lastList.add(map);
         }
 
@@ -271,8 +270,8 @@ public class UserServiceImpl implements UserService {
 
         }
         lastMap.put("questions", lastList);
-        lastMap.put("qurl","");
-        lastMap.put("aurl","");
+        lastMap.put("qurl", "");
+        lastMap.put("aurl", "");
 
         return lastMap;
     }
@@ -303,25 +302,25 @@ public class UserServiceImpl implements UserService {
         user.setUsercollection(String.valueOf(collectionnum));
         List<Paper> paperList = paperMapper.selectByUserId(userId);
         //if (paperList.size() != 0) {
-            List<PaperJson> paperJsonList = new ArrayList<>();
-            paperJsonList.clear();
-            for (Paper p : paperList) {
-                PaperJson paperJson = new PaperJson();
-                paperJson.setHistoryPaperUrl("/testpaper?paper=" + p.getPaperId());
-                paperJson.setPaperName(p.getPaperName());
-                paperJson.setPaperId(p.getPaperId());
-                paperJson.setPaperDate(p.getGeneratime());
-                paperJsonList.add(paperJson);
+        List<PaperJson> paperJsonList = new ArrayList<>();
+        paperJsonList.clear();
+        for (Paper p : paperList) {
+            PaperJson paperJson = new PaperJson();
+            paperJson.setHistoryPaperUrl("/testpaper?paper=" + p.getPaperId());
+            paperJson.setPaperName(p.getPaperName());
+            paperJson.setPaperId(p.getPaperId());
+            paperJson.setPaperDate(p.getGeneratime());
+            paperJsonList.add(paperJson);
 
-            }
-            user.setHistoryPaper(paperJsonList);
-       // }
+        }
+        user.setHistoryPaper(paperJsonList);
+        // }
         return user;
     }
 
     @Override
     public int deleteUserChonce(int userId) {
-        return userMapper.updateByUserId("0",userId);
+        return userMapper.updateByUserId("0", userId);
     }
 }
 

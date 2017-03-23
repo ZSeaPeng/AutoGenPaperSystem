@@ -1,8 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
-import cn.edu.zjnu.AutoGenPaperSystem.dao.UserSubPermissMapper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
-import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import cn.edu.zjnu.AutoGenPaperSystem.model.UserSubPermiss;
 import cn.edu.zjnu.AutoGenPaperSystem.service.PaperService;
 import cn.edu.zjnu.AutoGenPaperSystem.service.QuestionsService;
@@ -44,29 +42,28 @@ public class PaperController {
     public Map getInfo(@ModelAttribute("userid") Integer userid) {
         String type = "";
         String subName = "";
-        Map infoMap=new HashMap();
-        infoMap=userServiceImpl.selectUserChosenByUSerId(userid, type, subName);
-        if (infoMap.containsKey("Error")){
+        Map infoMap = new HashMap();
+        infoMap = userServiceImpl.selectUserChosenByUSerId(userid, type, subName);
+        if (infoMap.containsKey("Error")) {
             infoMap.clear();
-            infoMap.put("Error","有不同学科的题目混合在里面!");
+            infoMap.put("Error", "有不同学科的题目混合在里面!");
         }
         return infoMap;
     }
 
     @RequestMapping(value = "/makepaper", method = RequestMethod.POST)
     public Map getTest(@RequestBody Map map, @ModelAttribute("userid") Integer userid,
-                                                   HttpServletRequest request) {
-        setAllDocx=new SetAllDocx();
+                       HttpServletRequest request) {
+        setAllDocx = new SetAllDocx();
         Map paperMap = new HashMap();
-        String subName= (String) map.get("subName");
-        UserSubPermiss userSubPermiss=userSubPermissServiceImpl.selelctByUseridSubid(userid, (Integer) map.get("subid"));
-        int dopaper=userSubPermiss.getDopaper();
-        int allowpaper=userSubPermiss.getAllowpaper();
-        if (dopaper==allowpaper){
-            paperMap.put("Error","允许下载的试卷数量已满！！");
+        String subName = (String) map.get("subName");
+        UserSubPermiss userSubPermiss = userSubPermissServiceImpl.selelctByUseridSubid(userid, (Integer) map.get("subid"));
+        int dopaper = userSubPermiss.getDopaper();
+        int allowpaper = userSubPermiss.getAllowpaper();
+        if (dopaper == allowpaper) {
+            paperMap.put("Error", "允许下载的试卷数量已满！！");
             return paperMap;
-        }
-        else if (dopaper<allowpaper){
+        } else if (dopaper < allowpaper) {
             dopaper++;
             userSubPermiss.setDopaper(dopaper);
             userSubPermissServiceImpl.updateByPrimaryKeySelective(userSubPermiss);
@@ -74,48 +71,48 @@ public class PaperController {
 
         userServiceImpl.deleteUserChonce(userid);
         String randomStr = RandomStr.getRandomString(6);
-        Calendar now=Calendar.getInstance();
-        String date=""+now.get(Calendar.YEAR)+(now.get(Calendar.MONTH)+1)+now.get(Calendar.DAY_OF_MONTH);
+        Calendar now = Calendar.getInstance();
+        String date = "" + now.get(Calendar.YEAR) + (now.get(Calendar.MONTH) + 1) + now.get(Calendar.DAY_OF_MONTH);
         String title = (String) map.get("title");
         List<Map> list = (List<Map>) map.get("question");
-        Map<String,Object> questionMap=new LinkedHashMap<>();
-        Map<String,Object> answerMap=new LinkedHashMap<>();
-        questionMap.put("Title",subName+title);
-        answerMap.put("Title",title+"答案");
-        questionMap.put("xm",request.getServletContext().getRealPath("/upload/template/A3Horizontalxingming.docx"));
-        questionMap.put("attent",request.getServletContext().getRealPath("/upload/template/A3HorizontalAttention.docx"));
-        for (int i=0;i<list.size();i++) {
-            List questionList=new ArrayList();
-            List answerList=new ArrayList();
-            List<Integer> idList= (List<Integer>) list.get(i).get("id");
-            for (Integer id:idList){
-                Questions questions=questionsServiceImpl.selectByPrimaryKey(id);
+        Map<String, Object> questionMap = new LinkedHashMap<>();
+        Map<String, Object> answerMap = new LinkedHashMap<>();
+        questionMap.put("Title", subName + title);
+        answerMap.put("Title", title + "答案");
+        questionMap.put("xm", request.getServletContext().getRealPath("/upload/template/A3Horizontalxingming.docx"));
+        questionMap.put("attent", request.getServletContext().getRealPath("/upload/template/A3HorizontalAttention.docx"));
+        for (int i = 0; i < list.size(); i++) {
+            List questionList = new ArrayList();
+            List answerList = new ArrayList();
+            List<Integer> idList = (List<Integer>) list.get(i).get("id");
+            for (Integer id : idList) {
+                Questions questions = questionsServiceImpl.selectByPrimaryKey(id);
                 questionList.add(questions.getContent());
                 answerList.add(questions.getAnswer());
             }
 
-            questionMap.put(list.get(i).get("type")+"(共"+questionList.size()+"题，共"+list.get(i).get("score")+"分)",questionList );
-            answerMap.put(list.get(i).get("type")+"(共"+questionList.size()+"题，共"+list.get(i).get("score")+"分)",answerList );
+            questionMap.put(list.get(i).get("type") + "(共" + questionList.size() + "题，共" + list.get(i).get("score") + "分)", questionList);
+            answerMap.put(list.get(i).get("type") + "(共" + questionList.size() + "题，共" + list.get(i).get("score") + "分)", answerList);
         }
         try {
-            String qurl = request.getServletContext().getRealPath("/upload/temp/" + date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+ ".docx");
-            setAllDocx.Title(questionMap,request.getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"),qurl);
-            String aurl = request.getServletContext().getRealPath("/upload/temp/a_"+ date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+ ".docx");
-            setAllDocx.Title(answerMap,request.getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"),aurl);
-            paperMap.put("qurl","localhost:8111/AutoGenPaperSystem/upload/temp/"+date+"u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+".docx");
-            paperMap.put("aurl","localhost:8111/AutoGenPaperSystem/upload/temp/a_"+ date+ "u" +userid+PinyinHelper.convertToPinyinString(subName,"",PinyinFormat.WITHOUT_TONE)+randomStr+".docx");
+            String qurl = request.getServletContext().getRealPath("/upload/temp/" + date + "u" + userid + PinyinHelper.convertToPinyinString(subName, "", PinyinFormat.WITHOUT_TONE) + randomStr + ".docx");
+            setAllDocx.Title(questionMap, request.getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"), qurl);
+            String aurl = request.getServletContext().getRealPath("/upload/temp/a_" + date + "u" + userid + PinyinHelper.convertToPinyinString(subName, "", PinyinFormat.WITHOUT_TONE) + randomStr + ".docx");
+            setAllDocx.Title(answerMap, request.getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"), aurl);
+            paperMap.put("qurl", "localhost:8111/AutoGenPaperSystem/upload/temp/" + date + "u" + userid + PinyinHelper.convertToPinyinString(subName, "", PinyinFormat.WITHOUT_TONE) + randomStr + ".docx");
+            paperMap.put("aurl", "localhost:8111/AutoGenPaperSystem/upload/temp/a_" + date + "u" + userid + PinyinHelper.convertToPinyinString(subName, "", PinyinFormat.WITHOUT_TONE) + randomStr + ".docx");
             return paperMap;
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-            //String dfileName = new String(fileName.getBytes("gb2312"), "iso8859-1");
-            //HttpHeaders headers = new HttpHeaders();
-            //headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-            //headers.setContentDispositionFormData("attachment", dfileName);
-            //return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
+        //String dfileName = new String(fileName.getBytes("gb2312"), "iso8859-1");
+        //HttpHeaders headers = new HttpHeaders();
+        //headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        //headers.setContentDispositionFormData("attachment", dfileName);
+        //return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);
         return paperMap;
-        }
+    }
 
 
     //public Map getPaperList(@RequestBody PaperObject[] paperObjects, @ModelAttribute("userid") Integer userid,

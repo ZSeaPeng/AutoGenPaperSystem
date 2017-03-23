@@ -18,12 +18,12 @@ public class indexController {
     public Map getUpdateInfo() {
 
 
-        Map<String,List> map = new HashMap<String, List>();
+        Map<String, List> map = new HashMap<String, List>();
         List<String> subList = new ArrayList<String>();
         subList.add("语文");
         subList.add("数学");
         subList.add("机械类");
-        map.put("科目",subList);
+        map.put("科目", subList);
         return map;
     }
 }

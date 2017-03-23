@@ -80,11 +80,11 @@ public class SubjectListContorller {
         map.put("sublist", subList);
         map.put("update", updatesubList);
         //System.out.println("useridError====="+userid);
-        System.out.println("subUserId--->"+userid);
+        System.out.println("subUserId--->" + userid);
         map.put("userid", userid);
         String name = "null";
         if (userid != -1) {
-           name = userServiceImpl.selectByPrimaryKey(userid).getUsername();
+            name = userServiceImpl.selectByPrimaryKey(userid).getUsername();
         }
         map.put("username", name);
         return map;

@@ -5,7 +5,6 @@ import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.docx4j.jaxb.Context;
 import org.docx4j.openpackaging.contenttype.ContentType;
-import org.docx4j.openpackaging.io.SaveToZipFile;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.PartName;
 import org.docx4j.openpackaging.parts.WordprocessingML.AlternativeFormatInputPart;
@@ -27,60 +26,62 @@ import java.util.List;
 public class MergeDOCX {
 
     public void merge(List<String> path, String resultPath) throws Exception {
-        OutputStream dest=new FileOutputStream(resultPath);
-        List<CTBody> srcBodyList=new ArrayList<>();
-        List<XWPFDocument> documents=new ArrayList<>();
-        CTBody []srcBodies=new CTBody[path.size()];
-        for (String list:path){
-            InputStream src=new FileInputStream(list);
+        OutputStream dest = new FileOutputStream(resultPath);
+        List<CTBody> srcBodyList = new ArrayList<>();
+        List<XWPFDocument> documents = new ArrayList<>();
+        CTBody[] srcBodies = new CTBody[path.size()];
+        for (String list : path) {
+            InputStream src = new FileInputStream(list);
             OPCPackage srcPackage = OPCPackage.open(src);
             XWPFDocument srcDocument = new XWPFDocument(srcPackage);
             documents.add(srcDocument);
             CTBody srcBody = srcDocument.getDocument().getBody();
             srcBodyList.add(srcBody);
         }
-        srcBodies=srcBodyList.toArray(new CTBody[srcBodyList.size()]);
+        srcBodies = srcBodyList.toArray(new CTBody[srcBodyList.size()]);
         appendBody(srcBodies);
         documents.get(0).write(dest);
     }
 
-    private static void appendBody(CTBody []src) throws Exception {
-        String prefix = src[0].xmlText().substring(0,src[0].xmlText().indexOf(">")+1);
-        String sufix=src[0].xmlText().substring( src[0].xmlText().lastIndexOf("<"));
-        String mainPart="";
-        for (int i=0;i<src.length;i++){
+    private static void appendBody(CTBody[] src) throws Exception {
+        String prefix = src[0].xmlText().substring(0, src[0].xmlText().indexOf(">") + 1);
+        String sufix = src[0].xmlText().substring(src[0].xmlText().lastIndexOf("<"));
+        String mainPart = "";
+        for (int i = 0; i < src.length; i++) {
 //            int j=i+1;
-            String append=src[i].xmlText();
-            String tempPart=append.substring(append.indexOf(">")+1,append.lastIndexOf("<"));
+            String append = src[i].xmlText();
+            String tempPart = append.substring(append.indexOf(">") + 1, append.lastIndexOf("<"));
 //            String addPart=tempPart.substring(0,tempPart.indexOf(">")+1)+
 //                    "<w:pPr><w:jc w:val=\"left\"/><w:rPr><w:rFonts w:hint=\"eastAsia\"/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:hint=\"eastAsia\"/></w:rPr><w:t>"+j+".</w:t></w:r><w:bookmarkStart w:id=\"0\" w:name=\"_GoBack\"/><w:bookmarkEnd w:id=\"0\"/>"
 //                    +tempPart.substring(tempPart.indexOf(">")+1,tempPart.lastIndexOf(">")+1);
-            String addPart=tempPart.substring(0,tempPart.indexOf(">")+1)+tempPart.substring(tempPart.indexOf(">")+1,tempPart.lastIndexOf(">")+1);
-            mainPart=mainPart+addPart;
+            String addPart = tempPart.substring(0, tempPart.indexOf(">") + 1) + tempPart.substring(tempPart.indexOf(">") + 1, tempPart.lastIndexOf(">") + 1);
+            mainPart = mainPart + addPart;
         }
-        CTBody makeBody = CTBody.Factory.parse(prefix+mainPart+sufix);
+        CTBody makeBody = CTBody.Factory.parse(prefix + mainPart + sufix);
         src[0].set(makeBody);
     }
 
-    private int i=1;
+    private int i = 1;
     private static long chunk = 0;
     private static final String CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    public void mergedocx(WordprocessingMLPackage target,List<String> path,Boolean mark) throws Exception {
-        List<byte[]> byteList=new ArrayList<>();
-        for (int i=0;i<path.size();i++){
-            InputStream src=new FileInputStream(path.get(i));
+
+    public void mergedocx(WordprocessingMLPackage target, List<String> path, Boolean mark) throws Exception {
+        List<byte[]> byteList = new ArrayList<>();
+        for (int i = 0; i < path.size(); i++) {
+            InputStream src = new FileInputStream(path.get(i));
             byteList.add(IOUtils.toByteArray(src));
         }
 //        WordprocessingMLPackage target = WordprocessingMLPackage.load(new FileInputStream(path.get(0)));
-        insertDocx(target.getMainDocumentPart(), byteList,mark);
+        insertDocx(target.getMainDocumentPart(), byteList, mark);
 //        SaveToZipFile saver = new SaveToZipFile(target);
 //        saver.save(os);
     }
-    public void insertDocx(MainDocumentPart main, List<byte[]> bytes,Boolean ismark) throws Exception {
 
-        for (byte[] list:bytes){
-            if (ismark){
-                main.addParagraphOfText(String.valueOf(i)+".");
+    public void insertDocx(MainDocumentPart main, List<byte[]> bytes, Boolean ismark) throws Exception {
+
+        for (byte[] list : bytes) {
+            if (ismark) {
+                main.addParagraphOfText(String.valueOf(i) + ".");
                 i++;
             }
             AlternativeFormatInputPart afiPart = new AlternativeFormatInputPart(new PartName("/part" + (chunk++) + ".docx"));

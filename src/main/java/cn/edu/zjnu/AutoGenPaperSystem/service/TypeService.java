@@ -20,7 +20,7 @@ public interface TypeService {
 
     int updateByPrimaryKey(Types record);
 
-    List selectTypesBySubjectId(Integer subjectId,int gradeId,String subName,String others,String pointId,String t,String d,String c);
+    List selectTypesBySubjectId(Integer subjectId, int gradeId, String subName, String others, String pointId, String t, String d, String c);
 
-    Integer selectIdByName(String name,Integer subid);
+    Integer selectIdByName(String name, Integer subid);
 }
