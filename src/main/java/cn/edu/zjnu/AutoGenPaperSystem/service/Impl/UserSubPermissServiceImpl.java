@@ -28,7 +28,7 @@ public class UserSubPermissServiceImpl implements UserSubPermissService {
 
     @Override
     public int insertSelective(UserSubPermiss record) {
-        return 0;
+        return userSubPermissMapper.insertSelective(record);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class UserSubPermissServiceImpl implements UserSubPermissService {
 
     @Override
     public int updateByPrimaryKeySelective(UserSubPermiss record) {
-        return 0;
+        return userSubPermissMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
@@ -49,5 +49,10 @@ public class UserSubPermissServiceImpl implements UserSubPermissService {
     @Override
     public int updateBySubIdAndUserId(Integer subid, Integer userId) {
         return 0;
+    }
+
+    @Override
+    public UserSubPermiss selelctByUseridSubid(Integer userId, Integer subid) {
+        return userSubPermissMapper.selelctByUseridSubid(userId, subid);
     }
 }

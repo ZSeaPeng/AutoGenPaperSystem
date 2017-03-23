@@ -126,7 +126,7 @@ public class QuestionsServiceImpl implements QuestionsService {
                     j++;
                     p = j;
                     subject = subjectMapper.selectByPrimaryKey(list.getSubjectId());
-                    if (subject !=null){
+                    if (subject != null) {
                         updateInfoJson.setSub(subject.getSubjectName());
                         updateInfoJson.setDate(list.getUploadTime().toString());
                     }
@@ -151,20 +151,19 @@ public class QuestionsServiceImpl implements QuestionsService {
                     s[p] = list.getSubjectId();
                     p++;
                     subject = subjectMapper.selectByPrimaryKey(list.getSubjectId());
-                   if (subject!=null){
-                       updateInfoJson.setSub(subject.getSubjectName());
-                       updateInfoJson.setDate(list.getUploadTime().toString());
-                       try {
-                           int y = year + 1900, m = month + 1;
-                           updateInfoJson.setUrl("/updateinfo/" + y + "" + m + "" + list.getUploadTime().getDate() + "/" + PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId());
-                       } catch (PinyinException e) {
-                           e.printStackTrace();
-                       }
-                       updateInfoJsonList.add(updateInfoJson);
-                   }
+                    if (subject != null) {
+                        updateInfoJson.setSub(subject.getSubjectName());
+                        updateInfoJson.setDate(list.getUploadTime().toString());
+                        try {
+                            int y = year + 1900, m = month + 1;
+                            updateInfoJson.setUrl("/updateinfo/" + y + "" + m + "" + list.getUploadTime().getDate() + "/" + PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId());
+                        } catch (PinyinException e) {
+                            e.printStackTrace();
+                        }
+                        updateInfoJsonList.add(updateInfoJson);
+                    }
 
-                }
-                else {
+                } else {
                     continue;
                 }
             }
@@ -188,7 +187,7 @@ public class QuestionsServiceImpl implements QuestionsService {
         }
         List chosenList = new ArrayList();
         List collectList = new ArrayList();
-        if (userId !=-1) {
+        if (userId != -1) {
             User user = userMapper.selectByPrimaryKey(userId);
             String chose = user.getUserchosen();
             String collection = user.getUsercollection();
@@ -224,19 +223,19 @@ public class QuestionsServiceImpl implements QuestionsService {
 
     @Override
     public QuestionBean[] selectQuestionArray(int typeId, String pointIds, int subjectId) {
-        int j=0;
-        String []pointId=pointIds.split(", ");
-        Set<Questions> questionsSet=new HashSet<>();
+        int j = 0;
+        String[] pointId = pointIds.split(", ");
+        Set<Questions> questionsSet = new HashSet<>();
 
-        for (int i=0;i<pointId.length;i++){
-            List<Questions> questions=questionsMapper.selectQuestionArray(typeId, Integer.parseInt(pointId[i]),subjectId);
+        for (int i = 0; i < pointId.length; i++) {
+            List<Questions> questions = questionsMapper.selectQuestionArray(typeId, Integer.parseInt(pointId[i]), subjectId);
             questionsSet.addAll(questions);
         }
-        QuestionBean []questionBeans=new QuestionBean[questionsSet.size()];
-        for (Questions list:questionsSet){
-            Difficulty difficult=difficultyMapper.selectByPrimaryKey(list.getDifficultyId());
-            Double dif=(difficult.getLowlimit()+difficult.getUplimit())/2.0;
-            QuestionBean questionBean=new QuestionBean();
+        QuestionBean[] questionBeans = new QuestionBean[questionsSet.size()];
+        for (Questions list : questionsSet) {
+            Difficulty difficult = difficultyMapper.selectByPrimaryKey(list.getDifficultyId());
+            Double dif = (difficult.getLowlimit() + difficult.getUplimit()) / 2.0;
+            QuestionBean questionBean = new QuestionBean();
             questionBean.setDifficulty(dif);
             questionBean.setDifficultId(list.getDifficultyId());
             questionBean.setAnswer(list.getAnswer());
@@ -246,19 +245,16 @@ public class QuestionsServiceImpl implements QuestionsService {
             questionBean.setId(list.getQuestionsId());
             questionBean.setCreateTime(list.getUploadTime());
             questionBean.setTypeId(list.getTypeId());
-            if (list.getKnowledgeId1()!=0&&list.getKnowledgeId2()==0){
+            if (list.getKnowledgeId1() != 0 && list.getKnowledgeId2() == 0) {
                 questionBean.setPointId(list.getKnowledgeId1());
-            }
-            else if (list.getKnowledgeId2()!=0&&list.getKnowledgeId3()==0){
+            } else if (list.getKnowledgeId2() != 0 && list.getKnowledgeId3() == 0) {
                 questionBean.setPointId(list.getKnowledgeId2());
-            }
-            else if (list.getKnowledgeId3()!=0&&list.getKnowledgeId4()==0){
+            } else if (list.getKnowledgeId3() != 0 && list.getKnowledgeId4() == 0) {
                 questionBean.setPointId(list.getKnowledgeId3());
-            }
-            else {
+            } else {
                 questionBean.setPointId(list.getKnowledgeId4());
             }
-            questionBeans[j]=questionBean;
+            questionBeans[j] = questionBean;
             j++;
         }
         return questionBeans;
@@ -267,10 +263,10 @@ public class QuestionsServiceImpl implements QuestionsService {
 
     @Override
     public List<QuestionBean> selectQuestionListByTypeAndDif(QuestionBean questionBean) {
-        List<Questions> questionss=questionsMapper.selectQuestionListByTypeAndDif(questionBean.getTypeId(),questionBean.getDifficultId());
-        List<QuestionBean> questionBeans=new ArrayList<>();
-        for (Questions list:questionss){
-            QuestionBean questionBean1=new QuestionBean();
+        List<Questions> questionss = questionsMapper.selectQuestionListByTypeAndDif(questionBean.getTypeId(), questionBean.getDifficultId());
+        List<QuestionBean> questionBeans = new ArrayList<>();
+        for (Questions list : questionss) {
+            QuestionBean questionBean1 = new QuestionBean();
             questionBean1.setDifficulty(questionBean.getDifficulty());
             questionBean1.setDifficultId(list.getDifficultyId());
             questionBean1.setAnswer(list.getAnswer());
@@ -278,16 +274,13 @@ public class QuestionsServiceImpl implements QuestionsService {
             questionBean1.setId(list.getQuestionsId());
             questionBean1.setCreateTime(list.getUploadTime());
             questionBean1.setTypeId(list.getTypeId());
-            if (list.getKnowledgeId1()!=0&&list.getKnowledgeId2()==0){
+            if (list.getKnowledgeId1() != 0 && list.getKnowledgeId2() == 0) {
                 questionBean1.setPointId(list.getKnowledgeId1());
-            }
-            else if (list.getKnowledgeId2()!=0&&list.getKnowledgeId3()==0){
+            } else if (list.getKnowledgeId2() != 0 && list.getKnowledgeId3() == 0) {
                 questionBean1.setPointId(list.getKnowledgeId2());
-            }
-            else if (list.getKnowledgeId3()!=0&&list.getKnowledgeId4()==0){
+            } else if (list.getKnowledgeId3() != 0 && list.getKnowledgeId4() == 0) {
                 questionBean1.setPointId(list.getKnowledgeId3());
-            }
-            else {
+            } else {
                 questionBean1.setPointId(list.getKnowledgeId4());
             }
             questionBeans.add(questionBean1);

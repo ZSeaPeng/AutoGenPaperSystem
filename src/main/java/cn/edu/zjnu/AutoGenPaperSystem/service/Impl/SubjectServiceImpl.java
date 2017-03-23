@@ -49,7 +49,7 @@ public class SubjectServiceImpl implements SubjectService {
         Subject subject = subjectMapper.selectByPrimaryKey(subjectId);
         String url = "";
         try {
-             url = "/tiku/1/"+PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId() +"/point0";
+            url = "/tiku/1/" + PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId() + "/point0";
         } catch (PinyinException e) {
             e.printStackTrace();
         }
@@ -67,7 +67,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public int updateIsDeleteBySubId(Integer subId) {
-        System.out.println("subId-->"+subId);
+        System.out.println("subId-->" + subId);
         System.out.println(subjectMapper.updateIsDeleteBySubId(subId));
         return 1;
     }
@@ -84,7 +84,7 @@ public class SubjectServiceImpl implements SubjectService {
                 Map<String, String> subMap = new HashMap<String, String>();
                 if (subject.getGradeId() == grade.getGradeId()) {
                     try {
-                        subMap.put("url", "/tiku/"+grade.getGradeId() + "/"+PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId() +
+                        subMap.put("url", "/tiku/" + grade.getGradeId() + "/" + PinyinHelper.convertToPinyinString(subject.getSubjectName(), "", PinyinFormat.WITHOUT_TONE) + subject.getSubjectId() +
                                 "/point0");
                     } catch (PinyinException e) {
                         e.printStackTrace();
@@ -104,13 +104,13 @@ public class SubjectServiceImpl implements SubjectService {
     public List selectAllSubjectOnAdmin() {
         List subjects = new ArrayList();
         subjects.clear();
-        List<Subject> subjectList =  subjectMapper.selectAllSubject();
-        for (Subject subject:subjectList){
+        List<Subject> subjectList = subjectMapper.selectAllSubject();
+        for (Subject subject : subjectList) {
             //System.out.println(subject);
             Map map = new HashMap();
             map.clear();
-            map.put("subName",subject.getSubjectName());
-            map.put("points",knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(subject.getSubjectId(),0,"","","","","",""));
+            map.put("subName", subject.getSubjectName());
+            map.put("points", knowledgeServiceImpl.selectFirstKnowledgeBySubjectId(subject.getSubjectId(), 0, "", "", "", "", "", ""));
             subjects.add(map);
         }
 

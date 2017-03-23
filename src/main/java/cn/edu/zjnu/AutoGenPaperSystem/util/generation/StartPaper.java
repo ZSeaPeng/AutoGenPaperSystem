@@ -22,12 +22,12 @@ public class StartPaper {
     // 适应度期望值
     double expand = 0.98;
     // 可自己初始化组卷规则rule
-    RuleBean ruleBean=new RuleBean();
+    RuleBean ruleBean = new RuleBean();
     /**
      * 错误信息
      */
     private String errorMsg;
-    private Boolean errorFlag=false;
+    private Boolean errorFlag = false;
 
     public StartPaper(RuleBean ruleBean) {
         this.ruleBean = ruleBean;
@@ -41,21 +41,20 @@ public class StartPaper {
         this.questionsServiceImpl = questionsServiceImpl;
     }
 
-    public Paper getPaper(){
+    public Paper getPaper() {
         if (ruleBean != null) {
             // 初始化种群
 //            System.out.printf(userMapper.selectByPrimaryKey(20).getUsername());
-            Population population = new Population(20, true, ruleBean,questionsServiceImpl);
-            System.out.println("population.getErrorFlag()"+population.getErrorFlag());
-            if (population.getErrorFlag()){
-                errorFlag=true;
-                errorMsg=population.getErrorMsg();
-            }
-            else {
+            Population population = new Population(20, true, ruleBean, questionsServiceImpl);
+            System.out.println("population.getErrorFlag()" + population.getErrorFlag());
+            if (population.getErrorFlag()) {
+                errorFlag = true;
+                errorMsg = population.getErrorMsg();
+            } else {
                 System.out.println("初次适应度  " + population.getFitness().getAdaptationDegree());
                 while (count < runCount && population.getFitness().getAdaptationDegree() < expand) {
                     count++;
-                    population = GA.evolvePopulation(population, ruleBean,questionsServiceImpl);
+                    population = GA.evolvePopulation(population, ruleBean, questionsServiceImpl);
                 }
                 resultPaper = population.getFitness();
             }

@@ -45,25 +45,25 @@ public class TypeServiceImpl implements TypeService {
         return 0;
     }
 
-    public List selectTypesBySubjectId(Integer subjectId,int gradeId,String subName,String others,String pointId,String t,String d,String c) {
+    public List selectTypesBySubjectId(Integer subjectId, int gradeId, String subName, String others, String pointId, String t, String d, String c) {
         List<TypesJson> typesJsonList = new ArrayList<TypesJson>();
         List<Types> typesList = typesMapper.selectTypesBySubjectId(subjectId);
         TypesJson typejson = new TypesJson();
         typejson.setId(0);
         typejson.setName("全部");
-        typejson.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+
-                0+"d"+d+"c"+c);
-        if (t.equals("0")){
+        typejson.setUrl("/tiku/" + gradeId + "/" + subName + "/point" + pointId + "/t" +
+                0 + "d" + d + "c" + c);
+        if (t.equals("0")) {
             typejson.setSelect(true);
         }
         typesJsonList.add(typejson);
-        for (Types types:typesList){
+        for (Types types : typesList) {
             TypesJson json = new TypesJson();
             json.setId(types.getTypeId());
             json.setName(types.getTypeName());
-            json.setUrl("/tiku/"+gradeId+"/"+subName+"/point"+pointId+"/t"+
-                    types.getTypeId()+"d"+d+"c"+c);
-            if (types.getTypeId().toString().equals(t)){
+            json.setUrl("/tiku/" + gradeId + "/" + subName + "/point" + pointId + "/t" +
+                    types.getTypeId() + "d" + d + "c" + c);
+            if (types.getTypeId().toString().equals(t)) {
                 json.setSelect(true);
             }
             typesJsonList.add(json);
@@ -73,14 +73,14 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public Integer selectIdByName(String name,Integer subid) {
+    public Integer selectIdByName(String name, Integer subid) {
         Map map = new HashMap();
-        map.put("name",name);
-        map.put("subid",subid);
+        map.put("name", name);
+        map.put("subid", subid);
         map.clear();
-        Object i = typesMapper.selectIdByName(name,subid);
+        Object i = typesMapper.selectIdByName(name, subid);
 
-        return typesMapper.selectIdByName(name,subid);
+        return typesMapper.selectIdByName(name, subid);
     }
 
 

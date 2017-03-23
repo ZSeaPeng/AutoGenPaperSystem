@@ -32,7 +32,7 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public int insertSelective(Paper record) {
-        if (record.getPaperName()==null){
+        if (record.getPaperName() == null) {
             record.setPaperName("test");
         }
         record.setGeneratime(new Date());
@@ -64,7 +64,7 @@ public class PaperServiceImpl implements PaperService {
         List<Map> lastList = new ArrayList<Map>();
         lastMap.put("Type", type);
         lastMap.put("subName", subName);
-       // String chosenTemp = userMapper.selectUserChosenByUSerId(userId);
+        // String chosenTemp = userMapper.selectUserChosenByUSerId(userId);
         String[] questionIds = paperMapper.selectByPrimaryKey(paperId).getQuestionIds().split(",");
         Set<String> typeSet = new HashSet();
         List<Questions> questionsList = new ArrayList<Questions>();
@@ -97,22 +97,22 @@ public class PaperServiceImpl implements PaperService {
                 }
             }
             map.put("questions", questionsJsonList);
-            map.put("score","0");
+            map.put("score", "0");
             lastList.add(map);
         }
-            //改变顺序
-            Iterator iterator = lastList.iterator();
-            while (iterator.hasNext()) {
-                Map mapTemp = (Map) iterator.next();
-                if (mapTemp.get("type").equals("单选题")) {
-                    iterator.remove();
-                    lastList.add(lastList.size(), mapTemp);
-                    break;
-                }
+        //改变顺序
+        Iterator iterator = lastList.iterator();
+        while (iterator.hasNext()) {
+            Map mapTemp = (Map) iterator.next();
+            if (mapTemp.get("type").equals("单选题")) {
+                iterator.remove();
+                lastList.add(lastList.size(), mapTemp);
+                break;
             }
-            lastMap.put("questions", lastList);
+        }
+        lastMap.put("questions", lastList);
 
-            return lastMap;
+        return lastMap;
     }
 
     @Override
@@ -124,10 +124,10 @@ public class PaperServiceImpl implements PaperService {
         List typeNum = (List) map.get("typeNum");
         List<String> typeNames = (List) map.get("typeName");
 
-        List<Integer> pointsList =(List<Integer>) map.get("points");
+        List<Integer> pointsList = (List<Integer>) map.get("points");
 //        List<cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper> paperList = new ArrayList<>();
 
-        String subName=subjectMapper.selectByPrimaryKey(Integer.valueOf(subject)).getSubjectName();
+        String subName = subjectMapper.selectByPrimaryKey(Integer.valueOf(subject)).getSubjectName();
         String type = "默认类型";
         Map lastMap = new HashMap();
         List<Map> lastList = new ArrayList<Map>();
@@ -150,13 +150,12 @@ public class PaperServiceImpl implements PaperService {
             startPaper.setQuestionsServiceImpl(questionsServiceImpl);
 //            System.out.println("startPaper.getErrorFlag()"+startPaper.getErrorFlag());
 //            paperList.add(startPaper.getPaper());
-            cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper paperBean=new cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper();
-            paperBean=startPaper.getPaper();
-            if (startPaper.getErrorFlag()){
-                tmap.put("error",startPaper.getErrorMsg());
-            }
-            else {
-                for (QuestionBean questionBean:paperBean.getQuestionList()){
+            cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper paperBean = new cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper();
+            paperBean = startPaper.getPaper();
+            if (startPaper.getErrorFlag()) {
+                tmap.put("error", startPaper.getErrorMsg());
+            } else {
+                for (QuestionBean questionBean : paperBean.getQuestionList()) {
                     QuestionsJson questionsJson = new QuestionsJson();
                     questionsJson.setId((int) questionBean.getId());
                     questionsJson.setQurl(questionBean.getQesUrl());
@@ -166,7 +165,7 @@ public class PaperServiceImpl implements PaperService {
             }
 
             tmap.put("questions", questionsJsonList);
-            tmap.put("score","0");
+            tmap.put("score", "0");
             lastList.add(tmap);
         }
         //改变顺序

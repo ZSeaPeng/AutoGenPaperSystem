@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by zseapeng on 2016/11/4.
  */
-public interface UserService  {
+public interface UserService {
     int deleteByPrimaryKey(Integer userId);
 
     int insert(User record);
@@ -22,9 +22,9 @@ public interface UserService  {
 
     int updateByPrimaryKey(User record);
 
-    Map updateByUserId(String chosen, int userId,int k);
+    Map updateByUserId(String chosen, int userId, int k);
 
-    Map updateCollectByUserId(String collect,int userId,int k);
+    Map updateCollectByUserId(String collect, int userId, int k);
 
     int allremove(int userid);
 
@@ -32,7 +32,7 @@ public interface UserService  {
 
     List<User> selestAllUsers();
 
-    int updateBySubIdAndUserId(String subId,int userId);
+    int updateBySubIdAndUserId(String subId, int userId);
 
     String selectSubjectCanByUserId(int userId);
 
@@ -42,7 +42,7 @@ public interface UserService  {
 
     Map selectUserChosenByUSerId(int userId, String type, String subName);
 
-    List<QuestionsJson>  selectColleltionByUserId (int userId);
+    List<QuestionsJson> selectColleltionByUserId(int userId);
 
     User selectShow(int userId);
 

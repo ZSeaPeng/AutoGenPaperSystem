@@ -24,7 +24,7 @@ public final class JacksonUtil {
         if (objectMapper == null) {
             objectMapper = new ObjectMapper();
         }
-            objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES,true);
+        objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
         try {
             return objectMapper.readValue(jsonStr, valueType);
         } catch (Exception e) {

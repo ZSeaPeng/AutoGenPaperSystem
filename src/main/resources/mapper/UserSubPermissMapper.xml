@@ -20,6 +20,12 @@
     from UserSubPermiss
     where SubPermissId = #{subpermissid,jdbcType=INTEGER}
   </select>
+  <select id="selelctByUseridSubid" resultMap="BaseResultMap" >
+    SELECT
+    *
+    FROM UserSubPermiss
+    WHERE UserId=#{param1} AND SubjectId=#{param2}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from UserSubPermiss
     where SubPermissId = #{subpermissid,jdbcType=INTEGER}

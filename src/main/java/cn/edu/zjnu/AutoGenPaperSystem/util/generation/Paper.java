@@ -42,17 +42,19 @@ public class Paper {
      * 包含的答案路径集合
      */
     private List<String> answerPath = new ArrayList<String>();
+
     public Paper(int size) {
         for (int i = 0; i < size; i++) {
             questionList.add(null);
         }
     }
+
     public Paper() {
         super();
     }
 
-    public Double getTotalDifficult(){
-        if (totalDifficult==0){
+    public Double getTotalDifficult() {
+        if (totalDifficult == 0) {
             double total = 0;
             for (QuestionBean question : questionList) {
                 total += question.getDifficulty();
@@ -77,6 +79,7 @@ public class Paper {
         }
         return difficulty;
     }
+
     /**
      * 获取试题数量
      *
@@ -107,6 +110,7 @@ public class Paper {
             kPCoverage = result.size() / rule.getPointIds().size();
         }
     }
+
     /**
      * 计算个体适应度 公式为：f=1-(1-M/N)*f1-|EP-P|*f2
      * 其中M/N为知识点覆盖率，EP为期望难度系数，P为种群个体难度系数，f1为知识点分布的权重
@@ -140,6 +144,7 @@ public class Paper {
         }
         return false;
     }
+
     /**
      * 增加问题
      *
@@ -207,14 +212,14 @@ public class Paper {
     }
 
     public List<String> getQuestionPath() {
-        for (QuestionBean list:questionList){
+        for (QuestionBean list : questionList) {
             questionPath.add(list.getContent());
         }
         return questionPath;
     }
 
     public List<String> getAnswerPath() {
-        for (QuestionBean list:questionList){
+        for (QuestionBean list : questionList) {
             questionPath.add(list.getAnswer());
         }
         return answerPath;

@@ -19,7 +19,7 @@ public class Population {
      * 错误信息
      */
     private String errorMsg;
-    private Boolean errorFlag=false;
+    private Boolean errorFlag = false;
 
     @Resource
     private QuestionsService questionsServiceImpl;
@@ -37,9 +37,9 @@ public class Population {
      * @param initFlag       初始化标志 true-初始化
      * @param rule           规则bean
      */
-    public Population(int populationSize, boolean initFlag, RuleBean rule,QuestionsService questionsServiceImpl1) {
+    public Population(int populationSize, boolean initFlag, RuleBean rule, QuestionsService questionsServiceImpl1) {
 
-        questionsServiceImpl=questionsServiceImpl1;
+        questionsServiceImpl = questionsServiceImpl1;
         papers = new Paper[populationSize];
         if (initFlag) {
             Paper paper;
@@ -49,14 +49,14 @@ public class Population {
                 paper.setId(i + 1);
 //                while (paper.getTotalScore() != rule.getTotalMark()) {
 //                    paper.getQuestionList().clear();
-                int subjectId=rule.getSubjecId();
+                int subjectId = rule.getSubjecId();
                 String pointId = rule.getPointIds().toString();
-                int typeId=rule.getTypeId();
+                int typeId = rule.getTypeId();
                 // 单选题
-                if (rule.getQuestionNum()> 0) {
+                if (rule.getQuestionNum() > 0) {
                     generateQuestion(typeId, random, rule.getQuestionNum(), pointId, subjectId, paper);
                 }
-                if (errorFlag){
+                if (errorFlag) {
                     return;
                 }
                 // 计算试卷知识点覆盖率
@@ -68,12 +68,12 @@ public class Population {
         }
     }
 
-    private void generateQuestion(int typeId, Random random, int qustionNum, String pointId,int subjectId,
-                                   Paper paper) {
-        QuestionBean[] singleArray = questionsServiceImpl.selectQuestionArray(typeId, pointId.substring(1, pointId.indexOf("]")),subjectId);
+    private void generateQuestion(int typeId, Random random, int qustionNum, String pointId, int subjectId,
+                                  Paper paper) {
+        QuestionBean[] singleArray = questionsServiceImpl.selectQuestionArray(typeId, pointId.substring(1, pointId.indexOf("]")), subjectId);
         if (singleArray.length < qustionNum) {
-            errorFlag=true;
-            errorMsg="题目数量不够，组卷失败";
+            errorFlag = true;
+            errorMsg = "题目数量不够，组卷失败";
             System.out.println(errorMsg);
             return;
         }

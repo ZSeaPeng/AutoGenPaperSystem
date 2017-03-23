@@ -20,8 +20,8 @@ public class CollectionController {
     private UserService userServiceImpl;
 
 
-    @RequestMapping(value = "/question",method = RequestMethod.GET)
-    public List<QuestionsJson> getCollection(@ModelAttribute("userid") int userid,@RequestParam int page){
+    @RequestMapping(value = "/question", method = RequestMethod.GET)
+    public List<QuestionsJson> getCollection(@ModelAttribute("userid") int userid, @RequestParam int page) {
         return userServiceImpl.selectColleltionByUserId(userid);
     }
 

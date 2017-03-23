@@ -84,13 +84,13 @@ public class ComManagerServiceImpl implements ComManagerService {
 
     @Override
     public int updateUserList(User user, Integer comId) {
-        user.setUserpassword(String.valueOf(new Md5Hash(user.getUserpassword(),user.getUserpassword())));
+        user.setUserpassword(String.valueOf(new Md5Hash(user.getUserpassword(), user.getUserpassword())));
         user.setCommanagerId(comId);
         userMapper.insertSelective(user);
         String users = comManagerMapper.selectUserListById(comId);
-        users = users + ","+String.valueOf(user.getUserId());
+        users = users + "," + String.valueOf(user.getUserId());
 
-        System.out.println("user.getUserId()---"+user.getUserId());
+        System.out.println("user.getUserId()---" + user.getUserId());
         ComManager comManager = new ComManager();
         comManager.setCommanagerId(comId);
         comManager.setUseridlist(users);

@@ -4,17 +4,15 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by sgt on 2016/12/12.
  */
 public class SetAllDocx {
 
-    public static void Title(Map paperMap,String temp,String resultPath) throws Exception {
+    private MergeDOCX mergeDOCX=new MergeDOCX();
+    public void Title(Map paperMap,String temp,String resultPath) throws Exception {
         Set set=paperMap.entrySet();
         WordprocessingMLPackage target =WordprocessingMLPackage.load(new FileInputStream(new File(temp)));
         target.getMainDocumentPart().addStyledParagraphOfText("a8", String.valueOf(paperMap.get("Title")));
@@ -23,9 +21,14 @@ public class SetAllDocx {
             if (entry.getKey()=="Title"){
                 continue;
             }
+            else if (entry.getKey().equals("xm")||entry.getKey().equals("attent")){
+                List tempList=new ArrayList();
+                tempList.add(entry.getValue());
+                mergeDOCX.mergedocx(target,tempList,false);
+            }
             else {
                 target.getMainDocumentPart().addStyledParagraphOfText("1", String.valueOf(entry.getKey()));
-                MergeDOCX.mergedocx(target,(List<String>) entry.getValue());
+                mergeDOCX.mergedocx(target,(List<String>) entry.getValue(),true);
             }
         }
         target.save(new File(resultPath));
