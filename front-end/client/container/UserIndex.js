@@ -112,11 +112,6 @@ class UserIndex extends React.Component {
     const { sublist } = grades;
     let count = userInfo.allowpaper;
     let sub = userInfo.subjectcan.split(',');
-    // for ( let i = 1; i < array.length; i++ ) {
-    //   pre = array[i].split('(');
-    //   sub.push(pre[0]);
-    //   count.push(pre[1].split(')')[0]);
-    // }
     let type = "普通用户";
     if (userInfo.type === 0) {
       type = "集团用户"
