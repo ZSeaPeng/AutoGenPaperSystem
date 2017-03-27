@@ -213,7 +213,6 @@ class UserIndex extends React.Component {
           autoScrollBodyContent={true}>
           <TextField
             floatingLabelText="手机"
-            type="password"
             onChange={ this.phoneChange }
           />
         </Dialog>
