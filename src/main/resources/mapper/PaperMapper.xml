@@ -1,138 +1,155 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.PaperMapper">
-	<resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Paper">
-		<constructor>
-			<idArg column="PaperID" jdbcType="BIGINT" javaType="java.lang.Long"/>
-			<arg column="QuestionIds" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="Paperdifficult" jdbcType="DOUBLE" javaType="java.lang.Double"/>
-			<arg column="PaperNum" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-			<arg column="PaperPointID" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="UserID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-			<arg column="GeneraTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-			<arg column="paperName" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="isDelete" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-		</constructor>
-	</resultMap>
-	<resultMap id="ResultMapWithBLOBs" type="cn.edu.zjnu.AutoGenPaperSystem.model.Paper">
-		<constructor>
-			<idArg column="PaperID" jdbcType="BIGINT" javaType="java.lang.Long"/>
-			<arg column="QuestionIds" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="Paperdifficult" jdbcType="DOUBLE" javaType="java.lang.Double"/>
-			<arg column="PaperNum" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-			<arg column="PaperPointID" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="UserID" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-			<arg column="GeneraTime" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
-			<arg column="PaperHex" jdbcType="LONGVARBINARY" javaType="_byte[]"/>
-			<arg column="paperName" jdbcType="VARCHAR" javaType="java.lang.String"/>
-			<arg column="isDelete" jdbcType="INTEGER" javaType="java.lang.Integer"/>
-		</constructor>
-	</resultMap>
-	<sql id="Base_Column_List">
-    PaperID, QuestionIds, Paperdifficult, PaperNum, PaperPointID, UserID, GeneraTime,paperName,isDelete
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.PaperMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" >
+    <constructor >
+      <idArg column="PaperID" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="QuestionIds" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="Paperdifficult" jdbcType="DOUBLE" javaType="java.lang.Double" />
+      <arg column="PaperPointID" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="paperName" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="UserID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="GeneraTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="isDelete" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PaperUrl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="AnswerUrl" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PaperID, QuestionIds, Paperdifficult, PaperPointID, paperName, UserID, GeneraTime, 
+    isDelete, PaperUrl, AnswerUrl
   </sql>
-	<sql id="Blob_Column_List">
-    PaperHex
-  </sql>
-	<select id="selectByPrimaryKey" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" parameterType="java.lang.Integer">
-		select
-		*
-		from Paper
-		where PaperID = #{paperId,jdbcType=INTEGER} and isDelete = 0
-	</select>
-	<select id="selectByUserId" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper">
-		SELECT * FROM Paper WHERE UserID = #{userid} and isDelete = 0
-	</select>
-
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from Paper
+    where PaperID = #{paperid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from Paper
-    where PaperID = #{paperId,jdbcType=INTEGER}
+    where PaperID = #{paperid,jdbcType=BIGINT}
   </delete>
-	<insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper">
-    insert into Paper (PaperID, QuestionIds, UserID,
-      GeneraTime, PaperHex,paperName)
-    values (#{paperId,jdbcType=INTEGER}, #{questionIds,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
-      #{generatime,jdbcType=TIMESTAMP}, #{paperhex,jdbcType=LONGVARBINARY},#{paperName,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" >
+    insert into Paper (PaperID, QuestionIds, Paperdifficult, 
+      PaperPointID, paperName, UserID, 
+      GeneraTime, isDelete, PaperUrl, 
+      AnswerUrl)
+    values (#{paperid,jdbcType=BIGINT}, #{questionids,jdbcType=VARCHAR}, #{paperdifficult,jdbcType=DOUBLE}, 
+      #{paperpointid,jdbcType=VARCHAR}, #{papername,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{generatime,jdbcType=TIMESTAMP}, #{isdelete,jdbcType=INTEGER}, #{paperurl,jdbcType=VARCHAR}, 
+      #{answerurl,jdbcType=VARCHAR})
   </insert>
-	<insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper">
-		insert into Paper
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="paperId != null">
-				PaperID,
-			</if>
-			<if test="questionIds != null">
-				QuestionIds,
-			</if>
-			<if test="userId != null">
-				UserID,
-			</if>
-			<if test="generatime != null">
-				GeneraTime,
-			</if>
-			<if test="paperhex != null">
-				PaperHex,
-			</if>
-			<if test="paperName != null">
-				paperName,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="paperId != null">
-				#{paperId,jdbcType=INTEGER},
-			</if>
-			<if test="questionIds != null">
-				#{questionIds,jdbcType=VARCHAR},
-			</if>
-			<if test="userId != null">
-				#{userId,jdbcType=INTEGER},
-			</if>
-			<if test="generatime != null">
-				#{generatime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="paperhex != null">
-				#{paperhex,jdbcType=LONGVARBINARY},
-			</if>
-			<if test="paperName != null">
-				#{paperName,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper">
-		update Paper
-		<set>
-			<if test="questionIds != null">
-				QuestionIds = #{questionIds,jdbcType=VARCHAR},
-			</if>
-			<if test="userId != null">
-				UserID = #{userId,jdbcType=INTEGER},
-			</if>
-			<if test="generatime != null">
-				GeneraTime = #{generatime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="paperhex != null">
-				PaperHex = #{paperhex,jdbcType=LONGVARBINARY},
-			</if>
-			<if test="paperName != null">
-				#{paperName,jdbcType=VARCHAR},
-			</if>
-		</set>
-		where PaperID = #{paperId,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper">
+  <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" >
+    insert into Paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paperid != null" >
+        PaperID,
+      </if>
+      <if test="questionids != null" >
+        QuestionIds,
+      </if>
+      <if test="paperdifficult != null" >
+        Paperdifficult,
+      </if>
+      <if test="paperpointid != null" >
+        PaperPointID,
+      </if>
+      <if test="papername != null" >
+        paperName,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="generatime != null" >
+        GeneraTime,
+      </if>
+      <if test="isdelete != null" >
+        isDelete,
+      </if>
+      <if test="paperurl != null" >
+        PaperUrl,
+      </if>
+      <if test="answerurl != null" >
+        AnswerUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paperid != null" >
+        #{paperid,jdbcType=BIGINT},
+      </if>
+      <if test="questionids != null" >
+        #{questionids,jdbcType=VARCHAR},
+      </if>
+      <if test="paperdifficult != null" >
+        #{paperdifficult,jdbcType=DOUBLE},
+      </if>
+      <if test="paperpointid != null" >
+        #{paperpointid,jdbcType=VARCHAR},
+      </if>
+      <if test="papername != null" >
+        #{papername,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="generatime != null" >
+        #{generatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="paperurl != null" >
+        #{paperurl,jdbcType=VARCHAR},
+      </if>
+      <if test="answerurl != null" >
+        #{answerurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" >
     update Paper
-    set QuestionIds = #{questionIds,jdbcType=VARCHAR},
-      UserID = #{userId,jdbcType=INTEGER},
-      paperName = #{paperName,jdbcType=VARCHAR},
-      GeneraTime = #{generatime,jdbcType=TIMESTAMP},
-      PaperHex = #{paperhex,jdbcType=LONGVARBINARY}
-    where PaperID = #{paperId,jdbcType=INTEGER}
+    <set >
+      <if test="questionids != null" >
+        QuestionIds = #{questionids,jdbcType=VARCHAR},
+      </if>
+      <if test="paperdifficult != null" >
+        Paperdifficult = #{paperdifficult,jdbcType=DOUBLE},
+      </if>
+      <if test="paperpointid != null" >
+        PaperPointID = #{paperpointid,jdbcType=VARCHAR},
+      </if>
+      <if test="papername != null" >
+        paperName = #{papername,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        UserID = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="generatime != null" >
+        GeneraTime = #{generatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        isDelete = #{isdelete,jdbcType=INTEGER},
+      </if>
+      <if test="paperurl != null" >
+        PaperUrl = #{paperurl,jdbcType=VARCHAR},
+      </if>
+      <if test="answerurl != null" >
+        AnswerUrl = #{answerurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PaperID = #{paperid,jdbcType=BIGINT}
   </update>
-	<update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper">
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" >
     update Paper
-    set QuestionIds = #{questionIds,jdbcType=VARCHAR},
-      UserID = #{userId,jdbcType=INTEGER},
+    set QuestionIds = #{questionids,jdbcType=VARCHAR},
+      Paperdifficult = #{paperdifficult,jdbcType=DOUBLE},
+      PaperPointID = #{paperpointid,jdbcType=VARCHAR},
+      paperName = #{papername,jdbcType=VARCHAR},
+      UserID = #{userid,jdbcType=INTEGER},
       GeneraTime = #{generatime,jdbcType=TIMESTAMP},
-      paperName = #{paperName,jdbcType=VARCHAR}
-    where PaperID = #{paperId,jdbcType=INTEGER}
+      isDelete = #{isdelete,jdbcType=INTEGER},
+      PaperUrl = #{paperurl,jdbcType=VARCHAR},
+      AnswerUrl = #{answerurl,jdbcType=VARCHAR}
+    where PaperID = #{paperid,jdbcType=BIGINT}
   </update>
 </mapper>

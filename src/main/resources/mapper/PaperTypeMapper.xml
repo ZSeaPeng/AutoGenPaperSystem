@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.PaperTypeMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.PaperType" >
+    <constructor >
+      <idArg column="PaperTypeId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="PaperTypeName" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    PaperTypeId, PaperTypeName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from PaperType
+    where PaperTypeId = #{papertypeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from PaperType
+    where PaperTypeId = #{papertypeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.PaperType" >
+    insert into PaperType (PaperTypeId, PaperTypeName)
+    values (#{papertypeid,jdbcType=INTEGER}, #{papertypename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.PaperType" >
+    insert into PaperType
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="papertypeid != null" >
+        PaperTypeId,
+      </if>
+      <if test="papertypename != null" >
+        PaperTypeName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="papertypeid != null" >
+        #{papertypeid,jdbcType=INTEGER},
+      </if>
+      <if test="papertypename != null" >
+        #{papertypename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.PaperType" >
+    update PaperType
+    <set >
+      <if test="papertypename != null" >
+        PaperTypeName = #{papertypename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PaperTypeId = #{papertypeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.PaperType" >
+    update PaperType
+    set PaperTypeName = #{papertypename,jdbcType=VARCHAR}
+    where PaperTypeId = #{papertypeid,jdbcType=INTEGER}
+  </update>
+</mapper>

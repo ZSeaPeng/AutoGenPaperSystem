@@ -1,91 +1,91 @@
 package cn.edu.zjnu.AutoGenPaperSystem.model;
 
-import java.util.Arrays;
 import java.util.Date;
 
 public class Paper {
-    private Long paperId;
+    private Long paperid;
 
-    private String questionIds;
+    private String questionids;
 
-    private Double paperDifficult;
+    private Double paperdifficult;
 
-    private Integer paperNum;
+    private String paperpointid;
 
-    private String paperPointId;
+    private String papername;
 
-    private Integer userId;
+    private Integer userid;
 
     private Date generatime;
 
-    private String paperName;
+    private Integer isdelete;
 
-    private byte[] paperhex;
+    private String paperurl;
 
-    private int isDelete;
+    private String answerurl;
 
-    public Paper(Long paperId, String questionIds, Double paperDifficult, Integer paperNum, String paperPointId, Integer userId, Date generatime, String paperName, int isDelete) {
-        this.paperId = paperId;
-        this.questionIds = questionIds;
-        this.paperDifficult = paperDifficult;
-        this.paperNum = paperNum;
-        this.paperPointId = paperPointId;
-        this.userId = userId;
+    public Paper(Long paperid, String questionids, Double paperdifficult, String paperpointid, String papername, Integer userid, Date generatime, Integer isdelete, String paperurl, String answerurl) {
+        this.paperid = paperid;
+        this.questionids = questionids;
+        this.paperdifficult = paperdifficult;
+        this.paperpointid = paperpointid;
+        this.papername = papername;
+        this.userid = userid;
         this.generatime = generatime;
-        this.paperName = paperName;
-        this.isDelete = isDelete;
+        this.isdelete = isdelete;
+        this.paperurl = paperurl;
+        this.answerurl = answerurl;
     }
 
     public Paper() {
         super();
     }
 
-    public Long getPaperId() {
-        return paperId;
+    public Long getPaperid() {
+        return paperid;
     }
 
-    public void setPaperId(Long paperId) {
-        this.paperId = paperId;
+    public void setPaperid(Long paperid) {
+        this.paperid = paperid;
     }
 
-    public String getQuestionIds() {
-        return questionIds;
+    public String getQuestionids() {
+        return questionids;
     }
 
-    public void setQuestionIds(String questionIds) {
-        this.questionIds = questionIds == null ? null : questionIds.trim();
+    public void setQuestionids(String questionids) {
+        this.questionids = questionids == null ? null : questionids.trim();
     }
 
-    public Double getPaperDifficult() {
-        return paperDifficult;
+    public Double getPaperdifficult() {
+        return paperdifficult;
     }
 
-    public void setPaperDifficult(Double paperDifficult) {
-        this.paperDifficult = paperDifficult;
+    public void setPaperdifficult(Double paperdifficult) {
+        this.paperdifficult = paperdifficult;
     }
 
-    public Integer getPaperNum() {
-        return paperNum;
+    public String getPaperpointid() {
+        return paperpointid;
     }
 
-    public void setPaperNum(Integer paperNum) {
-        this.paperNum = paperNum;
+    public void setPaperpointid(String paperpointid) {
+        this.paperpointid = paperpointid == null ? null : paperpointid.trim();
     }
 
-    public String getPaperPointId() {
-        return paperPointId;
+    public String getPapername() {
+        return papername;
     }
 
-    public void setPaperPointId(String paperPointId) {
-        this.paperPointId = paperPointId == null ? null : paperPointId.trim();
+    public void setPapername(String papername) {
+        this.papername = papername == null ? null : papername.trim();
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public Date getGeneratime() {
@@ -96,43 +96,27 @@ public class Paper {
         this.generatime = generatime;
     }
 
-    public byte[] getPaperhex() {
-        return paperhex;
+    public Integer getIsdelete() {
+        return isdelete;
     }
 
-    public void setPaperhex(byte[] paperhex) {
-        this.paperhex = paperhex;
+    public void setIsdelete(Integer isdelete) {
+        this.isdelete = isdelete;
     }
 
-    public String getPaperName() {
-        return paperName;
+    public String getPaperurl() {
+        return paperurl;
     }
 
-    public void setPaperName(String paperName) {
-        this.paperName = paperName;
+    public void setPaperurl(String paperurl) {
+        this.paperurl = paperurl == null ? null : paperurl.trim();
     }
 
-    public int getIsDelete() {
-        return isDelete;
+    public String getAnswerurl() {
+        return answerurl;
     }
 
-    public void setIsDelete(int isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    @Override
-    public String toString() {
-        return "Paper{" +
-                "paperId=" + paperId +
-                ", questionIds='" + questionIds + '\'' +
-                ", paperDifficult=" + paperDifficult +
-                ", paperNum=" + paperNum +
-                ", paperPointId='" + paperPointId + '\'' +
-                ", userId=" + userId +
-                ", generatime=" + generatime +
-                ", paperName='" + paperName + '\'' +
-                ", paperhex=" + Arrays.toString(paperhex) +
-                ", isDelete=" + isDelete +
-                '}';
+    public void setAnswerurl(String answerurl) {
+        this.answerurl = answerurl == null ? null : answerurl.trim();
     }
 }
