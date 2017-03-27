@@ -94,7 +94,7 @@ class UserIndex extends React.Component {
     const { dispatch } = this.props;
     const phone = this.state.phone;
     const email = this.state.email;
-    dispatch(asynChangeInfo(email， phone))
+    dispatch(asynChangeInfo(email, phone))
     this.setState({open: false, open1: false, open2: false, phone: '', email: ''})
   }
 
