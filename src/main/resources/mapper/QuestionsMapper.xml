@@ -50,7 +50,7 @@
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
-        from questions
+        from Questions
         where Questions_ID = #{questionsId,jdbcType=INTEGER}
     </select>
 
@@ -58,7 +58,7 @@
             parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.SearchAll">
         SELECT
         Questions_ID,Content,QuesPic_URL,Answer,AnswerPic_URL
-        FROM questions
+        FROM Questions
         <where>
             Isdelete=FALSE
             <if test="sub_id != 0">
@@ -83,26 +83,26 @@
     </select>
 
     <select id="selectUploadTime" resultMap="BaseResultMap">
-        SELECT * FROM questions ORDER BY UploadTime DESC
+        SELECT * FROM Questions ORDER BY UploadTime DESC
     </select>
 
     <select id="selectQuestionByTime" resultMap="QuestionMAp">
         SELECT
         Questions_ID,Content,QuesPic_URL,Answer,AnswerPic_URL
-        FROM questions
+        FROM Questions
         WHERE Subject_ID=#{param1} AND date(UploadTime)=#{param2}
     </select>
 
     <select id="selectQuestionByIdList" resultMap="QuestionType" parameterType="java.lang.Integer">
         SELECT
         questions.Questions_ID,types.Type_name,questions.QuesPic_URL,questions.Subject_ID,questions.AnswerPic_URL
-        FROM questions,types
+        FROM Questions,Types
         WHERE questions.Type_ID=types.Type_ID AND questions.Questions_ID=#{questionsId,jdbcType=INTEGER}
     </select>
     <select id="selectQuestionArray" resultMap="BaseResultMap">
         SELECT
         *
-        FROM questions
+        FROM Questions
         WHERE Type_ID=#{param1}
         <trim prefix="AND (" suffix=")" prefixOverrides="AND | OR">
             <if test="param2 != 0">
@@ -114,15 +114,15 @@
     <select id="selectQuestionListByTypeAndDif" resultMap="BaseResultMap">
         SELECT
         *
-        FROM questions
+        FROM Questions
         WHERE Type_ID=#{param1} AND Difficulty_ID=#{param2}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from questions
+    delete from Questions
     where Questions_ID = #{questionsId,jdbcType=INTEGER}
   </delete>
     <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
-    insert into questions (Questions_ID, Content,QuesPic_URL, Subject_ID,
+    insert into Questions (Questions_ID, Content,QuesPic_URL, Subject_ID,
       Knowledge_ID1, Knowledge_ID2, Knowledge_ID3, 
       Knowledge_ID4, Type_ID, Difficulty_ID, 
       Charact_ID, Isdelete, Answer,AnswerPic_URL,UpdateTime,UploadTime)
@@ -132,7 +132,7 @@
       #{charactId,jdbcType=INTEGER}, #{isdelete,jdbcType=BIT},#{answer,jdbcType=VARCHAR}),#{answerPic_URL,jdbcType=VARCHAR},#{updateTime,jdbcType=TIMESTAMP},#{uploadTime,jdbcType=TIMESTAMP})
   </insert>
     <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
-        insert into questions
+        insert into Questions
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="questionsId != null">
                 Questions_ID,
@@ -232,7 +232,7 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
-        update questions
+        update Questions
         <set>
             <if test="content != null">
                 Content = #{content,jdbcType=VARCHAR},
@@ -283,7 +283,7 @@
         where Questions_ID = #{questionsId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
-    update questions
+    update Questions
     set Content = #{content,jdbcType=VARCHAR},
       QuesPic_URL = #{quesPic_URL,jdbcType=VARCHAR},
       Subject_ID = #{subjectId,jdbcType=INTEGER},

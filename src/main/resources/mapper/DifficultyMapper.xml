@@ -15,24 +15,24 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from difficulty
+    from Difficulty
     where Difficulty_ID = #{difficultyId,jdbcType=INTEGER}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from difficulty
+    delete from Difficulty
     where Difficulty_ID = #{difficultyId,jdbcType=INTEGER}
   </delete>
 
   <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Difficulty" >
-    insert into difficulty (Difficulty_ID, Uplimit, Lowlimit, 
+    insert into Difficulty (Difficulty_ID, Uplimit, Lowlimit,
       Describes)
     values (#{difficultyId,jdbcType=INTEGER}, #{uplimit,jdbcType=DOUBLE}, #{lowlimit,jdbcType=DOUBLE}, 
       #{describe,jdbcType=VARCHAR})
   </insert>
 
   <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Difficulty" >
-    insert into difficulty
+    insert into Difficulty
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="difficultyId != null" >
         Difficulty_ID,
@@ -63,7 +63,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Difficulty" >
-    update difficulty
+    update Difficulty
     <set >
       <if test="uplimit != null" >
         Uplimit = #{uplimit,jdbcType=DOUBLE},
@@ -78,7 +78,7 @@
     where Difficulty_ID = #{difficultyId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Difficulty" >
-    update difficulty
+    update Difficulty
     set Uplimit = #{uplimit,jdbcType=DOUBLE},
       Lowlimit = #{lowlimit,jdbcType=DOUBLE},
       Describes = #{describe,jdbcType=VARCHAR}
@@ -87,6 +87,6 @@
   <select id="selectAllDifficult" resultMap="BaseResultMap">
     SELECT
     *
-    FROM difficulty
+    FROM Difficulty
   </select>
 </mapper>

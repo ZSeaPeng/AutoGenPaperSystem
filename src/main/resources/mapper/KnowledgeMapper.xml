@@ -25,54 +25,54 @@
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List"/>
-		from knowledge
+		from Knowledge
 		where Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
 	</select>
 
 	<select id="selectKnowledgeBySubjectId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT
     *
-    FROM knowledge
+    FROM Knowledge
     WHERE Subject_ID=#{subjectId} and isDelete=0
   </select>
 	<select id="selectFirstKnowledgeBySubjectId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT
     *
-    FROM knowledge
+    FROM Knowledge
     WHERE Subject_ID=#{subjectId} and isDelete = 0 and Superior_ID = 0
   </select>
 	<select id="selectSecondKnowledgeByKnowId1" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT
     *
-    FROM knowledge
+    FROM Knowledge
     WHERE Superior_ID = #{knowId1} and isDelete = 0
   </select>
 	<select id="selectKnowledgeByName" resultType="java.util.HashMap">
-		SELECT Superior_ID,Knowledge_ID FROM knowledge WHERE Knowledge_name = #{name}
+		SELECT Superior_ID,Knowledge_ID FROM Knowledge WHERE Knowledge_name = #{name}
 	</select>
 	<select id="selectKnowledgeById" resultType="java.util.Map">
-		SELECT Superior_ID,Knowledge_ID FROM knowledge WHERE Knowledge_ID = #{id}
+		SELECT Superior_ID,Knowledge_ID FROM Knowledge WHERE Knowledge_ID = #{id}
 	</select>
 
 
 	<select id="selectKnowledgeList" resultMap="KnowledgeLists" parameterType="java.lang.String">
 		SELECT a.Knowledge_ID,b.Knowledge_ID,c.Knowledge_ID,d.Knowledge_ID,a.Subject_ID
-		FROM knowledge a,knowledge b,knowledge c,knowledge d
+		FROM Knowledge a,Knowledge b,Knowledge c,Knowledge d
 		WHERE a.Knowledge_name=#{name} AND b.Knowledge_ID=a.Superior_ID AND c.Knowledge_ID=b.Superior_ID AND d.Knowledge_ID=c.Superior_ID
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from knowledge
+    delete from Knowledge
     where Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
   </delete>
 	<insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge">
-    insert into knowledge (Knowledge_ID, Knowledge_name, Subject_ID, 
+    insert into Knowledge (Knowledge_ID, Knowledge_name, Subject_ID,
       Superior_ID)
     values (#{knowledgeId,jdbcType=INTEGER}, #{knowledgeName,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER}, 
       #{superiorId,jdbcType=INTEGER})
   </insert>
 	<insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge">
-		insert into knowledge
+		insert into Knowledge
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="knowledgeId != null">
 				Knowledge_ID,
@@ -103,7 +103,7 @@
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge">
-		update knowledge
+		update Knowledge
 		<set>
 			<if test="knowledgeName != null">
 				Knowledge_name = #{knowledgeName,jdbcType=VARCHAR},
@@ -118,14 +118,14 @@
 		where Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Knowledge">
-    update knowledge
+    update Knowledge
     set Knowledge_name = #{knowledgeName,jdbcType=VARCHAR},
       Subject_ID = #{subjectId,jdbcType=INTEGER},
       Superior_ID = #{superiorId,jdbcType=INTEGER}
     where Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
   </update>
 	<update id="updateIsDeleteById">
-		UPDATE knowledge
+		UPDATE Knowledge
 		SET isDelete = 1
 		WHERE Knowledge_ID = #{knowledgeId,jdbcType=INTEGER}
 	</update>

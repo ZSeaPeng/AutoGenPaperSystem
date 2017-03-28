@@ -1,7 +1,9 @@
 package cn.edu.zjnu.AutoGenPaperSystem.dao;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.Annotations;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface AnnotationsMapper {
     int deleteByPrimaryKey(Integer annotateid);
 

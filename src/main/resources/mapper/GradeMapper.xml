@@ -13,24 +13,24 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from grade
+    from Grade
     where Grade_ID = #{gradeId,jdbcType=INTEGER}
   </select>
 
   <select id="selectAllGrade" resultMap="BaseResultMap">
-    SELECT * FROM grade
+    SELECT * FROM Grade
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from grade
+    delete from Grade
     where Grade_ID = #{gradeId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Grade" >
-    insert into grade (Grade_ID, Grade_name)
+    insert into Grade (Grade_ID, Grade_name)
     values (#{gradeId,jdbcType=INTEGER}, #{gradeName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Grade" >
-    insert into grade
+    insert into Grade
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="gradeId != null" >
         Grade_ID,
@@ -49,7 +49,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Grade" >
-    update grade
+    update Grade
     <set >
       <if test="gradeName != null" >
         Grade_name = #{gradeName,jdbcType=VARCHAR},
@@ -58,7 +58,7 @@
     where Grade_ID = #{gradeId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Grade" >
-    update grade
+    update Grade
     set Grade_name = #{gradeName,jdbcType=VARCHAR}
     where Grade_ID = #{gradeId,jdbcType=INTEGER}
   </update>

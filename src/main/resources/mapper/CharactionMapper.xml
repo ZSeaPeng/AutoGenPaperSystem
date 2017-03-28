@@ -11,31 +11,31 @@
     Charact_ID, Charact_name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
-    from charaction
+    from Charaction
     where Charact_ID = #{charactId,jdbcType=INTEGER}
   </select>
 
   <select id="selectAllCharat" resultMap="BaseResultMap">
     SELECT
     *
-    FROM charaction
+    FROM Charaction
   </select>
-	<select id="selectIdByName" resultType="java.lang.Integer">
-      SELECT Charact_ID FROM charaction WHERE Charact_name = #{name}
-    </select>
+  <select id="selectIdByName" resultType="java.lang.Integer">
+    SELECT Charact_ID FROM Charaction WHERE Charact_name = #{name}
+  </select>
 
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from charaction
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from Charaction
     where Charact_ID = #{charactId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Charaction" >
-    insert into charaction (Charact_ID, Charact_name)
+    insert into Charaction (Charact_ID, Charact_name)
     values (#{charactId,jdbcType=INTEGER}, #{charactName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Charaction" >
-    insert into charaction
+    insert into Charaction
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="charactId != null" >
         Charact_ID,
@@ -54,7 +54,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Charaction" >
-    update charaction
+    update Charaction
     <set >
       <if test="charactName != null" >
         Charact_name = #{charactName,jdbcType=VARCHAR},
@@ -63,7 +63,7 @@
     where Charact_ID = #{charactId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Charaction" >
-    update charaction
+    update Charaction
     set Charact_name = #{charactName,jdbcType=VARCHAR}
     where Charact_ID = #{charactId,jdbcType=INTEGER}
   </update>

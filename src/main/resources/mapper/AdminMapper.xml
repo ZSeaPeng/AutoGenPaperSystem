@@ -10,13 +10,13 @@
     </constructor>
   </resultMap>
   <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Admin" >
-  insert into admin (id, adminName, adminPassword
+  insert into Admin (id, adminName, adminPassword
   )
   values (#{id,jdbcType=INTEGER}, #{adminname,jdbcType=VARCHAR}, #{adminpassword,jdbcType=VARCHAR}
   )
 </insert>
   <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Admin" >
-    insert into admin
+    insert into Admin
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
@@ -41,12 +41,12 @@
     </trim>
   </insert>
   <update id="setMaxQuantity">
-    UPDATE admin set maxQuantity= #{maxQuantity}
+    UPDATE Admin set maxQuantity= #{maxQuantity}
   </update>
   <select id="selectByadminName" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Admin">
-      SELECT * FROM admin where adminname = #{adminName}
-    </select>
+    SELECT * FROM Admin where adminname = #{adminName}
+  </select>
   <select id="selectMaxQuantity" resultType="java.lang.Integer">
-    select maxQuantity from admin;
+    select maxQuantity from Admin;
   </select>
 </mapper>

@@ -14,32 +14,32 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from types
+    from Types
     where Type_ID = #{typeId,jdbcType=INTEGER}
   </select>
 
   <select id="selectTypesBySubjectId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT
     *
-    FROM types
+    FROM Types
     WHERE Subject_ID=#{subjectId}
   </select>
 	<select id="selectIdByName" resultType="java.lang.Integer">
-      SELECT Type_ID FROM types WHERE Type_name = #{param1} and Subject_ID = #{param2}
+      SELECT Type_ID FROM Types WHERE Type_name = #{param1} and Subject_ID = #{param2}
     </select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from types
+    delete from Types
     where Type_ID = #{typeId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Types" >
-    insert into types (Type_ID, Type_name, Subject_ID
+    insert into Types (Type_ID, Type_name, Subject_ID
       )
     values (#{typeId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{subjectId,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Types" >
-    insert into types
+    insert into Types
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="typeId != null" >
         Type_ID,
@@ -64,7 +64,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Types" >
-    update types
+    update Types
     <set >
       <if test="typeName != null" >
         Type_name = #{typeName,jdbcType=VARCHAR},
@@ -76,7 +76,7 @@
     where Type_ID = #{typeId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Types" >
-    update types
+    update Types
     set Type_name = #{typeName,jdbcType=VARCHAR},
       Subject_ID = #{subjectId,jdbcType=INTEGER}
     where Type_ID = #{typeId,jdbcType=INTEGER}
