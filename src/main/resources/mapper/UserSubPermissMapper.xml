@@ -24,9 +24,14 @@
     SELECT
     *
     FROM UserSubPermiss
-    WHERE UserId=#{param1} AND SubjectId=#{param2}
+    WHERE UserId=#{param1} AND SubjectId=#{param2} AND IsDelete=0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectListByUseridKey" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.UserSubPermiss" parameterType="java.lang.Integer">
+      SELECT *
+      FROM UserSubPermiss
+      WHERE UserId=#{userid} AND IsDelete=0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from UserSubPermiss
     where SubPermissId = #{subpermissid,jdbcType=INTEGER}
   </delete>
@@ -100,7 +105,7 @@
         IsDelete = #{isdelete,jdbcType=BIT},
       </if>
     </set>
-    where SubPermissId = #{subpermissid,jdbcType=INTEGER}
+    where SubPermissId = #{subpermissid,jdbcType=INTEGER} AND IsDelete=0
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.UserSubPermiss" >
     update UserSubPermiss

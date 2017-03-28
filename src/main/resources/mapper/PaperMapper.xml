@@ -26,6 +26,12 @@
     from Paper
     where PaperID = #{paperid,jdbcType=BIGINT}
   </select>
+  <select id="selectByUserId" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper">
+    SELECT *
+    FROM Paper
+    WHERE UserID=#{userid,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from Paper
     where PaperID = #{paperid,jdbcType=BIGINT}

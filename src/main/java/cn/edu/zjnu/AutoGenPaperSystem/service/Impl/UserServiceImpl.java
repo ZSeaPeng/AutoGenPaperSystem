@@ -3,6 +3,7 @@ package cn.edu.zjnu.AutoGenPaperSystem.service.Impl;
 import cn.edu.zjnu.AutoGenPaperSystem.dao.*;
 import cn.edu.zjnu.AutoGenPaperSystem.model.*;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
+import cn.edu.zjnu.AutoGenPaperSystem.util.DataUtil;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
 
@@ -296,26 +297,52 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User selectShow(int userId) {
+    public UserJson selectShow(int userId) {
         User user = userMapper.selectByPrimaryKey(userId);
-        int collectionnum = user.getUsercollection().split(",").length - 1;
-        user.setUsercollection(String.valueOf(collectionnum));
-        List<Paper> paperList = paperMapper.selectByUserId(userId);
-        //if (paperList.size() != 0) {
+        UserJson userJson=new UserJson();
+        userJson= (UserJson) DataUtil.getNewClass(userJson,user);
+        List<UserSubPermiss> userSubPermiss=userSubPermissMapper.selectListByUseridKey(userId);
+        List allows=new ArrayList();
+        List<Integer> dos=new ArrayList<>();
+        for (UserSubPermiss list:userSubPermiss){
+            allows.add(list.getAllowpaper());
+            dos.add(list.getDopaper());
+        }
+        userJson.setAllowpaper(allows);
+        userJson.setDopaper(dos);
+
+        List<Paper> paperList=paperMapper.selectByUserId(userId);
         List<PaperJson> paperJsonList = new ArrayList<>();
         paperJsonList.clear();
-        for (Paper p : paperList) {
+        for (Paper paper:paperList){
             PaperJson paperJson = new PaperJson();
-            paperJson.setHistoryPaperUrl("/testpaper?paper=" + p.getPaperId());
-            paperJson.setPaperName(p.getPaperName());
-            paperJson.setPaperId(p.getPaperId());
-            paperJson.setPaperDate(p.getGeneratime());
+            paperJson.setHistoryPaperUrl(paper.getPaperurl());
+            paperJson.setHistoryAnswerUrl(paper.getAnswerurl());
+            paperJson.setPaperId(paper.getPaperid());
+            paperJson.setPaperName(paper.getPapername());
+            paperJson.setPaperDate(paper.getGeneratime());
             paperJsonList.add(paperJson);
-
         }
-        user.setHistoryPaper(paperJsonList);
+        userJson.setHistoryPaper(paperJsonList);
+
+//        int collectionnum = user.getUsercollection().split(",").length - 1;
+//        user.setUsercollection(String.valueOf(collectionnum));
+//        List<Paper> paperList = paperMapper.selectByUserId(userId);
+//        //if (paperList.size() != 0) {
+//        List<PaperJson> paperJsonList = new ArrayList<>();
+//        paperJsonList.clear();
+//        for (Paper p : paperList) {
+//            PaperJson paperJson = new PaperJson();
+//            paperJson.setHistoryPaperUrl("/testpaper?paper=" + p.getPaperId());
+//            paperJson.setPaperName(p.getPaperName());
+//            paperJson.setPaperId(p.getPaperId());
+//            paperJson.setPaperDate(p.getGeneratime());
+//            paperJsonList.add(paperJson);
+//
+//        }
+//        user.setHistoryPaper(paperJsonList);
         // }
-        return user;
+        return userJson;
     }
 
     @Override

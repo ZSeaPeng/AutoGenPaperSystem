@@ -1,6 +1,7 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
+import cn.edu.zjnu.AutoGenPaperSystem.model.UserJson;
 import cn.edu.zjnu.AutoGenPaperSystem.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +24,9 @@ public class UserController {
 
 
     @RequestMapping(value = "/show", method = RequestMethod.GET)
-    public User showInfo(@ModelAttribute("userid") Integer userid) {
-        User user = userServiceImpl.selectShow(userid);
-        return user;
+    public UserJson showInfo(@ModelAttribute("userid") Integer userid) {
+        UserJson userJson = userServiceImpl.selectShow(userid);
+        return userJson;
     }
 
     @RequestMapping(value = "/change", method = RequestMethod.POST)

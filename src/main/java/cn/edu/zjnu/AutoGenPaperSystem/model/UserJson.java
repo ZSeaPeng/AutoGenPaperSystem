@@ -6,36 +6,57 @@ import java.util.List;
  * Created by zseapeng on 2016/11/11.
  */
 public class UserJson {
-    private Integer userId;
+    private Integer userid;
 
     private String username;
 
     private String userpassword;
 
+    private String phonenum;
+
+    private String school;
+
+    private String email;
+
     private Integer downloadable;
 
     private Integer permissionId;
 
-    private List subjectcan;
+    private String subjectcan;
+
+    private Integer commanagerName;
+
+    private List historyPaper;
+
+    private List allowpaper;
+
+    private List dopaper;
 
     public UserJson() {
     }
 
-    public UserJson(Integer userId, String username, String userpassword, Integer downloadable, Integer permissionId, List subjectcan) {
-        this.userId = userId;
+    public UserJson(Integer userid, String username, String userpassword, String phonenum, String school, String email, Integer downloadable, Integer permissionId, String subjectcan, Integer commanagerName, List historyPaper, List allowpaper, List dopaper) {
+        this.userid = userid;
         this.username = username;
         this.userpassword = userpassword;
+        this.phonenum = phonenum;
+        this.school = school;
+        this.email = email;
         this.downloadable = downloadable;
         this.permissionId = permissionId;
         this.subjectcan = subjectcan;
+        this.commanagerName = commanagerName;
+        this.historyPaper = historyPaper;
+        this.allowpaper = allowpaper;
+        this.dopaper = dopaper;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public String getUsername() {
@@ -70,11 +91,67 @@ public class UserJson {
         this.permissionId = permissionId;
     }
 
-    public List getSubjectcan() {
+    public String getPhonenum() {
+        return phonenum;
+    }
+
+    public void setPhonenum(String phonenum) {
+        this.phonenum = phonenum;
+    }
+
+    public String getSubjectcan() {
         return subjectcan;
     }
 
-    public void setSubjectcan(List subjectcan) {
+    public void setSubjectcan(String subjectcan) {
         this.subjectcan = subjectcan;
+    }
+
+    public List getHistoryPaper() {
+        return historyPaper;
+    }
+
+    public void setHistoryPaper(List historyPaper) {
+        this.historyPaper = historyPaper;
+    }
+
+    public List getAllowpaper() {
+        return allowpaper;
+    }
+
+    public void setAllowpaper(List allowpaper) {
+        this.allowpaper = allowpaper;
+    }
+
+    public List getDopaper() {
+        return dopaper;
+    }
+
+    public void setDopaper(List dopaper) {
+        this.dopaper = dopaper;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getCommanagerName() {
+        return commanagerName;
+    }
+
+    public void setCommanagerName(Integer commanagerName) {
+        this.commanagerName = commanagerName;
     }
 }

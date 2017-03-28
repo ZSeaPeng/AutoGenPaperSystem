@@ -7,6 +7,7 @@ import java.util.Date;
  */
 public class PaperJson {
     private String historyPaperUrl;
+    private String historyAnswerUrl;
     private String paperName;
     private long paperId;
     private Date paperDate;
@@ -14,13 +15,15 @@ public class PaperJson {
     public PaperJson() {
     }
 
-    public PaperJson(String historyPaperUrl, String paperName) {
+    public PaperJson(String historyPaperUrl, String historyAnswerUrl, String paperName) {
         this.historyPaperUrl = historyPaperUrl;
+        this.historyAnswerUrl = historyAnswerUrl;
         this.paperName = paperName;
     }
 
-    public PaperJson(String historyPaperUrl, String paperName, long paperId) {
+    public PaperJson(String historyPaperUrl, String historyAnswerUrl, String paperName, long paperId) {
         this.historyPaperUrl = historyPaperUrl;
+        this.historyAnswerUrl = historyAnswerUrl;
         this.paperName = paperName;
         this.paperId = paperId;
     }
@@ -55,5 +58,13 @@ public class PaperJson {
 
     public void setPaperDate(Date paperDate) {
         this.paperDate = paperDate;
+    }
+
+    public String getHistoryAnswerUrl() {
+        return historyAnswerUrl;
+    }
+
+    public void setHistoryAnswerUrl(String historyAnswerUrl) {
+        this.historyAnswerUrl = historyAnswerUrl;
     }
 }
