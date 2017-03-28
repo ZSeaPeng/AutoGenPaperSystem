@@ -15,25 +15,28 @@ public class Paper {
 
     private Integer userid;
 
-    private Date generatime;
-
-    private Integer isdelete;
+    private Integer commanagerid;
 
     private String paperurl;
 
     private String answerurl;
 
-    public Paper(Long paperid, String questionids, Double paperdifficult, String paperpointid, String papername, Integer userid, Date generatime, Integer isdelete, String paperurl, String answerurl) {
+    private Date generatime;
+
+    private Integer isdelete;
+
+    public Paper(Long paperid, String questionids, Double paperdifficult, String paperpointid, String papername, Integer userid, Integer commanagerid, String paperurl, String answerurl, Date generatime, Integer isdelete) {
         this.paperid = paperid;
         this.questionids = questionids;
         this.paperdifficult = paperdifficult;
         this.paperpointid = paperpointid;
         this.papername = papername;
         this.userid = userid;
-        this.generatime = generatime;
-        this.isdelete = isdelete;
+        this.commanagerid = commanagerid;
         this.paperurl = paperurl;
         this.answerurl = answerurl;
+        this.generatime = generatime;
+        this.isdelete = isdelete;
     }
 
     public Paper() {
@@ -88,20 +91,12 @@ public class Paper {
         this.userid = userid;
     }
 
-    public Date getGeneratime() {
-        return generatime;
+    public Integer getCommanagerid() {
+        return commanagerid;
     }
 
-    public void setGeneratime(Date generatime) {
-        this.generatime = generatime;
-    }
-
-    public Integer getIsdelete() {
-        return isdelete;
-    }
-
-    public void setIsdelete(Integer isdelete) {
-        this.isdelete = isdelete;
+    public void setCommanagerid(Integer commanagerid) {
+        this.commanagerid = commanagerid;
     }
 
     public String getPaperurl() {
@@ -118,5 +113,21 @@ public class Paper {
 
     public void setAnswerurl(String answerurl) {
         this.answerurl = answerurl == null ? null : answerurl.trim();
+    }
+
+    public Date getGeneratime() {
+        return generatime;
+    }
+
+    public void setGeneratime(Date generatime) {
+        this.generatime = generatime;
+    }
+
+    public Integer getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(Integer isdelete) {
+        this.isdelete = isdelete;
     }
 }

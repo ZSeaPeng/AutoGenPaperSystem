@@ -9,15 +9,16 @@
       <arg column="PaperPointID" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="paperName" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="UserID" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="GeneraTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
-      <arg column="isDelete" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ComManagerID" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="PaperUrl" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="AnswerUrl" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="GeneraTime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="isDelete" jdbcType="INTEGER" javaType="java.lang.Integer" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    PaperID, QuestionIds, Paperdifficult, PaperPointID, paperName, UserID, GeneraTime, 
-    isDelete, PaperUrl, AnswerUrl
+    PaperID, QuestionIds, Paperdifficult, PaperPointID, paperName, UserID, ComManagerID, 
+    PaperUrl, AnswerUrl, GeneraTime, isDelete
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -32,12 +33,12 @@
   <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" >
     insert into Paper (PaperID, QuestionIds, Paperdifficult, 
       PaperPointID, paperName, UserID, 
-      GeneraTime, isDelete, PaperUrl, 
-      AnswerUrl)
+      ComManagerID, PaperUrl, AnswerUrl, 
+      GeneraTime, isDelete)
     values (#{paperid,jdbcType=BIGINT}, #{questionids,jdbcType=VARCHAR}, #{paperdifficult,jdbcType=DOUBLE}, 
       #{paperpointid,jdbcType=VARCHAR}, #{papername,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
-      #{generatime,jdbcType=TIMESTAMP}, #{isdelete,jdbcType=INTEGER}, #{paperurl,jdbcType=VARCHAR}, 
-      #{answerurl,jdbcType=VARCHAR})
+      #{commanagerid,jdbcType=INTEGER}, #{paperurl,jdbcType=VARCHAR}, #{answerurl,jdbcType=VARCHAR}, 
+      #{generatime,jdbcType=TIMESTAMP}, #{isdelete,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper" >
     insert into Paper
@@ -60,17 +61,20 @@
       <if test="userid != null" >
         UserID,
       </if>
-      <if test="generatime != null" >
-        GeneraTime,
-      </if>
-      <if test="isdelete != null" >
-        isDelete,
+      <if test="commanagerid != null" >
+        ComManagerID,
       </if>
       <if test="paperurl != null" >
         PaperUrl,
       </if>
       <if test="answerurl != null" >
         AnswerUrl,
+      </if>
+      <if test="generatime != null" >
+        GeneraTime,
+      </if>
+      <if test="isdelete != null" >
+        isDelete,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -92,17 +96,20 @@
       <if test="userid != null" >
         #{userid,jdbcType=INTEGER},
       </if>
-      <if test="generatime != null" >
-        #{generatime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="isdelete != null" >
-        #{isdelete,jdbcType=INTEGER},
+      <if test="commanagerid != null" >
+        #{commanagerid,jdbcType=INTEGER},
       </if>
       <if test="paperurl != null" >
         #{paperurl,jdbcType=VARCHAR},
       </if>
       <if test="answerurl != null" >
         #{answerurl,jdbcType=VARCHAR},
+      </if>
+      <if test="generatime != null" >
+        #{generatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -124,17 +131,20 @@
       <if test="userid != null" >
         UserID = #{userid,jdbcType=INTEGER},
       </if>
-      <if test="generatime != null" >
-        GeneraTime = #{generatime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="isdelete != null" >
-        isDelete = #{isdelete,jdbcType=INTEGER},
+      <if test="commanagerid != null" >
+        ComManagerID = #{commanagerid,jdbcType=INTEGER},
       </if>
       <if test="paperurl != null" >
         PaperUrl = #{paperurl,jdbcType=VARCHAR},
       </if>
       <if test="answerurl != null" >
         AnswerUrl = #{answerurl,jdbcType=VARCHAR},
+      </if>
+      <if test="generatime != null" >
+        GeneraTime = #{generatime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null" >
+        isDelete = #{isdelete,jdbcType=INTEGER},
       </if>
     </set>
     where PaperID = #{paperid,jdbcType=BIGINT}
@@ -146,10 +156,11 @@
       PaperPointID = #{paperpointid,jdbcType=VARCHAR},
       paperName = #{papername,jdbcType=VARCHAR},
       UserID = #{userid,jdbcType=INTEGER},
-      GeneraTime = #{generatime,jdbcType=TIMESTAMP},
-      isDelete = #{isdelete,jdbcType=INTEGER},
+      ComManagerID = #{commanagerid,jdbcType=INTEGER},
       PaperUrl = #{paperurl,jdbcType=VARCHAR},
-      AnswerUrl = #{answerurl,jdbcType=VARCHAR}
+      AnswerUrl = #{answerurl,jdbcType=VARCHAR},
+      GeneraTime = #{generatime,jdbcType=TIMESTAMP},
+      isDelete = #{isdelete,jdbcType=INTEGER}
     where PaperID = #{paperid,jdbcType=BIGINT}
   </update>
 </mapper>
