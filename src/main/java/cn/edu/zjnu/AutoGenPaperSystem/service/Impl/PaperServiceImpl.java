@@ -32,8 +32,8 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public int insertSelective(Paper record) {
-        if (record.getPaperName() == null) {
-            record.setPaperName("test");
+        if (record.getPapername() == null) {
+            record.setPapername("test");
         }
         record.setGeneratime(new Date());
         return paperMapper.insertSelective(record);
@@ -41,13 +41,14 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public Paper selectByPrimaryKey(Integer paperId) {
-        return paperMapper.selectByPrimaryKey(paperId);
+        return paperMapper.selectByPrimaryKey(Long.valueOf(paperId));
     }
 
     @Override
     public List<Paper> selectByUserId(int userid) {
 
-        return paperMapper.selectByUserId(userid);
+//        return paperMapper.selectByUserId(userid);
+        return null;
     }
 
     @Override
@@ -65,7 +66,7 @@ public class PaperServiceImpl implements PaperService {
         lastMap.put("Type", type);
         lastMap.put("subName", subName);
         // String chosenTemp = userMapper.selectUserChosenByUSerId(userId);
-        String[] questionIds = paperMapper.selectByPrimaryKey(paperId).getQuestionIds().split(",");
+        String[] questionIds = paperMapper.selectByPrimaryKey((long) paperId).getQuestionids().split(",");
         Set<String> typeSet = new HashSet();
         List<Questions> questionsList = new ArrayList<Questions>();
         for (String qid : questionIds) {
