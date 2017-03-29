@@ -63,16 +63,6 @@ class Paper extends Component {
 
   }
 
-/*  componentDidMount() {
-    const { dispatch } = this.props;
-    const query = window.location.search;
-    if(query === '') {
-    dispatch(getTestPaper());
-    } else {
-      dispatch(getOldTestPaper(query));
-    }
-  };*/
-
   handleMake(array) {
     const {qurl, aurl} = this.props.testPaper;
     if(qurl !== '' && aurl !== '') {

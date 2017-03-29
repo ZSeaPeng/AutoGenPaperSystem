@@ -47,17 +47,6 @@ class Navbar extends Component{
             <ToolbarGroup>
               <div><img src={zhituku} style={{width: '1000px', paddingLeft: "22%"}} /></div>
             </ToolbarGroup>
-            {/* <ToolbarGroup>
-              {isLogin
-                ? null
-                : <div>
-                  <small style={{color: '#FFF'}}>用户</small>&nbsp;
-                  <Link style={{color: '#FFF', fontSize: 24}} to="/userindex">{username}</Link>
-                  &nbsp;&nbsp;&nbsp;&nbsp;
-                  <FlatButton style={{color: '#FFF', margin: '9px 0'}} label="登出" onClick={this.handleLogout} />
-                </div>
-              }
-            </ToolbarGroup> */}
           </Toolbar>
           <Toolbar style={{backgroundColor: "#1565C0", height: "64px", boxShadow: "rgb(162, 187, 210) 0px 6px 10px"}}>
             <ToolbarGroup style={{left: '20%'}}>
@@ -75,14 +64,6 @@ class Navbar extends Component{
                 }
                 />
               }
-              {/* {isEmpty
-                ? <div></div>
-                : <MenuItem
-                style = {{lineHeight: '56px', color: '#FFFFFF'}}
-                primaryText = '组卷'
-                menuItems ={ <Combine/> }
-              />
-              } */}
               <Link to="/manualcombine" style={{color: '#FFFFFF', padding: "20px 40px"}}>
                 手动组卷
               </Link>

@@ -23,6 +23,7 @@ import Collections from './container/Collections';
 import Userlogin from './container/Userlogin';
 import ProductIntro from './container/ProductIntro';
 import TeachingTeam from './container/TeachingTeam';
+import Wait from './container/Wait';
 
 import store, { history } from './store';
 
@@ -47,6 +48,7 @@ const router = (
         <Route path="/autocombine" component={AutoCombine}/>
         <Route path="/product" component={ProductIntro}/>
         <Route path="/teachingTeam" component={TeachingTeam}/>
+        <Route path="/wait" component={Wait}/>
       </Route>
     </Router>
   </Provider>
