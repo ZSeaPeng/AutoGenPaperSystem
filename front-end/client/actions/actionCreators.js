@@ -712,6 +712,7 @@ export const asynUserChange = (password) => dispatch => {
 }
 
 //user change info himself
+//noinspection JSAnnotator
 export const asynChangeInfo = (email: '', phone: '') => dispatch => {
   return fetch(`${port}/AutoGenPaperSystem/api/user/changeinfo`, {
     method: 'POST',
@@ -832,6 +833,6 @@ export const submitWordInfo = (wordInfo) => dispatch => {
     })
   })
     .then(response => response.json())
-    .then(dispatch(testPaper(json)))
+    .then(json => dispatch(testPaper(json)))
     .then(browserHistory.push("/autotestpaper"))
 };
