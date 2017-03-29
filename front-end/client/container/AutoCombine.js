@@ -214,7 +214,7 @@ class AutoCombine extends Component {
           <br/><hr/>
           <div style={{height:550}}>
             <h3 style={styles.title}>选择知识点</h3>
-            <div style={{backgroundColor:'#63B8FF',padding:5,height:520,width:300,float:'left',borderRadius: 10}}>
+            <div style={{backgroundColor:'#E8E8E8',padding:5,height:520,width:300,float:'left',borderRadius: 10}}>
               <SelectField
                 value={this.state.pointValue}
                 onChange={this.handleChange}
