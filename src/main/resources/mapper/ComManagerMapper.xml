@@ -32,8 +32,8 @@
   <select id="selectUserListById" resultType="java.lang.String">
     SELECT UserIdList FROM ComManager WHERE ComManager_ID = #{id}
   </select>
-	<select id="selectUserByName" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.ComManager">
-      SELECT UserIdList FROM  ComManager WHERE ComManager_Name = #{name}
+	<select id="selectUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+      SELECT * FROM  ComManager WHERE ComManager_Name = #{name}
     </select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from ComManager

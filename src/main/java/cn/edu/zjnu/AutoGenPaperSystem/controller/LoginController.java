@@ -38,7 +38,11 @@ public class LoginController {
         // Map map = new HashMap();
         //map.clear();
         if (type == 2) {
+            tempPassword=password;
+            System.out.println(username);
             ComManager comManager = comManagerServiceImpl.selectUserByName(username);
+            System.out.println(tempPassword);
+            System.out.println(comManager.getCommanagerPsw());
             if (comManager == null) {
                 return "{\"error\":" + "\"username\"}";
             }
