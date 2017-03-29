@@ -60,14 +60,14 @@ class Navbar extends Component{
             </ToolbarGroup> */}
           </Toolbar>
           <Toolbar style={{backgroundColor: "#1565C0", height: "64px", boxShadow: "rgb(162, 187, 210) 0px 6px 10px"}}>
-            <ToolbarGroup style={{left: '25%'}}>
+            <ToolbarGroup style={{left: '20%'}}>
               <Link to="/index" style={{color: '#FFFFFF', padding: "20px 40px"}}>
                 首页
               </Link>
               {isEmpty
                 ? <div></div>
                 : <MenuItem
-                style = {{lineHeight: '56px', color: '#FFFFFF'}}
+                style = {{lineHeight: '56px', padding: '0px 40px', color: '#FFFFFF'}}
                 primaryText = '科目'
                 menuItems =
                 { sublist.map((grade, i) =>
