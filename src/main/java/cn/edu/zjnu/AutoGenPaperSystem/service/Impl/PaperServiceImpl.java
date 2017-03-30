@@ -35,7 +35,7 @@ public class PaperServiceImpl implements PaperService {
         if (record.getPapername() == null) {
             record.setPapername("test");
         }
-        record.setGeneratime(new Date());
+//        record.setGeneratime(new Date());
         return paperMapper.insertSelective(record);
     }
 
