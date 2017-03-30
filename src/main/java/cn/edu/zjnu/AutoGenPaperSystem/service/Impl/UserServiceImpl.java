@@ -299,8 +299,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserJson selectShow(int userId) {
         User user = userMapper.selectByPrimaryKey(userId);
+        //将查询到的数据导入相应json
         UserJson userJson=new UserJson();
         userJson= (UserJson) DataUtil.getNewClass(userJson,user);
+        //json中添加允许查询的试卷数，已经组成的试卷数
         List<UserSubPermiss> userSubPermiss=userSubPermissMapper.selectListByUseridKey(userId);
         List allows=new ArrayList();
         List<Integer> dos=new ArrayList<>();
@@ -310,7 +312,7 @@ public class UserServiceImpl implements UserService {
         }
         userJson.setAllowpaper(allows);
         userJson.setDopaper(dos);
-
+        //json加入历史查询到的试卷
         List<Paper> paperList=paperMapper.selectByUserId(userId);
         List<PaperJson> paperJsonList = new ArrayList<>();
         paperJsonList.clear();
