@@ -1,5 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
+import cn.edu.zjnu.AutoGenPaperSystem.model.Paper;
 import cn.edu.zjnu.AutoGenPaperSystem.model.Questions;
 import cn.edu.zjnu.AutoGenPaperSystem.model.UserSubPermiss;
 import cn.edu.zjnu.AutoGenPaperSystem.service.PaperService;
@@ -58,6 +59,7 @@ public class PaperController {
         Map paperMap = new HashMap();
         String subName = (String) map.get("subName");
         UserSubPermiss userSubPermiss = userSubPermissServiceImpl.selelctByUseridSubid(userid, (Integer) map.get("subid"));
+        //判断是否能够组成这个试卷（允许组卷数量是否已满）
         int dopaper = userSubPermiss.getDopaper();
         int allowpaper = userSubPermiss.getAllowpaper();
         if (dopaper == allowpaper) {
@@ -69,7 +71,10 @@ public class PaperController {
             userSubPermissServiceImpl.updateByPrimaryKeySelective(userSubPermiss);
         }
 
+        //清除数据库的存储试题
         userServiceImpl.deleteUserChonce(userid);
+        //开始组卷
+        String questionids="";
         String randomStr = RandomStr.getRandomString(6);
         Calendar now = Calendar.getInstance();
         String date = "" + now.get(Calendar.YEAR) + (now.get(Calendar.MONTH) + 1) + now.get(Calendar.DAY_OF_MONTH);
@@ -86,6 +91,7 @@ public class PaperController {
             List answerList = new ArrayList();
             List<Integer> idList = (List<Integer>) list.get(i).get("id");
             for (Integer id : idList) {
+                questionids=questionids+id+",";
                 Questions questions = questionsServiceImpl.selectByPrimaryKey(id);
                 questionList.add(questions.getContent());
                 answerList.add(questions.getAnswer());
@@ -95,12 +101,21 @@ public class PaperController {
             answerMap.put(list.get(i).get("type") + "(共" + questionList.size() + "题，共" + list.get(i).get("score") + "分)", answerList);
         }
         try {
-            String qurl = request.getServletContext().getRealPath("/upload/temp/" + date + "u" + userid + PinyinHelper.convertToPinyinString(subName, "", PinyinFormat.WITHOUT_TONE) + randomStr + ".docx");
+            String fileName=date + "u" + userid + PinyinHelper.convertToPinyinString(subName, "", PinyinFormat.WITHOUT_TONE) + randomStr;
+            String qurl = request.getServletContext().getRealPath("/upload/temp/" + fileName + ".docx");
             setAllDocx.Title(questionMap, request.getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"), qurl);
-            String aurl = request.getServletContext().getRealPath("/upload/temp/a_" + date + "u" + userid + PinyinHelper.convertToPinyinString(subName, "", PinyinFormat.WITHOUT_TONE) + randomStr + ".docx");
+            String aurl = request.getServletContext().getRealPath("/upload/temp/a_" + fileName + ".docx");
             setAllDocx.Title(answerMap, request.getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"), aurl);
-            paperMap.put("qurl", "localhost:8111/AutoGenPaperSystem/upload/temp/" + date + "u" + userid + PinyinHelper.convertToPinyinString(subName, "", PinyinFormat.WITHOUT_TONE) + randomStr + ".docx");
-            paperMap.put("aurl", "localhost:8111/AutoGenPaperSystem/upload/temp/a_" + date + "u" + userid + PinyinHelper.convertToPinyinString(subName, "", PinyinFormat.WITHOUT_TONE) + randomStr + ".docx");
+            //纪录组成的试卷
+            Paper paper=new Paper();
+            paper.setPapername(subName + title);
+            paper.setUserid(userid);
+            paper.setAnswerurl(aurl);
+            paper.setPaperurl(qurl);
+            paper.setQuestionids(questionids);
+            paperServiceImpl.insertSelective(paper);
+            paperMap.put("qurl", "localhost:8111/AutoGenPaperSystem/upload/temp/" + fileName + ".docx");
+            paperMap.put("aurl", "localhost:8111/AutoGenPaperSystem/upload/temp/a_" + fileName + ".docx");
             return paperMap;
         } catch (Exception e) {
             e.printStackTrace();
