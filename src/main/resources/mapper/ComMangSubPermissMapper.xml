@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.zjnu.AutoGenPaperSystem.dao.ComMangSubPermissMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.zjnu.AutoGenPaperSystem.model.ComMangSubPermiss" >
+    <constructor >
+      <idArg column="ComMangSubPerId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="SubjectId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ComManagerId" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="AllowPaper" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="DoPaper" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="IsDelete" jdbcType="BIT" javaType="java.lang.Boolean" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ComMangSubPerId, SubjectId, ComManagerId, AllowPaper, DoPaper, IsDelete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from ComMangSubPermiss
+    where ComMangSubPerId = #{commangsubperid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ComMangSubPermiss
+    where ComMangSubPerId = #{commangsubperid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.ComMangSubPermiss" >
+    insert into ComMangSubPermiss (ComMangSubPerId, SubjectId, ComManagerId, 
+      AllowPaper, DoPaper, IsDelete
+      )
+    values (#{commangsubperid,jdbcType=INTEGER}, #{subjectid,jdbcType=INTEGER}, #{commanagerid,jdbcType=INTEGER}, 
+      #{allowpaper,jdbcType=INTEGER}, #{dopaper,jdbcType=INTEGER}, #{isdelete,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.ComMangSubPermiss" >
+    insert into ComMangSubPermiss
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commangsubperid != null" >
+        ComMangSubPerId,
+      </if>
+      <if test="subjectid != null" >
+        SubjectId,
+      </if>
+      <if test="commanagerid != null" >
+        ComManagerId,
+      </if>
+      <if test="allowpaper != null" >
+        AllowPaper,
+      </if>
+      <if test="dopaper != null" >
+        DoPaper,
+      </if>
+      <if test="isdelete != null" >
+        IsDelete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commangsubperid != null" >
+        #{commangsubperid,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null" >
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="commanagerid != null" >
+        #{commanagerid,jdbcType=INTEGER},
+      </if>
+      <if test="allowpaper != null" >
+        #{allowpaper,jdbcType=INTEGER},
+      </if>
+      <if test="dopaper != null" >
+        #{dopaper,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        #{isdelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.ComMangSubPermiss" >
+    update ComMangSubPermiss
+    <set >
+      <if test="subjectid != null" >
+        SubjectId = #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="commanagerid != null" >
+        ComManagerId = #{commanagerid,jdbcType=INTEGER},
+      </if>
+      <if test="allowpaper != null" >
+        AllowPaper = #{allowpaper,jdbcType=INTEGER},
+      </if>
+      <if test="dopaper != null" >
+        DoPaper = #{dopaper,jdbcType=INTEGER},
+      </if>
+      <if test="isdelete != null" >
+        IsDelete = #{isdelete,jdbcType=BIT},
+      </if>
+    </set>
+    where ComMangSubPerId = #{commangsubperid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.edu.zjnu.AutoGenPaperSystem.model.ComMangSubPermiss" >
+    update ComMangSubPermiss
+    set SubjectId = #{subjectid,jdbcType=INTEGER},
+      ComManagerId = #{commanagerid,jdbcType=INTEGER},
+      AllowPaper = #{allowpaper,jdbcType=INTEGER},
+      DoPaper = #{dopaper,jdbcType=INTEGER},
+      IsDelete = #{isdelete,jdbcType=BIT}
+    where ComMangSubPerId = #{commangsubperid,jdbcType=INTEGER}
+  </update>
+</mapper>
