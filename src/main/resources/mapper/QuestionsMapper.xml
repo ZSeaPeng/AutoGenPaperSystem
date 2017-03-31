@@ -95,9 +95,9 @@
 
     <select id="selectQuestionByIdList" resultMap="QuestionType" parameterType="java.lang.Integer">
         SELECT
-        questions.Questions_ID,types.Type_name,questions.QuesPic_URL,questions.Subject_ID,questions.AnswerPic_URL
+        Questions.Questions_ID,Types.Type_name,Questions.QuesPic_URL,Questions.Subject_ID,Questions.AnswerPic_URL
         FROM Questions,Types
-        WHERE questions.Type_ID=types.Type_ID AND questions.Questions_ID=#{questionsId,jdbcType=INTEGER}
+        WHERE Questions.Type_ID=Types.Type_ID AND Questions.Questions_ID=#{questionsId,jdbcType=INTEGER}
     </select>
     <select id="selectQuestionArray" resultMap="BaseResultMap">
         SELECT
