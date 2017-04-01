@@ -64,8 +64,8 @@ public class QuestionsServiceImpl implements QuestionsService {
         for (Questions list : questionses) {
             QuestionsJson questionsJson = new QuestionsJson();
             questionsJson.setId(list.getQuestionsId());
-            questionsJson.setQurl(list.getQuesPic_URL());
-            questionsJson.setAurl(list.getAnswerPic_URL());
+            questionsJson.setQurl("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+list.getQuesPic_URL());
+            questionsJson.setAurl("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+list.getAnswerPic_URL());
             questionsJsons.add(questionsJson);
         }
         List chosenList = new ArrayList();

@@ -249,8 +249,8 @@ public class UserServiceImpl implements UserService {
                 if (q.getTypes().getTypeName().equals(typeName)) {
                     QuestionsJson questionsJson = new QuestionsJson();
                     questionsJson.setId(q.getQuestionsId());
-                    questionsJson.setQurl(q.getQuesPic_URL());
-                    questionsJson.setAurl(q.getAnswerPic_URL());
+                    questionsJson.setQurl("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+q.getQuesPic_URL());
+                    questionsJson.setAurl("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+q.getAnswerPic_URL());
                     questionsJsonList.add(questionsJson);
                 }
             }
