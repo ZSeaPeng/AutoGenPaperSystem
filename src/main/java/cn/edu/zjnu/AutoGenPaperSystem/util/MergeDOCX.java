@@ -13,10 +13,10 @@ import org.docx4j.relationships.Relationship;
 import org.docx4j.wml.CTAltChunk;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTBody;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +75,30 @@ public class MergeDOCX {
         insertDocx(target.getMainDocumentPart(), byteList, mark);
 //        SaveToZipFile saver = new SaveToZipFile(target);
 //        saver.save(os);
+
+    }
+
+    public void mergedocxweb(WordprocessingMLPackage target, List<String> path, Boolean mark) throws Exception {
+        List<byte[]> byteList = new ArrayList<>();
+        for (int i = 0; i < path.size(); i++) {
+            URL url =new URL(path.get(i)); // 创建URL
+            URLConnection urlconn = url.openConnection(); // 试图连接并取得返回状态码
+            urlconn.connect();
+            HttpURLConnection httpconn =(HttpURLConnection)urlconn;
+            int HttpResult = httpconn.getResponseCode();
+            if(HttpResult != HttpURLConnection.HTTP_OK) // 不等于HTTP_OK说明连接不成功
+                System.out.print("无法连接到");
+            else {
+                int filesize = urlconn.getContentLength(); // 取数据长度
+                InputStream src = urlconn.getInputStream();
+                byteList.add(IOUtils.toByteArray(src));
+            }
+        }
+//        WordprocessingMLPackage target = WordprocessingMLPackage.load(new FileInputStream(path.get(0)));
+        insertDocx(target.getMainDocumentPart(), byteList, mark);
+//        SaveToZipFile saver = new SaveToZipFile(target);
+//        saver.save(os);
+
     }
 
     public void insertDocx(MainDocumentPart main, List<byte[]> bytes, Boolean ismark) throws Exception {

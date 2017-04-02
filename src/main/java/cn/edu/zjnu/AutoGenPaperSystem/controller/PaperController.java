@@ -93,8 +93,8 @@ public class PaperController {
             for (Integer id : idList) {
                 questionids=questionids+id+",";
                 Questions questions = questionsServiceImpl.selectByPrimaryKey(id);
-                questionList.add(questions.getContent());
-                answerList.add(questions.getAnswer());
+                questionList.add("http://papersystem01.oss-cn-hangzhou.aliyuncs.com/"+questions.getContent());
+                answerList.add("http://papersystem01.oss-cn-hangzhou.aliyuncs.com/"+questions.getAnswer());
             }
 
             questionMap.put(list.get(i).get("type") + "(共" + questionList.size() + "题，共" + list.get(i).get("score") + "分)", questionList);

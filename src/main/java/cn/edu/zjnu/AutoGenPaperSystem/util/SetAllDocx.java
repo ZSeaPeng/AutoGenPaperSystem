@@ -28,7 +28,7 @@ public class SetAllDocx {
             }
             else {
                 target.getMainDocumentPart().addStyledParagraphOfText("1", String.valueOf(entry.getKey()));
-                mergeDOCX.mergedocx(target,(List<String>) entry.getValue(),true);
+                mergeDOCX.mergedocxweb(target,(List<String>) entry.getValue(),true);
             }
         }
         target.save(new File(resultPath));
