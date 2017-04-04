@@ -18,7 +18,7 @@ public class StartPaper {
     Paper resultPaper = null;
     // 迭代计数器
     int count = 0;
-    int runCount = 10;
+    int runCount = 1;
     // 适应度期望值
     double expand = 0.98;
     // 可自己初始化组卷规则rule
@@ -45,7 +45,7 @@ public class StartPaper {
         if (ruleBean != null) {
             // 初始化种群
 //            System.out.printf(userMapper.selectByPrimaryKey(20).getUsername());
-            Population population = new Population(20, true, ruleBean, questionsServiceImpl);
+            Population population = new Population(1, true, ruleBean, questionsServiceImpl);
             System.out.println("population.getErrorFlag()" + population.getErrorFlag());
             if (population.getErrorFlag()) {
                 errorFlag = true;

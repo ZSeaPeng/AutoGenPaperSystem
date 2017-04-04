@@ -127,8 +127,8 @@ public class PaperServiceImpl implements PaperService {
 
         List<Integer> pointsList = (List<Integer>) map.get("points");
 //        List<cn.edu.zjnu.AutoGenPaperSystem.util.generation.Paper> paperList = new ArrayList<>();
-
-        String subName = subjectMapper.selectByPrimaryKey(Integer.valueOf(subject)).getSubjectName();
+        int subid=Integer.valueOf(subject);
+        String subName = subjectMapper.selectByPrimaryKey(subid).getSubjectName();
         String type = "默认类型";
         Map lastMap = new HashMap();
         List<Map> lastList = new ArrayList<Map>();
@@ -159,8 +159,8 @@ public class PaperServiceImpl implements PaperService {
                 for (QuestionBean questionBean : paperBean.getQuestionList()) {
                     QuestionsJson questionsJson = new QuestionsJson();
                     questionsJson.setId((int) questionBean.getId());
-                    questionsJson.setQurl(questionBean.getQesUrl());
-                    questionsJson.setAurl(questionBean.getAnswerUrl());
+                    questionsJson.setQurl("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+questionBean.getQesUrl());
+                    questionsJson.setAurl("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+questionBean.getAnswerUrl());
                     questionsJsonList.add(questionsJson);
                 }
             }
@@ -180,7 +180,7 @@ public class PaperServiceImpl implements PaperService {
             }
         }
         lastMap.put("questions", lastList);
-
+        lastMap.put("subid",subid);
         return lastMap;
     }
 }

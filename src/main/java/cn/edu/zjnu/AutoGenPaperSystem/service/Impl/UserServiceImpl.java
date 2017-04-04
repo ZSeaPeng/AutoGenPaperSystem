@@ -304,7 +304,7 @@ public class UserServiceImpl implements UserService {
         userJson= (UserJson) DataUtil.getNewClass(userJson,user);
         //json中添加允许查询的试卷数，已经组成的试卷数
         List<UserSubPermiss> userSubPermiss=userSubPermissMapper.selectListByUseridKey(userId);
-        List allows=new ArrayList();
+        List<Integer> allows=new ArrayList();
         List<Integer> dos=new ArrayList<>();
         for (UserSubPermiss list:userSubPermiss){
             allows.add(list.getAllowpaper());
@@ -313,10 +313,10 @@ public class UserServiceImpl implements UserService {
         userJson.setAllowpaper(allows);
         userJson.setDopaper(dos);
         //json加入历史查询到的试卷
-        List<Paper> paperList=paperMapper.selectByUserId(userId);
+        List<Paper> historyPaperList=paperMapper.selectByUserId(userId);
         List<PaperJson> paperJsonList = new ArrayList<>();
         paperJsonList.clear();
-        for (Paper paper:paperList){
+        for (Paper paper:historyPaperList){
             PaperJson paperJson = new PaperJson();
             paperJson.setHistoryPaperUrl(paper.getPaperurl());
             paperJson.setHistoryAnswerUrl(paper.getAnswerurl());

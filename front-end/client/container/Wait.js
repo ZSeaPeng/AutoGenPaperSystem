@@ -8,7 +8,7 @@ class Wait extends React.Component {
 	}
 
 	componentDidMount() {
-		setTimeout(function() {browserHistory.push('/autotestpaper') }, 3000)
+		setTimeout(function() {browserHistory.push('/autotestpaper') }, 10000)
 	}
 	render() {
 		return (<LinearProgress mode="indeterminate" style={{top: 50, width: '80%', left: '10%'}}/>)

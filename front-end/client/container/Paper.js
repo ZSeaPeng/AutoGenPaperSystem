@@ -110,7 +110,7 @@ class Paper extends Component {
       setTimeout(function(){
         that.setState({style: { display: 'none' },open: 'true'});
         document.documentElement.style.overflow='auto';
-      },3000)
+      },10000)
     }
   }
 
