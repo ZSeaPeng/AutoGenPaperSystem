@@ -31,8 +31,13 @@
     FROM Paper
     WHERE UserID=#{userid,jdbcType=INTEGER}
   </select>
+    <select id="selectByComManagerId" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Paper">
+      SELECT *
+      FROM Paper
+      WHERE ComManagerID=#{commanagerid,jdbcType=INTEGER}
+    </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from Paper
     where PaperID = #{paperid,jdbcType=BIGINT}
   </delete>

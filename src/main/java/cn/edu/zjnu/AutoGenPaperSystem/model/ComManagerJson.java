@@ -18,16 +18,25 @@ public class ComManagerJson {
 
     private List<UserJson> userJsonList;
 
+    private List historyPaper;
+
+    private List allowpaper;
+
+    private List dopaper;
+
     public ComManagerJson() {
     }
 
-    public ComManagerJson(Integer commanagerId, String commanagerName, String commanagerPsw, String subjectcan, Integer school, List<UserJson> userJsonList) {
+    public ComManagerJson(Integer commanagerId, String commanagerName, String commanagerPsw, String subjectcan, Integer school, List<UserJson> userJsonList, List historyPaper, List allowpaper, List dopaper) {
         this.commanagerId = commanagerId;
         this.commanagerName = commanagerName;
         this.commanagerPsw = commanagerPsw;
         this.subjectcan = subjectcan;
         this.school = school;
         this.userJsonList = userJsonList;
+        this.historyPaper = historyPaper;
+        this.allowpaper = allowpaper;
+        this.dopaper = dopaper;
     }
 
     public Integer getCommanagerId() {
@@ -76,5 +85,29 @@ public class ComManagerJson {
 
     public void setUserJsonList(List<UserJson> userJsonList) {
         this.userJsonList = userJsonList;
+    }
+
+    public List getHistoryPaper() {
+        return historyPaper;
+    }
+
+    public void setHistoryPaper(List historyPaper) {
+        this.historyPaper = historyPaper;
+    }
+
+    public List getAllowpaper() {
+        return allowpaper;
+    }
+
+    public void setAllowpaper(List allowpaper) {
+        this.allowpaper = allowpaper;
+    }
+
+    public List getDopaper() {
+        return dopaper;
+    }
+
+    public void setDopaper(List dopaper) {
+        this.dopaper = dopaper;
     }
 }

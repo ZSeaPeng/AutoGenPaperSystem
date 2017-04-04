@@ -2,6 +2,8 @@ package cn.edu.zjnu.AutoGenPaperSystem.dao;
 
 import cn.edu.zjnu.AutoGenPaperSystem.model.ComMangSubPermiss;
 
+import java.util.List;
+
 public interface ComMangSubPermissMapper {
     int deleteByPrimaryKey(Integer commangsubperid);
 
@@ -14,4 +16,6 @@ public interface ComMangSubPermissMapper {
     int updateByPrimaryKeySelective(ComMangSubPermiss record);
 
     int updateByPrimaryKey(ComMangSubPermiss record);
+
+    List<ComMangSubPermiss> selectByComManagerId(Integer comManagerId);
 }

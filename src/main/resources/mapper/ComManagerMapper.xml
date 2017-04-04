@@ -29,8 +29,8 @@
   <select id="selectAll" resultMap="BaseResultMap">
     SELECT * FROM ComManager WHERE isdelete = 0
   </select>
-  <select id="selectUserListById" resultType="java.lang.String">
-    SELECT UserIdList FROM ComManager WHERE ComManager_ID = #{id}
+  <select id="selectUserListById" resultMap="BaseResultMap">
+    SELECT * FROM ComManager WHERE ComManager_ID = #{id}
   </select>
 	<select id="selectUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
       SELECT * FROM  ComManager WHERE ComManager_Name = #{name}

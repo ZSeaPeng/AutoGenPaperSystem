@@ -1,5 +1,6 @@
 package cn.edu.zjnu.AutoGenPaperSystem.controller;
 
+import cn.edu.zjnu.AutoGenPaperSystem.model.ComManagerJson;
 import cn.edu.zjnu.AutoGenPaperSystem.model.User;
 import cn.edu.zjnu.AutoGenPaperSystem.service.ComManagerService;
 import org.springframework.stereotype.Controller;
@@ -13,25 +14,22 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/api/commanager")
-@SessionAttributes("commanager")
+@SessionAttributes("userid")
 @ResponseBody
 public class GroupOperateController {
 
     @Resource
     private ComManagerService comManagerServiceImpl;
 
-
-    private static int userId = 1;
-
-    @RequestMapping(value = "/showusers", method = RequestMethod.GET)
-    public List showUsers() {
-        List userList = comManagerServiceImpl.selectUserListById(userId);
-        return userList;
+    @RequestMapping(value = "/show", method = RequestMethod.GET)
+    public ComManagerJson showUsers(@ModelAttribute("userid") Integer userid) {
+        ComManagerJson comManagerJsonList = comManagerServiceImpl.selectUserListById(userid);
+        return comManagerJsonList;
     }
 
     @RequestMapping(value = "/adduser", method = RequestMethod.POST)
-    public String addUser(@RequestBody User user) {
-        comManagerServiceImpl.updateUserList(user, userId);
+    public String addUser(@ModelAttribute("userid") Integer userid,@RequestBody User user) {
+        comManagerServiceImpl.updateUserList(user, userid);
         return null;
     }
 

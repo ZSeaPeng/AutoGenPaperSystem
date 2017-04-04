@@ -20,7 +20,13 @@
     from ComMangSubPermiss
     where ComMangSubPerId = #{commangsubperid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByComManagerId" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.ComMangSubPermiss">
+      SELECT
+      *
+      FROM ComMangSubPermiss
+      WHERE ComManagerId=#{comManagerId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from ComMangSubPermiss
     where ComMangSubPerId = #{commangsubperid,jdbcType=INTEGER}
   </delete>

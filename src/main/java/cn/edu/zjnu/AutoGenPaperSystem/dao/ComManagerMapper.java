@@ -21,7 +21,7 @@ public interface ComManagerMapper {
 
     int updateDeleteById(Integer id);
 
-    String selectUserListById(Integer id);
+    ComManager selectUserListById(Integer id);
 
     ComManager selectUserByName(String name);
  }

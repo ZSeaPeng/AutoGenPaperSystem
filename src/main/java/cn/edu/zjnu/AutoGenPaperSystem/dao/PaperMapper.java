@@ -19,4 +19,6 @@ public interface PaperMapper {
     int updateByPrimaryKey(Paper record);
 
     List<Paper> selectByUserId(Integer userid);
+
+    List<Paper> selectByComManagerId(Integer commanagerid);
 }
