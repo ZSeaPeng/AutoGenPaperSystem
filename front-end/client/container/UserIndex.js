@@ -113,10 +113,10 @@ class UserIndex extends React.Component {
     let count = userInfo.allowpaper;
     let sub = userInfo.subjectcan.split(',');
     let type = "普通用户";
-    if (userInfo.type === 0) {
-      type = "集团用户"
-    } else {
+    if (window.sessionStorage.getItem('type') == 1) {
       type = "普通用户"
+    } else {
+      type = "集团用户"
     }
     const isNormal = userInfo.type === 0;
     return (
@@ -151,7 +151,7 @@ class UserIndex extends React.Component {
                 <FlatButton label="修改手机" secondary={true} onClick={this.handleChangephone}/>
               </div>
             </div>
-            {isNormal
+            {!isNormal
               ? <SubUser />
               : <div>
                 已收藏试题: {userInfo.usercollection}
@@ -216,6 +216,7 @@ class UserIndex extends React.Component {
             onChange={ this.phoneChange }
           />
         </Dialog>
+        <p style={{padding:20}}></p>
       </div>
     )
   }

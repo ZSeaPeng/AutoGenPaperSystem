@@ -74,7 +74,7 @@ class Index extends Component {
             width: '100%', height: 265, marginBottom: 35,
           }}
         >
-          <div style={{display: 'inline-block', width: '45%', margin: '0 20px',marginTop:5}}>
+          <div style={{display: 'inline-block', width: '40%', margin: '0 20px',marginTop:5,marginLeft:'5%'}}>
             <h2>最新职高试卷</h2>
               <Tabs selectedIndex={0}>
                 <TabList>
@@ -91,7 +91,7 @@ class Index extends Component {
                 </TabPanel>
               </Tabs>
           </div>
-          <div style={{display: 'inline-block', width: '45%', margin: '0 20px', marginTop:5}}>
+          <div style={{display: 'inline-block', width: '40%', margin: '0 20px', marginTop:5,marginLeft:'5%'}}>
             <h2>他山之石</h2>
             <Tabs selectedIndex={0}>
               <TabList>

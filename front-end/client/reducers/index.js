@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
+import { reducer as formReducer } from 'redux-form'
 
 import grades from './grades'
 import questions from './questions'
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   testPaper,
   subUser,
   userInfo,
+  form: formReducer,
   routing: routerReducer
 });
 
