@@ -84,8 +84,8 @@ public class PaperController {
         Map<String, Object> answerMap = new LinkedHashMap<>();
         questionMap.put("Title", subName + title);
         answerMap.put("Title", title + "答案");
-        questionMap.put("xm", request.getServletContext().getRealPath("/upload/template/A3Horizontalxingming.docx"));
-        questionMap.put("attent", request.getServletContext().getRealPath("/upload/template/A3HorizontalAttention.docx"));
+        questionMap.put("xm", request.getSession().getServletContext().getRealPath("/upload/template/A3Horizontalxingming.docx"));
+        questionMap.put("attent", request.getSession().getServletContext().getRealPath("/upload/template/A3HorizontalAttention.docx"));
         for (int i = 0; i < list.size(); i++) {
             List questionList = new ArrayList();
             List answerList = new ArrayList();
@@ -102,10 +102,10 @@ public class PaperController {
         }
         try {
             String fileName=date + "u" + userid + PinyinHelper.convertToPinyinString(subName, "", PinyinFormat.WITHOUT_TONE) + randomStr;
-            String qurl = request.getServletContext().getRealPath("/upload/temp/" + fileName + ".docx");
-            setAllDocx.Title(questionMap, request.getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"), qurl);
-            String aurl = request.getServletContext().getRealPath("/upload/temp/a_" + fileName + ".docx");
-            setAllDocx.Title(answerMap, request.getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"), aurl);
+            String qurl = request.getSession().getServletContext().getRealPath("/upload/temp/" + fileName + ".docx");
+            setAllDocx.Title(questionMap, request.getSession().getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"), qurl);
+            String aurl = request.getSession().getServletContext().getRealPath("/upload/temp/a_" + fileName + ".docx");
+            setAllDocx.Title(answerMap, request.getSession().getServletContext().getRealPath("/upload/template/templateA3Horizontal.docx"), aurl);
             //纪录组成的试卷
             Paper paper=new Paper();
             paper.setPapername(subName + title);
@@ -114,8 +114,8 @@ public class PaperController {
             paper.setPaperurl(qurl);
             paper.setQuestionids(questionids);
             paperServiceImpl.insertSelective(paper);
-            paperMap.put("qurl", "localhost:8111/AutoGenPaperSystem/upload/temp/" + fileName + ".docx");
-            paperMap.put("aurl", "localhost:8111/AutoGenPaperSystem/upload/temp/a_" + fileName + ".docx");
+            paperMap.put("qurl", "121.196.206.205:8111/AutoGenPaperSystem/upload/temp/" + fileName + ".docx");
+            paperMap.put("aurl", "121.196.206.205:8111/AutoGenPaperSystem/upload/temp/a_" + fileName + ".docx");
             return paperMap;
         } catch (Exception e) {
             e.printStackTrace();
