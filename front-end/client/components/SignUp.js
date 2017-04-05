@@ -85,7 +85,7 @@ class SignUp extends Component {
             type="password"
             onChange={ this.passwordChange }
           />
-          {isadmin
+          {!isadmin
             ? null
             : <RadioButtonGroup name="shipSpeed" defaultSelected="0">
               <RadioButton

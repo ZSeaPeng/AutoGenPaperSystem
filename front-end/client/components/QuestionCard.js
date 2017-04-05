@@ -1,5 +1,7 @@
 import React from 'react';
 import style from '../style/QuestionCard.css';
+import { browserHistory } from 'react-router';
+var pinyin = require("node-pinyin");
 
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -53,7 +55,17 @@ export default class QuestionCard extends React.Component {
   }
 
   handleRandom() {
-    const {dispatch, i, index} = this.props;
+    const {dispatch, i, index, subName} = this.props;
+
+    const subNameList = pinyin(subName, {
+                          style: normal
+                        });
+    var subPath = "";
+    for(let i = 0; i < subNameList.length; i++) {
+       subPath = subPath + subNameList[i];
+    }
+
+    browserHistory.push('/' + subPath + '/');
   }
 
   handlePositionChange() {
@@ -102,7 +114,7 @@ export default class QuestionCard extends React.Component {
           <div>
             移至第
             <TextField value = {this.state.number} onChange={this.handleNumberChange}/>
-            题(共{length}题) 
+            题(共{length}题)
             <FlatButton label="确定" secondary={true} onClick={this.handlePositionChange} />
           </div>
         </div>

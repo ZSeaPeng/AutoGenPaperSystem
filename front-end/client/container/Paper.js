@@ -9,9 +9,9 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 //import action
-import { 
-  getOldTestPaper, getTestPaper, paperDown, paperUp, 
-  paperDelete, paperUup, paperDdown, finalAction, scoreChange, changePaperName 
+import {
+  getOldTestPaper, getTestPaper, paperDown, paperUp,
+  paperDelete, paperUup, paperDdown, finalAction, scoreChange, changePaperName
 } from '../actions/actionCreators';
 
 //component
@@ -24,7 +24,7 @@ class Paper extends Component {
     super(props);
     this.state = {
       style: {
-        display: 'none' 
+        display: 'none'
       },
       score: 0,
       open: false,
@@ -196,10 +196,11 @@ class Paper extends Component {
                   <TextField onChange={this.handleScore}/>
                   <FlatButton label="确定" secondary={true} onClick={this.handleScoreChange} />
                 </div>
-                {radios.questions.map((radio, i) => 
-                  <QuestionCard 
-                    dispatch = {this.props.dispatch} 
-                    key={i} radio={radio} index={radios.i} i={i} 
+                {radios.questions.map((radio, i) =>
+                  <QuestionCard
+                    subName={subName},
+                    dispatch = {this.props.dispatch}
+                    key={i} radio={radio} index={radios.i} i={i}
                     length={radios.questions.length} onChange={this.handleChange}
                   />)
                 }
@@ -211,7 +212,7 @@ class Paper extends Component {
               {radioL
                 ? <h3 className={styles.h3}>第I卷（非选择题）</h3>
                 : <h3 className={styles.h3}>第II卷（非选择题）</h3>
-              } 
+              }
               <p style={{margin: 0}}>本试卷第一部分共有{length}道试题, {lss}分。</p>
               {others.map((other,i) => <NotRadio {...this.props} score = {ls[i]} l = {radioL} {...this.props} i={i} key={i} other={other} length={others.length} onChange={this.handleChange}/>)}
             </section>
@@ -241,7 +242,7 @@ class Paper extends Component {
           <div>
             <a href={`http://${qurl}`} download>试卷</a>
             <br/>
-            <a href={aurl} download>答案</a>
+            <a href={`http://${aurl}`} download>答案</a>
           </div>
         </Dialog>
       </div>
