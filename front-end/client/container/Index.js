@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 //不要删
 import style from '!style!css!../style/slick.min.css';
 import styles from '!style!css!../style/slick-theme.min.css';
@@ -67,47 +68,43 @@ class Index extends Component {
             <div><img src={imgSrc4} style={{width: '100%', height: '100%'}} /></div>
           </Slider>
         </div>
-        <div 
+        <div
           style={{
-            position: 'absolute', top: 700, 
+            position: 'absolute', top: 700,
             width: '100%', height: 265, marginBottom: 35,
           }}
         >
-          <div style={{display: 'inline-block', width: '45%', margin: '0 20px'}}>
+          <div style={{display: 'inline-block', width: '45%', margin: '0 20px',marginTop:5}}>
             <h2>最新职高试卷</h2>
-              <Tabs selectedIndex={2}>
+              <Tabs selectedIndex={1}>
                 <TabList>
-                  <Tab>Foo</Tab>
-                  <Tab>Bar</Tab>
-                  <Tab>Baz</Tab>
+                  <Tab>数学</Tab>
+                  <Tab>语文</Tab>
                 </TabList>
                 <TabPanel>
-                  <h2>Hello from Foo</h2>
+                  <Link to="/"><p>2016数学第二次联考</p></Link>
+                  <Link to="/"><p>2016数学第三次联考</p></Link>
                 </TabPanel>
                 <TabPanel>
-                  <h2>Hello from Bar</h2>
-                </TabPanel>
-                <TabPanel>
-                  <h2>Hello from Baz</h2>
+                  <Link to="/"><p>2016语文第二次联考</p></Link>
+                  <Link to="/"><p>2016语文第三次联考</p></Link>
                 </TabPanel>
               </Tabs>
           </div>
-          <div style={{display: 'inline-block', width: '45%', margin: '0 20px'}}>
+          <div style={{display: 'inline-block', width: '45%', margin: '0 20px', marginTop:5}}>
             <h2>他山之石</h2>
-            <Tabs selectedIndex={2}>
+            <Tabs selectedIndex={1}>
               <TabList>
-                <Tab>Foo</Tab>
-                <Tab>Bar</Tab>
-                <Tab>Baz</Tab>
+                <Tab>数学</Tab>
+                <Tab>语文</Tab>
               </TabList>
               <TabPanel>
-                <h2>Hello from Foo</h2>
+                <Link to="/"><p>2016数学高考试卷</p></Link>
+                <Link to="/"><p>2015数学高考试卷</p></Link>
               </TabPanel>
               <TabPanel>
-                <h2>Hello from Bar</h2>
-              </TabPanel>
-              <TabPanel>
-                <h2>Hello from Baz</h2>
+                <Link to="/"><p>2016语文高考试卷</p></Link>
+                <Link to="/"><p>2015语文高考试卷</p></Link>
               </TabPanel>
             </Tabs>
           </div>
