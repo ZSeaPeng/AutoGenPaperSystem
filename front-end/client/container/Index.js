@@ -76,7 +76,7 @@ class Index extends Component {
         >
           <div style={{display: 'inline-block', width: '45%', margin: '0 20px',marginTop:5}}>
             <h2>最新职高试卷</h2>
-              <Tabs selectedIndex={1}>
+              <Tabs selectedIndex={0}>
                 <TabList>
                   <Tab>数学</Tab>
                   <Tab>语文</Tab>
@@ -93,18 +93,18 @@ class Index extends Component {
           </div>
           <div style={{display: 'inline-block', width: '45%', margin: '0 20px', marginTop:5}}>
             <h2>他山之石</h2>
-            <Tabs selectedIndex={1}>
+            <Tabs selectedIndex={0}>
               <TabList>
                 <Tab>数学</Tab>
                 <Tab>语文</Tab>
               </TabList>
               <TabPanel>
                 <Link to="/paper5"><p>2016数学高考试卷</p></Link>
-                <Link to="/"><p>2015数学高考试卷</p></Link>
+                <Link to="/paper5"><p>2015数学高考试卷</p></Link>
               </TabPanel>
               <TabPanel>
                 <Link to="/paper6"><p>2016语文高考试卷</p></Link>
-                <Link to="/"><p>2015语文高考试卷</p></Link>
+                <Link to="/paper6"><p>2015语文高考试卷</p></Link>
               </TabPanel>
             </Tabs>
           </div>
