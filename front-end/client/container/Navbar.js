@@ -45,7 +45,7 @@ class Navbar extends Component{
         <div>
           <Toolbar style={{backgroundColor: "#1565C0", height: "64px"}}>
             <ToolbarGroup>
-              <div><img src={zhituku} style={{width: '1000px', paddingLeft: "22%"}} /></div>
+              <div><img src={zhituku} style={{width: '1000px', paddingLeft: "22%",marginTop: "20px"}} /></div>
             </ToolbarGroup>
           </Toolbar>
           <Toolbar style={{backgroundColor: "#1565C0", height: "64px", boxShadow: "rgb(162, 187, 210) 0px 6px 10px"}}>

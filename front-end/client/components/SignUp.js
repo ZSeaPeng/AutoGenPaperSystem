@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField'; 
+import TextField from 'material-ui/TextField';
 
 class SignUp extends Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class SignUp extends Component {
       textAlign: 'center',
       display: 'inline-block',
       position: 'absolute',
-      top: 100,
+      top: '46%',
       right: 100,
       paddingTop: 30
     };
