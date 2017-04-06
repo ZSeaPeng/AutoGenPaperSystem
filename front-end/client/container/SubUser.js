@@ -95,7 +95,7 @@ class SubUser extends Component {
       <div>
         <div style={styles.title}>
             <h3>&nbsp;用户管理</h3>
-            <input type="button" value="删除" style={{width:100, height:35, backgroundColor: "#63B8FF", border: 'none', color: "#ffffff", fontSize: 14}}/>
+          
           {/* <FlatButton label="显示所有" secondary={true} onClick={this.handleExpand}/> */}
         </div>
         {/* <div>
