@@ -1,7 +1,7 @@
 import React from 'react';
 import style from '../style/QuestionCard.css';
 import { browserHistory } from 'react-router';
-var pinyin = require("node-pinyin");
+var pinyin = require("pinyin");
 
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
@@ -58,7 +58,7 @@ export default class QuestionCard extends React.Component {
     const {dispatch, i, index, subName} = this.props;
 
     const subNameList = pinyin(subName, {
-                          style: normal
+                          style: pinyin.STYLE_INITIALS
                         });
     var subPath = "";
     for(let i = 0; i < subNameList.length; i++) {

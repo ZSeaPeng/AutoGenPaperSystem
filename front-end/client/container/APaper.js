@@ -188,7 +188,7 @@ class Paper extends Component {
                 </div>
                 {radios.questions.map((radio, i) =>
                   <QuestionCard
-                    subName={subName},
+                    subName={subName}
                     dispatch = {this.props.dispatch}
                     key={i} radio={radio} index={radios.i} i={i}
                     length={radios.questions.length} onChange={this.handleChange}
