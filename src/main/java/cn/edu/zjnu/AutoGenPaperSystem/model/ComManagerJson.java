@@ -24,10 +24,12 @@ public class ComManagerJson {
 
     private List dopaper;
 
+    private Integer type;
+
     public ComManagerJson() {
     }
 
-    public ComManagerJson(Integer commanagerId, String commanagerName, String commanagerPsw, String subjectcan, Integer school, List<UserJson> userJsonList, List historyPaper, List allowpaper, List dopaper) {
+    public ComManagerJson(Integer commanagerId, String commanagerName, String commanagerPsw, String subjectcan, Integer school, List<UserJson> userJsonList, List historyPaper, List allowpaper, List dopaper, Integer type) {
         this.commanagerId = commanagerId;
         this.commanagerName = commanagerName;
         this.commanagerPsw = commanagerPsw;
@@ -37,6 +39,7 @@ public class ComManagerJson {
         this.historyPaper = historyPaper;
         this.allowpaper = allowpaper;
         this.dopaper = dopaper;
+        this.type = type;
     }
 
     public Integer getCommanagerId() {
@@ -109,5 +112,13 @@ public class ComManagerJson {
 
     public void setDopaper(List dopaper) {
         this.dopaper = dopaper;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

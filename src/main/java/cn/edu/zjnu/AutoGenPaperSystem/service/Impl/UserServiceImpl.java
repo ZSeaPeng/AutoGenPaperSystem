@@ -318,15 +318,11 @@ public class UserServiceImpl implements UserService {
         paperJsonList.clear();
         for (Paper paper:historyPaperList){
             PaperJson paperJson = new PaperJson();
-            paperJson.setHistoryPaperUrl(paper.getPaperurl());
-            paperJson.setHistoryAnswerUrl(paper.getAnswerurl());
-            paperJson.setPaperId(paper.getPaperid());
-            paperJson.setPaperName(paper.getPapername());
-            paperJson.setPaperDate(paper.getGeneratime());
+            paperJson= (PaperJson) DataUtil.getNewClass(paperJson,paper);
             paperJsonList.add(paperJson);
         }
         userJson.setHistoryPaper(paperJsonList);
-
+        userJson.setType(1);
 //        int collectionnum = user.getUsercollection().split(",").length - 1;
 //        user.setUsercollection(String.valueOf(collectionnum));
 //        List<Paper> paperList = paperMapper.selectByUserId(userId);

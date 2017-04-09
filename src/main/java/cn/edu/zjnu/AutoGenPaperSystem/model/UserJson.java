@@ -32,10 +32,11 @@ public class UserJson {
 
     private List dopaper;
 
+    private Integer type;
     public UserJson() {
     }
 
-    public UserJson(Integer userid, String username, String userpassword, String phonenum, String school, String email, Integer downloadable, Integer permissionId, String subjectcan, Integer commanagerName, List historyPaper, List allowpaper, List dopaper) {
+    public UserJson(Integer userid, String username, String userpassword, String phonenum, String school, String email, Integer downloadable, Integer permissionId, String subjectcan, Integer commanagerName, List historyPaper, List allowpaper, List dopaper, Integer type) {
         this.userid = userid;
         this.username = username;
         this.userpassword = userpassword;
@@ -49,6 +50,7 @@ public class UserJson {
         this.historyPaper = historyPaper;
         this.allowpaper = allowpaper;
         this.dopaper = dopaper;
+        this.type = type;
     }
 
     public Integer getUserid() {
@@ -153,5 +155,13 @@ public class UserJson {
 
     public void setCommanagerName(Integer commanagerName) {
         this.commanagerName = commanagerName;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

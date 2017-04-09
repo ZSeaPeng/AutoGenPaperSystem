@@ -111,16 +111,11 @@ public class ComManagerServiceImpl implements ComManagerService {
         paperJsonList.clear();
         for (Paper paper:historyPaperList){
             PaperJson paperJson = new PaperJson();
-            paperJson.setHistoryPaperUrl(paper.getPaperurl());
-            paperJson.setHistoryAnswerUrl(paper.getAnswerurl());
-            paperJson.setPaperId(paper.getPaperid());
-            paperJson.setPaperName(paper.getPapername());
-            paperJson.setPaperDate(paper.getGeneratime());
+            paperJson= (PaperJson) DataUtil.getNewClass(paperJson,paper);
             paperJsonList.add(paperJson);
         }
         comManagerJson.setHistoryPaper(paperJsonList);
-
-
+        comManagerJson.setType(2);
 //        String[] users = userList.split(",");
 //        for (String s : users) {
 //            if (!s.equals("0")) {
