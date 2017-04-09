@@ -43,9 +43,9 @@ class Navbar extends Component{
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div>
-          <Toolbar style={{backgroundColor: "#1565C0", height: "64px"}}>
+          <Toolbar style={{backgroundColor: "#ffffff", height: "64px"}}>
             <ToolbarGroup>
-              <div><img src={zhituku} style={{width: '1000px', paddingLeft: "22%",marginTop: "20px"}} /></div>
+              <div><img src={zhituku} style={{width: '1000px', paddingLeft: "22%",marginTop: "20px",marginBottom: "20px"}} /></div>
             </ToolbarGroup>
           </Toolbar>
           <Toolbar style={{backgroundColor: "#1565C0", height: "64px", boxShadow: "rgb(162, 187, 210) 0px 6px 10px"}}>

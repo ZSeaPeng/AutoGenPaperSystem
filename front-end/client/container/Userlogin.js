@@ -27,7 +27,7 @@ class adminlogin extends React.Component {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div>
-          <img src={zhituku} style={{width: '100%'}} />
+          <img src={zhituku} style={{minWidth: 1280}} />
           <SignUp error={error} onChange={this.handleSubmit}/>
         </div>
       </MuiThemeProvider>
