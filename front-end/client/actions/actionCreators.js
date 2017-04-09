@@ -756,8 +756,10 @@ export const asynLogin = (username, password, type) => dispatch => {
         if('error' in json) {
           dispatch(loginError(json))
         } else {
+          window.sessionStorage.setItem('type', type)
+          window.sessionStorage.setItem('username', username)
           window.sessionStorage.setItem('userid', json.userId)
-          window.sessionStorage.setItem('username', json.username)
+
           dispatch(login(json))
           history.push('/index')
         }

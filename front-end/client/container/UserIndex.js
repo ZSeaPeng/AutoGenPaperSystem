@@ -118,7 +118,9 @@ class UserIndex extends React.Component {
     } else {
       type = "集团用户"
     }
-    const isNormal = userInfo.type === 0;
+  
+    const isNormal = window.sessionStorage.getItem('type') == 1;
+
     return (
       <div className={style.userinfo}>
         <Card>

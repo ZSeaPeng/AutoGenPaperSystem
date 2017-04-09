@@ -37,7 +37,9 @@ class Navbar extends Component{
     dispatch(getInitialState());
   };
   render() {
-    const { sublist, userid, username } = this.props;
+    const { sublist, userid } = this.props;
+    const type = window.sessionStorage.getItem('type');
+    const username = window.sessionStorage.getItem('username');
     const isEmpty = sublist.length === 0;
     const isLogin = userid === -1;
     return (
