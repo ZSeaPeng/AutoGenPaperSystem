@@ -7,7 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import { positionChange, paperDelete } from '../actions/actionCreators';
+import { positionChange, paperDelete, asynRandomChange } from '../actions/actionCreators';
 
 export default class QuestionCard extends React.Component {
   constructor(props) {
@@ -55,17 +55,17 @@ export default class QuestionCard extends React.Component {
   }
 
   handleRandom() {
-    const {dispatch, i, index, subName} = this.props;
+    const {dispatch, i, index, subName, radio} = this.props;
+    dispatch(asynRandomChange({id: radio.id，index， i}));
+    // const subNameList = pinyin(subName, {
+    //                       style: pinyin.STYLE_INITIALS
+    //                     });
+    // var subPath = "";
+    // for(let i = 0; i < subNameList.length; i++) {
+    //    subPath = subPath + subNameList[i];
+    // }
 
-    const subNameList = pinyin(subName, {
-                          style: pinyin.STYLE_INITIALS
-                        });
-    var subPath = "";
-    for(let i = 0; i < subNameList.length; i++) {
-       subPath = subPath + subNameList[i];
-    }
-
-    browserHistory.push('/' + subPath + '/');
+    // browserHistory.push('/' + subPath + '/');
   }
 
   handlePositionChange() {

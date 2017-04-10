@@ -46,6 +46,7 @@ export const GETPAPER = 'GETPAPER';
 export const POSITIONCHANGE = 'POSITIONCHANGE';
 export const SCORECHANGE = 'SCORECHANGE';
 export const CHANGEPAPERNAME = 'CHANGEPAPERNAME'
+export const RANDOMCHANGE = 'RANDOMCHANGE'
 
 let port = "http://localhost:8111";
 
@@ -279,6 +280,11 @@ export const changeUserInfo = details => ({
 
 export const positionChange = details => ({
   type: POSITIONCHANGE,
+  details
+})
+
+export const randomChange = details => ({
+  type: RANDOMCHANGE,
   details
 })
 
@@ -836,4 +842,33 @@ export const submitWordInfo = (wordInfo) => dispatch => {
     .then(response => response.json())
     .then(json => dispatch(testPaper(json)))
     .then(browserHistory.push("/wait"))
-};
+}
+
+export const submitWordInfo = (id, index, i) => dispatch => {
+  return fetch(`${port}/AutoGenPaperSystem/api/randomchange`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({id})
+  })
+    // .then(response => response.json())
+    // .then(json => dispatch(testPaper({json, index, i})))
+}
+
+export const asynShowPaper = (paperid, questionids) => dispatch => {
+  return fetch(`${port}/AutoGenPaperSystem/api/user/hispapershow`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({
+      paperid, questionids
+    })
+  })
+    .then(browserHistory.push("/testpaper"))
+}
+
+

@@ -15,7 +15,7 @@ import Chip from 'material-ui/Chip';
 
 import SubUser from './SubUser';
 
-import { asynRecUserInfo, asynUserChange, asynChangeInfo } from '../actions/actionCreators';
+import { asynRecUserInfo, asynUserChange, asynChangeInfo, asynShowPaper } from '../actions/actionCreators';
 
 class UserIndex extends React.Component {
   constructor(props) {
@@ -108,7 +108,7 @@ class UserIndex extends React.Component {
   }
 
   render() {
-    const { userInfo, grades } = this.props;
+    const { userInfo, grades, dispatch } = this.props;
     const { sublist } = grades;
     let count = userInfo.allowpaper;
     let sub = userInfo.subjectcan.split(',');
@@ -168,9 +168,11 @@ class UserIndex extends React.Component {
                 nestedItems=
                   {userInfo.historyPaper.map((paper, i) =>
                     <ListItem key={i}>
-                      <Link to={`${paper.historyPaperUrl}`}>
-                        {paper.paperName}---------------------{paper.paperDate}
-                      </Link>
+                      <div onClick={
+                        dispatch(asynShowPaper({paperid: paper.paperid, questionids: paper.questionids}))
+                      }>
+                        {paper.papername}---------------------{paper.generatime}
+                      </div>
                     </ListItem>)}
               />
             </List>

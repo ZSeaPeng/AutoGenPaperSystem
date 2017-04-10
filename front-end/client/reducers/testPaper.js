@@ -1,4 +1,4 @@
-import { TESTPAPER, PAPERDOWN, PAPERUP, PAPERDELETE, PAPERUUP, PAPERDDOWN, GETPAPER, POSITIONCHANGE, SCORECHANGE, CHANGEPAPERNAME } from '../actions/actionCreators'
+import { TESTPAPER, PAPERDOWN, PAPERUP, PAPERDELETE, PAPERUUP, PAPERDDOWN, GETPAPER, POSITIONCHANGE, SCORECHANGE, CHANGEPAPERNAME, RAMDOMCHANGE } from '../actions/actionCreators'
 
 function testPaper(state={
   type: '单元测试',
@@ -118,6 +118,17 @@ function testPaper(state={
           {
             ...state.questions[action.details.index],
             score: action.details.score
+          },        
+          ...state.questions.slice(action.details.index + 1)
+        ]
+      }
+    case RAMDOMCHANGE:
+      return {
+        ...state,
+        questions: [
+          ...state.questions.slice(0, action.details.index),
+          {
+            ...action.details.json
           },        
           ...state.questions.slice(action.details.index + 1)
         ]
