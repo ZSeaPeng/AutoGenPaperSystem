@@ -46,7 +46,6 @@ export const GETPAPER = 'GETPAPER';
 export const POSITIONCHANGE = 'POSITIONCHANGE';
 export const SCORECHANGE = 'SCORECHANGE';
 export const CHANGEPAPERNAME = 'CHANGEPAPERNAME'
-export const RANDOMCHANGE = 'RANDOMCHANGE'
 
 let port = "http://localhost:8111";
 
@@ -280,11 +279,6 @@ export const changeUserInfo = details => ({
 
 export const positionChange = details => ({
   type: POSITIONCHANGE,
-  details
-})
-
-export const randomChange = details => ({
-  type: RANDOMCHANGE,
   details
 })
 
@@ -844,7 +838,7 @@ export const submitWordInfo = (wordInfo) => dispatch => {
     .then(browserHistory.push("/wait"))
 }
 
-export const submitWordInfo = (id, index, i) => dispatch => {
+export const submitWordInfo = (id) => dispatch => {
   return fetch(`${port}/AutoGenPaperSystem/api/randomchange`, {
     method: 'POST',
     headers: {
