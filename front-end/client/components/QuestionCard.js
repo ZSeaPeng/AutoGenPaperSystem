@@ -57,15 +57,15 @@ export default class QuestionCard extends React.Component {
   handleRandom() {
     const {dispatch, i, index, subName, radio} = this.props;
     dispatch(asynRandomChange({id: radio.id}));
-    const subNameList = pinyin(subName, {
-                          style: pinyin.STYLE_INITIALS
-                        });
-    var subPath = "";
-    for(let i = 0; i < subNameList.length; i++) {
-       subPath = subPath + subNameList[i];
-    }
+    // const subNameList = pinyin(subName, {
+    //                       style: pinyin.STYLE_INITIALS
+    //                     });
+    // var subPath = "";
+    // for(let i = 0; i < subNameList.length; i++) {
+    //    subPath = subPath + subNameList[i];
+    // }
 
-    browserHistory.push('/' + subPath + '/');
+    // browserHistory.push('/' + subPath + '/');
   }
 
   handlePositionChange() {
