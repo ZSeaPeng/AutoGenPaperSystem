@@ -838,14 +838,14 @@ export const submitWordInfo = (wordInfo) => dispatch => {
     .then(browserHistory.push("/wait"))
 }
 
-export const submitWordInfo = (id) => dispatch => {
+export const asynRandomChange = (id) => dispatch => {
   return fetch(`${port}/AutoGenPaperSystem/api/randomchange`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json; charset=utf-8'
     },
-    body: JSON.stringify({id})
+    body: JSON.stringify({...id})
   })
     // .then(response => response.json())
     // .then(json => dispatch(testPaper({json, index, i})))
