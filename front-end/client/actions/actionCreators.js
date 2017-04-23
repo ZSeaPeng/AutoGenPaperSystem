@@ -839,7 +839,7 @@ export const submitWordInfo = (wordInfo) => dispatch => {
 }
 
 export const asynRandomChange = (id) => dispatch => {
-  return fetch(`${port}/AutoGenPaperSystem/api/randomchange`, {
+  return fetch(`${port}/AutoGenPaperSystem/api/paper/randomchange`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
