@@ -131,14 +131,18 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/randomchange", method = RequestMethod.POST)
-    public String randomchange(@RequestBody Map map) {
+    public Map randomchange(@RequestBody Map map) {
         int id = (int) map.get("id");
         System.out.println("id->" + id);
         Questions preQuestion = questionsServiceImpl.selectByPrimaryKey(id);
         //  System.out.println(preQuestion.getTypeId());
         Questions lastQuestion = questionsServiceImpl.selectRandQuestion(preQuestion);
         System.out.println(lastQuestion.getQuestionsId());
-        return "{\"id\":"+lastQuestion.getQuestionsId()+"}";
+        Map resultMap = new HashMap();
+        resultMap.put("id",lastQuestion.getQuestionsId());
+        resultMap.put("qurl","papersystem01.oss-cn-hangzhou.aliyuncs.com/"+lastQuestion.getQuesPic_URL());
+        resultMap.put("expanded",false);
+        return resultMap;
     }
 
 
