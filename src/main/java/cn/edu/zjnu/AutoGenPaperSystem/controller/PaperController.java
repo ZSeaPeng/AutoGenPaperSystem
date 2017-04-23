@@ -131,9 +131,11 @@ public class PaperController {
     }
 
     @RequestMapping(value = "/randomchange", method = RequestMethod.POST)
-    public void randomchange(@RequestBody int id) {
+    public void randomchange(@RequestBody Map map) {
+        int id= (int) map.get("id");
         System.out.println("id->"+id);
         Questions preQuestion=questionsServiceImpl.selectByPrimaryKey(id);
+        System.out.println(preQuestion.getTypeId());
         Questions lastQuestion=questionsServiceImpl.selectRandQuestion(preQuestion);
         System.out.println(lastQuestion.getQuestionsId());
     }

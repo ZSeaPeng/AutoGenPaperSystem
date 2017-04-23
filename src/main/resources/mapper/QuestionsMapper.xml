@@ -117,7 +117,7 @@
         FROM Questions
         WHERE Type_ID=#{param1} AND Difficulty_ID=#{param2}
     </select>
-    <select id="selectRandQuestion" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
+    <select id="selectRandQuestion" resultMap="BaseResultMap">
         SELECT
         *
         FROM Questions
@@ -130,7 +130,9 @@
       Type_ID= #{typeId,jdbcType=INTEGER} AND
       Difficulty_ID= #{difficultyId,jdbcType=INTEGER} AND
       Charact_ID=#{charactId,jdbcType=INTEGER} AND
-      Isdelete=#{isdelete,jdbcType=BIT}
+      Isdelete=0 AND
+      Questions_ID!=#{questionsId,jdbcType=INTEGER}
+      ORDER BY RAND() limit 1
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Questions
