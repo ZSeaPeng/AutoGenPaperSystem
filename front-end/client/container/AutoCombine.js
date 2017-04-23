@@ -113,20 +113,21 @@ class AutoCombine extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    let path = "/tiku/1/yuwen1/point0";
+    let path = "/tiku/1/shuxue15/point0";
     dispatch(getSelect(path));
   };
 
   onCourseChanged = (newValue) => {
     const { dispatch } = this.props;
     let path = this.props.sublist[0].contextList[newValue].url;
+
     dispatch(getSelect(path));
     this.setState({value: newValue,
                    questions: {},
                    questionsName: {},
                    points: []
                  });
-   console.log(this.state.points);
+
   };
   onModelChanged = (newModel) => {
     this.setState({model: newModel});
@@ -214,7 +215,7 @@ class AutoCombine extends Component {
           <br/><hr/>
           <div style={{height:550}}>
             <h3 style={styles.title}>选择知识点</h3>
-            <div style={{backgroundColor:'#E8E8E8',padding:5,height:520,width:300,float:'left',borderRadius: 10}}>
+            <div style={{backgroundColor:'#E8E8E8',padding:5,height:600,width:300,float:'left',borderRadius: 10}}>
               <SelectField
                 value={this.state.pointValue}
                 onChange={this.handleChange}
@@ -256,7 +257,7 @@ class AutoCombine extends Component {
                 )
                }
             </div>
-            <div style={{backgroundColor:"#E8E8E8",height:520,width:870,float:'left',marginLeft:10,padding:5,borderRadius: 10}}>
+            <div style={{backgroundColor:"#E8E8E8",height:600,width:870,float:'left',marginLeft:5,padding:5,borderRadius: 10}}>
                <p style={styles.title}>已选择知识点</p>
                {
                  this.state.points.map((point, i) =>
