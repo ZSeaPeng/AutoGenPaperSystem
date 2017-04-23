@@ -117,6 +117,21 @@
         FROM Questions
         WHERE Type_ID=#{param1} AND Difficulty_ID=#{param2}
     </select>
+    <select id="selectRandQuestion" resultType="cn.edu.zjnu.AutoGenPaperSystem.model.Questions">
+        SELECT
+        *
+        FROM Questions
+        WHERE
+        Subject_ID= #{subjectId,jdbcType=INTEGER} AND
+        Knowledge_ID1= #{knowledgeId1,jdbcType=INTEGER} AND
+        Knowledge_ID2= #{knowledgeId2,jdbcType=INTEGER} AND
+        Knowledge_ID3= #{knowledgeId3,jdbcType=INTEGER} AND
+      Knowledge_ID4= #{knowledgeId4,jdbcType=INTEGER} AND
+      Type_ID= #{typeId,jdbcType=INTEGER} AND
+      Difficulty_ID= #{difficultyId,jdbcType=INTEGER} AND
+      Charact_ID=#{charactId,jdbcType=INTEGER} AND
+      Isdelete=#{isdelete,jdbcType=BIT}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Questions
     where Questions_ID = #{questionsId,jdbcType=INTEGER}

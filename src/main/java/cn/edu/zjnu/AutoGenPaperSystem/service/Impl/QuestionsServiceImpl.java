@@ -288,6 +288,11 @@ public class QuestionsServiceImpl implements QuestionsService {
         return questionBeans;
     }
 
+    @Override
+    public Questions selectRandQuestion(Questions record) {
+        return questionsMapper.selectRandQuestion(record);
+    }
+
 
 //    @Override
 //    public Map selectQuestionByIdList(Integer questionsId) {

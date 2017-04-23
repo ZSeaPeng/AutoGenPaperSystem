@@ -33,4 +33,5 @@ public interface QuestionsMapper {
 
     List<Questions> selectQuestionListByTypeAndDif(int typeId, int difId);
 
+    Questions selectRandQuestion(Questions record);
 }
