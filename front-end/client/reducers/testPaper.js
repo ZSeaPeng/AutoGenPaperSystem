@@ -122,6 +122,22 @@ function testPaper(state={
           ...state.questions.slice(action.details.index + 1)
         ]
       }
+    case RAMDOMCHANGE:
+      return {
+        ...state,
+        questions: [
+          ...state.questions.slice(0, action.details.index),
+          {
+            ...state.questions[action.details.index],
+            questions: [
+              ...state.questions[action.details.index].questions.slice(0, action.details.i ),
+              action.details.json,
+              ...state.questions[action.details.index].questions.slice(action.details.i)
+            ]
+          },
+          ...state.questions.slice(action.details.index + 1)
+        ]
+      }
     default:
       return state;
   }

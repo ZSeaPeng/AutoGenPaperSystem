@@ -847,8 +847,8 @@ export const asynRandomChange = (id) => dispatch => {
     },
     body: JSON.stringify({...id})
   })
-    // .then(response => response.json())
-    // .then(json => dispatch(testPaper({json, index, i})))
+    .then(response => response.json())
+    .then(json => dispatch(testPaper({json, index, i})))
 }
 
 export const asynShowPaper = (paperid, questionids) => dispatch => {
