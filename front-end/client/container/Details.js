@@ -141,7 +141,7 @@ class Details extends Component {
               { Difficulty.map((diff, i) => <Lest type={diff} key={i} />)}
             </ToolbarGroup>
           </Toolbar>
-          <Toolbar  style={{padding: '0'}}>
+          <Toolbar style={{padding: '0'}}>
             <ToolbarGroup>
               <ToolbarTitle text="特点"  style={style.toolStyle}/>
               { Charaction.map((feature, i) => <Lest type={feature} key={i}/>)}
