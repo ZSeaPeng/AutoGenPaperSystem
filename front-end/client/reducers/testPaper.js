@@ -1,23 +1,39 @@
-import { TESTPAPER, PAPERDOWN, PAPERUP, PAPERDELETE, PAPERUUP, PAPERDDOWN, GETPAPER, POSITIONCHANGE, SCORECHANGE, CHANGEPAPERNAME, RAMDOMCHANGE } from '../actions/actionCreators'
+import {
+  TESTPAPER,
+  PAPERDOWN,
+  PAPERUP,
+  PAPERDELETE,
+  PAPERUUP,
+  PAPERDDOWN,
+  GETPAPER,
+  POSITIONCHANGE,
+  SCORECHANGE,
+  CHANGEPAPERNAME,
+  RANDONCHANGE
+} from '../actions/actionCreators';
 
-function testPaper(state={
-  type: '单元测试',
-  subName: '语文',
-  subid: 0,
-  paperName: '',
-  questions:[],
-  qurl: "",
-  aurl: ""}, action) {
+function testPaper(
+  state = {
+    type: '单元测试',
+    subName: '语文',
+    subid: 0,
+    paperName: '',
+    questions: [],
+    qurl: '',
+    aurl: ''
+  },
+  action
+) {
   switch (action.type) {
     case CHANGEPAPERNAME:
       return {
         ...state,
         paperName: action.paperName
-      }
+      };
     case TESTPAPER:
       return {
         ...state,
-        ...action.details,
+        ...action.details
       };
     case PAPERDELETE:
       return {
@@ -27,8 +43,13 @@ function testPaper(state={
           {
             ...state.questions[action.details.index],
             questions: [
-              ...state.questions[action.details.index].questions.slice(0, action.details.i),
-              ...state.questions[action.details.index].questions.slice(action.details.i + 1)
+              ...state.questions[action.details.index].questions.slice(
+                0,
+                action.details.i
+              ),
+              ...state.questions[action.details.index].questions.slice(
+                action.details.i + 1
+              )
             ]
           },
           ...state.questions.slice(action.details.index + 1)
@@ -42,10 +63,17 @@ function testPaper(state={
           {
             ...state.questions[action.details.index],
             questions: [
-              ...state.questions[action.details.index].questions.slice(0, action.details.i - 1),
+              ...state.questions[action.details.index].questions.slice(
+                0,
+                action.details.i - 1
+              ),
               state.questions[action.details.index].questions[action.details.i],
-              state.questions[action.details.index].questions[action.details.i - 1],
-              ...state.questions[action.details.index].questions.slice(action.details.i + 1)
+              state.questions[action.details.index].questions[
+                action.details.i - 1
+              ],
+              ...state.questions[action.details.index].questions.slice(
+                action.details.i + 1
+              )
             ]
           },
           ...state.questions.slice(action.details.index + 1)
@@ -59,10 +87,17 @@ function testPaper(state={
           {
             ...state.questions[action.details.index],
             questions: [
-              ...state.questions[action.details.index].questions.slice(0, action.details.i),
-              state.questions[action.details.index].questions[action.details.i + 1],
+              ...state.questions[action.details.index].questions.slice(
+                0,
+                action.details.i
+              ),
+              state.questions[action.details.index].questions[
+                action.details.i + 1
+              ],
               state.questions[action.details.index].questions[action.details.i],
-              ...state.questions[action.details.index].questions.slice(action.details.i + 2)
+              ...state.questions[action.details.index].questions.slice(
+                action.details.i + 2
+              )
             ]
           },
           ...state.questions.slice(action.details.index + 1)
@@ -76,14 +111,19 @@ function testPaper(state={
           {
             ...state.questions[action.details.index],
             questions: [
-              ...state.questions[action.details.index].questions.slice(0, action.details.number ),
+              ...state.questions[action.details.index].questions.slice(
+                0,
+                action.details.number
+              ),
               state.questions[action.details.index].questions[action.details.i],
-              ...state.questions[action.details.index].questions.slice(action.details.number)
+              ...state.questions[action.details.index].questions.slice(
+                action.details.number
+              )
             ]
           },
           ...state.questions.slice(action.details.index + 1)
         ]
-      }
+      };
     case PAPERUUP:
       return {
         ...state,
@@ -109,7 +149,7 @@ function testPaper(state={
         ...state,
         qurl: action.json.qurl,
         aurl: action.json.aurl
-      }
+      };
     case SCORECHANGE:
       return {
         ...state,
@@ -118,11 +158,11 @@ function testPaper(state={
           {
             ...state.questions[action.details.index],
             score: action.details.score
-          },        
+          },
           ...state.questions.slice(action.details.index + 1)
         ]
-      }
-    case RAMDOMCHANGE:
+      };
+    case RANDONCHANGE:
       return {
         ...state,
         questions: [
@@ -130,14 +170,19 @@ function testPaper(state={
           {
             ...state.questions[action.details.index],
             questions: [
-              ...state.questions[action.details.index].questions.slice(0, action.details.i ),
+              ...state.questions[action.details.index].questions.slice(
+                0,
+                action.details.i
+              ),
               action.details.json,
-              ...state.questions[action.details.index].questions.slice(action.details.i)
+              ...state.questions[action.details.index].questions.slice(
+                action.details.i + 1
+              )
             ]
           },
           ...state.questions.slice(action.details.index + 1)
         ]
-      }
+      };
     default:
       return state;
   }
