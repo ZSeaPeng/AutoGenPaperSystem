@@ -24,7 +24,7 @@ public class UserJson {
 
     private String subjectcan;
 
-    private Integer commanagerName;
+    private String commanagerName;
 
     private List historyPaper;
 
@@ -36,7 +36,7 @@ public class UserJson {
     public UserJson() {
     }
 
-    public UserJson(Integer userid, String username, String userpassword, String phonenum, String school, String email, Integer downloadable, Integer permissionId, String subjectcan, Integer commanagerName, List historyPaper, List allowpaper, List dopaper, Integer type) {
+    public UserJson(Integer userid, String username, String userpassword, String phonenum, String school, String email, Integer downloadable, Integer permissionId, String subjectcan, String commanagerName, List historyPaper, List allowpaper, List dopaper, Integer type) {
         this.userid = userid;
         this.username = username;
         this.userpassword = userpassword;
@@ -149,11 +149,11 @@ public class UserJson {
         this.email = email;
     }
 
-    public Integer getCommanagerName() {
+    public String getCommanagerName() {
         return commanagerName;
     }
 
-    public void setCommanagerName(Integer commanagerName) {
+    public void setCommanagerName(String commanagerName) {
         this.commanagerName = commanagerName;
     }
 

@@ -25,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private UserSubPermissMapper userSubPermissMapper;
     @Resource
     private SubjectMapper subjectMapper;
+    @Resource
+    private ComManagerMapper comManagerMapper;
 
     @Override
     public int deleteByPrimaryKey(Integer userId) {
@@ -302,6 +304,9 @@ public class UserServiceImpl implements UserService {
         //将查询到的数据导入相应json
         UserJson userJson=new UserJson();
         userJson= (UserJson) DataUtil.getNewClass(userJson,user);
+        //上级主管名字
+        ComManager comManager=comManagerMapper.selectByPrimaryKey(user.getCommanagerId());
+        userJson.setCommanagerName(comManager.getCommanagerName());
         //json中添加允许查询的试卷数，已经组成的试卷数
         List<UserSubPermiss> userSubPermiss=userSubPermissMapper.selectListByUseridKey(userId);
         List<Integer> allows=new ArrayList();
