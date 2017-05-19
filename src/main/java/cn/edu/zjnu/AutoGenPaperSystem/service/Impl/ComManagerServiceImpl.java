@@ -27,6 +27,9 @@ public class ComManagerServiceImpl implements ComManagerService {
     private ComMangSubPermissMapper comMangSubPermissMapper;
     @Resource
     private PaperMapper paperMapper;
+    @Resource
+    private SubjectMapper subjectMapper;
+
 
     @Override
     public int deleteByPrimaryKey(Integer commanagerId) {
@@ -86,6 +89,15 @@ public class ComManagerServiceImpl implements ComManagerService {
         }
         comManagerJson.setAllowpaper(comallows);
         comManagerJson.setDopaper(comdos);
+        //可查询的学科
+        String[] subjectIdList=comManager.getSubjectcan().split(",");
+        List<String> subjectcan=new ArrayList<>();
+        for (String list:subjectIdList){
+            if (!list.equals("0")){
+                subjectcan.add(subjectMapper.selectByPrimaryKey(Integer.valueOf(list)).getSubjectName());
+            }
+        }
+        comManagerJson.setSubjectcanList(subjectcan);
         //json加入用户列表
         List<UserJson> userJsonList=new ArrayList<>();
         String []userList=comManager.getUseridlist().split(",");

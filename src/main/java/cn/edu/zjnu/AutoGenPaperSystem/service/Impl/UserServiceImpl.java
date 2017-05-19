@@ -317,6 +317,15 @@ public class UserServiceImpl implements UserService {
         }
         userJson.setAllowpaper(allows);
         userJson.setDopaper(dos);
+        //可查询的学科
+        String[] subjectIdList=user.getSubjectcan().split(",");
+        List<String> subjectcan=new ArrayList<>();
+        for (String list:subjectIdList){
+            if (!list.equals("0")){
+                subjectcan.add(subjectMapper.selectByPrimaryKey(Integer.valueOf(list)).getSubjectName());
+            }
+        }
+        userJson.setSubjectcanList(subjectcan);
         //json加入历史查询到的试卷
         List<Paper> historyPaperList=paperMapper.selectByUserId(userId);
         List<PaperJson> paperJsonList = new ArrayList<>();

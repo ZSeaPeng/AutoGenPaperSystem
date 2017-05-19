@@ -12,7 +12,7 @@ public class ComManagerJson {
 
     private String commanagerPsw;
 
-    private String subjectcan;
+    private List<String> subjectcanList;
 
     private Integer school;
 
@@ -29,11 +29,11 @@ public class ComManagerJson {
     public ComManagerJson() {
     }
 
-    public ComManagerJson(Integer commanagerId, String commanagerName, String commanagerPsw, String subjectcan, Integer school, List<UserJson> userJsonList, List historyPaper, List allowpaper, List dopaper, Integer type) {
+    public ComManagerJson(Integer commanagerId, String commanagerName, String commanagerPsw, List<String> subjectcanList, Integer school, List<UserJson> userJsonList, List historyPaper, List allowpaper, List dopaper, Integer type) {
         this.commanagerId = commanagerId;
         this.commanagerName = commanagerName;
         this.commanagerPsw = commanagerPsw;
-        this.subjectcan = subjectcan;
+        this.subjectcanList = subjectcanList;
         this.school = school;
         this.userJsonList = userJsonList;
         this.historyPaper = historyPaper;
@@ -66,12 +66,12 @@ public class ComManagerJson {
         this.commanagerPsw = commanagerPsw;
     }
 
-    public String getSubjectcan() {
-        return subjectcan;
+    public List<String> getSubjectcanList() {
+        return subjectcanList;
     }
 
-    public void setSubjectcan(String subjectcan) {
-        this.subjectcan = subjectcan;
+    public void setSubjectcanList(List<String> subjectcanList) {
+        this.subjectcanList = subjectcanList;
     }
 
     public Integer getSchool() {

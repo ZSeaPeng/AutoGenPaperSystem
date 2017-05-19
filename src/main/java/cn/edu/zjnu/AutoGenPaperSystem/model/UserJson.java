@@ -22,7 +22,7 @@ public class UserJson {
 
     private Integer permissionId;
 
-    private String subjectcan;
+    private List<String> subjectcanList;
 
     private String commanagerName;
 
@@ -36,7 +36,7 @@ public class UserJson {
     public UserJson() {
     }
 
-    public UserJson(Integer userid, String username, String userpassword, String phonenum, String school, String email, Integer downloadable, Integer permissionId, String subjectcan, String commanagerName, List historyPaper, List allowpaper, List dopaper, Integer type) {
+    public UserJson(Integer userid, String username, String userpassword, String phonenum, String school, String email, Integer downloadable, Integer permissionId, List<String> subjectcanList, String commanagerName, List historyPaper, List allowpaper, List dopaper, Integer type) {
         this.userid = userid;
         this.username = username;
         this.userpassword = userpassword;
@@ -45,7 +45,7 @@ public class UserJson {
         this.email = email;
         this.downloadable = downloadable;
         this.permissionId = permissionId;
-        this.subjectcan = subjectcan;
+        this.subjectcanList = subjectcanList;
         this.commanagerName = commanagerName;
         this.historyPaper = historyPaper;
         this.allowpaper = allowpaper;
@@ -101,12 +101,12 @@ public class UserJson {
         this.phonenum = phonenum;
     }
 
-    public String getSubjectcan() {
-        return subjectcan;
+    public List<String> getSubjectcanList() {
+        return subjectcanList;
     }
 
-    public void setSubjectcan(String subjectcan) {
-        this.subjectcan = subjectcan;
+    public void setSubjectcanList(List<String> subjectcanList) {
+        this.subjectcanList = subjectcanList;
     }
 
     public List getHistoryPaper() {
