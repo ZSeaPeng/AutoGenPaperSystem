@@ -11,7 +11,6 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import ChosenChip from '../components/ChosenChip';
 import UnChosenChip from '../components/UnChosenChip';
-import UserEdit from '../components/UserEdit.js';
 
 import { asynRemoveSubject, addSubPre, removeSubPre, asynChange, asynDeleteSubUser } from '../actions/actionCreators';
 
@@ -31,7 +30,7 @@ const styles = {
   }
 };
 
-class SubUser extends Component {
+export default class SubUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -93,42 +92,6 @@ class SubUser extends Component {
 
     return (
       <div>
-        <div style={styles.title}>
-            <h3>&nbsp;用户管理</h3>
-          
-          {/* <FlatButton label="显示所有" secondary={true} onClick={this.handleExpand}/> */}
-        </div>
-        {/* <div>
-          <Card style={styles.card}>
-            <CardHeader avatar="" title="张三"/>
-            <CardActions>
-              <FlatButton label="删除此用户" secondary={true} />
-            </CardActions>
-          </Card>
-          <Card style={styles.card}>
-            <CardHeader avatar="" title="张三"/>
-            <CardActions>
-              <FlatButton label="删除此用户" secondary={true} />
-            </CardActions>
-          </Card>
-          <Card style={styles.card}>
-            <CardHeader avatar="" title="张三"/>
-            <CardActions>
-              <FlatButton label="删除此用户" secondary={true} />
-            </CardActions>
-          </Card>
-        </div>
-        <div style={style}>
-          <Card style={styles.card}>
-            <CardHeader
-              avatar=""
-              title="张三"
-            />
-            <CardActions>
-              <FlatButton label="删除此用户" secondary={true} />
-            </CardActions>
-          </Card>
-        </div> */}
         <Tabs selectedIndex={0}>
           <TabList>
             <Tab>用户列表</Tab>
@@ -170,7 +133,7 @@ class SubUser extends Component {
           </TabPanel>
           <TabPanel>
             <h2>添加用户</h2>
-            <UserEdit onSubmit={this.submit} type="0"/>
+
           </TabPanel>
         </Tabs>
         <Dialog
@@ -179,7 +142,7 @@ class SubUser extends Component {
           open={this.state.open2}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}>
-          <UserEdit onSubmit={this.submit} type="2"/>
+          {/* <UserEdit onSubmit={this.submit} type="2"/> */}
         </Dialog>
         <Dialog
           title="确认"
@@ -195,5 +158,3 @@ class SubUser extends Component {
     )
   }
 }
-
-export default SubUser;

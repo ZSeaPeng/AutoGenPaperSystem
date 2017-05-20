@@ -10,6 +10,7 @@ import courseList from './courseList';
 import testPaper from './testPaper';
 import subUser from './subUser';
 import userInfo from './userInfo';
+import management from './management';
 
 const rootReducer = combineReducers({
   grades,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   testPaper,
   subUser,
   userInfo,
+  management,
   form: formReducer,
   routing: routerReducer
 });

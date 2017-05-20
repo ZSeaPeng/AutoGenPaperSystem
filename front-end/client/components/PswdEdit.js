@@ -10,19 +10,19 @@ const styles = {
     marginTop: 16,
   },
   table: {
-    
+  
     color: "gray",
     borderSpacing: 10,
   },
   dialog: {
-
     width: 600,
   }
 };
 
-export default class UserEdit extends Component {
+export default class PswdEdit extends Component {
   state = {
     open: false,
+    valid: false
   };
 
   handleOpen = () => {
@@ -45,16 +45,15 @@ export default class UserEdit extends Component {
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.handleClose}
+        disabled={!this.state.valid}
       />,
     ];
 
-
     return (
       <div>
-        <RaisedButton primary= {true} label="编辑信息" onTouchTap={this.handleOpen} />
-
+        <RaisedButton secondary= {true} label="修改密码" onTouchTap={this.handleOpen} />
         <Dialog
-          title="编辑信息"
+          title="修改密码"
           actions={actions}
           modal={false}
           open={this.state.open}
@@ -62,20 +61,26 @@ export default class UserEdit extends Component {
           autoScrollBodyContent={true}
           contentStyle={styles.dialog}
         >
-          <table style={styles.table}>
-            <tbody>
-              {this.props.infoEdit.map((inf, i) => <tr key ={i}>
-                <td style={{width: 100,}}><p>{inf.name}</p></td>
-                <td style={{width: 20}}><p>:</p></td>
-                <td>
-                  <TextField
-                    defaultValue={inf.context}
-                    id = {''+i}
-                  />
-                </td>
-              </tr>)}
-            </tbody>
-          </table>
+            <table style={styles.table}>
+              <tbody>
+                <tr>
+                  <td style={{width: 100,}}><p>输入密码</p></td>
+                  <td style={{width: 20}}><p>:</p></td>
+                  <td><TextField
+                    floatingLabelText="Password"
+                    type="password"
+                  /></td>
+                </tr>
+                <tr>
+                  <td style={{width: 100,}}><p>确认密码</p></td>
+                  <td style={{width: 20}}><p>:</p></td>
+                  <td><TextField
+                    floatingLabelText="Confirm"
+                    type="password"
+                  /></td>
+                </tr>
+              </tbody>
+            </table>
         </Dialog>
       </div>
     );
