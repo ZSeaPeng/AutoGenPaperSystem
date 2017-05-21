@@ -86,7 +86,7 @@ class Navbar extends Component{
                 ? null
                 : <div>
                   <small style={{color: '#FFF'}}>用户</small>&nbsp;
-                  <Link style={{color: '#FFF', fontSize: 24}} to="/userindex">{username}</Link>
+                  <Link style={{color: '#FFF', fontSize: 24}} to="/management">{username}</Link>
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <FlatButton style={{color: '#FFF', margin: '9px 0'}} label="登出" onClick={this.handleLogout} />
                 </div>

@@ -1,4 +1,4 @@
-import { RECEIVE_USERINFO, CHANGEUSERINFO } from '../actions/actionCreators';
+import { RECEIVE_USERINFO, CHANGEUSERINFO,RECEIVE_COMMANAGERINFO } from '../actions/actionCreators';
 
 function userInfo(state={
   username: "",
@@ -24,8 +24,20 @@ function userInfo(state={
         type: action.details.commanagerId,
         school: action.details.school,
         downloadable: action.details.downloadable,
-        historyPaper: [...action.details.historyPaper]
+        historyPaper: [...action.details.historyPaper],
       };
+
+    case RECEIVE_COMMANAGERINFO:
+      return {
+        username: action.details.commanagerName,
+        dopaper: action.details.dopaper,
+        allowpaper: action.details.allowpaper,
+        historyPaper: action.details.historyPaper,
+        school:  action.details.historyPaper,
+        subjectcan: action.details.subjectcan,
+        userJsonList: action.details.userJsonList,
+      };
+
     case CHANGEUSERINFO:
       return {
         username: action.details.username,

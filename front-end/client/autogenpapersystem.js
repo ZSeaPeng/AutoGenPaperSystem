@@ -24,6 +24,7 @@ import Userlogin from './container/Userlogin';
 import ProductIntro from './container/ProductIntro';
 import TeachingTeam from './container/TeachingTeam';
 import Wait from './container/Wait';
+import Management from './container/Management.js';
 import ShiJuan1 from './container/ShiJuan1.js';
 import ShiJuan2 from './container/ShiJuan2.js';
 import ShiJuan3 from './container/ShiJuan3.js';
@@ -48,6 +49,7 @@ const router = (
         <Route path="/testpaper" component={Paper} />
         <Route path="/autotestpaper" component={APaper} />
         <Route path="/admin" component={Admin} />
+        <Route path="/management" component={Management}/>
         <Route path="/userindex" component={UserIndex} />
         <Route path="/:sub/*" component={Details} />
         <Route path="/manualcombine" component={ManualCombine}/>

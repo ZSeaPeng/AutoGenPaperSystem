@@ -37,6 +37,7 @@ export const PAPERDDOWN = 'PAPERDDOWN';
 export const PAPERDELETE = 'PAPERDELETE';
 export const PAPERUUP = 'PAPERUUP';
 export const RECEIVE_USERINFO = 'RECEIVE_USERINFO';
+export const RECEIVE_COMMANAGERINFO = 'RECEIVE_COMMANAGERINFO';
 export const CLEAR = 'CLEAR';
 export const SUBUSER = 'GETSUBUSER';
 export const CREATESUBUSER = 'CREATESUBUSER';
@@ -257,6 +258,11 @@ export const paperDdown = (details) => ({
 
 export const recevieUserInfo = (details) => ({
   type: RECEIVE_USERINFO,
+  details
+});
+
+export const recevieCommanagerInfo = (details) => ({
+  type: RECEIVE_COMMANAGERINFO,
   details
 });
 
@@ -695,12 +701,23 @@ export const asynChangeInfo = (email: "", phone: "") => (dispatch) => {
 
 //get userinfo of himself
 export const asynRecUserInfo = () => (dispatch) => {
+  console.log("user executed");
   return fetch(`${port}/AutoGenPaperSystem/api/user/show`, {
     method: 'GET',
     credentials: 'include'
   })
     .then((response) => response.json())
     .then((json) => dispatch(recevieUserInfo(json)));
+};
+
+export const asynRecCommanagerInfo = () => (dispatch) => {
+  console.log("commanager executed");
+  return fetch(`${port}/AutoGenPaperSystem/api/commanager/show`, {
+    method: 'GET',
+    credentials: 'include'
+  })
+    .then((response) => response.json())
+    .then((json) => dispatch(recevieCommanagerInfo(json)));
 };
 
 //对应login()
