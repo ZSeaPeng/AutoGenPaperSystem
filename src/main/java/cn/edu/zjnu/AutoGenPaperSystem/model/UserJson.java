@@ -1,6 +1,7 @@
 package cn.edu.zjnu.AutoGenPaperSystem.model;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zseapeng on 2016/11/11.
@@ -24,6 +25,8 @@ public class UserJson {
 
     private List<String> subjectcanList;
 
+    private List<QuestionsJson> collectionMap;
+
     private String commanagerName;
 
     private List historyPaper;
@@ -36,7 +39,7 @@ public class UserJson {
     public UserJson() {
     }
 
-    public UserJson(Integer userid, String username, String userpassword, String phonenum, String school, String email, Integer downloadable, Integer permissionId, List<String> subjectcanList, String commanagerName, List historyPaper, List allowpaper, List dopaper, Integer type) {
+    public UserJson(Integer userid, String username, String userpassword, String phonenum, String school, String email, Integer downloadable, Integer permissionId, List<String> subjectcanList, List<QuestionsJson> collectionMap, String commanagerName, List historyPaper, List allowpaper, List dopaper, Integer type) {
         this.userid = userid;
         this.username = username;
         this.userpassword = userpassword;
@@ -46,6 +49,7 @@ public class UserJson {
         this.downloadable = downloadable;
         this.permissionId = permissionId;
         this.subjectcanList = subjectcanList;
+        this.collectionMap = collectionMap;
         this.commanagerName = commanagerName;
         this.historyPaper = historyPaper;
         this.allowpaper = allowpaper;
@@ -163,5 +167,13 @@ public class UserJson {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public List<QuestionsJson> getCollectionMap() {
+        return collectionMap;
+    }
+
+    public void setCollectionMap(List<QuestionsJson> collectionMap) {
+        this.collectionMap = collectionMap;
     }
 }

@@ -326,6 +326,21 @@ public class UserServiceImpl implements UserService {
             }
         }
         userJson.setSubjectcanList(subjectcan);
+        //收藏的题目
+//        Map collectionsMap=new HashMap();
+        List<QuestionsJson> collectionList=new ArrayList<>();
+        String []collections=user.getUsercollection().split(",");
+        for (String collect: collections){
+            QuestionsJson questionsJson=new QuestionsJson();
+            if (!collect.equals("0")){
+                Questions questions=questionsMapper.selectByPrimaryKey(Integer.valueOf(collect));
+                questionsJson.setId(questions.getQuestionsId());
+                questionsJson.setQurl("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+questions.getQuesPic_URL());
+                questionsJson.setAurl("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+questions.getAnswerPic_URL());
+                collectionList.add(questionsJson);
+            }
+        }
+        userJson.setCollectionMap(collectionList);
         //json加入历史查询到的试卷
         List<Paper> historyPaperList=paperMapper.selectByUserId(userId);
         List<PaperJson> paperJsonList = new ArrayList<>();
