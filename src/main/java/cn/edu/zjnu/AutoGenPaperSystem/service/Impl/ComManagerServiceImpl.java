@@ -48,7 +48,7 @@ public class ComManagerServiceImpl implements ComManagerService {
 
     @Override
     public ComManager selectByPrimaryKey(Integer commanagerId) {
-        return null;
+        return comManagerMapper.selectByPrimaryKey(commanagerId);
     }
 
     @Override

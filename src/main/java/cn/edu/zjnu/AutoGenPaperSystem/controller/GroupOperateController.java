@@ -49,4 +49,12 @@ public class GroupOperateController {
         return "{\"success\":\"false\"}";
     }
 
+    @RequestMapping(value = "/changeinfo", method = RequestMethod.POST)
+    public ComManager changeInfo(@RequestBody ComManager comManager, @ModelAttribute("userid") Integer userid) {
+//        comManager.setAdd(new ArrayList());
+        comManager.setCommanagerPsw(null);
+        comManager.setCommanagerId(userid);
+        comManagerServiceImpl.updateByPrimaryKeySelective(comManager);
+        return comManagerServiceImpl.selectByPrimaryKey(userid);
+    }
 }
