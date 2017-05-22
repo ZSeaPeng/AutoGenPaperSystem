@@ -111,8 +111,8 @@ public class PaperController {
             Paper paper = new Paper();
             paper.setPapername(subName + title);
             paper.setUserid(userid);
-            paper.setAnswerurl(aurl);
-            paper.setPaperurl(qurl);
+            paper.setAnswerurl("121.196.206.205:8111/AutoGenPaperSystem/upload/temp/a_" + fileName + ".docx");
+            paper.setPaperurl("121.196.206.205:8111/AutoGenPaperSystem/upload/temp/" + fileName + ".docx");
             paper.setQuestionids(questionids);
             paperServiceImpl.insertSelective(paper);
             paperMap.put("qurl", "121.196.206.205:8111/AutoGenPaperSystem/upload/temp/" + fileName + ".docx");

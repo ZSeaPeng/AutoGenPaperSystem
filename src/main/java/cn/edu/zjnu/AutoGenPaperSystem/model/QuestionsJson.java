@@ -5,8 +5,8 @@ package cn.edu.zjnu.AutoGenPaperSystem.model;
  */
 public class QuestionsJson {
     private int id;
-    //private String context;
-    //private String answer;
+    private String context;
+    private String answer;
     private String qurl;
     private String aurl;
     private boolean expanded;
@@ -31,21 +31,21 @@ public class QuestionsJson {
         this.id = id;
     }
 
-    //public String getContext() {
-    //    return context;
-    //}
-    //
-    //public void setContext(String context) {
-    //    this.context = context;
-    //}
-    //
-    //public String getAnswer() {
-    //    return answer;
-    //}
-    //
-    //public void setAnswer(String answer) {
-    //    this.answer = answer;
-    //}
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
 
     public String getQurl() {
         return qurl;
