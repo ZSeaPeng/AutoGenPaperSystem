@@ -337,6 +337,8 @@ public class UserServiceImpl implements UserService {
                 questionsJson.setId(questions.getQuestionsId());
                 questionsJson.setQurl("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+questions.getQuesPic_URL());
                 questionsJson.setAurl("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+questions.getAnswerPic_URL());
+                questionsJson.setContext("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+questions.getContent());
+                questionsJson.setAnswer("papersystem01.oss-cn-hangzhou.aliyuncs.com/"+questions.getAnswer());
                 collectionList.add(questionsJson);
             }
         }
