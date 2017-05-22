@@ -44,7 +44,6 @@ public class SubjectListContorller {
             //System.out.println("Exception===="+userid);
         }
 
-        //System.out.println("session======="+userid);
 
         List subList = subjectServiceImpl.selectAllSubject();
         Map<String, Object> map = new HashMap<String, Object>();
