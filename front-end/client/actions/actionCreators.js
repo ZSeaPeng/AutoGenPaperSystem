@@ -48,12 +48,18 @@ export const POSITIONCHANGE = 'POSITIONCHANGE';
 export const SCORECHANGE = 'SCORECHANGE';
 export const CHANGEPAPERNAME = 'CHANGEPAPERNAME';
 export const RANDONCHANGE = 'RANDONCHANGE';
+export const UNCOLL = 'UNCOLL';
 
 let port = 'http://121.196.206.205:8111';
 
 /**
  * 真正与reducer沟通的函数
  * */
+
+ export const unColl = (details) => ({
+   type: UNCOLL,
+   details
+ });
 
 export const randomchange = (details) => ({
   type: RANDONCHANGE,
@@ -446,7 +452,10 @@ export const asynDiscoll = (details) => (dispatch) => {
     credentials: 'include'
   })
     .then((response) => response.json())
-    .then((json) => dispatch(discoll(json)));
+    .then((json) => {
+      dispatch(discoll(json));
+      dispatch(unColl(json));
+    });
 };
 
 //对应removeAll()
@@ -685,18 +694,22 @@ export const asynUserChange = (password) => (dispatch) => {
 
 //user change info himself
 //noinspection JSAnnotator
-export const asynChangeInfo = (email: "", phone: "") => (dispatch) => {
+export const asynChangeInfo = (username: "", school: "", email: "", phonenum: "") => (dispatch) => {
   return fetch(`${port}/AutoGenPaperSystem/api/user/changeinfo`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json; charset=utf-8'
     },
-    body: JSON.stringify({ email, phone }),
+    body: JSON.stringify({ username,school,email, phonenum }),
     credentials: 'include'
   })
     .then((response) => response.json())
-    .then((json) => dispatch(changeUserInfo(json)));
+    .then((json) => {
+      console.log(json);
+      dispatch(changeUserInfo(json));
+    console.log("hello");}
+    );
 };
 
 //get userinfo of himself

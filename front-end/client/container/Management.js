@@ -17,13 +17,15 @@ import {
 } from 'material-ui/Table';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 import UserEdit from '../components/UserEdit.js';
 import PswdEdit from '../components/PswdEdit.js';
 import SubUser from './SubUser';
+import CollectionQuestion from '../components/CollectionQuestion';
 
 
-import { asynRecUserInfo, asynRecCommanagerInfo, asynUserChange, asynChangeInfo, asynShowPaper } from '../actions/actionCreators';
+import { asynRecUserInfo, asynRecCommanagerInfo, asynUserChange, asynChangeInfo, asynShowPaper,asynDiscoll,asynDeleteUser } from '../actions/actionCreators';
 
 import imgSrc from '../img/timg.jpg';
 
@@ -102,7 +104,9 @@ class Management extends Component {
     let info = [];
     let infoEdit = [];
     let historyPaper = [];
+    let userList = [];
     let paper;
+    let collection = [];
     for (paper of this.props.userInfo.historyPaper) {
       let date = new Date(paper.generatime);
       let time = date.getFullYear() + '-' +
@@ -121,14 +125,26 @@ class Management extends Component {
     let isNormal = false;
     if (window.sessionStorage.getItem('type') == 1) {
       isNormal = window.sessionStorage.getItem('type') == 1;
-      let { username, email, phoneNum,school,allowpaper,downloadable } = this.props.userInfo;
+      let { username, email, phoneNum,school,allowpaper,downloadable,subjectcanList,dopaper,collectionMap } = this.props.userInfo;
+
+      if (collectionMap !== undefined) {
+        collection = [...collectionMap];
+      }
+
+      let allowString = '';
+      let doString = '';
+      for (let i = 0; i < allowpaper.length; i++) {
+          allowString = allowString + subjectcanList[i] + ' : ' +  allowpaper[i] + '份 ';
+          doString = doString + subjectcanList[i] + ' : ' + dopaper[i] + '份 ';
+      }
+
       info.push(
         { name:'用户名', context: username },
         { name: '学校', context: school },
         { name: '邮箱', context: email },
         { name: '电话', context: phoneNum },
-        { name: '可下载试卷', context: 0 },
-        { name: '已下载试卷', context: 0 }
+        { name: '可下载试卷', context: allowString },
+        { name: '已下载试卷', context: doString }
       );
       infoEdit.push(
         { name:'用户名', context: username },
@@ -138,17 +154,25 @@ class Management extends Component {
       );
 
     } else {
-      const { username, school,subjectcan } = this.props.userInfo;
+      const { username, school,subjectcanList, userJsonList,dopaper,allowpaper } = this.props.userInfo;
+      let allowString = '';
+      let doString = '';
+      for (let i = 0; i < allowpaper.length; i++) {
+          allowString = allowString + subjectcanList[i] + ' : ' +  allowpaper[i] + '份 ';
+          doString = doString + subjectcanList[i] + ' : ' + dopaper[i] + '份 ';
+      }
       info.push(
         { name:'用户名', context: username },
         { name: '学校', context: school },
-        { name: '可下载试卷', context: 0 },
-        { name: '已下载试卷', context: 0 }
+        { name: '可下载试卷', context: allowString },
+        { name: '已下载试卷', context: doString }
       );
       infoEdit.push(
         { name:'用户名', context: username },
         { name: '学校', context: school },
       );
+      userList = userJsonList;
+      //console.log(userList);
 
     }
 
@@ -159,7 +183,7 @@ class Management extends Component {
 		return (
       <div style={styles.parent}>
         <Paper style={styles.leftMenu} zDepth={2}>
-          <h2>{type}</h2>
+          <h2 style={{margin: '25px 0px 24px 0px'}}>{type}</h2>
           <Paper style={styles.head} zDepth={2}>
             <img src={imgSrc} style={{width: '100%'}} />
 
@@ -183,14 +207,6 @@ class Management extends Component {
         <Paper style={styles.content} zDepth={2}>
           <div style={item == 0 ? {display: 'block'} : {display: 'none'}}>
             <h1>个人信息</h1>
-            {/*可下载纸卷
-               已下载试卷
-               邮箱
-               电话
-               学校
-               学科
-               集团
-               */}
             <Paper style={{width:700, margin:'auto'}}>
               <table style={styles.table}>
                 <tbody>
@@ -201,10 +217,10 @@ class Management extends Component {
                   </tr>)}
                   <tr>
                     <td>
-                      <UserEdit infoEdit={infoEdit}/>
+                      <UserEdit infoEdit={infoEdit} dispatch={this.props.dispatch}/>
                     </td>
                     <td>
-                      <PswdEdit/>
+                      <PswdEdit dispatch={this.props.dispatch}/>
                     </td>
                   </tr>
                 </tbody>
@@ -222,8 +238,10 @@ class Management extends Component {
                 <Table
                   height={'600px'}
                   fixedHeader={true}>
+
                   <TableHeader
-                    displaySelectAll={false}>
+                    displaySelectAll={false}
+                    adjustForCheckbox={false}>
                     <TableRow>
                       <TableHeaderColumn>时间</TableHeaderColumn>
                       <TableHeaderColumn>试卷名称</TableHeaderColumn>
@@ -240,12 +258,10 @@ class Management extends Component {
                         <TableRowColumn>{paper.time}</TableRowColumn>
                         <TableRowColumn>{paper.papername}</TableRowColumn>
                         <TableRowColumn>
-                          <RaisedButton label="查看试卷" primary={true}
-                            href={paper.paperurl}/>
+                          <FlatButton label="点击下载试卷" secondary={true} href={'http://' + paper.paperurl}/>
                         </TableRowColumn>
                         <TableRowColumn>
-                          <RaisedButton label="查看答案" secondary={true}
-                            href={paper.answerurl}/>
+                          <FlatButton label="点击下载答案" secondary={true} href={'http://' + paper.answerurl}/>
                         </TableRowColumn>
                       </TableRow>)
                     }
@@ -261,10 +277,23 @@ class Management extends Component {
           <div style={item == 2 ? {display: 'block'} : {display: 'none'}}>
             {/*收藏的题目*/}
             <h1>我的收藏</h1>
+            <div style={{width:900,height:700, margin:'auto',textAlign:'left',overflow:'auto', padding: 0}}>
+              {
+                collection.map((c, i) =>
+                  <CollectionQuestion key={i} collection={c} i={i}
+                    qId={c.id}
+                    handleCollection={this.handleCollection}/>
+                )
+              }
+            </div>
           </div>
           <div style={item == 3 ? {display: 'block'} : {display: 'none'}}>
             <h1>用户管理</h1>
-            <SubUser/>
+            <SubUser
+              userList={this.props.userInfo.userJsonList}
+              handleDelete= {this.handleDelete}
+              createUser =  {this.createUser}
+            />
           </div>
         </Paper>
 
@@ -272,10 +301,30 @@ class Management extends Component {
 		);
     };
 
+
     handleChange = (e, m, n) => {
       this.setState({
         item: n,
       })
+    };
+    handleCollection = (id, i) => {
+      const { dispatch } = this.props;
+      dispatch(asynDiscoll({ userid: this.props.userInfo.userid,
+                             id: id,
+                             k: i,
+                          }));
+    };
+
+    handleDelete = (e) => {
+      const { dispatch } = this.props;
+      console.log(e.target.id);
+
+      // dispatch(asynDeleteUser({ userId: this.props.userInfo.userid,
+      //                        }));
+    };
+
+    createUser = (info) => {
+      console.log(info);
     }
 
 }

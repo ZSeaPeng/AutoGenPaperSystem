@@ -196,6 +196,7 @@ class AutoCombine extends Component {
     			<h2 style={styles.title}>智能组卷</h2><br/>
     			<hr/>
           <div style={styles.children}>
+            <h3 style={styles.title}>选择科目</h3>
             { isEmpty? console.log("empty") :
               <ChooseCourse courses={ sublist[0].contextList } callback={this.onCourseChanged}/>
             }

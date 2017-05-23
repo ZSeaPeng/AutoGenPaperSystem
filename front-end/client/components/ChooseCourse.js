@@ -26,7 +26,6 @@ class ChooseCourse extends Component{
         return(
         	<div>
 
-		      <h3 style={styles.title}>选择科目</h3>
                 <SelectField
     		          value={this.state.value}
     		          onChange={this.handleChange}

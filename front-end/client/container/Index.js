@@ -49,9 +49,11 @@ class Index extends Component {
       },
     };
     const style = {
-      width: '100%',
-      height: '626px',
-      position: 'absolute',
+      margin:'auto',
+      marginTop: 20,
+      width: 1440,
+
+      //position: 'absolute',
       top: 150,
       // left: 90
     };
@@ -61,11 +63,11 @@ class Index extends Component {
     return (
       <div>
         <div style={style}>
-          <Slider  {...settings}>
-            <div><Link to="/paper1"><img src={imgSrc1} style={{width: '100%', height: '100%'}} /></Link></div>
-            <div><Link to="/paper6"><img src={imgSrc2} style={{width: '100%', height: '100%'}} /></Link></div>
-            <div><Link to="/paper5"><img src={imgSrc3} style={{width: '100%', height: '100%'}} /></Link></div>
-            <div><Link to="/paper3"><img src={imgSrc4} style={{width: '100%', height: '100%'}} /></Link></div>
+          <Slider  {...settings}  style={style}>
+            <div style={{maxHeight: '626px',}}><Link to="/paper1"><img src={imgSrc1} style={{width: '100%', height: '100%'}} /></Link></div>
+            <div style={{maxHeight: '626px',}}><Link to="/paper6"><img src={imgSrc2} style={{width: '100%', height: '100%'}} /></Link></div>
+            <div style={{maxHeight: '626px',}}><Link to="/paper5"><img src={imgSrc3} style={{width: '100%', height: '100%'}} /></Link></div>
+            <div style={{maxHeight: '626px',}}><Link to="/paper3"><img src={imgSrc4} style={{width: '100%', height: '100%'}} /></Link></div>
           </Slider>
         </div>
         <div

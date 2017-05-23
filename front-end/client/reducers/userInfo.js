@@ -1,4 +1,4 @@
-import { RECEIVE_USERINFO, CHANGEUSERINFO,RECEIVE_COMMANAGERINFO } from '../actions/actionCreators';
+import { RECEIVE_USERINFO, CHANGEUSERINFO,UNCOLL, RECEIVE_COMMANAGERINFO } from '../actions/actionCreators';
 
 function userInfo(state={
   username: "",
@@ -15,9 +15,11 @@ function userInfo(state={
   switch(action.type) {
     case RECEIVE_USERINFO:
       return {
+        userid: action.details.userid,
         username: action.details.username,
-        subjectcan: action.details.subjectcan,
-        usercollection: action.details.usercollection,
+        subjectcanList: action.details.subjectcanList,
+        dopaper: action.details.dopaper,
+        collectionMap: action.details.collectionMap,
         allowpaper: action.details.allowpaper,
         email: action.details.email,
         phoneNum: action.details.phonenum,
@@ -29,28 +31,32 @@ function userInfo(state={
 
     case RECEIVE_COMMANAGERINFO:
       return {
+        userid: action.details.commanagerId,
         username: action.details.commanagerName,
         dopaper: action.details.dopaper,
         allowpaper: action.details.allowpaper,
         historyPaper: action.details.historyPaper,
         school:  action.details.historyPaper,
-        subjectcan: action.details.subjectcan,
+        subjectcanList: action.details.subjectcanList,
         userJsonList: action.details.userJsonList,
       };
 
     case CHANGEUSERINFO:
       return {
+        ...state,
         username: action.details.username,
-        subjectcan: action.details.subjectcan,
-        usercollection: action.details.usercollection,
-        allowpaper: action.details.allowpaper,
         email: action.details.email,
         phoneNum: action.details.phonenum,
-        type: action.details.commanagerId,
-        school: action.details.school,
-        downloadable: action.details.downloadable,
-        historyPaper: [...action.details.historyPaper]
-      }
+        school: action.details.school
+      };
+    case UNCOLL:
+      return {
+        ...state,
+        collectionMap: [
+          ...state.collectionMap.slice(0, action.details.k),
+          ...state.collectionMap.slice(action.details.k + 1)
+        ]
+      };
     default:
       return state;
   }
