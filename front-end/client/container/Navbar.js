@@ -45,20 +45,20 @@ class Navbar extends Component{
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div>
-          <Toolbar style={{backgroundColor: "#ffffff", height: "64px"}}>
+          <Toolbar style={{backgroundColor: "#ffffff", height: "75px"}}>
             <ToolbarGroup>
               <div><img src={zhituku} style={{width: '1000px', paddingLeft: "22%",marginTop: "20px",marginBottom: "20px"}} /></div>
             </ToolbarGroup>
           </Toolbar>
           <Toolbar style={{backgroundColor: "#1565C0", height: "64px", boxShadow: "rgb(162, 187, 210) 0px 6px 10px"}}>
             <ToolbarGroup style={{left: '20%'}}>
-              <Link to="/index" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+              <Link to="/index" style={{color: '#FFFFFF', padding: "20px 20px",width:"90px"}}>
                 首页
               </Link>
               {isEmpty
                 ? <div></div>
                 : <MenuItem
-                style = {{lineHeight: '56px', padding: '0px 40px', color: '#FFFFFF'}}
+                style = {{lineHeight: '56px', padding: '0px 0px', color: '#FFFFFF',width:"90px"}}
                 primaryText = '科目'
                 menuItems =
                 { sublist.map((grade, i) =>
@@ -66,18 +66,18 @@ class Navbar extends Component{
                 }
                 />
               }
-              <Link to="/manualcombine" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+              <Link to="/manualcombine" style={{color: '#FFFFFF', padding: "20px 20px",width:"105px"}}>
                 手动组卷
               </Link>
 
-              <Link to="/autocombine" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+              <Link to="/autocombine" style={{color: '#FFFFFF', padding: "20px 20px",width:"105px"}}>
                 自动组卷
               </Link>
 
-              <Link to="/product" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+              <Link to="/product" style={{color: '#FFFFFF', padding: "20px 20px",width:"105px"}}>
                 产品介绍
               </Link>
-              <Link to="/TeachingTeam" style={{color: '#FFFFFF', padding: "20px 40px"}}>
+              <Link to="/TeachingTeam" style={{color: '#FFFFFF', padding: "20px 20px",width:"105px"}}>
                 教研团队
               </Link>
             </ToolbarGroup>
@@ -85,7 +85,7 @@ class Navbar extends Component{
               {isLogin
                 ? null
                 : <div>
-                  <small style={{color: '#FFF'}}>用户</small>&nbsp;
+                  <small style={{color: '#FFF'}}>&nbsp;</small>&nbsp;
                   <Link style={{color: '#FFF', fontSize: 24}} to="/management">{username}</Link>
                   &nbsp;&nbsp;&nbsp;&nbsp;
                   <FlatButton style={{color: '#FFF', margin: '9px 0'}} label="登出" onClick={this.handleLogout} />

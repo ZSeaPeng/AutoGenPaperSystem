@@ -288,7 +288,7 @@ class Paper extends Component {
           <TextField onChange={this.paperNameChange} />
         </Dialog>
         <Dialog
-          title="点击下载"
+          title="点击下载 (可右键下方 “试卷”->另存为,重命名试卷)"
           open={this.state.open}
           onRequestClose={this.handleClose}
         >

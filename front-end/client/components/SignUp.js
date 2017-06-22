@@ -78,12 +78,14 @@ class SignUp extends Component {
           <TextField
             floatingLabelText="用户名"
             onChange={ this.usernameChange }
+            onKeyPress ={this.handleSubmit}
           />
           <br />
           <TextField
             floatingLabelText="密码"
             type="password"
             onChange={ this.passwordChange }
+            onKeyPress ={this.handleSubmit}
           />
           {isadmin
             ? null

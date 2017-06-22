@@ -66,7 +66,7 @@ class Paper extends Component {
   handleMake(array) {
     const {qurl, aurl} = this.props.testPaper;
     if(qurl !== '' && aurl !== '') {
-      that.setState({open: 'true'});
+      this.setState({open: 'true'});
       document.documentElement.style.overflow='auto';
     } else {
       const { dispatch } = this.props;
